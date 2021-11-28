@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.24.0",
+    "dotenv": "^10.0.0",
     "eslint-config-airbnb": "^19.0.1",
     "eslint-config-prettier": "^8.3.0",
     "react": "^17.0.2",
@@ -49,17 +50,17 @@
     "rules": {
       "react/jsx-filename-extension": 0,
       "no-unused-vars": 0,
-      "import/no-unresolved":0,
-      "react/function-component-definition":0,
-      "react/react-in-jsx-scope":0,
-      "react/no-unstable-nested-components":0,
-      "react/no-arrow-function-lifecycle":0,
-      "react/no-namespace":0,
-      "react/prefer-exact-props":0,
-      "react/no-invalid-html-attribute":0,
-      "react/no-unused-class-component-methods":0,
-      "import/no-import-module-exports":0,
-      "import/no-relative-packages":0
+      "import/no-unresolved": 0,
+      "react/function-component-definition": 0,
+      "react/react-in-jsx-scope": 0,
+      "react/no-unstable-nested-components": 0,
+      "react/no-arrow-function-lifecycle": 0,
+      "react/no-namespace": 0,
+      "react/prefer-exact-props": 0,
+      "react/no-invalid-html-attribute": 0,
+      "react/no-unused-class-component-methods": 0,
+      "import/no-import-module-exports": 0,
+      "import/no-relative-packages": 0
     }
   },
   "browserslist": {
