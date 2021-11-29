@@ -1,20 +1,24 @@
+import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import './index.css';
-import App from './App';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import reportWebVitals from './reportWebVitals';
 import { createStore } from 'redux';
+
+// eslint-disable-next-line sort-imports
 import { Provider } from 'react-redux';
-import rootReducer from './modules';
+import Root from './App'
+import reportWebVitals from './reportWebVitals';
+import rootReducer from './store';
+// eslint-disable-next-line sort-imports
+import './index.css';
+
 
 const store = createStore(rootReducer, composeWithDevTools());
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <Root />
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')

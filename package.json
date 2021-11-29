@@ -35,18 +35,7 @@
       "airbnb",
       "prettier"
     ],
-    "importSort": {
-      ".js, .jsx, .es6, .es": {
-        "parser": "babylon",
-        "style": "eslint",
-        "options": {}
-      },
-      ".ts, .tsx": {
-        "parser": "typescript",
-        "style": "eslint",
-        "options": {}
-      }
-    },
+  
     "rules": {
       "react/jsx-filename-extension": 0,
       "no-unused-vars": 0,
@@ -60,7 +49,20 @@
       "react/no-invalid-html-attribute": 0,
       "react/no-unused-class-component-methods": 0,
       "import/no-import-module-exports": 0,
-      "import/no-relative-packages": 0
+      "import/no-relative-packages": 0,
+      "sort-imports": [
+        "warn",
+        {
+          "ignoreCase": false,
+          "ignoreDeclarationSort": false,
+          "ignoreMemberSort": true,
+          "memberSyntaxSortOrder": [
+            "none",
+            "all",
+            "multiple",
+            "single"
+          ]
+        }]
     }
   },
   "browserslist": {
