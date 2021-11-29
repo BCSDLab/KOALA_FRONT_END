@@ -9459,6 +9459,11 @@ react-dom@^17.0.2:
     object-assign "^4.1.1"
     scheduler "^0.20.2"
 
+react-dynamic-route@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-dynamic-route/-/react-dynamic-route-0.1.2.tgz#e26947fbddf33a75a4a8fada7ae3796c6bd1f25f"
+  integrity sha512-EGuFxX+n60NTgT8oGya4KWwDmAMoRbPMOj1g1PVqWomRA8iATlV5UzQLC4HP6OUlszpBdUVLame1WMwB1dgiwg==
+
 react-error-overlay@^6.0.9:
   version "6.0.9"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.9.tgz#3c743010c9359608c375ecd6bc76f35d93995b0a"

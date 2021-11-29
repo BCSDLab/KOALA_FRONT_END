@@ -12,6 +12,7 @@
     "eslint-config-prettier": "^8.3.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-dynamic-route": "^0.1.2",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
@@ -35,7 +36,6 @@
       "airbnb",
       "prettier"
     ],
-  
     "rules": {
       "react/jsx-filename-extension": 0,
       "no-unused-vars": 0,
@@ -62,7 +62,8 @@
             "multiple",
             "single"
           ]
-        }]
+        }
+      ]
     }
   },
   "browserslist": {
