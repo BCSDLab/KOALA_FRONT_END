@@ -61,6 +61,7 @@ const KeywordElement = styled.div`
 const KeywordDropmenu = styled.div`
   width: 270px;
   height: 44px;
+  display: flex;
   align-items: center;
   font-size: 14px;
   font-weight: 500;
@@ -72,6 +73,7 @@ const KeywordDropmenu = styled.div`
 `;
 
 const KeywordText = styled.div`
+  width: 190px;
   height: 21px;
   padding: 12px 0 11.5px 32px; ;
 `;
@@ -80,6 +82,21 @@ const AddKeyword = styled.div`
   width: 270px;
   height: 65.5px;
   display: flex;
+`;
+
+const KeywordUpdate = styled.div`
+  width: 24px;
+  height: 18px;
+  margin: 0 24px 0 0;
+  background-color: #ffd25d;
+  font-size: 12px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #fff;
 `;
 
 const AddImg = styled.img`
@@ -250,18 +267,21 @@ const Extension = () => {
       <KeywordElement>
         <KeywordDropmenu>
           <KeywordText>김이정</KeywordText>
+          <KeywordUpdate>10</KeywordUpdate>
         </KeywordDropmenu>
         <KeywordDropmenu>
           <KeywordText>이유정</KeywordText>
         </KeywordDropmenu>
         <KeywordDropmenu>
           <KeywordText>국가장학금</KeywordText>
+          <KeywordUpdate>10</KeywordUpdate>
         </KeywordDropmenu>
         <KeywordDropmenu>
           <KeywordText>근로장학생</KeywordText>
         </KeywordDropmenu>
         <KeywordDropmenu>
           <KeywordText>성적</KeywordText>
+          <KeywordUpdate>10</KeywordUpdate>
         </KeywordDropmenu>
       </KeywordElement>
       <AddKeyword>
