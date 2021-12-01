@@ -1,12 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import SideNavMenu from './SideNavMenu';
+// eslint-disable-next-line sort-imports
+import SidenavMenu from './SidenavMenu';
 
 const Nav = styled.div`
   width: 80px;
   height: 1110px;
   padding: 40px 24px 91px;
+
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
   background-color: #fff;
   display: flex;
@@ -14,7 +16,7 @@ const Nav = styled.div`
   align-items: center;
 `;
 
-const ImgBlock = styled.div`
+const KeywordBlock = styled.div`
   width: 32px;
   height: 32px;
   margin: 20px 0;
@@ -24,10 +26,46 @@ const ImgBlock = styled.div`
   align-items: center;
 `;
 
+const HistoryBlock = styled.div`
+  width: 32px;
+  height: 32px;
+  ${({ sideMenu }) => {
+    return sideMenu ? `margin :   289px 0 0 0 ` : `margin: 20px 0`;
+  }};
+  object-fit: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ChatBlock = styled.div`
+  width: 32px;
+  height: 32px;
+  ${({ sideMenu }) => {
+    return sideMenu ? `margin :   45px 0 0 0 ` : `margin: 20px 0`;
+  }};
+  object-fit: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const SetBlock = styled.div`
+  width: 32px;
+  height: 32px;
+  ${({ sideMenu }) => {
+    return sideMenu ? `margin :   397px 0 0 0 ` : `margin: 20px 0`;
+  }};
+  object-fit: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const OpenMenu = styled.div`
   width: 26px;
   height: 20px;
-  margin: 0 3px 80px;
+  margin: 0 3px 60px;
   object-fit: contain;
   display: flex;
   justify-content: center;
@@ -67,20 +105,20 @@ const SideNavbar = () => {
             <img src="/asset/Vector.png" alt="Vector" />
           </MenuButton>
         </OpenMenu>
-        <ImgBlock>
+        <KeywordBlock>
           <img src="/asset/hashtag.png" alt="keyword" />
-        </ImgBlock>
-        <ImgBlock>
+        </KeywordBlock>
+        <HistoryBlock sideMenu={sideMenu}>
           <img src="/asset/archive.png" alt="history" />
-        </ImgBlock>
-        <ImgBlock>
+        </HistoryBlock>
+        <ChatBlock sideMenu={sideMenu}>
           <img src="/asset/chat.png" alt="chat" />
-        </ImgBlock>
-        <ImgBlock>
+        </ChatBlock>
+        <SetBlock sideMenu={sideMenu}>
           <img src="/asset/cog.png" alt="mypage" />
-        </ImgBlock>
+        </SetBlock>
       </Nav>
-      {sideMenu ? <SideNavMenu /> : null}
+      {sideMenu ? <SidenavMenu /> : null}
     </NavContainer>
   );
 };
