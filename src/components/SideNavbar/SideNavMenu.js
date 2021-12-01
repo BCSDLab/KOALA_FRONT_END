@@ -71,6 +71,11 @@ const KeywordDropmenu = styled.div`
   text-align: left;
 `;
 
+const KeywordText = styled.div`
+  height: 21px;
+  padding: 12px 0 11.5px 32px; ;
+`;
+
 const AddKeyword = styled.div`
   width: 270px;
   height: 65.5px;
@@ -87,7 +92,7 @@ const AddImg = styled.img`
 const AddText = styled.div`
   width: 94px;
   height: 21px;
-  margin: 18px 112px 15.5px 0px;
+  margin: 22px 112px 15.5px 8px;
   font-size: 11px;
   font-weight: normal;
   font-stretch: normal;
@@ -102,6 +107,8 @@ const AddText = styled.div`
 const HistoryList = styled.div`
   width: 270px;
   height: 76px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
   align-items: center;
   font-size: 14px;
   font-weight: 500;
@@ -114,8 +121,8 @@ const HistoryList = styled.div`
 
 const HistoryLink = styled.div`
   width: 270px;
-  height: 44px;
-  margin: 15.5px 0;
+  height: 76px;
+  margin: 27.5px 0;
   align-items: center;
   font-size: 14px;
   font-weight: 500;
@@ -125,10 +132,24 @@ const HistoryLink = styled.div`
   letter-spacing: normal;
   text-align: left;
 `;
+const HistoryText = styled.span`
+  width: 52px;
+  height: 21px;
+  margin: 27.5px 194px 27.5px 24px;
+
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #222;
+`;
 
 const ChatList = styled.div`
   width: 270px;
-  height: 44px;
+  height: 76px;
   display: flex;
   align-items: center;
   font-size: 14px;
@@ -145,7 +166,7 @@ const ChatLink = styled.div`
   height: 44px;
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   font-stretch: normal;
   font-style: normal;
@@ -154,10 +175,16 @@ const ChatLink = styled.div`
   text-align: left;
 `;
 
+const ChatText = styled.div`
+  width: 39px;
+  height: 21px;
+  padding: 12px 207px 11px 24px;
+`;
+
 const SetList = styled.div`
   width: 270px;
   height: 92px;
-  padding: 392px 0 0 0;
+  padding: 365px 0 0 0;
   display: flex;
   flex-direction: column;
   font-size: 14px;
@@ -183,6 +210,12 @@ const Set = styled.div`
   text-align: left;
 `;
 
+const SetText = styled.div`
+  width: 30px;
+  height: 24px;
+  padding: 12px 208px 8px 12px;
+`;
+
 const Contact = styled.div`
   width: 270px;
   height: 44px;
@@ -196,6 +229,13 @@ const Contact = styled.div`
   letter-spacing: normal;
   text-align: left;
 `;
+
+const ContactText = styled.div`
+  width: 59px;
+  height: 24px;
+  padding: 32px 179px 12px 12px;
+`;
+
 const Extension = () => {
   return (
     <SideMenuBackground>
@@ -208,25 +248,43 @@ const Extension = () => {
         <KeywordDropdown src="/asset/chevron-down.png" alt="drop" />
       </KeywordList>
       <KeywordElement>
-        <KeywordDropmenu>김유정</KeywordDropmenu>
-        <KeywordDropmenu>이유정</KeywordDropmenu>
-        <KeywordDropmenu>국가장학금</KeywordDropmenu>
-        <KeywordDropmenu>근로장학생</KeywordDropmenu>
-        <KeywordDropmenu>성적</KeywordDropmenu>
+        <KeywordDropmenu>
+          <KeywordText>김이정</KeywordText>
+        </KeywordDropmenu>
+        <KeywordDropmenu>
+          <KeywordText>이유정</KeywordText>
+        </KeywordDropmenu>
+        <KeywordDropmenu>
+          <KeywordText>국가장학금</KeywordText>
+        </KeywordDropmenu>
+        <KeywordDropmenu>
+          <KeywordText>근로장학생</KeywordText>
+        </KeywordDropmenu>
+        <KeywordDropmenu>
+          <KeywordText>성적</KeywordText>
+        </KeywordDropmenu>
       </KeywordElement>
       <AddKeyword>
         <AddImg src="/asset/plus.png" alt="plus" />
         <AddText>키워드 추가하기</AddText>
       </AddKeyword>
       <HistoryList>
-        <HistoryLink>히스토리</HistoryLink>
+        <HistoryLink>
+          <HistoryText>히스토리</HistoryText>
+        </HistoryLink>
       </HistoryList>
       <ChatList>
-        <ChatLink>채팅방</ChatLink>
+        <ChatLink>
+          <ChatText>채팅방</ChatText>
+        </ChatLink>
       </ChatList>
       <SetList>
-        <Set>설정</Set>
-        <Contact>문의하기</Contact>
+        <Set>
+          <SetText>설정</SetText>
+        </Set>
+        <Contact>
+          <ContactText>문의하기</ContactText>
+        </Contact>
       </SetList>
     </SideMenuBackground>
   );
