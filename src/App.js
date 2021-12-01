@@ -9,15 +9,13 @@ import myPage from 'pages/myPage';
 
 const App = () => (
   <div className="Main">
-    <BrowserRouter>
-      <SideNavbar />
-      <Routes>
-        <Route path="/history" component={historyPage} exact />
-        <Route path="/chat" component={chatPage} exact />
-        <Route path="/keyword" component={keywordPage} exact />
-        <Route path="/mypage" component={myPage} exact />
-      </Routes>
-    </BrowserRouter>
+    <SideNavbar />
+    <Routes>
+      <Route path="/history" component={historyPage} exact />
+      <Route path="/chat" component={chatPage} exact />
+      <Route path="/keyword" component={keywordPage} exact />
+      <Route path="/mypage" component={myPage} exact />
+    </Routes>
   </div>
 );
 
