@@ -27,7 +27,7 @@ const KeywordBlock = styled.div`
 const HistoryBlock = styled.div`
   width: 32px;
   height: 32px;
-  margin: ${({ sideMenu }) => (sideMenu ? `289px 0 0 0 ` : `20px 0`)}};
+  margin: ${({ isSideMenu }) => (isSideMenu ? `289px 0 0 0 ` : `20px 0`)}};
   object-fit: contain;
   display: flex;
   justify-content: center;
@@ -37,7 +37,7 @@ const HistoryBlock = styled.div`
 const ChatBlock = styled.div`
   width: 32px;
   height: 32px;
-  margin: ${({ sideMenu }) => (sideMenu ? `  45px 0 0 0 ` : ` 20px 0`)}};
+  margin: ${({ isSideMenu }) => (isSideMenu ? `  45px 0 0 0 ` : ` 20px 0`)}};
   object-fit: contain;
   display: flex;
   justify-content: center;
@@ -47,7 +47,7 @@ const ChatBlock = styled.div`
 const SetBlock = styled.div`
   width: 32px;
   height: 32px;
-  margin: ${({ sideMenu }) => (sideMenu ? ` 397px 0 0 0  ` : ` 20px 0`)}};
+  margin: ${({ isSideMenu }) => (isSideMenu ? ` 397px 0 0 0  ` : ` 20px 0`)}};
   object-fit: contain;
   display: flex;
   justify-content: center;
@@ -83,34 +83,34 @@ const NavContainer = styled.div`
 `;
 
 const SideNavbar = () => {
-  const [sideMenu, setsideMenu] = useState(false);
+  const [isSideMenu, setIsSideMenu] = useState(false);
 
-  const showSideMenu = () => {
-    setsideMenu((current) => !current);
+  const toggleSideMenu = () => {
+    setIsSideMenu((prev) => !prev);
   };
 
   return (
     <NavContainer>
       <Nav>
         <OpenMenu>
-          <MenuButton type="button" onClick={() => showSideMenu()}>
+          <MenuButton type="button" onClick={toggleSideMenu()}>
             <img src="/asset/MenuBtn.svg" alt="Vector" />
           </MenuButton>
         </OpenMenu>
         <KeywordBlock>
           <img src="/asset/Hashtag.svg" alt="keyword" />
         </KeywordBlock>
-        <HistoryBlock sideMenu={sideMenu}>
+        <HistoryBlock isSideMenu={isSideMenu}>
           <img src="/asset/History.svg" alt="history" />
         </HistoryBlock>
-        <ChatBlock sideMenu={sideMenu}>
+        <ChatBlock isSideMenu={isSideMenu}>
           <img src="/asset/Chat.svg" alt="chat" />
         </ChatBlock>
-        <SetBlock sideMenu={sideMenu}>
+        <SetBlock isSideMenu={isSideMenu}>
           <img src="/asset/Setting.svg" alt="mypage" />
         </SetBlock>
       </Nav>
-      {sideMenu ? <SideNavMenu /> : null}
+      {isSideMenu && <SideNavMenu />}
     </NavContainer>
   );
 };
