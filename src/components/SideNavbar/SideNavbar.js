@@ -27,9 +27,7 @@ const KeywordBlock = styled.div`
 const HistoryBlock = styled.div`
   width: 32px;
   height: 32px;
-  ${({ sideMenu }) => {
-    return sideMenu ? `margin :   289px 0 0 0 ` : `margin: 20px 0`;
-  }};
+  margin: ${({ sideMenu }) => (sideMenu ? `289px 0 0 0 ` : `20px 0`)}};
   object-fit: contain;
   display: flex;
   justify-content: center;
@@ -39,9 +37,7 @@ const HistoryBlock = styled.div`
 const ChatBlock = styled.div`
   width: 32px;
   height: 32px;
-  ${({ sideMenu }) => {
-    return sideMenu ? `margin :   45px 0 0 0 ` : `margin: 20px 0`;
-  }};
+  margin: ${({ sideMenu }) => (sideMenu ? `  45px 0 0 0 ` : ` 20px 0`)}};
   object-fit: contain;
   display: flex;
   justify-content: center;
@@ -51,9 +47,7 @@ const ChatBlock = styled.div`
 const SetBlock = styled.div`
   width: 32px;
   height: 32px;
-  ${({ sideMenu }) => {
-    return sideMenu ? `margin :   397px 0 0 0 ` : `margin: 20px 0`;
-  }};
+  margin: ${({ sideMenu }) => (sideMenu ? ` 397px 0 0 0  ` : ` 20px 0`)}};
   object-fit: contain;
   display: flex;
   justify-content: center;
