@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import SideNavbar from 'components/SideNavbar/SideNavbar';
+import SideNavbar from 'components/SideNavbar';
 import ChatPage from 'pages/ChatPage';
 import HistoryPage from 'pages/HistoryPage';
 import KeywordPage from 'pages/KeywordPage';
