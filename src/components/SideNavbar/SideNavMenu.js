@@ -23,11 +23,6 @@ const KeywordMain = styled.span`
   height: 21px;
   margin: 6px 1px 5px 24px;
   font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
   color: #222;
 `;
@@ -50,11 +45,6 @@ const KeywordElement = styled.div`
   flex-direction: column;
   align-items: center;
   font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
 `;
 
@@ -64,11 +54,6 @@ const KeywordDropmenu = styled.div`
   display: flex;
   align-items: center;
   font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
 `;
 
@@ -90,11 +75,6 @@ const KeywordUpdate = styled.div`
   margin: 0 24px 0 0;
   background-color: #ffd25d;
   font-size: 12px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: center;
   color: #fff;
 `;
@@ -122,11 +102,6 @@ const HistoryList = styled.div`
   border-bottom: 1px solid #eee;
   align-items: center;
   font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
 `;
 
@@ -136,24 +111,13 @@ const HistoryLink = styled.div`
   margin: 27.5px 0;
   align-items: center;
   font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
 `;
 const HistoryText = styled.span`
   width: 52px;
   height: 21px;
   margin: 27.5px 194px 27.5px 24px;
-
   font-size: 13px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
   color: #222;
 `;
@@ -164,11 +128,6 @@ const ChatList = styled.div`
   display: flex;
   align-items: center;
   font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
 `;
 
@@ -178,11 +137,6 @@ const ChatLink = styled.div`
   display: flex;
   align-items: center;
   font-size: 12px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
 `;
 
@@ -199,11 +153,6 @@ const SetList = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
 `;
 const Set = styled.div`
@@ -213,11 +162,6 @@ const Set = styled.div`
   display: flex;
   align-items: center;
   font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
 `;
 
@@ -233,11 +177,6 @@ const Contact = styled.div`
   display: flex;
   align-items: center;
   font-size: 14px;
-  font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
 `;
 
