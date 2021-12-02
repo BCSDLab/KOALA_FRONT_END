@@ -1,7 +1,7 @@
 import React from 'react';
 
-function keyword() {
-  return <div>keyword</div>;
-}
+const KeywordPage = () => {
+  return <div>KeywordPage</div>;
+};
 
-export default keyword;
+export default KeywordPage;
