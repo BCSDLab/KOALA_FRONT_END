@@ -60,7 +60,7 @@ const KeywordDropmenu = styled.div`
 const KeywordText = styled.div`
   width: 190px;
   height: 21px;
-  padding: 12px 0 11.5px 32px; ;
+  padding: 12px 0 11.5px 32px;
 `;
 
 const AddKeyword = styled.div`
