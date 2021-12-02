@@ -15,16 +15,17 @@ const Box = styled.div`
 `;
 
 const MainLogo = styled.img`
-    width:122.8px
-    height: 34px;
-  padding: 0 120px 0 125.2px;
+  width: 125px;
+  height: 34px;
+  padding: 0 125px 0 125.2px;
+  margin-bottom: 40px;
 `;
 
 // eslint-disable-next-line react/prop-types
 const AuthTemplate = ({ children }) => (
   <AuthTemplateBlock>
     <Box>
-      <MainLogo src="/asset/Group 1581.png" alt="logo" />
+      <MainLogo src="/asset/Logo.png" alt="logo" />
       {children}
     </Box>
   </AuthTemplateBlock>
