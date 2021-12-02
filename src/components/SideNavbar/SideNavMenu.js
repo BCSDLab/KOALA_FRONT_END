@@ -102,7 +102,6 @@ const KeywordUpdate = styled.div`
 const AddImg = styled.img`
   width: 24px;
   height: 24px;
-  object-fit: contain;
   margin: 18px 8px 15.5px 32px;
 `;
 
@@ -111,11 +110,6 @@ const AddText = styled.div`
   height: 21px;
   margin: 22px 112px 15.5px 8px;
   font-size: 11px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
   color: #222;
 }
@@ -257,12 +251,12 @@ const Extension = () => {
   return (
     <SideMenuBackground>
       <SideMenuContainer>
-        <Logo src="/asset/Group 1583.png" alt="Logo" />
+        <Logo src="/asset/KoalaLogo.svg" alt="Logo" />
       </SideMenuContainer>
 
       <KeywordList>
         <KeywordMain>키워드</KeywordMain>
-        <KeywordDropdown src="/asset/chevron-down.png" alt="drop" />
+        <KeywordDropdown src="/asset/KeywordDropDown.svg" alt="drop" />
       </KeywordList>
       <KeywordElement>
         <KeywordDropmenu>
@@ -285,7 +279,7 @@ const Extension = () => {
         </KeywordDropmenu>
       </KeywordElement>
       <AddKeyword>
-        <AddImg src="/asset/plus.png" alt="plus" />
+        <AddImg src="/asset/Plus.svg" alt="plus" />
         <AddText>키워드 추가하기</AddText>
       </AddKeyword>
       <HistoryList>

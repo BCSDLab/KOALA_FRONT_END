@@ -1,8 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// eslint-disable-next-line sort-imports
-import SidenavMenu from './SidenavMenu';
+import SideNavMenu from './SideNavMenu';
 
 const Nav = styled.div`
   width: 80px;
@@ -102,23 +100,23 @@ const SideNavbar = () => {
       <Nav>
         <OpenMenu>
           <MenuButton type="button" onClick={() => showSideMenu()}>
-            <img src="/asset/Vector.png" alt="Vector" />
+            <img src="/asset/MenuBtn.svg" alt="Vector" />
           </MenuButton>
         </OpenMenu>
         <KeywordBlock>
-          <img src="/asset/hashtag.png" alt="keyword" />
+          <img src="/asset/Hashtag.svg" alt="keyword" />
         </KeywordBlock>
         <HistoryBlock sideMenu={sideMenu}>
-          <img src="/asset/archive.png" alt="history" />
+          <img src="/asset/History.svg" alt="history" />
         </HistoryBlock>
         <ChatBlock sideMenu={sideMenu}>
-          <img src="/asset/chat.png" alt="chat" />
+          <img src="/asset/Chat.svg" alt="chat" />
         </ChatBlock>
         <SetBlock sideMenu={sideMenu}>
-          <img src="/asset/cog.png" alt="mypage" />
+          <img src="/asset/Setting.svg" alt="mypage" />
         </SetBlock>
       </Nav>
-      {sideMenu ? <SidenavMenu /> : null}
+      {sideMenu ? <SideNavMenu /> : null}
     </NavContainer>
   );
 };
