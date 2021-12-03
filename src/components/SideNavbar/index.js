@@ -4,7 +4,7 @@ import SideNavMenu from './SideNavMenu';
 
 const Nav = styled.div`
   width: 80px;
-  height: 100%;
+  height: 90%;
   padding: 40px 24px 91px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
   background-color: #fff;
@@ -13,51 +13,34 @@ const Nav = styled.div`
   align-items: center;
 `;
 
-const KeywordBlock = styled.div`
+const Block = styled.div`
   width: 32px;
   height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const KeywordBlock = styled(Block)`
   margin: 20px 0;
-  object-fit: contain;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
-const HistoryBlock = styled.div`
-  width: 32px;
-  height: 32px;
+const HistoryBlock = styled(Block)`
   margin: ${({ isSideMenu }) => (isSideMenu ? `289px 0 0 0 ` : `20px 0`)}};
-  object-fit: contain;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
-const ChatBlock = styled.div`
-  width: 32px;
-  height: 32px;
+const ChatBlock = styled(Block)`
   margin: ${({ isSideMenu }) => (isSideMenu ? `  45px 0 0 0 ` : ` 20px 0`)}};
-  object-fit: contain;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
-const SetBlock = styled.div`
-  width: 32px;
-  height: 32px;
+const SetBlock = styled(Block)`
   margin: ${({ isSideMenu }) => (isSideMenu ? ` 250px 0 0 0  ` : ` 20px 0`)}};
-  object-fit: contain;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `;
 
 const OpenMenu = styled.div`
-  width: 26px;
-  height: 20px;
-  margin: 0 3px 60px;
-  object-fit: contain;
+  width: 32px;
+  height: 32px;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,8 +49,8 @@ const OpenMenu = styled.div`
 const MenuButton = styled.button`
   width: 26px;
   height: 20px;
+  margin: 0 3px 60px;
   cursor: pointer;
-  object-fit: contain;
   border: 0;
   display: flex;
   background-color: #fff;
@@ -77,7 +60,7 @@ const MenuButton = styled.button`
 
 const NavContainer = styled.div`
   width: 395px;
-  height: 1110px;
+  height: 100%;
   display: flex;
 `;
 
@@ -91,11 +74,10 @@ const SideNavbar = () => {
   return (
     <NavContainer>
       <Nav>
-        <OpenMenu>
-          <MenuButton type="button" onClick={toggleSideMenu}>
-            <img src="/asset/MenuBtn.svg" alt="Vector" />
-          </MenuButton>
-        </OpenMenu>
+        <MenuButton type="button" onClick={toggleSideMenu}>
+          <img src="/asset/MenuBtn.svg" alt="Vector" />
+        </MenuButton>
+
         <KeywordBlock>
           <img src="/asset/Hashtag.svg" alt="keyword" />
         </KeywordBlock>
