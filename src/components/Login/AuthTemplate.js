@@ -21,11 +21,10 @@ const MainLogo = styled.img`
   margin-bottom: 40px;
 `;
 
-// eslint-disable-next-line react/prop-types
 const AuthTemplate = ({ children }) => (
   <AuthTemplateBlock>
     <Box>
-      <MainLogo src="/asset/Logo.png" alt="logo" />
+      <MainLogo src="/asset/mainLogo.svg" alt="logo" />
       {children}
     </Box>
   </AuthTemplateBlock>
