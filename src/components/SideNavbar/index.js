@@ -4,9 +4,8 @@ import SideNavMenu from './SideNavMenu';
 
 const Nav = styled.div`
   width: 80px;
-  height: 1110px;
+  height: 100%;
   padding: 40px 24px 91px;
-
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
   background-color: #fff;
   display: flex;
@@ -47,7 +46,7 @@ const ChatBlock = styled.div`
 const SetBlock = styled.div`
   width: 32px;
   height: 32px;
-  margin: ${({ isSideMenu }) => (isSideMenu ? ` 397px 0 0 0  ` : ` 20px 0`)}};
+  margin: ${({ isSideMenu }) => (isSideMenu ? ` 250px 0 0 0  ` : ` 20px 0`)}};
   object-fit: contain;
   display: flex;
   justify-content: center;
@@ -93,7 +92,7 @@ const SideNavbar = () => {
     <NavContainer>
       <Nav>
         <OpenMenu>
-          <MenuButton type="button" onClick={toggleSideMenu()}>
+          <MenuButton type="button" onClick={toggleSideMenu}>
             <img src="/asset/MenuBtn.svg" alt="Vector" />
           </MenuButton>
         </OpenMenu>
