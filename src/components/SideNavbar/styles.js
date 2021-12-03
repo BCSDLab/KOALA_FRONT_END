@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const SideMenuBackground = styled.div`
   width: 270px;
-  height: 100%;
-  padding: 40px 0 47px;
+  height: 860px;
+  padding: 38px 0 38px;
   background-color: #f6f7f8;
 `;
 

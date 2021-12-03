@@ -4,13 +4,19 @@ import SideNavMenu from './SideNavMenu';
 
 const Nav = styled.div`
   width: 80px;
-  height: 90%;
+  height: 805px;
   padding: 40px 24px 91px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
   background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const NavContainer = styled.div`
+  width: 395px;
+  height: 90%;
+  display: flex;
 `;
 
 const Block = styled.div`
@@ -37,15 +43,6 @@ const SetBlock = styled(Block)`
   margin: ${({ isSideMenu }) => (isSideMenu ? ` 250px 0 0 0  ` : ` 20px 0`)}};
 `;
 
-const OpenMenu = styled.div`
-  width: 32px;
-  height: 32px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const MenuButton = styled.button`
   width: 26px;
   height: 20px;
@@ -56,12 +53,6 @@ const MenuButton = styled.button`
   background-color: #fff;
   justify-content: center;
   align-items: center;
-`;
-
-const NavContainer = styled.div`
-  width: 395px;
-  height: 100%;
-  display: flex;
 `;
 
 const SideNavbar = () => {
