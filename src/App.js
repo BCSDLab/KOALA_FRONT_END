@@ -5,17 +5,20 @@ import ChatPage from 'pages/ChatPage';
 import HistoryPage from 'pages/HistoryPage';
 import KeywordPage from 'pages/KeywordPage';
 import MyPage from 'pages/MyPage';
+import styled from 'styled-components';
+
+const Main = styled.div``;
 
 const App = () => (
-  <div className="Main">
+  <Main>
     <SideNavbar />
     <Routes>
-      <Route path="/history" component={HistoryPage} />
-      <Route path="/chat" component={ChatPage} />
-      <Route path="/keyword" component={KeywordPage} />
-      <Route path="/mypage" component={MyPage} />
+      <Route path="/history" element={<HistoryPage />} />
+      <Route path="/chat" element={<ChatPage />} />
+      <Route path="/keyword" element={<KeywordPage />} />
+      <Route path="/mypage" element={<MyPage />} />
     </Routes>
-  </div>
+  </Main>
 );
 
 export default App;
