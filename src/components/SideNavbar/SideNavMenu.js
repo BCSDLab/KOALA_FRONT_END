@@ -9,16 +9,13 @@ const Extension = () => {
         <S.Logo src="/asset/KoalaLogo.svg" alt="Logo" />
       </S.SideMenuContainer>
 
-      <S.KeywordList>
-        <S.KeywordMain>키워드</S.KeywordMain>
-        <S.KeywordDropdown src="/asset/KeywordDropDown.svg" alt="drop" />
-      </S.KeywordList>
       <KeywordDropdown />
 
       <S.AddKeyword>
         <S.AddImg src="/asset/Plus.svg" alt="plus" />
         <S.AddText>키워드 추가하기</S.AddText>
       </S.AddKeyword>
+
       <S.HistoryList>
         <S.HistoryLink>
           <S.HistoryText>히스토리</S.HistoryText>
@@ -29,6 +26,7 @@ const Extension = () => {
           <S.ChatText>채팅방</S.ChatText>
         </S.ChatLink>
       </S.ChatList>
+
       <S.SetList>
         <S.Set>
           <S.SetText>설정</S.SetText>

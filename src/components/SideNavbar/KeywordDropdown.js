@@ -37,7 +37,15 @@ const KeywordDropdown = () => {
     </S.KeywordDropmenu>
   ));
 
-  return <S.KeywordElement>{DropDown}</S.KeywordElement>;
+  return (
+    <div>
+      <S.KeywordList>
+        <S.KeywordMain>키워드</S.KeywordMain>
+        <S.KeywordDropdown src="/asset/KeywordDropDown.svg" alt="drop" />
+      </S.KeywordList>
+      <S.KeywordElement>{DropDown}</S.KeywordElement>
+    </div>
+  );
 };
 
 export default KeywordDropdown;

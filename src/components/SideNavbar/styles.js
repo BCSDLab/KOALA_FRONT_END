@@ -14,14 +14,14 @@ export const SideMenuContainer = styled.div`
 export const Logo = styled.img`
   width: 80px;
   height: 21.8px;
-  object-fit: contain;
 `;
 
-export const KeywordMain = styled.span`
+export const KeywordMain = styled.div`
   width: 44px;
   height: 21px;
-  margin: 6px 1px 5px 24px;
   font-size: 14px;
+  margin: 6px 1px 5px 24px;
+  display: flex;
   text-align: left;
   color: #222;
 `;
