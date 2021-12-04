@@ -1,6 +1,5 @@
 import React from 'react';
-import AuthMainForm from 'components/Login/AuthMainForm';
-import AuthTemplate from 'components/Login';
+import AuthTemplate from 'components/Auth';
 import { Outlet } from 'react-router';
 
 const AuthPage = () => (

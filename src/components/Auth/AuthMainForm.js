@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import StyledButton from 'components/Shared/Button';
-import * as S from 'components/Login/styles';
+import * as S from 'components/Auth/styles';
 
 const AuthForm = styled.div``;
 
