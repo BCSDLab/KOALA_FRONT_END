@@ -95,7 +95,7 @@ export const CopyRight = styled.div`
 
 export const Title = styled.div`
   font-size: 16px;
-  margin-bottom: 35px;
+  margin-bottom: 20px;
 `;
 
 export const Agree = styled.div`
