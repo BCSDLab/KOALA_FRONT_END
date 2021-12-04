@@ -92,3 +92,37 @@ export const CopyRight = styled.div`
   justify-content: center;
   margin: 0 30px 0 30px;
 `;
+
+export const Title = styled.div`
+  font-size: 16px;
+  margin-bottom: 35px;
+`;
+
+export const Agree = styled.div`
+  font-size: 14px;
+  padding-left: 20px;
+  padding-bottom: 24px;
+  display: flex;
+  text-align: left;
+`;
+
+export const AllAgree = styled.div`
+  margin-bottom: 24px;
+  border-bottom: 1px solid #eee;
+`;
+
+export const AgreeText = styled.div`
+  width: 350px;
+`;
+
+export const Drop = styled.img`
+  width: 20px;
+  height: 20px;
+`;
+
+export const AuthDoc = styled.div`
+  font-size: 12px;
+  height: 166px;
+  border: 1px solid #c4c4c4;
+  padding: 16px;
+`;
