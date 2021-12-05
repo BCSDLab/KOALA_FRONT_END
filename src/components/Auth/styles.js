@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const StyledInput = styled.input`
   width: 348px;
@@ -25,8 +26,31 @@ export const StyledInput = styled.input`
   }
 `;
 
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  &:focus {
+    text-decoration: none;
+  }
+  &:hover {
+    text-decoration: none;
+  }
+  &:visited {
+    color: black;
+    text-decoration: none;
+  }
+  &:link {
+    color: black;
+    text-decoration: none;
+  }
+  &:active {
+    color: black;
+    text-decoration: none;
+  }
+`;
+
 export const AutoLogin = styled.div`
-  width: 368px;
+  width: 400px;
   display: flex;
   margin-top: 8px;
 `;
