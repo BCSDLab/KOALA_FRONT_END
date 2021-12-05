@@ -1,29 +1,14 @@
 import React from 'react';
+import RegisterCheckBox from './RegisterCheckBox';
 import Button from 'components/Shared/Button';
-import CircleCheckBox from 'components/Shared/CircleCheckBox';
+
 import * as S from 'components/Auth/styles';
 
 const RegisterDocForm = () => {
   return (
     <div>
       <S.Title>회원가입</S.Title>
-      <S.AllAgree>
-        <S.Agree>
-          <CircleCheckBox id="check" />
-          약관 전체동의
-        </S.Agree>
-      </S.AllAgree>
-      <S.Agree>
-        <CircleCheckBox />
-        <S.AgreeText>개인정보 이용약관(필수)</S.AgreeText>
-        <S.Drop src="/asset/dropDown.svg" alt="drop" />
-      </S.Agree>
-
-      <S.Agree>
-        <CircleCheckBox />
-        <S.AgreeText>koala 이용약관(필수)</S.AgreeText>
-        <S.Drop src="/asset/dropDown.svg" alt="drop" />
-      </S.Agree>
+      <RegisterCheckBox />
       <S.AuthDoc>
         <p>제1조(목적)</p>
         한강 서비스 이용약관은 bcsd lab에서 서비스를 제공함에 있어, 이용자간의 관리, 의무 및 책임 사항 등을 목적으로
