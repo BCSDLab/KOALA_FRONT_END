@@ -9,7 +9,7 @@ const RegisterDocForm = () => {
       <S.Title>회원가입</S.Title>
       <S.AllAgree>
         <S.Agree>
-          <CircleCheckBox />
+          <CircleCheckBox id="check" />
           약관 전체동의
         </S.Agree>
       </S.AllAgree>
