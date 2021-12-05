@@ -14,13 +14,8 @@ const AuthNuminput = styled.input`
   }
   ::-webkit-input-placeholder {
     font-size: 14px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: left;
-    color: #222;
+    color: #999;
     height: 21px;
     padding: 0px;
   }
