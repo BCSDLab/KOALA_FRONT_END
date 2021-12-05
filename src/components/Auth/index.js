@@ -11,13 +11,13 @@ const AuthTemplateBlock = styled.div`
 
 const Box = styled.div`
   width: 368px;
-  padding-top: 280px;
+  padding-top: 200px;
 `;
 
 const MainLogo = styled.img`
   width: 125px;
   height: 34px;
-  padding: 0 125px 0 125.2px;
+  padding: 0 0px 0 125.2px;
   margin-bottom: 40px;
 `;
 

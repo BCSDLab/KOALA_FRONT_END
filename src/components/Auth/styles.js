@@ -77,7 +77,7 @@ export const NoneUser = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 56px 123px 221px 125px;
+  margin: 56px 90px 150px 125px;
 `;
 
 export const CopyRight = styled.div`
