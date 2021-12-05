@@ -9,7 +9,7 @@ const PwdFindForm = () => {
       <S.Title>비밀번호</S.Title>
       <S.StyledInput placeholder="아이디 입력"></S.StyledInput>
       <S.StyledInput placeholder="이메일 입력"></S.StyledInput>
-      <AuthNumber></AuthNumber>
+      <AuthNumber />
       <Button>인증하기</Button>
     </div>
   );

@@ -2,28 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import Switch from 'components/Shared/Switch';
 import StyledButton from 'components/Shared/Button';
+import PwdInput from 'components/Auth/PwdInput';
 import * as S from 'components/Auth/styles';
 
 const AuthForm = styled.div``;
 
-const EyeImg = styled.img`
-  position: absolute;
-  top: 31px;
-  left: 328px;
-  right: 0;
-`;
-
-const StyledPwd = styled.div`
-  position: relative;
-`;
-
 const AuthMainForm = () => (
   <AuthForm>
     <S.StyledInput autocomplete="username" name="username" placeholder="아이디 입력" />
-    <StyledPwd>
-      <S.StyledInput autoComplete="new-password" name="password" placeholder="비밀번호 입력" type="password" />
-      <EyeImg src="/asset/pwdEye.svg" alt="eye" />
-    </StyledPwd>
+    <PwdInput placeholder="비밀번호 입력" />
     <S.AutoLogin>
       <S.AutoLoginCheck>
         <Switch />
