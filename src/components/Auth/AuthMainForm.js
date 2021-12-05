@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import Switch from 'components/Shared/Switch';
+import { Link } from 'react-router-dom';
 import StyledButton from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 
@@ -10,15 +12,18 @@ const AuthMainForm = () => (
     <S.StyledInput autocomplete="username" name="username" placeholder="아이디 입력" />
     <S.StyledInput autoComplete="new-password" name="password" placeholder="비밀번호 입력" type="password" />
     <S.AutoLogin>
-      <S.AutoLoginCheck>준비</S.AutoLoginCheck> <S.AutoLoginText>자동 로그인</S.AutoLoginText>
+      <S.AutoLoginCheck>
+        <Switch />
+      </S.AutoLoginCheck>
+      <S.AutoLoginText>자동 로그인</S.AutoLoginText>
     </S.AutoLogin>
     <StyledButton>로그인</StyledButton>
     <S.OtherOption>
-      <div>아이디 찾기</div>
-      <div>| </div>
-      <div>비밀번호 찾기</div>
+      <S.StyledLink to="idfind">아이디 찾기</S.StyledLink>
+      <p> | </p>
+      <S.StyledLink to="pwdfind">비밀번호 찾기</S.StyledLink>
       <div>|</div>
-      <div>회원가입</div>
+      <S.StyledLink to="register">회원가입</S.StyledLink>
     </S.OtherOption>
     <S.SnsLoginText>SNS로 간편 로그인하기</S.SnsLoginText>
     <S.OauthLogin>
