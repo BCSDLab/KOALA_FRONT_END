@@ -7,6 +7,7 @@ import IdFindForm from 'components/Auth/IdFindForm';
 import PwdFindForm from 'components/Auth/PwdFindForm';
 import RegisterDocForm from 'components/Auth/RegisterDocForm';
 import RegisterForm from 'components/Auth/RegisterForm';
+import PwdChange from 'components/Auth/PwdChange';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="registerform" element={<RegisterForm />} />
         <Route path="idfind" element={<IdFindForm />} />
         <Route path="pwdfind" element={<PwdFindForm />} />
+        <Route path="pwdchge" element={<PwdChange />} />
       </Route>
     </Routes>
   );
