@@ -9,6 +9,7 @@ export const StyledInput = styled.input`
   padding-left: 16px;
   margin-top: 16px;
   border: solid 1px #c4c4c4;
+  position: relative;
   &:focus {
     border: solid 1px #222;
   }
