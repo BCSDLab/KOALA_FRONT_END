@@ -3,15 +3,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore } from 'redux';
-
-// eslint-disable-next-line sort-imports
 import { Provider } from 'react-redux';
-import Root from './App'
+import Root from './App';
 import reportWebVitals from './reportWebVitals';
 import rootReducer from './store';
-// eslint-disable-next-line sort-imports
 import './index.css';
-
 
 const store = createStore(rootReducer, composeWithDevTools());
 
