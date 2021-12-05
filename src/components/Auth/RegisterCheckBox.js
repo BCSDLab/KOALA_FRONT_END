@@ -44,10 +44,8 @@ const RegisterCheckBox = ({ checked, ...props }) => {
         const checkedListArray = [];
         dataLists.forEach((list) => checkedListArray.push(list.id));
         setCheckedLists(checkedListArray);
-        console.log(checkedList);
       } else {
         setCheckedLists([]);
-        console.log(checkedList);
       }
     },
     [dataLists]
@@ -57,10 +55,8 @@ const RegisterCheckBox = ({ checked, ...props }) => {
     (checked, list) => {
       if (checked) {
         setCheckedLists([...checkedList, list]);
-        console.log(checkedList);
       } else {
         setCheckedLists(checkedList.filter((el) => el !== list));
-        console.log(checkedList);
       }
     },
     [checkedList]
