@@ -28,8 +28,8 @@ const AuthMainForm = () => (
     <S.SnsLoginText>SNS로 간편 로그인하기</S.SnsLoginText>
     <S.OauthLogin>
       <img src="/asset/kakaoLogo.webp" alt="kakao" />
-      <img src="/asset/naverLogo.webp" alt="kakao" />
-      <img src="/asset/googleLogo.webp" alt="kakao" />
+      <img src="/asset/naverLogo.webp" alt="naver" />
+      <img src="/asset/googleLogo.webp" alt="googel" />
     </S.OauthLogin>
     <S.NoneUser>비회원으로 이용하기</S.NoneUser>
     <S.CopyRight>COPYRIGHT © 2021 BCSD LAB ALL RIGHTS RESERVED.</S.CopyRight>
