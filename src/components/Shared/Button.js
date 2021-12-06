@@ -15,7 +15,6 @@ const StyledButton = styled.button`
   }
 `;
 
-// eslint-disable-next-line react/jsx-props-no-spreading
 const Button = (props) => <StyledButton {...props} />;
 
 export default Button;
