@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import Root from './App';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 import rootReducer from './store';
 import './index.css';
@@ -14,7 +14,7 @@ const store = createStore(rootReducer, composeWithDevTools());
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <Root />
+      <App />
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')
