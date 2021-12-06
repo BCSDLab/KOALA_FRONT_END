@@ -29,14 +29,23 @@ export const StyledInput = styled.input`
 
 export const StyledLink = styled(Link)`
   text-decoration: none;
-  color: black;
+  color: #999;
   &:focus,
   &:hover,
   &:visited,
   &:link,
   &:active {
-    color: black;
+    color: #999;
     text-decoration: none;
+  }
+  ::after {
+    content: '|';
+    float: right;
+    color: #999;
+    margin: 0 15px;
+  }
+  :last-child::after {
+    content: '';
   }
 `;
 
@@ -60,7 +69,7 @@ export const AutoLoginText = styled.div`
 `;
 
 export const OtherOption = styled.div`
-  width: 368px;
+  width: 380px;
   display: flex;
   align-items: center;
   justify-content: center;
