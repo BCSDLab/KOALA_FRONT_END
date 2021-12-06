@@ -30,11 +30,7 @@ export const StyledInput = styled.input`
 export const StyledLink = styled(Link)`
   text-decoration: none;
   color: #999;
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
+  &:focus,&:hover,&:visited,&:link,&:active {
     color: #999;
     text-decoration: none;
   }
