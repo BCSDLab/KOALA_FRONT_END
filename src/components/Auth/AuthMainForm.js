@@ -27,7 +27,7 @@ const AuthMainForm = () => (
     <S.OauthLogin>
       <img src="/asset/kakaoLogo.webp" alt="kakao" />
       <img src="/asset/naverLogo.webp" alt="naver" />
-      <img src="/asset/googleLogo.webp" alt="googel" />
+      <img src="/asset/googleLogo.webp" alt="google" />
     </S.OauthLogin>
     <S.NoneUser>비회원으로 이용하기</S.NoneUser>
     <S.CopyRight>COPYRIGHT © 2021 BCSD LAB ALL RIGHTS RESERVED.</S.CopyRight>
