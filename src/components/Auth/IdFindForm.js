@@ -13,7 +13,7 @@ const IdfindForm = () => {
     <div>
       <IdfForm>
         <S.Title>아이디 찾기</S.Title>
-        <S.StyledInput placeholder="이메일 입력"></S.StyledInput>
+        <S.StyledInput placeholder="이메일 입력" />
         <AuthNumber />
       </IdfForm>
       <Button>다음</Button>
