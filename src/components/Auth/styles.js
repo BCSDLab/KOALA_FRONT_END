@@ -30,20 +30,10 @@ export const StyledInput = styled.input`
 export const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
-  &:focus {
-    text-decoration: none;
-  }
-  &:hover {
-    text-decoration: none;
-  }
-  &:visited {
-    color: black;
-    text-decoration: none;
-  }
-  &:link {
-    color: black;
-    text-decoration: none;
-  }
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
   &:active {
     color: black;
     text-decoration: none;
@@ -78,7 +68,7 @@ export const OtherOption = styled.div`
   margin-top: 16px;
 `;
 
-export const SnsLoginText = styled.div`
+export const SNSLoginText = styled.div`
   width: 152px;
   height: 18px;
   font-size: 10px;
