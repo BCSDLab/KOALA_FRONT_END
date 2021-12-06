@@ -38,18 +38,15 @@ const RegisterCheckBox = ({ checked, ...props }) => {
     { id: 2, text: 'koala 이용약관(필수)' },
   ];
 
-  const onCheckedAll = useCallback(
-    (checked) => {
-      if (checked) {
-        const checkedListArray = [];
-        dataLists.forEach((list) => checkedListArray.push(list.id));
-        setCheckedLists(checkedListArray);
-      } else {
-        setCheckedLists([]);
-      }
-    },
-    [dataLists]
-  );
+  const onCheckedAll = useCallback((checked) => {
+    if (checked) {
+      const checkedListArray = [];
+      dataLists.forEach((list) => checkedListArray.push(list.id));
+      setCheckedLists(checkedListArray);
+    } else {
+      setCheckedLists([]);
+    }
+  }, []);
 
   const onCheckedElement = useCallback(
     (checked, list) => {
