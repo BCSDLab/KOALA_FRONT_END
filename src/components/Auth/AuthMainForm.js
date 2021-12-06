@@ -17,9 +17,7 @@ const AuthMainForm = () => (
     <StyledButton>로그인</StyledButton>
     <S.OtherOption>
       <S.StyledLink to="idfind">아이디 찾기</S.StyledLink>
-
       <S.StyledLink to="pwdfind">비밀번호 찾기</S.StyledLink>
-
       <S.StyledLink to="register">회원가입</S.StyledLink>
     </S.OtherOption>
     <S.SNSLoginText>SNS로 간편 로그인하기</S.SNSLoginText>
@@ -29,7 +27,7 @@ const AuthMainForm = () => (
       <img src="/asset/googleLogo.webp" alt="google" />
     </S.OauthLogin>
     <S.NoneUser>비회원으로 이용하기</S.NoneUser>
-    <S.CopyRight>COPYRIGHT © 2021 BCSD LAB ALL RIGHTS RESERVED.</S.CopyRight>
+    <S.CopyRight>COPYRIGHT © {new Date().getFullYear()} BCSD LAB ALL RIGHTS RESERVED.</S.CopyRight>
   </div>
 );
 
