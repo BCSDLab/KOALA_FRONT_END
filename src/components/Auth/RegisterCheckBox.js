@@ -40,9 +40,7 @@ const RegisterCheckBox = ({ checked, ...props }) => {
 
   const onCheckedAll = useCallback((checked) => {
     if (checked) {
-      const checkedListArray = [];
-      dataLists.forEach((list) => checkedListArray.push(list.id));
-      setCheckedLists(checkedListArray);
+      setCheckedLists(dataLists.map(({ id }) => id));
     } else {
       setCheckedLists([]);
     }
