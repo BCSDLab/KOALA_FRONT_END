@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import Switch from 'components/Shared/Switch';
 import StyledButton from 'components/Shared/Button';
 import PwdInput from 'components/Auth/PwdInput';
