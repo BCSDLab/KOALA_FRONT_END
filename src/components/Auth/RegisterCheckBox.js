@@ -67,7 +67,7 @@ const RegisterCheckBox = ({ checked, ...props }) => {
             <CheckDot
               type="checkbox"
               onChange={(e) => onCheckedAll(e.target.checked)}
-              checked={checkedList.length === 0 ? false : checkedList.length === dataLists.length ? true : false}
+              checked={checkedList.length && checkedList.length === dataLists.length}
               {...props}
             />
             <CustomCheckDot checked={checked}></CustomCheckDot>
