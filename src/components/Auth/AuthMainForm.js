@@ -8,7 +8,7 @@ import IdInput from './IdInput';
 import { login } from '../../store/auth';
 import { setCookie, getCookie } from 'components/Shared/Cookies';
 
-const AuthMainForm = ({ history }) => {
+const AuthMainForm = () => {
   const dispatch = useDispatch();
 
   const [account, setAccount] = useState('');
@@ -36,8 +36,6 @@ const AuthMainForm = ({ history }) => {
       });
       const check = getCookie('refresh_token');
       console.log(check);
-      try {
-      } catch (e) {}
     }
   }, [userToken]);
   return (

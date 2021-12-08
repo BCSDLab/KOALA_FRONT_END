@@ -10,6 +10,9 @@ export const createRequestSagaActionTypes = (type) => {
 export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
 }
+export function* refreshSaga() {
+  yield takeLatest(REFRESH, refreshLoginSaga);
+}
 
 export default function createRequestSaga(type, request) {
   const SUCCESS = `${type}_SUCCESS`;
