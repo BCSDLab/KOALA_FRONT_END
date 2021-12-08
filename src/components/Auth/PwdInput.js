@@ -32,9 +32,11 @@ const PwdInput = (props) => {
     <StyledPwd>
       <S.StyledInput
         autoComplete="new-password"
-        name="password"
+        name={props.password}
         placeholder={props.placeholder}
         type={isPasswordType.type}
+        value={props.value}
+        onChange={props.onChange}
       />
       <PwdSee onClick={handlePasswordType}>
         <EyeImg src="/asset/pwdEye.svg" alt="eye" />
