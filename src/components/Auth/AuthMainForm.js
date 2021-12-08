@@ -5,8 +5,7 @@ import StyledButton from 'components/Shared/Button';
 import PwdInput from 'components/Auth/PwdInput';
 import * as S from 'components/Auth/styles';
 import IdInput from './IdInput';
-import axios from 'axios';
-import { changeField } from 'store/auth';
+import { login } from '../../store/auth';
 
 const AuthMainForm = () => {
   const dispatch = useDispatch();
@@ -25,13 +24,7 @@ const AuthMainForm = () => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(account);
-    console.log(password);
-    let body = {
-      account: account,
-      password: password,
-    };
-    axios.post('https://api.stage.koala.im/user/login', body).then((res) => console.log(res));
+    dispatch(login({ account, password }));
   };
 
   return (
