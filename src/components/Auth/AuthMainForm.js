@@ -6,8 +6,9 @@ import PwdInput from 'components/Auth/PwdInput';
 import * as S from 'components/Auth/styles';
 import IdInput from './IdInput';
 import { login } from '../../store/auth';
+import { setCookie, getCookie } from 'components/Shared/Cookies';
 
-const AuthMainForm = () => {
+const AuthMainForm = ({ history }) => {
   const dispatch = useDispatch();
 
   const [account, setAccount] = useState('');
@@ -29,8 +30,15 @@ const AuthMainForm = () => {
   useEffect(() => {
     if (userToken.access_token) {
       console.log(userToken.access_token);
+      setCookie('refresh_token', `${userToken.refresh_token}`, {
+        path: '/',
+        httpOnly: true,
+      });
+      const check = getCookie('refresh_token');
+      console.log(check);
+      try {
+      } catch (e) {}
     }
-    return () => {};
   }, [userToken]);
   return (
     <div>
