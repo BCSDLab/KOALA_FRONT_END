@@ -10,7 +10,7 @@ export const login = createAction(LOGIN, ({ account, password }) => ({
   password,
 }));
 
-const loginSaga = createRequestSagaActionTypes(LOGIN, authAPI.login);
+const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
 }
@@ -20,14 +20,18 @@ const initialState = {
     account: '',
     password: '',
   },
+  token: {
+    access_token: '',
+    refresh_token: '',
+  },
 };
 
 const auth = handleActions(
   {
-    [LOGIN_SUCESS]: (state, { payload: auth }) => ({
+    [LOGIN_SUCESS]: (state, { payload: token }) => ({
       ...state,
       authError: null,
-      auth,
+      token,
     }),
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Switch from 'components/Shared/Switch';
 import StyledButton from 'components/Shared/Button';
@@ -12,7 +12,7 @@ const AuthMainForm = () => {
 
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
-
+  const userToken = useSelector((state) => state.auth.token);
   const accountHandler = (e) => {
     e.preventDefault();
     setAccount(e.target.value);
@@ -26,7 +26,12 @@ const AuthMainForm = () => {
     e.preventDefault();
     dispatch(login({ account, password }));
   };
-
+  useEffect(() => {
+    if (userToken.access_token) {
+      console.log(userToken.access_token);
+    }
+    return () => {};
+  }, [userToken]);
   return (
     <div>
       <form onSubmit={submitHandler}>
