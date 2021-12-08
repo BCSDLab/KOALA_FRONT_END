@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import './App.css';
 import { Route, Routes } from 'react-router';
+import { getCookie } from 'components/Shared/Cookies';
 import AuthPage from 'pages/AuthPage';
 import AuthMainForm from 'components/Auth/AuthMainForm';
 import IdFindForm from 'components/Auth/IdFindForm';
@@ -8,8 +10,23 @@ import PwdFindForm from 'components/Auth/PwdFindForm';
 import RegisterDocForm from 'components/Auth/RegisterDocForm';
 import RegisterForm from 'components/Auth/RegisterForm';
 import PwdChange from 'components/Auth/PwdChange';
+import axios from 'axios';
 
-function App() {
+const App = () => {
+  useEffect(() => {
+    const check = getCookie('refresh_token');
+    console.log(check);
+
+    axios
+      .post('https://api.stage.koala.im/user/refresh', null, {
+        headers: {
+          Authorization: `Bearer ${check}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  }, []);
   return (
     <Routes>
       <Route path="auth/*" element={<AuthPage />}>
@@ -22,6 +39,6 @@ function App() {
       </Route>
     </Routes>
   );
-}
+};
 
 export default App;
