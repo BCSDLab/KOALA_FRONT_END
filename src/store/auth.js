@@ -10,28 +10,29 @@ export const login = createAction(LOGIN, ({ account, password }) => ({
   account,
   password,
 }));
-
-export const refresh = createAction(REFRESH, ({ refresh_token }) => ({
-  refresh_token,
-}));
+export const refresh = createAction(REFRESH);
 
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
 }
-const refreshLoginSaga = createRequestSaga(REFRESH, authAPI.refresh);
-export function* silentSaga() {
-  yield takeLatest(REFRESH, refreshLoginSaga);
+const refreshSaga = createRequestSaga(REFRESH, authAPI.refresh);
+export function* refreshLoginSaga() {
+  yield takeLatest(REFRESH, refreshSaga);
 }
+
 const initialState = {
   login: {
     account: '',
     password: '',
   },
+
   token: {
     access_token: '',
     refresh_token: '',
   },
+
+  isLogined: false,
 };
 
 const auth = handleActions(
@@ -40,6 +41,7 @@ const auth = handleActions(
       ...state,
       authError: null,
       token,
+      isLogined: true,
     }),
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
@@ -47,10 +49,13 @@ const auth = handleActions(
     }),
     [REFRESH_SUCESS]: (state, { payload: token }) => ({
       ...state,
+      authError: null,
       token,
+      isLogined: true,
     }),
     [REFRESH_FAILURE]: (state, { payload: error }) => ({
       ...state,
+      authError: error,
     }),
   },
   initialState

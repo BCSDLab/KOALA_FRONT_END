@@ -10,8 +10,8 @@ export const createRequestSagaActionTypes = (type) => {
 export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
 }
-export function* refreshSaga() {
-  yield takeLatest(REFRESH, refreshLoginSaga);
+export function* refreshLoginSaga() {
+  yield takeLatest(REFRESH, refreshSaga);
 }
 
 export default function createRequestSaga(type, request) {
@@ -28,7 +28,6 @@ export default function createRequestSaga(type, request) {
     } catch {
       yield put({
         type: FAILURE,
-        payload: e,
         error: true,
       });
     }
