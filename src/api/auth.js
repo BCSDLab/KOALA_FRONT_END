@@ -1,5 +1,5 @@
-import client from './client';
+import logined from './logined';
 
-export const login = ({ account, password }) => client.post('user/login', { account, password });
+export const login = ({ account, password }) => logined.post('user/login', { account, password });
 
-export const refresh = ({ config }) => client.post('user/refresh', config);
+export const refresh = () => logining.post('user/refresh');
