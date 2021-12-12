@@ -2,7 +2,6 @@ import axios from 'axios';
 import { getCookie } from 'components/Shared/Cookies';
 
 const check = getCookie('refresh_token');
-console.log(check);
 
 const logined = axios.create({});
 

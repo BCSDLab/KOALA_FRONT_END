@@ -1,7 +1,6 @@
 import React from 'react';
 import RegisterCheckBox from './RegisterCheckBox';
 import Button from 'components/Shared/Button';
-
 import * as S from 'components/Auth/styles';
 
 const RegisterDoc = () => {
