@@ -4,7 +4,7 @@ import Button from 'components/Shared/Button';
 
 import * as S from 'components/Auth/styles';
 
-const RegisterDocForm = () => {
+const RegisterDoc = () => {
   return (
     <div>
       <S.Title>회원가입</S.Title>
@@ -22,4 +22,4 @@ const RegisterDocForm = () => {
   );
 };
 
-export default RegisterDocForm;
+export default RegisterDoc;

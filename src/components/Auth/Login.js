@@ -7,10 +7,11 @@ import * as S from 'components/Auth/styles';
 import IdInput from './IdInput';
 import { login } from '../../store/auth';
 import { setCookie, getCookie } from 'components/Shared/Cookies';
+import { useNavigate } from 'react-router';
 
 const AuthMainForm = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const userToken = useSelector((state) => state.auth.token);
@@ -32,10 +33,10 @@ const AuthMainForm = () => {
       console.log(userToken.access_token);
       setCookie('refresh_token', `${userToken.refresh_token}`, {
         path: '/',
-        httpOnly: true,
       });
-      const check = getCookie('refresh_token');
-      console.log(check);
+      const ase = getCookie('refresh_token');
+      console.log(ase);
+      navigate('/');
     }
   }, [userToken]);
   return (
