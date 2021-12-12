@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import SideNavbar from 'components/SideNavbar';
 import styled from 'styled-components';
@@ -19,27 +19,25 @@ const LoginBtn = styled.button`
 `;
 
 const mainPage = () => {
-  const isLogin = useSelector((state) => state.auth.isLogined);
+  const isLogined = useSelector((state) => state.auth.isLogined);
   const navigate = useNavigate();
-  const loginTokken = useSelector((state) => state.auth.token);
-
-  console.log(isLogin);
-  console.log(allStateInfo);
+  const loginToken = useSelector((state) => state.auth.token);
+  const [isTrued, setIsTrued] = useState(isLogined);
   const loginClick = () => {
     navigate(`/auth`);
   };
 
   const logoutClick = () => {
     removeCookie('refresh_token');
-    loginTokken.access_token = null;
-    loginTokken.refresh_token = null;
-    console.log(loginTokken);
+    loginToken.access_token = '';
+    loginToken.refresh_token = '';
+    setIsTrued((prev) => !prev);
   };
 
   return (
     <div>
       <SideNavbar></SideNavbar>
-      {isLogin ? <LoginBtn onClick={logoutClick}>로그아웃</LoginBtn> : <LoginBtn onClick={loginClick}>로그인</LoginBtn>}
+      {isTrued ? <LoginBtn onClick={logoutClick}>로그아웃</LoginBtn> : <LoginBtn onClick={loginClick}>로그인</LoginBtn>}
     </div>
   );
 };
