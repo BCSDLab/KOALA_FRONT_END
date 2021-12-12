@@ -1,40 +1,36 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './App.css';
 import { Route, Routes } from 'react-router';
-import { getCookie } from 'components/Shared/Cookies';
+import { refresh } from 'store/auth';
 import AuthPage from 'pages/AuthPage';
-import AuthMainForm from 'components/Auth/AuthMainForm';
-import IdFindForm from 'components/Auth/IdFindForm';
-import PwdFindForm from 'components/Auth/PwdFindForm';
-import RegisterDocForm from 'components/Auth/RegisterDocForm';
-import RegisterForm from 'components/Auth/RegisterForm';
+import Login from 'components/Auth/Login';
+import IdFind from 'components/Auth/IdFind';
+import PwdFind from 'components/Auth/PwdFind';
+import RegisterDoc from 'components/Auth/RegisterDoc';
+import Register from 'components/Auth/Register';
 import PwdChange from 'components/Auth/PwdChange';
-import axios from 'axios';
+import MainPage from 'pages/mainPage';
+import { getCookie } from 'components/Shared/Cookies';
 
 const App = () => {
-  useEffect(() => {
-    const check = getCookie('refresh_token');
-    console.log(check);
+  const dispatch = useDispatch();
+  const update = useSelector((state) => state.auth.token);
 
-    axios
-      .post('https://api.stage.koala.im/user/refresh', null, {
-        headers: {
-          Authorization: `Bearer ${check}`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-      });
+  useEffect(() => {
+    refresh.refresh_token = getCookie('refresh_token');
+    console.log(update.refresh_token);
+    dispatch(refresh({ update }));
   }, []);
   return (
     <Routes>
+      <Route path="/" element={<MainPage />} exact />
       <Route path="auth/*" element={<AuthPage />}>
-        <Route index element={<AuthMainForm />} />
-        <Route path="register" element={<RegisterDocForm />} />
-        <Route path="registerform" element={<RegisterForm />} />
-        <Route path="idfind" element={<IdFindForm />} />
-        <Route path="pwdfind" element={<PwdFindForm />} />
+        <Route index element={<Login />} />
+        <Route path="register" element={<RegisterDoc />} />
+        <Route path="registerform" element={<Register />} />
+        <Route path="idfind" element={<IdFind />} />
+        <Route path="pwdfind" element={<PwdFind />} />
         <Route path="pwdchange" element={<PwdChange />} />
       </Route>
     </Routes>
