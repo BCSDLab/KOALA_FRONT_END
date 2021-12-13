@@ -18,7 +18,7 @@ const App = () => {
 
   useEffect(() => {
     update.refresh_token = getCookie('refresh_token');
-    dispatch(refresh({ update }));
+    dispatch(refresh());
   }, []);
   return (
     <Routes>
