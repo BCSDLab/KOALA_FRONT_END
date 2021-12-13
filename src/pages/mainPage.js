@@ -26,12 +26,19 @@ const mainPage = () => {
   const loginClick = () => {
     navigate(`/auth`);
   };
+  useEffect(() => {
+    if (isLogined) {
+      setIsTrued((isTrued) => true);
+    } else {
+      setIsTrued((isTrued) => false);
+    }
+  }, [isLogined]);
 
   const logoutClick = () => {
     removeCookie('refresh_token');
     loginToken.access_token = '';
     loginToken.refresh_token = '';
-    setIsTrued((prev) => !prev);
+    setIsTrued((isTrued) => !isTrued);
   };
 
   return (
