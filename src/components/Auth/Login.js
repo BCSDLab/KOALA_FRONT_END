@@ -30,12 +30,9 @@ const AuthMainForm = () => {
   };
   useEffect(() => {
     if (userToken.access_token) {
-      console.log(userToken.access_token);
       setCookie('refresh_token', `${userToken.refresh_token}`, {
         path: '/',
       });
-      const ase = getCookie('refresh_token');
-      console.log(ase);
       navigate('/');
     }
   }, [userToken]);
@@ -53,9 +50,9 @@ const AuthMainForm = () => {
         <StyledButton>로그인</StyledButton>
       </form>
       <S.OtherOption>
-        <S.StyledLink to="idfind">아이디 찾기</S.StyledLink>
-        <S.StyledLink to="pwdfind">비밀번호 찾기</S.StyledLink>
-        <S.StyledLink to="register">회원가입</S.StyledLink>
+        <S.StyledLink to="findId">아이디 찾기</S.StyledLink>
+        <S.StyledLink to="findPw">비밀번호 찾기</S.StyledLink>
+        <S.StyledLink to="createLog">회원가입</S.StyledLink>
       </S.OtherOption>
       <S.SNSLoginText>SNS로 간편 로그인하기</S.SNSLoginText>
       <S.OauthLogin>
