@@ -15,13 +15,12 @@ const AuthMainForm = () => {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const userToken = useSelector((state) => state.auth.token);
+
   const accountHandler = (e) => {
-    e.preventDefault();
     setAccount(e.target.value);
   };
 
   const passwordHandler = (e) => {
-    e.preventDefault();
     setPassword(e.target.value);
   };
   const submitHandler = (e) => {
