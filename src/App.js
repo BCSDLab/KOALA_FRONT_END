@@ -10,14 +10,14 @@ import RegisterDoc from 'components/Auth/RegisterDoc';
 import Register from 'components/Auth/Register';
 import ChangePw from 'components/Auth/ChangePw';
 import MainPage from 'pages/mainPage';
-import { getCookie } from 'components/Shared/Cookies';
+import { getCookie, setCookie } from 'components/Shared/Cookies';
 
 const App = () => {
   const dispatch = useDispatch();
-  const update = useSelector((state) => state.auth.token);
+  const update = useSelector((state) => state.auth);
 
   useEffect(() => {
-    update.refresh_token = getCookie('refresh_token');
+    update.token.refresh_token = getCookie('refresh_token');
     dispatch(refresh());
   }, []);
   return (

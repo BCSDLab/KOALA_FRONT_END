@@ -41,7 +41,7 @@ const auth = handleActions(
       ...state,
       authError: null,
       token,
-      isLogined: true,
+      isLoggedIn: true,
     }),
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
@@ -51,7 +51,7 @@ const auth = handleActions(
       ...state,
       authError: null,
       token,
-      isLogined: true,
+      isLoggedIn: true,
     }),
     [REFRESH_FAILURE]: (state, { payload: error }) => ({
       ...state,

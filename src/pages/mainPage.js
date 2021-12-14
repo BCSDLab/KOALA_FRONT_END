@@ -19,28 +19,34 @@ const LoginBtn = styled.button`
 `;
 
 const mainPage = () => {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const loginInfo = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  const loginToken = useSelector((state) => state.auth.token);
-  const [isTrued, setIsTrued] = useState(isLoggedIn);
+
+  const [isLogBtn, setIsLogBtn] = useState(loginInfo.isLoggedIn);
   const loginClick = () => {
     navigate(`/auth`);
   };
+
   useEffect(() => {
-    setIsTrued(isLoggedIn);
-  }, [isLoggedIn]);
+    setIsLogBtn(loginInfo.isLoggedIn);
+  }, [loginInfo.isLoggedIn]);
 
   const logoutClick = () => {
     removeCookie('refresh_token');
-    loginToken.access_token = '';
-    loginToken.refresh_token = '';
-    setIsTrued((isTrued) => !isTrued);
+    loginInfo.token.access_token = '';
+    loginInfo.token.refresh_token = '';
+    loginInfo.isLoggedIn = false;
+    setIsLogBtn(false);
+    console.log(loginInfo.isLoggedIn);
   };
-
   return (
     <div>
       <SideNavbar></SideNavbar>
-      {isTrued ? <LoginBtn onClick={logoutClick}>로그아웃</LoginBtn> : <LoginBtn onClick={loginClick}>로그인</LoginBtn>}
+      {isLogBtn ? (
+        <LoginBtn onClick={logoutClick}>로그아웃</LoginBtn>
+      ) : (
+        <LoginBtn onClick={loginClick}>로그인</LoginBtn>
+      )}
     </div>
   );
 };
