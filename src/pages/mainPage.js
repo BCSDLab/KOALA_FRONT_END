@@ -19,20 +19,16 @@ const LoginBtn = styled.button`
 `;
 
 const mainPage = () => {
-  const isLogined = useSelector((state) => state.auth.isLogined);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const navigate = useNavigate();
   const loginToken = useSelector((state) => state.auth.token);
-  const [isTrued, setIsTrued] = useState(isLogined);
+  const [isTrued, setIsTrued] = useState(isLoggedIn);
   const loginClick = () => {
     navigate(`/auth`);
   };
   useEffect(() => {
-    if (isLogined) {
-      setIsTrued((isTrued) => true);
-    } else {
-      setIsTrued((isTrued) => false);
-    }
-  }, [isLogined]);
+    setIsTrued(isLoggedIn);
+  }, [isLoggedIn]);
 
   const logoutClick = () => {
     removeCookie('refresh_token');

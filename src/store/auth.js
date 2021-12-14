@@ -32,7 +32,7 @@ const initialState = {
     refresh_token: '',
   },
 
-  isLogined: false,
+  isLoggedIn: false,
 };
 
 const auth = handleActions(
