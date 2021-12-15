@@ -19,7 +19,7 @@ const LoginBtn = styled.button`
 `;
 
 const mainPage = () => {
-  const loginInfo = useSelector((state) => state.auth.isLoggedIn);
+  const loginInfo = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const [isLogBtn, setIsLogBtn] = useState(loginInfo);
 
@@ -28,11 +28,12 @@ const mainPage = () => {
   };
 
   useEffect(() => {
-    setIsLogBtn(loginInfo);
-  }, [loginInfo]);
+    setIsLogBtn(loginInfo.isLoggedIn);
+  }, [loginInfo.isLoggedIn]);
 
   const logoutClick = () => {
     removeCookie('refresh_token');
+    loginInfo.isLoggedIn = false;
     setIsLogBtn(false);
   };
   return (
