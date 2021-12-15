@@ -3,12 +3,13 @@ import RegisterCheckBox from './RegisterCheckBox';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import { useNavigate } from 'react-router';
+import { CREATE_ACCOUNT } from 'constant/path';
 
 const RegisterDoc = () => {
   const navigate = useNavigate();
 
   const onClick = () => {
-    navigate('/auth/createAccount');
+    navigate(CREATE_ACCOUNT);
   };
   return (
     <div>
