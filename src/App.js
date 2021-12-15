@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router';
 import { refresh } from 'store/auth';
 import AuthPage from 'pages/AuthPage';
@@ -10,12 +10,13 @@ import RegisterDoc from 'components/Auth/RegisterDoc';
 import Register from 'components/Auth/Register';
 import ChangePw from 'components/Auth/ChangePw';
 import MainPage from 'pages/mainPage';
-import { getCookie, setCookie } from 'components/Shared/Cookies';
+import { setRefreshOnHeader } from 'api/logined';
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setRefreshOnHeader();
     dispatch(refresh());
   }, []);
   return (
