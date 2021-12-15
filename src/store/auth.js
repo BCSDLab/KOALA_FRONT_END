@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, { createRequestSagaActionTypes } from './createRequestSaga';
 import { takeLatest } from '@redux-saga/core/effects';
 import { setCookie } from 'components/Shared/Cookies';
+import { setAccessTokenOnHeader } from 'api/logined';
 import * as authAPI from 'api/auth';
 
 const [LOGIN, LOGIN_SUCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/LOGIN');
@@ -35,6 +36,7 @@ const auth = handleActions(
       token: setCookie('refresh_token', `${token.refresh_token}`, {
         path: '/',
       }),
+      token: setAccessTokenOnHeader(token.access_token),
       isLoggedIn: true,
     }),
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
@@ -47,6 +49,7 @@ const auth = handleActions(
       token: setCookie('refresh_token', `${token.refresh_token}`, {
         path: '/',
       }),
+      token: setAccessTokenOnHeader(token.access_token),
       isLoggedIn: true,
     }),
     [REFRESH_FAILURE]: (state, { payload: error }) => ({
