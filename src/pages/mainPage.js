@@ -19,25 +19,21 @@ const LoginBtn = styled.button`
 `;
 
 const mainPage = () => {
-  const loginInfo = useSelector((state) => state.auth);
+  const loginInfo = useSelector((state) => state.auth.isLoggedIn);
   const navigate = useNavigate();
+  const [isLogBtn, setIsLogBtn] = useState(loginInfo);
 
-  const [isLogBtn, setIsLogBtn] = useState(loginInfo.isLoggedIn);
   const loginClick = () => {
     navigate(`/auth`);
   };
 
   useEffect(() => {
-    setIsLogBtn(loginInfo.isLoggedIn);
-  }, [loginInfo.isLoggedIn]);
+    setIsLogBtn(loginInfo);
+  }, [loginInfo]);
 
   const logoutClick = () => {
     removeCookie('refresh_token');
-    loginInfo.token.access_token = '';
-    loginInfo.token.refresh_token = '';
-    loginInfo.isLoggedIn = false;
     setIsLogBtn(false);
-    console.log(loginInfo.isLoggedIn);
   };
   return (
     <div>

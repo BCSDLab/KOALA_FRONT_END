@@ -14,10 +14,8 @@ import { getCookie, setCookie } from 'components/Shared/Cookies';
 
 const App = () => {
   const dispatch = useDispatch();
-  const update = useSelector((state) => state.auth);
 
   useEffect(() => {
-    update.token.refresh_token = getCookie('refresh_token');
     dispatch(refresh());
   }, []);
   return (

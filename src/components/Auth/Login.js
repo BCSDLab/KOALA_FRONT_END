@@ -14,7 +14,7 @@ const AuthMainForm = () => {
   const navigate = useNavigate();
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
-  const userToken = useSelector((state) => state.auth.token);
+  const userLog = useSelector((state) => state.auth.isLoggedIn);
 
   const accountHandler = (e) => {
     setAccount(e.target.value);
@@ -28,13 +28,11 @@ const AuthMainForm = () => {
     dispatch(login({ account, password }));
   };
   useEffect(() => {
-    if (userToken.access_token) {
-      setCookie('refresh_token', `${userToken.refresh_token}`, {
-        path: '/',
-      });
+    console.log(userLog);
+    if (userLog) {
       navigate('/');
     }
-  }, [userToken]);
+  }, [userLog]);
   return (
     <div>
       <form onSubmit={submitHandler}>
