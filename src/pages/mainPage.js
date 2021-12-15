@@ -21,7 +21,7 @@ const LoginBtn = styled.button`
 const mainPage = () => {
   const loginInfo = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  const [isLogBtn, setIsLogBtn] = useState(loginInfo);
+  const [isLogBtn, setIsLogBtn] = useState(loginInfo.isLoggedIn);
 
   const loginClick = () => {
     navigate(`/auth`);
