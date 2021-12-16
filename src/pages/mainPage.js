@@ -21,25 +21,21 @@ const LoginBtn = styled.button`
 const mainPage = () => {
   const loginInfo = useSelector((state) => state.auth);
   const navigate = useNavigate();
-  const [isLogBtn, setIsLogBtn] = useState(loginInfo.isLoggedIn);
 
   const loginClick = () => {
     navigate(`/auth`);
   };
 
-  useEffect(() => {
-    setIsLogBtn(loginInfo.isLoggedIn);
-  }, [loginInfo.isLoggedIn]);
-
   const logoutClick = () => {
     removeCookie('refresh_token');
     loginInfo.isLoggedIn = false;
-    setIsLogBtn(false);
+    location.reload();
   };
+
   return (
     <div>
       <SideNavbar></SideNavbar>
-      {isLogBtn ? (
+      {loginInfo.isLoggedIn ? (
         <LoginBtn onClick={logoutClick}>로그아웃</LoginBtn>
       ) : (
         <LoginBtn onClick={loginClick}>로그인</LoginBtn>
