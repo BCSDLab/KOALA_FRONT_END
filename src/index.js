@@ -9,6 +9,8 @@ import App from './App';
 import rootReducer, { rootSaga } from './store';
 import logger from 'redux-logger';
 import './index.css';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware, logger)));

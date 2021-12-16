@@ -1,7 +1,5 @@
 import axios from 'axios';
 import { getCookie } from 'components/Shared/Cookies';
-import dotenv from 'dotenv';
-dotenv.config();
 
 const check = getCookie('refresh_token');
 
