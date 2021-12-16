@@ -1,15 +1,18 @@
-import { Cookies } from 'react-cookie';
-
-const cookies = new Cookies();
-
-export const setCookie = (name, value, option) => {
-  return cookies.set(name, value, { ...option });
+export const setCookie = (name, value, options = {}) => {
+  let date = new Date();
+  date.setDate(date.getDate() + options);
+  let Cookie = `${name}=${value};Expires=${date.toUTCString()}`;
+  document.cookie = Cookie;
 };
 
 export const getCookie = (name) => {
-  return cookies.get(name);
+  let value = document.cookie.match(`(^|;) ?${name}=([^;]*)(;|$)`);
+  return value ? value[2] : null;
 };
 
 export const removeCookie = (name) => {
-  return cookies.remove(name);
+  let date = new Date();
+  date.setDate(date.getDate() - 100);
+  let Cookie = `${name}=;Expires=${date.toUTCString()}`;
+  document.cookie = Cookie;
 };
