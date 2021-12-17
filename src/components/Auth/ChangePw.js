@@ -8,7 +8,7 @@ const PwdChangeForm = styled.div`
   padding-bottom: 100px;
 `;
 
-const PwdChange = () => {
+const ChangePw = () => {
   return (
     <div>
       <S.Title>비밀번호 찾기</S.Title>
@@ -21,4 +21,4 @@ const PwdChange = () => {
   );
 };
 
-export default PwdChange;
+export default ChangePw;

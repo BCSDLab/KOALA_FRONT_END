@@ -1,10 +1,16 @@
 import React from 'react';
 import RegisterCheckBox from './RegisterCheckBox';
 import Button from 'components/Shared/Button';
-
 import * as S from 'components/Auth/styles';
+import { useNavigate } from 'react-router';
+import { CREATE_ACCOUNT } from 'constant/path';
 
-const RegisterDocForm = () => {
+const RegisterDoc = () => {
+  const navigate = useNavigate();
+
+  const onClick = () => {
+    navigate(CREATE_ACCOUNT);
+  };
   return (
     <div>
       <S.Title>회원가입</S.Title>
@@ -17,9 +23,9 @@ const RegisterDocForm = () => {
         한강 서비스 이용약관은 bcsd lab에서 서비스를 제공함에 있어, 이용자간의 관리, 의무 및 책임 사항 등을 목적으로
         합니다
       </S.AuthDoc>
-      <Button>다음</Button>
+      <Button onClick={onClick}>다음</Button>
     </div>
   );
 };
 
-export default RegisterDocForm;
+export default RegisterDoc;

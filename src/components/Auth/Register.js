@@ -1,19 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import PwdInput from 'components/Auth/PwdInput';
 
-const EyeImg = styled.img`
-  position: absolute;
-  top: 31px;
-  left: 328px;
-  right: 0;
-`;
-
-const StyledPwd = styled.div`
-  position: relative;
-`;
 const RegisterForm = () => {
   return (
     <div>

@@ -8,7 +8,7 @@ const IdfForm = styled.div`
   margin-bottom: 120px;
 `;
 
-const IdfindForm = () => {
+const FindId = () => {
   return (
     <div>
       <IdfForm>
@@ -21,4 +21,4 @@ const IdfindForm = () => {
   );
 };
 
-export default IdfindForm;
+export default FindId;

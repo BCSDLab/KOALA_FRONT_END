@@ -1,27 +1,37 @@
-import React from 'react';
-import './App.css';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router';
+import { refresh } from 'store/auth';
 import AuthPage from 'pages/AuthPage';
-import AuthMainForm from 'components/Auth/AuthMainForm';
-import IdFindForm from 'components/Auth/IdFindForm';
-import PwdFindForm from 'components/Auth/PwdFindForm';
-import RegisterDocForm from 'components/Auth/RegisterDocForm';
-import RegisterForm from 'components/Auth/RegisterForm';
-import PwdChange from 'components/Auth/PwdChange';
+import Login from 'components/Auth/Login';
+import FindId from 'components/Auth/FindId';
+import FindPw from 'components/Auth/FindPw';
+import RegisterDoc from 'components/Auth/RegisterDoc';
+import Register from 'components/Auth/Register';
+import ChangePw from 'components/Auth/ChangePw';
+import MainPage from 'pages/mainPage';
+import { setRefreshOnHeader } from 'api/logined';
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setRefreshOnHeader();
+    dispatch(refresh());
+  }, []);
   return (
     <Routes>
+      <Route path="/" element={<MainPage />} exact />
       <Route path="auth/*" element={<AuthPage />}>
-        <Route index element={<AuthMainForm />} />
-        <Route path="register" element={<RegisterDocForm />} />
-        <Route path="registerform" element={<RegisterForm />} />
-        <Route path="idfind" element={<IdFindForm />} />
-        <Route path="pwdfind" element={<PwdFindForm />} />
-        <Route path="pwdchange" element={<PwdChange />} />
+        <Route index element={<Login />} />
+        <Route path="createLog" element={<RegisterDoc />} />
+        <Route path="createAccount" element={<Register />} />
+        <Route path="findId" element={<FindId />} />
+        <Route path="findPw" element={<FindPw />} />
+        <Route path="changePw" element={<ChangePw />} />
       </Route>
     </Routes>
   );
-}
+};
 
 export default App;

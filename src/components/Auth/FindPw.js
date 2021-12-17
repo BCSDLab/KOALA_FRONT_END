@@ -3,7 +3,7 @@ import * as S from 'components/Auth/styles';
 import Button from 'components/Shared/Button';
 import AuthNumber from 'components/Shared/AuthNumber';
 
-const PwdFindForm = () => {
+const FindPw = () => {
   return (
     <div>
       <S.Title>비밀번호</S.Title>
@@ -15,4 +15,4 @@ const PwdFindForm = () => {
   );
 };
 
-export default PwdFindForm;
+export default FindPw;
