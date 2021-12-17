@@ -1,38 +1,8 @@
 import React, { useState, useCallback } from 'react';
-import styled from 'styled-components';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import { useNavigate } from 'react-router';
 import { CREATE_ACCOUNT } from 'constant/path';
-
-const CheckDotLabel = styled.label`
-  display: inline-block;
-  vertical-align: middle;
-  align-items: center;
-  cursor: pointer;
-`;
-
-const CheckDot = styled.input.attrs({ type: 'checkbox' })`
-  display: none;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  white-space: nowrap;
-`;
-
-const CustomCheckDot = styled.div`
-  display: inline-block;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  margin-right: 20px;
-  border: solid 1px #c4c4c4;
-  transition: all 150ms;
-  ${CheckDot}:checked + & {
-    border: solid 1px #ffd25d;
-    background-color: #ffd25d;
-  }
-`;
 
 const RegisterDoc = ({ checked }) => {
   const navigate = useNavigate();
@@ -68,27 +38,27 @@ const RegisterDoc = ({ checked }) => {
       <S.Title>회원가입</S.Title>
       <S.AllAgree>
         <S.Agree>
-          <CheckDotLabel>
-            <CheckDot
+          <S.CheckDotLabel>
+            <S.CheckDot
               type="checkbox"
               onChange={(e) => onCheckedAll(e.target.checked)}
               checked={checkedList.length && checkedList.length === dataLists.length}
             />
-            <CustomCheckDot checked={checked}></CustomCheckDot>
-          </CheckDotLabel>
+            <S.CustomCheckDot checked={checked}></S.CustomCheckDot>
+          </S.CheckDotLabel>
           약관 전체 동의
         </S.Agree>
       </S.AllAgree>
       {dataLists.map((list) => (
         <S.Agree>
-          <CheckDotLabel>
-            <CheckDot
+          <S.CheckDotLabel>
+            <S.CheckDot
               type="checkbox"
               onChange={(e) => onCheckedElement(e.target.checked, list.id)}
               checked={checkedList.includes(list.id) ? true : false}
             />
-            <CustomCheckDot checked={checked}></CustomCheckDot>
-          </CheckDotLabel>
+            <S.CustomCheckDot checked={checked}></S.CustomCheckDot>
+          </S.CheckDotLabel>
           <S.AgreeText>{list.text}</S.AgreeText>
           <S.Drop src="/asset/dropDown.svg" alt="drop" />
         </S.Agree>

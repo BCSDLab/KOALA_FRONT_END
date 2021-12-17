@@ -30,7 +30,11 @@ export const StyledInput = styled.input`
 export const StyledLink = styled(Link)`
   text-decoration: none;
   color: #999;
-  &:focus,&:hover,&:visited,&:link,&:active {
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
     color: #999;
     text-decoration: none;
   }
@@ -142,4 +146,33 @@ export const AuthDoc = styled.div`
   height: 166px;
   border: 1px solid #c4c4c4;
   padding: 16px;
+`;
+
+export const CheckDotLabel = styled.label`
+  display: inline-block;
+  vertical-align: middle;
+  align-items: center;
+  cursor: pointer;
+`;
+
+export const CheckDot = styled.input.attrs({ type: 'checkbox' })`
+  display: none;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+`;
+
+export const CustomCheckDot = styled.div`
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  margin-right: 20px;
+  border: solid 1px #c4c4c4;
+  transition: all 150ms;
+  ${CheckDot}:checked + & {
+    border: solid 1px #ffd25d;
+    background-color: #ffd25d;
+  }
 `;
