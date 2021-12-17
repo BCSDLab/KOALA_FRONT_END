@@ -3,7 +3,7 @@ import createRequestSaga, { createRequestSagaActionTypes } from './createRequest
 import { takeLatest } from '@redux-saga/core/effects';
 import { setCookie } from 'components/Shared/Cookies';
 import { setAccessTokenOnHeader } from 'api/logined';
-import * as authAPI from 'api/auth';
+import * as authAPI from 'api';
 
 const [LOGIN, LOGIN_SUCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/LOGIN');
 const [REFRESH, REFRESH_SUCESS, REFRESH_FAILURE] = createRequestSagaActionTypes('auth/REFRESH');
