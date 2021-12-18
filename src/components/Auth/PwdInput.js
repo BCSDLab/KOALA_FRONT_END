@@ -48,7 +48,11 @@ const PwdInput = (props) => {
       />
       {props.error ? <ErrorImg src="/asset/inputError.svg" alt="error" /> : null}
       <PwdSee onClick={handlePasswordType}>
-        <EyeImg src="/asset/pwdEye.svg" alt="eye" />
+        {isPasswordType.visible ? (
+          <EyeImg src="/asset/openEye.svg" alt="openeye" />
+        ) : (
+          <EyeImg src="/asset/closeEye.svg" alt="closeeye" />
+        )}
       </PwdSee>
     </StyledPwd>
   );
