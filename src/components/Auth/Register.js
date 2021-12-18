@@ -23,9 +23,9 @@ const RegisterForm = () => {
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState('');
 
   const [isName, setIsName] = useState(false);
-  const [isEmail, setIsEmail] = useState(false);
-  const [isPassword, setIsPassword] = useState(false);
-  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+  const [isEmail, setIsEmail] = useState(true);
+  const [isPassword, setIsPassword] = useState(true);
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState(true);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -81,21 +81,34 @@ const RegisterForm = () => {
   const insertNickName = (e) => {
     setNickName(e.target.value);
   };
-
+  const errorStyle = { border: '1px solid #ffd25d' };
   return (
     <form onSubmit={onSubmit}>
       <S.Title>회원가입</S.Title>
       <S.StyledInput name="account" value={account} onChange={insertAccount} placeholder="아이디" />
-      <PwdInput name="password" value={password} onChange={onChangePassword} placeholder="비밀번호 입력" />
+      <PwdInput
+        name="password"
+        value={password}
+        onChange={onChangePassword}
+        style={isPassword ? null : errorStyle}
+        placeholder="비밀번호 입력"
+      />
       <ErrorAlert>{passwordMessage}</ErrorAlert>
       <PwdInput
         name="passwordConfirm"
         value={passwordConfirm}
         onChange={onChangePasswordConfirm}
+        style={isPasswordConfirm ? null : errorStyle}
         placeholder="비밀번호 확인"
       />
       <ErrorAlert>{passwordConfirmMessage}</ErrorAlert>
-      <S.StyledInput name="email" value={email} onChange={onChangeEmail} placeholder="이메일" />
+      <S.StyledInput
+        name="email"
+        value={email}
+        onChange={onChangeEmail}
+        style={isEmail ? null : errorStyle}
+        placeholder="이메일"
+      />
       <ErrorAlert>{emailMessage}</ErrorAlert>
       <S.StyledInput name="nickName" value={nickName} onChange={insertNickName} placeholder="닉네임" />
       <Button>다음</Button>
