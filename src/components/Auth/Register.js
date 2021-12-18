@@ -36,7 +36,7 @@ const RegisterForm = () => {
     console.log({ account, password, passwordConfirm, email, nickName });
     const params = { nickname: nickName };
     axios
-      .get('https://api.stage.koala.im//user/nickname-check', { params })
+      .get('/user/nickname-check', { params })
       .then(function (response) {
         console.log(response);
       })
@@ -46,7 +46,7 @@ const RegisterForm = () => {
           setIsNickName(false);
         }
       });
-    axios.post('https://api.stage.koala.im/', { account, password, nickName, email }).then(
+    axios.post('/user/sing-in', { account, password, nickName, email }).then(
       function (response) {
         console.log(response);
       }.catch(function (error) {
@@ -56,9 +56,11 @@ const RegisterForm = () => {
   };
 
   const onChangeAccount = (e) => {
-    setAccount(e.target.value);
-    if (e.target.value.length < 2 || e.target.value.length > 5) {
-      setAccountMessage('2글자 이상 5글자 미만으로 입력해주세요.');
+    const accountRegex = /^(?=.*[a-z])(?=.*[!@#$%^&*+=-_])(?=.*[0-9]).{5,20}$/;
+    const accountCurrent = e.target.value;
+    setAccount(accountCurrent);
+    if (!accountRegex.test(accountCurrent)) {
+      setAccountMessage('5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용가능합니다');
       setIsAccount(false);
     } else {
       setAccountMessage('');
