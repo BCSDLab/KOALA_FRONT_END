@@ -11,8 +11,15 @@ const PwdSee = styled.span`
 `;
 const EyeImg = styled.img`
   position: absolute;
-  top: 31px;
+  top: 26px;
   left: 328px;
+  right: 0;
+`;
+
+const ErrorImg = styled.img`
+  position: absolute;
+  top: 28px;
+  left: 300px;
   right: 0;
 `;
 
@@ -37,7 +44,9 @@ const PwdInput = (props) => {
         type={isPasswordType.type}
         value={props.value}
         onChange={props.onChange}
+        {...props}
       />
+      {props.error ? <ErrorImg src="/asset/inputError.svg" alt="error" /> : null}
       <PwdSee onClick={handlePasswordType}>
         <EyeImg src="/asset/pwdEye.svg" alt="eye" />
       </PwdSee>

@@ -44,7 +44,7 @@ const RegisterForm = () => {
       setPasswordMessage('숫자+영문자+특수문자 조합으로 8자리 이상 입력바랍니다');
       setIsPassword(false);
     } else {
-      setPasswordMessage('비밀번호 확인');
+      setPasswordMessage('');
       setIsPassword(true);
     }
   }, []);
@@ -55,7 +55,7 @@ const RegisterForm = () => {
       setPasswordConfirm(passwordConfirmCurrent);
 
       if (password === passwordConfirmCurrent) {
-        setPasswordConfirmMessage('비밀번호 일치');
+        setPasswordConfirmMessage('');
         setIsPasswordConfirm(true);
       } else {
         setPasswordConfirmMessage('비밀번호가 다릅니다');
@@ -74,7 +74,7 @@ const RegisterForm = () => {
       setEmailMessage('이메일 형식이 일치하지 않습니다.');
       setIsEmail(false);
     } else {
-      setEmailMessage('이메일 형식이 일치합니다.');
+      setEmailMessage('');
       setIsEmail(true);
     }
   }, []);
@@ -92,6 +92,7 @@ const RegisterForm = () => {
         onChange={onChangePassword}
         style={isPassword ? null : errorStyle}
         placeholder="비밀번호 입력"
+        error={passwordMessage}
       />
       <ErrorAlert>{passwordMessage}</ErrorAlert>
       <PwdInput
@@ -100,6 +101,7 @@ const RegisterForm = () => {
         onChange={onChangePasswordConfirm}
         style={isPasswordConfirm ? null : errorStyle}
         placeholder="비밀번호 확인"
+        error={passwordConfirmMessage}
       />
       <ErrorAlert>{passwordConfirmMessage}</ErrorAlert>
       <S.StyledInput
@@ -108,6 +110,7 @@ const RegisterForm = () => {
         onChange={onChangeEmail}
         style={isEmail ? null : errorStyle}
         placeholder="이메일"
+        error={emailMessage}
       />
       <ErrorAlert>{emailMessage}</ErrorAlert>
       <S.StyledInput name="nickName" value={nickName} onChange={insertNickName} placeholder="닉네임" />
