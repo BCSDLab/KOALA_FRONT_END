@@ -36,7 +36,7 @@ const AuthMainForm = () => {
   return (
     <div>
       <form onSubmit={submitHandler}>
-        <IdInput value={account} onChange={accountHandler} name="account" />
+        <IdInput value={account} onChange={accountHandler} name="account" placeholder="아이디 입력" />
         <PwdInput value={password} onChange={passwordHandler} name="password" placeholder="비밀번호 입력" />
         <S.AutoLogin>
           <S.AutoLoginCheck>
