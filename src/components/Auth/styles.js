@@ -7,7 +7,7 @@ export const StyledInput = styled.input`
   border: none;
   flex-grow: 0;
   padding-left: 16px;
-  margin-top: 16px;
+  margin-top: 12px;
   border: solid 1px #c4c4c4;
   position: relative;
   &:focus {
