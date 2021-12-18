@@ -2,7 +2,9 @@ import React, { useState, useCallback } from 'react';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import PwdInput from 'components/Auth/PwdInput';
+import IdInput from 'components/Auth/IdInput';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const ErrorAlert = styled.span`
   font-size: 11px;
@@ -17,23 +19,51 @@ const RegisterForm = () => {
   const [email, setEmail] = useState('');
   const [nickName, setNickName] = useState('');
 
-  const [nameMessage, setNameMessage] = useState('');
+  const [accountMessage, setAccountMessage] = useState('');
   const [emailMessage, setEmailMessage] = useState('');
   const [passwordMessage, setPasswordMessage] = useState('');
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState('');
+  const [nickNameMessage, setNickNameMessage] = useState('');
 
-  const [isName, setIsName] = useState(false);
+  const [isAccount, setIsAccount] = useState(true);
   const [isEmail, setIsEmail] = useState(true);
   const [isPassword, setIsPassword] = useState(true);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(true);
+  const [isNickName, setIsNickName] = useState(true);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log({ account, pwd, checkPwd, email, nickName });
+    console.log({ account, password, passwordConfirm, email, nickName });
+    const params = { nickname: nickName };
+    axios
+      .get('https://api.stage.koala.im//user/nickname-check', { params })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        if (error.response) {
+          setNickNameMessage('이미 존재하는 닉네임입니다.');
+          setIsNickName(false);
+        }
+      });
+    axios.post('https://api.stage.koala.im/', { account, password, nickName, email }).then(
+      function (response) {
+        console.log(response);
+      }.catch(function (error) {
+        console.log(error);
+      })
+    );
   };
 
-  const insertAccount = (e) => {
+  const onChangeAccount = (e) => {
     setAccount(e.target.value);
+    if (e.target.value.length < 2 || e.target.value.length > 5) {
+      setAccountMessage('2글자 이상 5글자 미만으로 입력해주세요.');
+      setIsAccount(false);
+    } else {
+      setAccountMessage('');
+      setIsAccount(true);
+    }
   };
   const onChangePassword = useCallback((e) => {
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
@@ -78,14 +108,30 @@ const RegisterForm = () => {
       setIsEmail(true);
     }
   }, []);
-  const insertNickName = (e) => {
+  const onChangeNickName = useCallback((e) => {
     setNickName(e.target.value);
-  };
+    if (e.target.value.length < 2 || e.target.value.length > 5) {
+      setNickNameMessage('2글자 이상 5글자 미만으로 입력해주세요.');
+      setIsNickName(false);
+    } else {
+      setNickNameMessage('');
+      setIsNickName(true);
+    }
+  }, []);
+
   const errorStyle = { border: '1px solid #ffd25d' };
   return (
     <form onSubmit={onSubmit}>
       <S.Title>회원가입</S.Title>
-      <S.StyledInput name="account" value={account} onChange={insertAccount} placeholder="아이디" />
+      <IdInput
+        name="account"
+        value={account}
+        onChange={onChangeAccount}
+        style={isAccount ? null : errorStyle}
+        placeholder="아이디"
+        error={accountMessage}
+      />
+      <ErrorAlert>{accountMessage}</ErrorAlert>
       <PwdInput
         name="password"
         value={password}
@@ -104,7 +150,7 @@ const RegisterForm = () => {
         error={passwordConfirmMessage}
       />
       <ErrorAlert>{passwordConfirmMessage}</ErrorAlert>
-      <S.StyledInput
+      <IdInput
         name="email"
         value={email}
         onChange={onChangeEmail}
@@ -113,7 +159,15 @@ const RegisterForm = () => {
         error={emailMessage}
       />
       <ErrorAlert>{emailMessage}</ErrorAlert>
-      <S.StyledInput name="nickName" value={nickName} onChange={insertNickName} placeholder="닉네임" />
+      <IdInput
+        name="nickName"
+        value={nickName}
+        onChange={onChangeNickName}
+        style={isNickName ? null : errorStyle}
+        placeholder="닉네임"
+        error={nickNameMessage}
+      />
+      <ErrorAlert>{nickNameMessage}</ErrorAlert>
       <Button>다음</Button>
     </form>
   );
