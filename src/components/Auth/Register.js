@@ -1,10 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import PwdInput from 'components/Auth/PwdInput';
 import IdInput from 'components/Auth/IdInput';
 import styled from 'styled-components';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { signUp } from 'store/auth';
 
 const ErrorAlert = styled.span`
   font-size: 11px;
@@ -13,6 +14,7 @@ const ErrorAlert = styled.span`
 `;
 
 const RegisterForm = () => {
+  const dispatch = useDispatch();
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -34,33 +36,15 @@ const RegisterForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log({ account, password, passwordConfirm, email, nickName });
-    const params = { nickname: nickName };
-    axios
-      .get('/user/nickname-check', { params })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        if (error.response) {
-          setNickNameMessage('이미 존재하는 닉네임입니다.');
-          setIsNickName(false);
-        }
-      });
-    axios.post('/user/sing-in', { account, password, nickName, email }).then(
-      function (response) {
-        console.log(response);
-      }.catch(function (error) {
-        console.log(error);
-      })
-    );
+    dispatch(signUp({ account, password, email, nickName }));
   };
 
   const onChangeAccount = (e) => {
-    const accountRegex = /^(?=.*[a-z])(?=.*[!@#$%^&*+=-_])(?=.*[0-9]).{5,20}$/;
+    const accountRegex = /^(?=.*[a-z,-_, 0-9]).{4,20}$/;
     const accountCurrent = e.target.value;
     setAccount(accountCurrent);
     if (!accountRegex.test(accountCurrent)) {
-      setAccountMessage('5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용가능합니다');
+      setAccountMessage('4~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용가능합니다');
       setIsAccount(false);
     } else {
       setAccountMessage('');
@@ -122,6 +106,11 @@ const RegisterForm = () => {
   }, []);
 
   const errorStyle = { border: '1px solid #ffd25d' };
+
+  useEffect(() => {
+    const params = { nickname: nickName };
+  }, [nickName]);
+
   return (
     <form onSubmit={onSubmit}>
       <S.Title>회원가입</S.Title>
