@@ -1,5 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { startLoading, finishLoading } from './loading';
+import { takeLatest } from 'redux-saga/effects';
 
 export const createRequestSagaActionTypes = (type) => {
   const SUCCESS = `${type}_SUCCESS`;
@@ -12,6 +13,9 @@ export function* authSaga() {
 }
 export function* refreshLoginSaga() {
   yield takeLatest(REFRESH, refreshSaga);
+}
+export function* signUpRegisterSaga() {
+  yield takeLatest(SIGNUP, signUpSaga);
 }
 
 export default function createRequestSaga(type, request) {
