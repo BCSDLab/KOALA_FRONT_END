@@ -27,11 +27,13 @@ const RegisterForm = () => {
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState('');
   const [nickNameMessage, setNickNameMessage] = useState('');
 
-  const [isAccount, setIsAccount] = useState(true);
-  const [isEmail, setIsEmail] = useState(true);
-  const [isPassword, setIsPassword] = useState(true);
-  const [isPasswordConfirm, setIsPasswordConfirm] = useState(true);
-  const [isNickName, setIsNickName] = useState(true);
+  const [isAccount, setIsAccount] = useState(false);
+  const [isEmail, setIsEmail] = useState(false);
+  const [isPassword, setIsPassword] = useState(false);
+  const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+  const [isNickName, setIsNickName] = useState(false);
+
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -108,8 +110,10 @@ const RegisterForm = () => {
   const errorStyle = { border: '1px solid #ffd25d' };
 
   useEffect(() => {
-    const params = { nickname: nickName };
-  }, [nickName]);
+    if (isAccount && isPassword && isPasswordConfirm && isEmail && isNickName) {
+      setIsDisabled(true);
+    }
+  }, [isAccount, isPassword, isPasswordConfirm, isEmail, isNickName]);
 
   return (
     <form onSubmit={onSubmit}>
@@ -118,7 +122,7 @@ const RegisterForm = () => {
         name="account"
         value={account}
         onChange={onChangeAccount}
-        style={isAccount ? null : errorStyle}
+        style={accountMessage ? errorStyle : null}
         placeholder="아이디"
         error={accountMessage}
       />
@@ -127,7 +131,7 @@ const RegisterForm = () => {
         name="password"
         value={password}
         onChange={onChangePassword}
-        style={isPassword ? null : errorStyle}
+        style={passwordMessage ? errorStyle : null}
         placeholder="비밀번호 입력"
         error={passwordMessage}
       />
@@ -136,7 +140,7 @@ const RegisterForm = () => {
         name="passwordConfirm"
         value={passwordConfirm}
         onChange={onChangePasswordConfirm}
-        style={isPasswordConfirm ? null : errorStyle}
+        style={passwordConfirmMessage ? errorStyle : null}
         placeholder="비밀번호 확인"
         error={passwordConfirmMessage}
       />
@@ -145,7 +149,7 @@ const RegisterForm = () => {
         name="email"
         value={email}
         onChange={onChangeEmail}
-        style={isEmail ? null : errorStyle}
+        style={emailMessage ? errorStyle : null}
         placeholder="이메일"
         error={emailMessage}
       />
@@ -154,12 +158,18 @@ const RegisterForm = () => {
         name="nickName"
         value={nickName}
         onChange={onChangeNickName}
-        style={isNickName ? null : errorStyle}
+        style={nickNameMessage ? errorStyle : null}
         placeholder="닉네임"
         error={nickNameMessage}
       />
       <ErrorAlert>{nickNameMessage}</ErrorAlert>
-      <Button>다음</Button>
+      {isDisabled ? (
+        <Button type="submit">다음</Button>
+      ) : (
+        <Button style={{ background: 'gray' }} disabled={true} type="submit">
+          다음
+        </Button>
+      )}
     </form>
   );
 };
