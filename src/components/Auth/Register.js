@@ -39,31 +39,25 @@ const RegisterForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log({ account, password, passwordConfirm, email, nickName });
-    console.log(nickName);
     API.checkNickname(nickName)
-      .then(function (response) {
-        console.log(response.data);
-        console.log('success');
+      .then(function () {
         API.checkAccount(account)
-          .then(function (response) {
-            console.log(response.data);
+          .then(function () {
             API.checkEmail(email)
-              .then(function (response) {
-                //dispatch(signUp({ account, password, passwordConfirm, email, nickName }));
+              .then(function () {
+                dispatch(signUp({ account, password, passwordConfirm, email, nickName }));
               })
-              .catch(function (error) {
+              .catch(function () {
                 setEmailMessage('이메일 형식이 일치하지 않습니다.');
                 setIsEmail(false);
               });
           })
-          .catch(function (error) {
-            console.log(error.response);
+          .catch(function () {
             setAccountMessage('이미 존재하는 계정입니다.');
             setIsAccount(false);
           });
       })
-      .catch(function (error) {
-        console.log(error.response);
+      .catch(function () {
         setNickNameMessage('이미 존재하는 닉네임 입니다.');
         setIsNickName(false);
       });
