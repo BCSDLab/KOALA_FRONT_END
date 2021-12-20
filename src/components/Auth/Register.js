@@ -47,12 +47,19 @@ const RegisterForm = () => {
         API.checkAccount(account)
           .then(function (response) {
             console.log(response.data);
-            setAccountMessage('이미 존재하는 계정입니다.');
-            setIsAccount(false);
+            API.checkEmail(email)
+              .then(function (response) {
+                //dispatch(signUp({ account, password, passwordConfirm, email, nickName }));
+              })
+              .catch(function (error) {
+                setEmailMessage('이메일 형식이 일치하지 않습니다.');
+                setIsEmail(false);
+              });
           })
           .catch(function (error) {
             console.log(error.response);
-            //dispatch(signUp({ account, password, passwordConfirm, email, nickName }));
+            setAccountMessage('이미 존재하는 계정입니다.');
+            setIsAccount(false);
           });
       })
       .catch(function (error) {
