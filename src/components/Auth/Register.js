@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import * as API from 'api';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import PwdInput from 'components/Auth/PwdInput';
@@ -11,10 +12,6 @@ const ErrorAlert = styled.span`
   font-size: 11px;
   color: #ffd25d;
   display: inline;
-`;
-
-const blank = styled.div`
-  height: 100px;
 `;
 
 const RegisterForm = () => {
@@ -42,7 +39,27 @@ const RegisterForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log({ account, password, passwordConfirm, email, nickName });
-    dispatch(signUp({ account, password, email, nickName }));
+    console.log(nickName);
+    API.checkNickname(nickName)
+      .then(function (response) {
+        console.log(response.data);
+        console.log('success');
+        API.checkAccount(account)
+          .then(function (response) {
+            console.log(response.data);
+            setAccountMessage('이미 존재하는 계정입니다.');
+            setIsAccount(false);
+          })
+          .catch(function (error) {
+            console.log(error.response);
+            //dispatch(signUp({ account, password, passwordConfirm, email, nickName }));
+          });
+      })
+      .catch(function (error) {
+        console.log(error.response);
+        setNickNameMessage('이미 존재하는 닉네임 입니다.');
+        setIsNickName(false);
+      });
   };
 
   const onChangeAccount = (e) => {
@@ -86,6 +103,7 @@ const RegisterForm = () => {
     },
     [password]
   );
+
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
       /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -100,6 +118,7 @@ const RegisterForm = () => {
       setIsEmail(true);
     }
   }, []);
+
   const onChangeNickName = useCallback((e) => {
     setNickName(e.target.value);
     if (e.target.value.length < 2 || e.target.value.length > 5) {
@@ -139,7 +158,7 @@ const RegisterForm = () => {
         placeholder="비밀번호 입력"
         error={passwordMessage}
       />
-     {passwordMessage ? <ErrorAlert>{passwordMessage}</ErrorAlert> : <br></br>}
+      {passwordMessage ? <ErrorAlert>{passwordMessage}</ErrorAlert> : <br></br>}
       <PwdInput
         name="passwordConfirm"
         value={passwordConfirm}
@@ -157,7 +176,7 @@ const RegisterForm = () => {
         placeholder="이메일"
         error={emailMessage}
       />
-     {emailMessage ? <ErrorAlert>{emailMessage}</ErrorAlert> : <br></br>}
+      {emailMessage ? <ErrorAlert>{emailMessage}</ErrorAlert> : <br></br>}
       <IdInput
         name="nickName"
         value={nickName}
