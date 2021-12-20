@@ -13,6 +13,10 @@ const ErrorAlert = styled.span`
   display: inline;
 `;
 
+const blank = styled.div`
+  height: 100px;
+`;
+
 const RegisterForm = () => {
   const dispatch = useDispatch();
   const [account, setAccount] = useState('');
@@ -126,7 +130,7 @@ const RegisterForm = () => {
         placeholder="아이디"
         error={accountMessage}
       />
-      <ErrorAlert>{accountMessage}</ErrorAlert>
+      {accountMessage ? <ErrorAlert>{accountMessage}</ErrorAlert> : <br></br>}
       <PwdInput
         name="password"
         value={password}
@@ -135,7 +139,7 @@ const RegisterForm = () => {
         placeholder="비밀번호 입력"
         error={passwordMessage}
       />
-      <ErrorAlert>{passwordMessage}</ErrorAlert>
+     {passwordMessage ? <ErrorAlert>{passwordMessage}</ErrorAlert> : <br></br>}
       <PwdInput
         name="passwordConfirm"
         value={passwordConfirm}
@@ -144,7 +148,7 @@ const RegisterForm = () => {
         placeholder="비밀번호 확인"
         error={passwordConfirmMessage}
       />
-      <ErrorAlert>{passwordConfirmMessage}</ErrorAlert>
+      {passwordConfirmMessage ? <ErrorAlert>{passwordConfirmMessage}</ErrorAlert> : <br></br>}
       <IdInput
         name="email"
         value={email}
@@ -153,7 +157,7 @@ const RegisterForm = () => {
         placeholder="이메일"
         error={emailMessage}
       />
-      <ErrorAlert>{emailMessage}</ErrorAlert>
+     {emailMessage ? <ErrorAlert>{emailMessage}</ErrorAlert> : <br></br>}
       <IdInput
         name="nickName"
         value={nickName}
@@ -162,11 +166,11 @@ const RegisterForm = () => {
         placeholder="닉네임"
         error={nickNameMessage}
       />
-      <ErrorAlert>{nickNameMessage}</ErrorAlert>
+      {nickNameMessage ? <ErrorAlert>{nickNameMessage}</ErrorAlert> : <br></br>}
       {isDisabled ? (
         <Button type="submit">다음</Button>
       ) : (
-        <Button style={{ background: 'gray' }} disabled={true} type="submit">
+        <Button style={{ background: 'gray' }} disabled={true} type="button">
           다음
         </Button>
       )}

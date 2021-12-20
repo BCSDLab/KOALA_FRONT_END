@@ -11,15 +11,15 @@ const PwdSee = styled.span`
 `;
 const EyeImg = styled.img`
   position: absolute;
-  top: 26px;
-  left: 328px;
+  top: 30%;
+  left: 89%;
   right: 0;
 `;
 
 const ErrorImg = styled.img`
   position: absolute;
-  top: 28px;
-  left: 300px;
+  top: 34%;
+  left: 80%;
   right: 0;
 `;
 

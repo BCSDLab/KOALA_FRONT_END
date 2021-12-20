@@ -8,8 +8,8 @@ const StyledId = styled.div`
 
 const ErrorImg = styled.img`
   position: absolute;
-  top: 28px;
-  left: 331px;
+  top: 30%;
+  left: 90%;
   right: 0;
 `;
 
