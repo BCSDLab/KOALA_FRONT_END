@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import * as API from 'api';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import PwdInput from 'components/Auth/PwdInput';
@@ -124,7 +123,6 @@ const RegisterForm = () => {
   }, [isAccount, isPassword, isPasswordConfirm, isEmail, isNickName]);
 
   useEffect(() => {
-    console.log(errorCode);
     if (errorCode == '123') {
       setAccountMessage('이미 존재하는 계정입니다.');
       setIsAccount(false);
