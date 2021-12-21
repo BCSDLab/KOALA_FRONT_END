@@ -7,18 +7,18 @@ import * as authAPI from 'api';
 
 const [LOGIN, LOGIN_SUCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/LOGIN');
 const [REFRESH, REFRESH_SUCESS, REFRESH_FAILURE] = createRequestSagaActionTypes('auth/REFRESH');
-const [SIGNUP, SIGNUP_SUCESS, SIGNUP_FALIURE] = createRequestSagaActionTypes('auth/SIGNIN');
+const [SIGNUP, SIGNUP_SUCESS, SIGNUP_FALIURE] = createRequestSagaActionTypes('auth/SIGNUP');
 
 export const login = createAction(LOGIN, ({ account, password }) => ({
   account,
   password,
 }));
 export const refresh = createAction(REFRESH);
-export const signUp = createAction(SIGNUP, ({ account, password, find_email, nickname }) => ({
+export const signUp = createAction(SIGNUP, ({ account, password, find_email, nickName }) => ({
   account,
   password,
   find_email,
-  nickname,
+  nickName,
 }));
 
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
@@ -37,6 +37,7 @@ export function* signUpRegisterSaga() {
 const initialState = {
   isLoggedIn: false,
   authError: null,
+  errorCode: '',
 };
 
 const auth = handleActions(
@@ -67,11 +68,14 @@ const auth = handleActions(
       ...state,
       authError: error,
     }),
-    [SIGNUP_SUCESS]: (state) => ({
+    [SIGNUP_SUCESS]: (state, { payload }) => ({
       ...state,
+      ...payload,
+      errorCode: null,
     }),
-    [SIGNUP_FALIURE]: (error) => ({
-      ...error,
+    [SIGNUP_FALIURE]: (state, { payload: error }) => ({
+      ...state,
+      errorCode: error.code,
     }),
   },
   initialState
