@@ -5,7 +5,7 @@ import * as S from 'components/Auth/styles';
 import PwdInput from 'components/Auth/PwdInput';
 import IdInput from 'components/Auth/IdInput';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from 'store/auth';
 
 const ErrorAlert = styled.span`
@@ -16,6 +16,8 @@ const ErrorAlert = styled.span`
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
+  const errorCode = useSelector((state) => state.auth.errorCode);
+
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -39,28 +41,8 @@ const RegisterForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     console.log({ account, password, passwordConfirm, email, nickName });
-    API.checkNickname(nickName)
-      .then(function () {
-        API.checkAccount(account)
-          .then(function () {
-            API.checkEmail(email)
-              .then(function () {
-                dispatch(signUp({ account, password, passwordConfirm, email, nickName }));
-              })
-              .catch(function () {
-                setEmailMessage('이메일 형식이 일치하지 않습니다.');
-                setIsEmail(false);
-              });
-          })
-          .catch(function () {
-            setAccountMessage('이미 존재하는 계정입니다.');
-            setIsAccount(false);
-          });
-      })
-      .catch(function () {
-        setNickNameMessage('이미 존재하는 닉네임 입니다.');
-        setIsNickName(false);
-      });
+    const find_email = email;
+    dispatch(signUp({ account, password, find_email, nickName }));
   };
 
   const onChangeAccount = (e) => {
@@ -76,12 +58,12 @@ const RegisterForm = () => {
     }
   };
   const onChangePassword = useCallback((e) => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,18}$/;
     const passwordCurrent = e.target.value;
     setPassword(passwordCurrent);
 
     if (!passwordRegex.test(passwordCurrent)) {
-      setPasswordMessage('숫자+영문자+특수문자 조합으로 8자리 이상 입력바랍니다');
+      setPasswordMessage('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요');
       setIsPassword(false);
     } else {
       setPasswordMessage('');
@@ -136,9 +118,24 @@ const RegisterForm = () => {
   useEffect(() => {
     if (isAccount && isPassword && isPasswordConfirm && isEmail && isNickName) {
       setIsDisabled(true);
+    } else {
+      setIsDisabled(false);
     }
   }, [isAccount, isPassword, isPasswordConfirm, isEmail, isNickName]);
 
+  useEffect(() => {
+    console.log(errorCode);
+    if (errorCode == '123') {
+      setAccountMessage('이미 존재하는 계정입니다.');
+      setIsAccount(false);
+    } else if (errorCode == '124') {
+      setNickNameMessage('이미 존재하는 계정입니다.');
+      setIsNickName(false);
+    } else if (errorCode == '125') {
+      setEmailMessage('이미 존재하는 이메일 입니다.');
+      setIsEmail(false);
+    }
+  }, [errorCode]);
   return (
     <form onSubmit={onSubmit}>
       <S.Title>회원가입</S.Title>
