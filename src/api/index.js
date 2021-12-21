@@ -10,5 +10,5 @@ export const checkAccount = (account) => logined.get(`user/account-check?account
 
 export const checkEmail = (email) => logined.get(`user/email-check?email=${email}`);
 
-export const signUp = ({ account, nickname, passwordm, find_email }) =>
-  logined.post('/user/sing-in', { account, nickname, passwordm, find_email });
+export const signUp = ({ account, password, find_email, nickname }) =>
+  logined.post('/user/sing-in', { account, password, find_email, nickname });

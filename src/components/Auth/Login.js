@@ -6,7 +6,6 @@ import PwdInput from 'components/Auth/PwdInput';
 import * as S from 'components/Auth/styles';
 import IdInput from './IdInput';
 import { login } from '../../store/auth';
-import { setCookie, getCookie } from 'components/Shared/Cookies';
 import { useNavigate } from 'react-router';
 
 const AuthMainForm = () => {
