@@ -27,7 +27,6 @@ const AuthMainForm = () => {
     dispatch(login({ account, password }));
   };
   useEffect(() => {
-    console.log(userLog);
     if (userLog) {
       navigate('/');
     }
