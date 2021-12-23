@@ -4,7 +4,7 @@ import * as S from 'components/Auth/styles';
 import PwdInput from 'components/Auth/PwdInput';
 import IdInput from 'components/Auth/IdInput';
 import styled from 'styled-components';
-import { ACCOUNT_ERROR, EMAIL_ERROR, NICKNAME_ERROR } from 'constant/path';
+import { ACCOUNT_ERROR, EMAIL_ERROR, NICKNAME_ERROR } from 'constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from 'store/auth';
 
