@@ -12,13 +12,13 @@ const RegisterDoc = ({ checked }) => {
     { id: 2, text: 'koala 이용약관(필수)' },
   ];
 
-  const onCheckedAll = useCallback((checked) => {
+  const onCheckedAll = (checked) => {
     if (checked) {
       setCheckedLists(dataLists.map(({ id }) => id));
     } else {
       setCheckedLists([]);
     }
-  }, []);
+  };
 
   const onCheckedElement = useCallback(
     (checked, list) => {
