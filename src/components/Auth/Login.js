@@ -6,7 +6,6 @@ import PwdInput from 'components/Auth/PwdInput';
 import * as S from 'components/Auth/styles';
 import IdInput from './IdInput';
 import { login } from '../../store/auth';
-import { setCookie, getCookie } from 'components/Shared/Cookies';
 import { useNavigate } from 'react-router';
 
 const AuthMainForm = () => {
@@ -28,7 +27,6 @@ const AuthMainForm = () => {
     dispatch(login({ account, password }));
   };
   useEffect(() => {
-    console.log(userLog);
     if (userLog) {
       navigate('/');
     }
@@ -36,7 +34,7 @@ const AuthMainForm = () => {
   return (
     <div>
       <form onSubmit={submitHandler}>
-        <IdInput value={account} onChange={accountHandler} name="account" />
+        <IdInput value={account} onChange={accountHandler} name="account" placeholder="아이디 입력" />
         <PwdInput value={password} onChange={passwordHandler} name="password" placeholder="비밀번호 입력" />
         <S.AutoLogin>
           <S.AutoLoginCheck>

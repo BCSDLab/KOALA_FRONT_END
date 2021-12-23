@@ -1,5 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { startLoading, finishLoading } from './loading';
+import { takeLatest } from 'redux-saga/effects';
 
 export const createRequestSagaActionTypes = (type) => {
   const SUCCESS = `${type}_SUCCESS`;
@@ -13,6 +14,9 @@ export function* authSaga() {
 export function* refreshLoginSaga() {
   yield takeLatest(REFRESH, refreshSaga);
 }
+export function* signUpRegisterSaga() {
+  yield takeLatest(SIGNUP, signUpSaga);
+}
 
 export default function createRequestSaga(type, request) {
   const SUCCESS = `${type}_SUCCESS`;
@@ -21,14 +25,15 @@ export default function createRequestSaga(type, request) {
     yield put(startLoading(type));
     try {
       const response = yield call(request, action.payload);
+
       yield put({
         type: SUCCESS,
         payload: response.data,
       });
-    } catch {
+    } catch (error) {
       yield put({
         type: FAILURE,
-        error: true,
+        payload: error.response.data,
       });
     }
     yield put(finishLoading(type));
