@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, { createRequestSagaActionTypes } from './createRequestSaga';
 import { takeLatest } from '@redux-saga/core/effects';
 import { setCookie } from 'components/Shared/Cookies';
-import { setAccessTokenOnHeader } from 'api/logined';
+import { setTokenOnHeader } from 'api/logined';
 import * as authAPI from 'api';
 
 const [LOGIN, LOGIN_SUCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/LOGIN');

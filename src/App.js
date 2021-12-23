@@ -10,7 +10,7 @@ import RegisterDoc from 'components/Auth/RegisterDoc';
 import Register from 'components/Auth/Register';
 import ChangePw from 'components/Auth/ChangePw';
 import MainPage from 'pages/mainPage';
-import { setRefreshOnHeader } from 'api/logined';
+import { setTokenOnHeader } from 'api/logined';
 import { getCookie } from 'components/Shared/Cookies';
 
 const App = () => {
