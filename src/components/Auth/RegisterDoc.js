@@ -49,8 +49,8 @@ const RegisterDoc = ({ checked }) => {
           약관 전체 동의
         </S.Agree>
       </S.AllAgree>
-      {dataLists.map((list) => (
-        <S.Agree>
+      {dataLists.map((list, index) => (
+        <S.Agree key={index}>
           <S.CheckDotLabel>
             <S.CheckDot
               type="checkbox"
