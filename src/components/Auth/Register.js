@@ -4,6 +4,7 @@ import * as S from 'components/Auth/styles';
 import PwdInput from 'components/Auth/PwdInput';
 import IdInput from 'components/Auth/IdInput';
 import styled from 'styled-components';
+import { ACCOUNT_ERROR, EMAIL_ERROR, NICKNAME_ERROR } from 'constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from 'store/auth';
 
@@ -123,13 +124,13 @@ const RegisterForm = () => {
   }, [isAccount, isPassword, isPasswordConfirm, isEmail, isNickName]);
 
   useEffect(() => {
-    if (errorCode == '123') {
+    if (errorCode == ACCOUNT_ERROR) {
       setAccountMessage('이미 존재하는 계정입니다.');
       setIsAccount(false);
-    } else if (errorCode == '124') {
-      setNickNameMessage('이미 존재하는 계정입니다.');
+    } else if (errorCode == NICKNAME_ERROR) {
+      setNickNameMessage('이미 존재하는 닉네임입니다.');
       setIsNickName(false);
-    } else if (errorCode == '125') {
+    } else if (errorCode == EMAIL_ERROR) {
       setEmailMessage('이미 존재하는 이메일 입니다.');
       setIsEmail(false);
     }

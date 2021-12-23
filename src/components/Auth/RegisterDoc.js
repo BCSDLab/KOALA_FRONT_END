@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import { useNavigate } from 'react-router';
-import { CREATE_ACCOUNT } from 'constant/path';
+import { CREATE_ACCOUNT } from 'constant';
 
 const RegisterDoc = ({ checked }) => {
   const navigate = useNavigate();
