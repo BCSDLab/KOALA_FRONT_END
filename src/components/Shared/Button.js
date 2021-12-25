@@ -4,14 +4,16 @@ import styled from 'styled-components';
 const StyledButton = styled.button`
   width: 368px;
   height: 48px;
+  font-size: 16px;
+  font-weight: 500;
   flex-grow: 0;
   color: white;
   margin-top: 32px;
   ouline: none;
   border: 0;
-  background: black;
+  background: #222;
   &:hover {
-    background: gray;
+    background: #c4c4c4;
   }
 `;
 
