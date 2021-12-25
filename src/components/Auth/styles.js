@@ -116,8 +116,10 @@ export const CopyRight = styled.div`
 `;
 
 export const Title = styled.div`
+  height: 24px;
+  margin-bottom: 30px;
   font-size: 16px;
-  margin-bottom: 20px;
+  font-weight: 500;
 `;
 
 export const Agree = styled.div`
@@ -135,6 +137,15 @@ export const AllAgree = styled.div`
 
 export const AgreeText = styled.div`
   width: 350px;
+`;
+
+export const InputErrorText = styled.span`
+  display: flex;
+  position: absolute;
+  margin: 2px 0;
+  font-size: 11px;
+  color: #ffd25d;
+  justify-content: flex-start;
 `;
 
 export const Drop = styled.img`
