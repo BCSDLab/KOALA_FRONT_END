@@ -12,7 +12,13 @@ const StyledButton = styled.button`
   ouline: none;
   border: 0;
   background: #222;
+
   &:hover {
+    background: #c4c4c4;
+  }
+
+  :disabled,
+  [disabled] {
     background: #c4c4c4;
   }
 `;
