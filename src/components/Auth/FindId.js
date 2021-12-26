@@ -9,16 +9,21 @@ const IdfForm = styled.div`
 `;
 
 const StyledInput = styled(S.StyledInput)`
-  background-image: ${({ error }) => (error ? `url('/asset/inputError.svg')` : 'none')};
+  border: solid 1px ${({ isError }) => (isError ? '#ffd25d' : '#c4c4c4')};
+  background-image: ${({ isError }) => (isError ? `url('/asset/inputError.svg')` : 'none')};
   background-position-y: center;
   background-position-x: 332px;
   background-repeat: no-repeat;
+`;
+const NextButton = styled(Button)`
+  margin-top: 0;
 `;
 
 /**
  * TODO:
  * - [x] 이메일 형식 검사 스타일
- * - [] 이메일 전송 후 disabled 처리
+ * - [] 가입 하지 않은 이메일 알림
+ * - [] 이메일 전송 후 다음 버튼 활성화
  * @returns
  */
 const FindId = () => {
@@ -27,7 +32,7 @@ const FindId = () => {
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
   const [emailMessage, setEmailMessage] = useState('');
 
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
@@ -36,7 +41,7 @@ const FindId = () => {
     setEmail(emailCurrent);
 
     if (!emailRegex.test(emailCurrent)) {
-      setEmailMessage('이메일 형식이 일치하지 않습니다.');
+      setEmailMessage('이메일 형식이 알맞지 않습니다.');
       setIsEmail(false);
     } else {
       setEmailMessage('');
@@ -44,15 +49,13 @@ const FindId = () => {
     }
   }, []);
 
-  const errorStyle = { border: '1px solid #ffd25d' };
-
   useEffect(() => {
-    if (isEmail && isEmailConfirmed) {
-      setIsDisabled(true);
-    } else {
+    if (isEmail) {
       setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
     }
-  }, [isEmail, isEmailConfirmed]);
+  }, [isEmail, email]);
 
   return (
     <div>
@@ -63,22 +66,15 @@ const FindId = () => {
             name="email"
             value={email}
             onChange={onChangeEmail}
-            style={emailMessage ? errorStyle : null}
             placeholder="이메일 입력 (인증번호가 전송됩니다.)"
-            error={emailMessage != ''}
+            isError={emailMessage != ''}
           />
           <S.InputErrorText>{emailMessage}</S.InputErrorText>
 
           <AuthNumber isEmail={isEmail} />
         </IdfForm>
 
-        {isDisabled ? (
-          <Button type="submit">다음</Button>
-        ) : (
-          <Button style={{ background: '#c4c4c4' }} disabled={true} type="button">
-            다음
-          </Button>
-        )}
+        <NextButton disabled={isDisabled}>다음</NextButton>
       </form>
     </div>
   );
