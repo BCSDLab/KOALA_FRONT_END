@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import * as S from 'components/Auth/styles';
 import styled from 'styled-components';
 
-const AuthNuminput = styled.input`
+const AuthNumInput = styled.input`
   width: 218px;
   height: 44px;
-  border: none;
-  flex-grow: 0;
-  padding-left: 16px;
-  margin-top: 20px;
   border: solid 1px ${({ isError }) => (isError ? '#ffd25d' : '#c4c4c4')};
+  outline: none;
+  padding-left: 16px;
+  flex-grow: 0;
 
   &:focus {
     border: solid 1px #222;
@@ -38,13 +37,12 @@ const AuthNumTime = styled.label`
 const AuthForm = styled.div`
   display: flex;
   position: relative;
-  height: 68px;
 `;
 
 const AuthButton = styled.button`
   width: 125px;
   height: 48px;
-  margin: 20px 0 0 25px;
+  margin: 0 0 0 25px;
   background: ${({ isEmail }) => (isEmail ? '#222' : '#c4c4c4')};
   font-size: 14px;
   border: 0;
@@ -59,9 +57,9 @@ const AuthButton = styled.button`
 
 /**
  * TODO:
- * - [] 스타일: 인증번호 에러 스타일 (입력시간 초과, 인증번호 틀림)
- * - [] 스타일: 인증번호 시간
- * - [] 인증번호 전송 후 확인
+ * - [x] 스타일: 인증번호 에러 스타일 (입력시간 초과, 인증번호 틀림)
+ * - [x] 스타일: 인증번호 시간
+ * - [] 인증번호 전송 후 알림
  *  - 입력 시간 초과
  *  - 인증번호 틀림
  * @param {*} 이메일 확인 여부
@@ -77,7 +75,11 @@ const AuthNumber = ({ isEmail = false }) => {
   const sendAuthCode = () => {
     // 메일 전송 로직 실행 후
     setIsEmailSend(true);
+    if (isEmailSend) {
+      setIsError(false);
+    }
     setMinutes(parseInt('05'));
+    setSeconds(parseInt('00'));
   };
 
   useEffect(() => {
@@ -88,7 +90,7 @@ const AuthNumber = ({ isEmail = false }) => {
       if (parseInt(seconds) === 0) {
         if (parseInt(minutes) === 0) {
           clearInterval(countdown);
-          setIsError(isEmailSend ? true : false);
+          setIsError(isEmailSend);
         } else {
           setMinutes(parseInt(minutes) - 1);
           setSeconds(59);
@@ -101,15 +103,15 @@ const AuthNumber = ({ isEmail = false }) => {
   return (
     <>
       <AuthForm>
-        <AuthNuminput isError={isError} isEmailSend={isEmailSend} placeholder="인증번호 입력" />
+        <AuthNumInput isError={isError} isEmailSend={isEmailSend} placeholder="인증번호 입력" />
         <AuthButton onClick={sendAuthCode} isEmail={isEmail} disabled={!isEmail} type="button">
           {isEmailSend ? '재전송' : '인증번호 전송'}
         </AuthButton>
-        {isEmailSend ? (
+        {isEmailSend && (
           <AuthNumTime>
             {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
           </AuthNumTime>
-        ) : null}
+        )}
       </AuthForm>
       <S.InputErrorText>{isError ? '입력시간이 초과되었습니다.' : ''}</S.InputErrorText>
     </>
