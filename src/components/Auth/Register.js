@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
-import PwdInput from 'components/Auth/PwdInput';
-import IdInput from 'components/Auth/IdInput';
+import PwdInput from 'components/Auth/Shared/PwdInput';
+import IdInput from 'components/Auth/Shared/IdInput';
 import styled from 'styled-components';
 import { ACCOUNT_ERROR, EMAIL_ERROR, NICKNAME_ERROR } from 'constant';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,7 +36,7 @@ const RegisterForm = () => {
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
   const [isNickName, setIsNickName] = useState(false);
 
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -89,10 +89,10 @@ const RegisterForm = () => {
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
       /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    const emailCurrent = e.target.value;
-    setEmail(emailCurrent);
+    const currentEmail = e.target.value;
+    setEmail(currentEmail);
 
-    if (!emailRegex.test(emailCurrent)) {
+    if (!emailRegex.test(currentEmail)) {
       setEmailMessage('이메일 형식이 일치하지 않습니다.');
       setIsEmail(false);
     } else {
@@ -116,9 +116,9 @@ const RegisterForm = () => {
 
   useEffect(() => {
     if (isAccount && isPassword && isPasswordConfirm && isEmail && isNickName) {
-      setIsDisabled(true);
-    } else {
       setIsDisabled(false);
+    } else {
+      setIsDisabled(true);
     }
   }, [isAccount, isPassword, isPasswordConfirm, isEmail, isNickName]);
 
@@ -144,8 +144,9 @@ const RegisterForm = () => {
         style={accountMessage ? errorStyle : null}
         placeholder="아이디"
         error={accountMessage}
+        isError={accountMessage !== ''}
+        errorMessage={accountMessage}
       />
-      {accountMessage ? <ErrorAlert>{accountMessage}</ErrorAlert> : <br></br>}
       <PwdInput
         name="password"
         value={password}
@@ -153,8 +154,9 @@ const RegisterForm = () => {
         style={passwordMessage ? errorStyle : null}
         placeholder="비밀번호 입력"
         error={passwordMessage}
+        isError={passwordMessage !== ''}
+        errorMessage={passwordMessage}
       />
-      {passwordMessage ? <ErrorAlert>{passwordMessage}</ErrorAlert> : <br></br>}
       <PwdInput
         name="passwordConfirm"
         value={passwordConfirm}
@@ -162,8 +164,9 @@ const RegisterForm = () => {
         style={passwordConfirmMessage ? errorStyle : null}
         placeholder="비밀번호 확인"
         error={passwordConfirmMessage}
+        isError={passwordConfirmMessage !== ''}
+        errorMessage={passwordConfirmMessage}
       />
-      {passwordConfirmMessage ? <ErrorAlert>{passwordConfirmMessage}</ErrorAlert> : <br></br>}
       <IdInput
         name="email"
         value={email}
@@ -171,8 +174,9 @@ const RegisterForm = () => {
         style={emailMessage ? errorStyle : null}
         placeholder="이메일"
         error={emailMessage}
+        isError={emailMessage !== ''}
+        errorMessage={emailMessage}
       />
-      {emailMessage ? <ErrorAlert>{emailMessage}</ErrorAlert> : <br></br>}
       <IdInput
         name="nickName"
         value={nickName}
@@ -180,15 +184,13 @@ const RegisterForm = () => {
         style={nickNameMessage ? errorStyle : null}
         placeholder="닉네임"
         error={nickNameMessage}
+        isError={nickNameMessage !== ''}
+        errorMessage={nickNameMessage}
       />
-      {nickNameMessage ? <ErrorAlert>{nickNameMessage}</ErrorAlert> : <br></br>}
-      {isDisabled ? (
-        <Button type="submit">다음</Button>
-      ) : (
-        <Button style={{ background: 'gray' }} disabled={true} type="button">
-          다음
-        </Button>
-      )}
+
+      <Button disabled={isDisabled} type={isDisabled ? 'button' : 'submit'}>
+        다음
+      </Button>
     </form>
   );
 };

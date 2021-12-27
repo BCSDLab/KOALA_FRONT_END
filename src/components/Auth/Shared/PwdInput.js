@@ -4,6 +4,17 @@ import * as S from 'components/Auth/styles';
 
 const StyledPwd = styled.div`
   position: relative;
+  margin-top: 0;
+  margin-bottom: 24px;
+`;
+
+const StyledInput = styled(S.StyledInput)`
+  border: solid 1px ${({ isError }) => (isError ? '#ffd25d' : '#c4c4c4')};
+  margin: 0;
+  background-image: ${({ isError }) => (isError ? `url('/asset/inputError.svg')` : 'none')};
+  background-position-y: center;
+  background-position-x: 300px;
+  background-repeat: no-repeat;
 `;
 
 const PwdSee = styled.span`
@@ -11,9 +22,8 @@ const PwdSee = styled.span`
 `;
 const EyeImg = styled.img`
   position: absolute;
-  top: 30%;
-  left: 89%;
-  right: 0;
+  top: 12px;
+  right: 16px;
 `;
 
 const ErrorImg = styled.img`
@@ -37,16 +47,17 @@ const PwdInput = (props) => {
   };
   return (
     <StyledPwd>
-      <S.StyledInput
+      <StyledInput
         autoComplete="new-password"
         name={props.password}
         placeholder={props.placeholder}
         type={isPasswordType.type}
         value={props.value}
         onChange={props.onChange}
+        isError={props.isError}
         {...props}
       />
-      {props.error ? <ErrorImg src="/asset/inputError.svg" alt="error" /> : null}
+      <S.InputErrorText>{props.errorMessage}</S.InputErrorText>
       <PwdSee onClick={handlePasswordType}>
         {isPasswordType.visible ? (
           <EyeImg src="/asset/openEye.svg" alt="openeye" />

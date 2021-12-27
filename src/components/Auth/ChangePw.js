@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from 'components/Auth/styles';
-import PwdInput from './PwdInput';
+import PwdInput from './Shared/PwdInput';
 import Button from 'components/Shared/Button';
 import styled from 'styled-components';
 
