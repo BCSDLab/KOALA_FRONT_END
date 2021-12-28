@@ -2,16 +2,27 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
+  background: #222;
   width: 368px;
   height: 48px;
+  border: 0;
+  margin-top: 32px;
+  font-size: 16px;
+  font-weight: 500;
+  ouline: none;
   flex-grow: 0;
   color: white;
-  margin-top: 32px;
-  ouline: none;
-  border: 0;
-  background: black;
+
+  cursor: pointer;
+
   &:hover {
-    background: gray;
+    background: #c4c4c4;
+  }
+
+  :disabled,
+  [disabled] {
+    background: #c4c4c4;
+    cursor: default;
   }
 `;
 

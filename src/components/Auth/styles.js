@@ -3,14 +3,13 @@ import { Link } from 'react-router-dom';
 
 export const StyledInput = styled.input`
   width: 348px;
-  height: 48px;
-  border: none;
+  height: 44px;
+  border: solid 1px #c4c4c4;
   flex-grow: 0;
   padding-left: 16px;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  border: solid 1px #c4c4c4;
+  margin: 2px 0;
   position: relative;
+  outline: none;
   &:focus {
     border: solid 1px #222;
   }
@@ -116,8 +115,10 @@ export const CopyRight = styled.div`
 `;
 
 export const Title = styled.div`
+  height: 24px;
+  margin-bottom: 30px;
   font-size: 16px;
-  margin-bottom: 20px;
+  font-weight: 500;
 `;
 
 export const Agree = styled.div`
@@ -135,6 +136,17 @@ export const AllAgree = styled.div`
 
 export const AgreeText = styled.div`
   width: 350px;
+`;
+
+export const InputErrorText = styled.span`
+  display: flex;
+  height: 16px;
+  position: absolute;
+  margin: 4px 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: #ffd25d;
+  justify-content: flex-start;
 `;
 
 export const Drop = styled.img`

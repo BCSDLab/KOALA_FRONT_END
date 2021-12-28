@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Switch from 'components/Shared/Switch';
 import StyledButton from 'components/Shared/Button';
-import PwdInput from 'components/Auth/PwdInput';
+import PwdInput from 'components/Auth/Shared/PwdInput';
+import IdInput from 'components/Auth/Shared/IdInput';
 import * as S from 'components/Auth/styles';
-import IdInput from './IdInput';
 import { login } from '../../store/auth';
 import { useNavigate } from 'react-router';
 

@@ -2,11 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 const AuthTemplateBlock = styled.div`
-  padding: 0 776px 0 776px;
   display: flex;
   justify-content: center;
   alignitems: center;
-  width: 368px;
 `;
 
 const Box = styled.div`
@@ -18,7 +16,7 @@ const MainLogo = styled.img`
   width: 125px;
   height: 34px;
   padding: 0 0px 0 125.2px;
-  margin-bottom: 40px;
+  margin-bottom: 48px;
 `;
 
 const AuthTemplate = ({ children }) => (
