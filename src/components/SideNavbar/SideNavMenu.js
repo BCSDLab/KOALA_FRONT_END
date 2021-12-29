@@ -5,9 +5,7 @@ import KeywordDropdown from './KeywordDropdown';
 const Extension = () => {
   return (
     <S.SideMenuBackground>
-      <S.SideMenuContainer>
-        <S.Logo src="/asset/KoalaLogo.svg" alt="Logo" />
-      </S.SideMenuContainer>
+      <S.Logo src="/asset/KoalaLogo.svg" alt="Logo" />
 
       <KeywordDropdown />
 

@@ -6,6 +6,7 @@ import createSagaMiddleware from '@redux-saga/core';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import App from './App';
+import GlobalFonts from './font/fonts';
 import rootReducer, { rootSaga } from './store';
 import logger from 'redux-logger';
 import './index.css';
@@ -20,6 +21,7 @@ sagaMiddleware.run(rootSaga);
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
+      <GlobalFonts />
       <App />
     </BrowserRouter>
   </Provider>,

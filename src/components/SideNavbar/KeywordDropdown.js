@@ -30,10 +30,10 @@ const KeywordDropdown = () => {
     },
   ];
 
-  const DropDown = kewords.map((keyword) => (
-    <S.KeywordDropmenu>
-      <S.KeywordText id={keyword.id}>{keyword.text}</S.KeywordText>
-      <S.KeywordUpdate id={keyword.id}>{keyword.update}</S.KeywordUpdate>
+  const DropDown = kewords.map((keyword, index) => (
+    <S.KeywordDropmenu key={index}>
+      <S.KeywordText>{keyword.text}</S.KeywordText>
+      <S.KeywordUpdate>{keyword.update}</S.KeywordUpdate>
     </S.KeywordDropmenu>
   ));
 

@@ -2,18 +2,20 @@ import styled from 'styled-components';
 
 export const SideMenuBackground = styled.div`
   width: 270px;
-  height: 860px;
-  padding: 36.5px 0 38px;
+  height: 1110px;
+  flex-grow: 0;
+  padding: 40px 0 0;
   background-color: #f6f7f8;
 `;
 
-export const SideMenuContainer = styled.div`
-  margin: 0px 0px 69px 18px;
-`;
+export const SideMenuContainer = styled.div``;
 
 export const Logo = styled.img`
   width: 80px;
   height: 21.8px;
+  flex-grow: 0;
+  margin: 0 116px 84.2px 24px;
+  object-fit: contain;
 `;
 
 const List = styled.div`
@@ -33,25 +35,37 @@ const Link = styled.div`
   text-align: left;
 `;
 
-export const KeywordMain = styled.div`
-  width: 44px;
-  height: 21px;
-  font-size: 14px;
-  margin: 6px 1px 5px 24px;
-  display: flex;
-  text-align: left;
-  color: #222;
-`;
-
 export const KeywordList = styled.div`
   width: 270px;
   height: 32px;
   display: flex;
 `;
+
+export const KeywordMain = styled.span`
+  width: 39px;
+  height: 21px;
+  flex-grow: 0;
+  margin: 0px 0px 27px 24px;
+  font-family: 'Medium';
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #222;
+`;
+
 export const KeywordDropdown = styled.img`
-  width: 24px;
-  height: 24px;
-  margin: 2.2px 169px 24px 6px;
+
+width: 24px;
+height: 24px;
+flex-grow: 0;
+margin: 0px 0px 24px 0px;
+object-fit: contain;
+
+}
 `;
 
 export const KeywordElement = styled.div`
@@ -68,10 +82,10 @@ export const KeywordDropmenu = styled(Link)`
   font-size: 14px;
 `;
 
-export const KeywordText = styled.div`
+export const KeywordText = styled.span`
   width: 190px;
   height: 21px;
-  padding: 12px 0 11.5px 32px;
+  padding: 11px 0px 12px 32px;
 `;
 
 export const KeywordUpdate = styled.div`
@@ -90,7 +104,10 @@ export const AddImg = styled.img`
   margin: 18px 8px 15.5px 32px;
 `;
 
-export const AddKeyword = styled(List)``;
+export const AddKeyword = styled(List)`
+  width: 270px;
+  height: 62.5px;
+`;
 
 export const AddText = styled.div`
   width: 94px;
@@ -102,12 +119,13 @@ export const AddText = styled.div`
 `;
 
 export const HistoryList = styled(List)`
+  height: 75px;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
 `;
 
 export const HistoryLink = styled(Link)`
-  margin: 27.5px 0;
+  margin: 27.5px 0px 26.5px 0;
   font-size: 14px;
 `;
 export const HistoryText = styled.span`
@@ -134,7 +152,7 @@ export const ChatText = styled.div`
 export const SetList = styled.div`
   width: 270px;
   height: 92px;
-  padding: 220px 0 0 0;
+  padding: 370.5px 0 0 0;
   display: flex;
   flex-direction: column;
   font-size: 14px;
@@ -146,16 +164,18 @@ export const Set = styled(Link)`
   font-size: 14px;
 `;
 
-export const SetText = styled.div`
+export const SetText = styled.span`
+  width: 30px;
   height: 24px;
-  padding: 12px 208px 8px 12px;
+  margin: 6px 208px 14px 32px;
+  color: #222;
 `;
 
 export const Contact = styled(Link)`
   font-size: 14px;
 `;
 
-export const ContactText = styled.div`
+export const ContactText = styled.span`
   height: 24px;
-  padding: 32px 179px 12px 12px;
+  margin: 10px 0 14px 32px;
 `;
