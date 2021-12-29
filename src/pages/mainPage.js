@@ -5,17 +5,19 @@ import styled from 'styled-components';
 import { removeCookie } from 'components/Shared/Cookies';
 import { useNavigate } from 'react-router';
 
-const LoginBtn = styled.button`
-  background-color: black;
-  display: flex;
-  position: absoulte;
-  justify-content: center;
-  color: white;
+const LoginButton = styled.button`
   width: 80px;
   height: 32px;
-  margin-left: 1700px;
-  margin-top: -900px;
-  padding-top: 5px;
+  background: #222;
+  position: absolute;
+  top: 40px;
+  right: 80px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
 `;
 
 const mainPage = () => {
@@ -34,12 +36,12 @@ const mainPage = () => {
 
   return (
     <div>
-      <SideNavbar></SideNavbar>
       {loginInfo.isLoggedIn ? (
-        <LoginBtn onClick={logoutClick}>로그아웃</LoginBtn>
+        <LoginButton onClick={logoutClick}>로그아웃</LoginButton>
       ) : (
-        <LoginBtn onClick={loginClick}>로그인</LoginBtn>
+        <LoginButton onClick={loginClick}>로그인</LoginButton>
       )}
+      <SideNavbar></SideNavbar>
     </div>
   );
 };
