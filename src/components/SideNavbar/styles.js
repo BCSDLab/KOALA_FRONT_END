@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const SideMenuBackground = styled.div`
   width: 270px;
@@ -27,7 +28,7 @@ const List = styled.div`
   text-align: left;
 `;
 
-const Link = styled.div`
+const StyledLinkDiv = styled.div`
   width: 270px;
   height: 44px;
   display: flex;
@@ -35,16 +36,12 @@ const Link = styled.div`
   text-align: left;
 `;
 
-export const KeywordList = styled.div`
+export const KeywordDropdown = styled.div`
+  position: relative;
   width: 270px;
-  height: 32px;
-  display: flex;
 `;
 
 export const KeywordMain = styled.span`
-  width: 39px;
-  height: 21px;
-  flex-grow: 0;
   margin: 0px 0px 27px 24px;
   font-size: 14px;
   font-weight: 500;
@@ -55,64 +52,74 @@ export const KeywordMain = styled.span`
   color: #222;
 `;
 
-export const KeywordDropdown = styled.img`
-
-width: 24px;
-height: 24px;
-flex-grow: 0;
-margin: 0px 0px 24px 0px;
-object-fit: contain;
-
-}
+export const KeywordSetting = styled(Link)`
+  right: 17px;
+  position: absolute;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: right;
+  color: #999;
 `;
 
-export const KeywordElement = styled.div`
+export const KeywordDropdownButton = styled.img`
+  width: 24px;
+  height: 24px;
+  margin-left: 14px;
+  cursor: pointer;
+`;
+
+export const KeywordList = styled.ul`
   width: 270px;
-  height: 220px;
+  padding: 0 0;
+  margin: 16px 0 0 0;
+`;
+
+export const KeywordSection = styled.li`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 14px;
-  text-align: left;
-`;
-
-export const KeywordDropmenu = styled(Link)`
+  border: none;
+  padding: 11px 17px 12px 32px;
+  cursor: pointer;
   font-size: 14px;
 `;
 
-export const KeywordText = styled.span`
-  width: 190px;
-  height: 21px;
-  padding: 11px 0px 12px 32px;
+export const KeywordName = styled.span`
+  font-size: 14px;
+  color: #222;
+  font-weight: normal;
 `;
 
-export const KeywordUpdate = styled.div`
+export const KeywordCount = styled.span`
   width: 24px;
   height: 18px;
-  margin: 0 24px 0 0;
-  background-color: #ffd25d;
+  background: #ffd25d;
+  position: absolute;
+  right: 24px;
   font-size: 12px;
   text-align: center;
   color: #fff;
 `;
 
+export const AddKeywordSection = styled.div`
+  display: flex;
+  margin: 11px 0 15.5px 0;
+  padding: 0 17px 0 32px;
+`;
+
 export const AddImg = styled.img`
   width: 24px;
   height: 24px;
-  margin: 18px 8px 15.5px 32px;
 `;
 
-export const AddKeyword = styled(List)`
-  width: 270px;
-  height: 62.5px;
-`;
-
-export const AddText = styled.div`
-  width: 94px;
-  height: 21px;
-  margin: 22px 0 15.5px 8px;
-  font-size: 12px;
-  text-align: left;
+export const AddText = styled(Link)`
+  margin-left: 8px;
+  position: relative;
+  top: 1px;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: normal;
+  letter-spacing: normal;
   color: #222;
 `;
 
@@ -122,16 +129,14 @@ export const HistoryList = styled(List)`
   border-bottom: 1px solid #eee;
 `;
 
-export const HistoryLink = styled(Link)`
+export const HistoryLink = styled(StyledLinkDiv)`
   margin: 27.5px 0px 26.5px 0;
   font-size: 14px;
 `;
-export const HistoryText = styled.span`
-  width: 52px;
-  height: 21px;
+export const HistoryText = styled(Link)`
   margin: 27.5px 194px 27.5px 24px;
-  font-size: 13px;
-  text-align: left;
+  font-size: 14px;
+  font-weight: normal;
   color: #222;
 `;
 
@@ -141,9 +146,9 @@ export const ChatLink = styled.div`
   font-size: 12px;
 `;
 
-export const ChatText = styled.div`
-  width: 39px;
-  height: 21px;
+export const ChatText = styled(Link)`
+  font-size: 14px;
+  font-weight: 500;
   padding: 12px 207px 11px 24px;
 `;
 
@@ -157,23 +162,24 @@ export const SetList = styled.div`
   text-align: left;
 `;
 
-export const Set = styled(Link)`
+export const Set = styled(StyledLinkDiv)`
   padding: 0 0 4px 0;
   font-size: 14px;
 `;
 
 export const SetText = styled.span`
-  width: 30px;
-  height: 24px;
+  font-size: 16px;
+  font-weight: normal;
   margin: 6px 208px 14px 32px;
   color: #222;
 `;
 
-export const Contact = styled(Link)`
+export const Contact = styled(StyledLinkDiv)`
   font-size: 14px;
 `;
 
 export const ContactText = styled.span`
-  height: 24px;
+  font-size: 16px;
+  font-weight: normal;
   margin: 10px 0 14px 32px;
 `;

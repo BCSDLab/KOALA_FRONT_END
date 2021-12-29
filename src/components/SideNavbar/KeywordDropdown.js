@@ -30,21 +30,24 @@ const KeywordDropdown = () => {
     },
   ];
 
-  const DropDown = kewords.map((keyword, index) => (
-    <S.KeywordDropmenu key={index}>
-      <S.KeywordText>{keyword.text}</S.KeywordText>
-      <S.KeywordUpdate>{keyword.update}</S.KeywordUpdate>
-    </S.KeywordDropmenu>
-  ));
-
   return (
-    <div>
+    <S.KeywordDropdown>
+      <S.KeywordMain>키워드</S.KeywordMain>
+      <S.KeywordDropdownButton src="/asset/KeywordDropDown.svg" alt="drop" />
+      <S.KeywordSetting to="">설정</S.KeywordSetting>
       <S.KeywordList>
-        <S.KeywordMain>키워드</S.KeywordMain>
-        <S.KeywordDropdown src="/asset/KeywordDropDown.svg" alt="drop" />
+        {kewords.map((keyword, index) => (
+          <S.KeywordSection key={index}>
+            <S.KeywordName>{keyword.text}</S.KeywordName>
+            <S.KeywordCount>{keyword.update}</S.KeywordCount>
+          </S.KeywordSection>
+        ))}
       </S.KeywordList>
-      <S.KeywordElement>{DropDown}</S.KeywordElement>
-    </div>
+      <S.AddKeywordSection>
+        <S.AddImg src="/asset/Plus.svg" alt="add keyword" />
+        <S.AddText to="/">키워드 추가하기</S.AddText>
+      </S.AddKeywordSection>
+    </S.KeywordDropdown>
   );
 };
 
