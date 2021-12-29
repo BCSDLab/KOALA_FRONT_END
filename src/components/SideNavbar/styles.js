@@ -46,10 +46,8 @@ export const KeywordMain = styled.span`
   height: 21px;
   flex-grow: 0;
   margin: 0px 0px 27px 24px;
-  font-family: 'Medium';
   font-size: 14px;
   font-weight: 500;
-  font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
