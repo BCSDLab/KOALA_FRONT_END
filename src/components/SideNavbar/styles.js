@@ -148,7 +148,6 @@ export const ChatLink = styled.div`
 
 export const ChatText = styled(Link)`
   font-size: 14px;
-  font-weight: 500;
   padding: 12px 207px 11px 24px;
 `;
 
