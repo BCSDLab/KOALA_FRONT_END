@@ -1,5 +1,6 @@
 import React from 'react';
 import SideNavbar from 'components/SideNavbar';
+import LoginButton from 'components/Shared/LoginButton';
 import styled from 'styled-components';
 
 const MyPageContainer = styled.div`
@@ -11,8 +12,9 @@ const MyPageContent = styled.div`
 `;
 
 const UserInfo = styled.div`
-  margin: 121px 664px 181px 522px;
+  margin: 121px 664px 181px 426px;
 `;
+//  121px 664px 181px 522px sideNav 열릴때
 
 const MainText = styled.div`
   width: 34px;
@@ -239,6 +241,7 @@ const MyPage = () => {
     <MyPageContainer>
       <SideNavbar></SideNavbar>
       <MyPageContent>
+        <LoginButton />
         <UserInfo>
           <MainText>설정</MainText>
           <MyInfo>내 정보</MyInfo>
