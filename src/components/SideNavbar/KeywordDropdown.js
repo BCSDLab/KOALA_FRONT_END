@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from 'components/SideNavbar/styles';
 
 const KeywordDropdown = () => {
-  const kewords = [
+  const keywords = [
     {
       id: 1,
       text: '김이정',
@@ -36,8 +36,8 @@ const KeywordDropdown = () => {
       <S.KeywordDropdownButton src="/asset/KeywordDropDown.svg" alt="drop" />
       <S.KeywordSetting to="">설정</S.KeywordSetting>
       <S.KeywordList>
-        {kewords.map((keyword, index) => (
-          <S.KeywordSection key={index}>
+        {keywords.map((keyword) => (
+          <S.KeywordSection key={keyword.id}>
             <S.KeywordName>{keyword.text}</S.KeywordName>
             <S.KeywordCount>{keyword.update}</S.KeywordCount>
           </S.KeywordSection>
