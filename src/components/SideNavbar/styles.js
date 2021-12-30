@@ -28,7 +28,7 @@ const List = styled.div`
   text-align: left;
 `;
 
-const StyledLinkDiv = styled.div`
+const StyledLinkDiv = styled(Link)`
   width: 270px;
   height: 44px;
   display: flex;
@@ -41,8 +41,7 @@ export const KeywordDropdown = styled.div`
   width: 270px;
 `;
 
-export const KeywordMain = styled.span`
-  margin: 0px 0px 27px 24px;
+const MenuTitle = styled.span`
   font-size: 14px;
   font-weight: 500;
   font-style: normal;
@@ -50,6 +49,10 @@ export const KeywordMain = styled.span`
   letter-spacing: normal;
   text-align: left;
   color: #222;
+`;
+
+export const KeywordMain = styled(MenuTitle)`
+  margin: 0px 0px 27px 24px;
 `;
 
 export const KeywordSetting = styled(Link)`
@@ -133,20 +136,15 @@ export const HistoryLink = styled(StyledLinkDiv)`
   margin: 27.5px 0px 26.5px 0;
   font-size: 14px;
 `;
-export const HistoryText = styled(Link)`
+export const HistoryText = styled(MenuTitle)`
   margin: 27.5px 194px 27.5px 24px;
-  font-size: 14px;
-  font-weight: normal;
-  color: #222;
 `;
 
 export const ChatList = styled(List)``;
 
-export const ChatLink = styled.div`
-  font-size: 12px;
-`;
+export const ChatLink = styled(Link)``;
 
-export const ChatText = styled(Link)`
+export const ChatText = styled(MenuTitle)`
   font-size: 14px;
   padding: 12px 207px 11px 24px;
 `;
