@@ -8,7 +8,6 @@ import { Provider } from 'react-redux';
 import App from './App';
 import rootReducer, { rootSaga } from './store';
 import logger from 'redux-logger';
-import './index.css';
 import dotenv from 'dotenv';
 dotenv.config();
 

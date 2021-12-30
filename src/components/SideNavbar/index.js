@@ -4,8 +4,9 @@ import SideNavMenu from './SideNavMenu';
 
 const Nav = styled.div`
   width: 80px;
-  height: 805px;
-  padding: 40px 24px 91px;
+  height: 1110px;
+  margin-right: ${({ isSideMenu }) => !isSideMenu && '696px'};
+  padding: ${({ isSideMenu }) => (isSideMenu ? ` 40px 17px 0px;` : `40px 17px 91px;`)};
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
   background-color: #fff;
   display: flex;
@@ -14,45 +15,63 @@ const Nav = styled.div`
 `;
 
 const NavContainer = styled.div`
-  width: 395px;
-  height: 90%;
+  width: 350px;
+  height: 1110px;
   display: flex;
-`;
-
-const Block = styled.div`
-  width: 32px;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const KeywordBlock = styled(Block)`
-  margin: 20px 0;
-`;
-
-const HistoryBlock = styled(Block)`
-  margin: ${({ isSideMenu }) => (isSideMenu ? `289px 0 0 0 ` : `20px 0`)}};
-`;
-
-const ChatBlock = styled(Block)`
-  margin: ${({ isSideMenu }) => (isSideMenu ? `  45px 0 0 0 ` : ` 20px 0`)}};
-`;
-
-const SetBlock = styled(Block)`
-  margin: ${({ isSideMenu }) => (isSideMenu ? ` 250px 0 0 0  ` : ` 20px 0`)}};
 `;
 
 const MenuButton = styled.button`
   width: 26px;
   height: 20px;
-  margin: 0 3px 60px;
+  margin: 0 10px 80px;
+  padding: 3px 0;
   cursor: pointer;
   border: 0;
-  display: flex;
   background-color: #fff;
-  justify-content: center;
-  align-items: center;
+`;
+
+const MenuImg = styled.img`
+  width: 26px;
+  height: 20px;
+  object-fit: contain;
+`;
+
+const HashTagImg = styled.img`
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  object-fit: contain;
+`;
+
+const HistoryImg = styled.img`
+  width: 32px;
+  height: 32px;
+  margin: ${({ isSideMenu }) =>
+    isSideMenu
+      ? `309px 0 0;`
+      : `40px 0;
+  `};
+  object-fit: contain;
+`;
+const ChatImg = styled.img`
+  width: 32px;
+  height: 32px;
+  margin: ${({ isSideMenu }) =>
+    isSideMenu
+      ? `45px 0 0;`
+      : `0 0;
+`};
+  object-fit: contain;
+`;
+const SettingImg = styled.img`
+  width: 32px;
+  height: 32px;
+  margin: ${({ isSideMenu }) =>
+    isSideMenu
+      ? `397px 0 0;`
+      : `40px 0;
+`};
+  object-fit: contain;
 `;
 
 const SideNavbar = () => {
@@ -64,23 +83,18 @@ const SideNavbar = () => {
 
   return (
     <NavContainer>
-      <Nav>
-        <MenuButton type="button" onClick={toggleSideMenu}>
-          <img src="/asset/MenuBtn.svg" alt="Vector" />
+      <Nav isSideMenu={isSideMenu}>
+        <MenuButton onClick={toggleSideMenu}>
+          <MenuImg src="/asset/MenuBtn.svg" alt="Vector" />
         </MenuButton>
 
-        <KeywordBlock>
-          <img src="/asset/Hashtag.svg" alt="keyword" />
-        </KeywordBlock>
-        <HistoryBlock isSideMenu={isSideMenu}>
-          <img src="/asset/History.svg" alt="history" />
-        </HistoryBlock>
-        <ChatBlock isSideMenu={isSideMenu}>
-          <img src="/asset/Chat.svg" alt="chat" />
-        </ChatBlock>
-        <SetBlock isSideMenu={isSideMenu}>
-          <img src="/asset/Setting.svg" alt="mypage" />
-        </SetBlock>
+        <HashTagImg src="/asset/Hashtag.svg" alt="keyword" />
+
+        <HistoryImg isSideMenu={isSideMenu} src="/asset/History.svg" alt="history" />
+
+        <ChatImg isSideMenu={isSideMenu} src="/asset/Chat.svg" alt="chat" />
+
+        <SettingImg isSideMenu={isSideMenu} src="/asset/Setting.svg" alt="mypage" />
       </Nav>
       {isSideMenu && <SideNavMenu />}
     </NavContainer>

@@ -1,50 +1,26 @@
 import React from 'react';
 import * as S from 'components/SideNavbar/styles';
+import keywords from './dummy';
 
 const KeywordDropdown = () => {
-  const kewords = [
-    {
-      id: 1,
-      text: '김이정',
-      update: 10,
-    },
-    {
-      id: 2,
-      text: '이유정',
-      update: 10,
-    },
-    {
-      id: 3,
-      text: '국가장학금',
-      update: 10,
-    },
-    {
-      id: 4,
-      text: '근로장학생',
-      update: 10,
-    },
-    {
-      id: 5,
-      text: '성적',
-      update: 10,
-    },
-  ];
-
-  const DropDown = kewords.map((keyword) => (
-    <S.KeywordDropmenu>
-      <S.KeywordText id={keyword.id}>{keyword.text}</S.KeywordText>
-      <S.KeywordUpdate id={keyword.id}>{keyword.update}</S.KeywordUpdate>
-    </S.KeywordDropmenu>
-  ));
-
   return (
-    <div>
+    <S.KeywordDropdown>
+      <S.KeywordMain>키워드</S.KeywordMain>
+      <S.KeywordDropdownButton src="/asset/KeywordDropDown.svg" alt="drop" />
+      <S.KeywordSetting to="">설정</S.KeywordSetting>
       <S.KeywordList>
-        <S.KeywordMain>키워드</S.KeywordMain>
-        <S.KeywordDropdown src="/asset/KeywordDropDown.svg" alt="drop" />
+        {keywords.map((keyword) => (
+          <S.KeywordSection key={keyword.id}>
+            <S.KeywordName>{keyword.text}</S.KeywordName>
+            <S.KeywordCount>{keyword.update}</S.KeywordCount>
+          </S.KeywordSection>
+        ))}
       </S.KeywordList>
-      <S.KeywordElement>{DropDown}</S.KeywordElement>
-    </div>
+      <S.AddKeywordSection>
+        <S.AddImg src="/asset/Plus.svg" alt="add keyword" />
+        <S.AddText to="/">키워드 추가하기</S.AddText>
+      </S.AddKeywordSection>
+    </S.KeywordDropdown>
   );
 };
 
