@@ -13,6 +13,7 @@ import ChangePw from 'components/Auth/ChangePw';
 import MainPage from 'pages/mainPage';
 import { setTokenOnHeader } from 'api/logined';
 import { getCookie } from 'components/Shared/Cookies';
+import MyPage from 'pages/myPage';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,9 @@ const App = () => {
           <Route path="findPw" element={<FindPw />} />
           <Route path="changePw" element={<ChangePw />} />
         </Route>
+      </Routes>
+      <Routes>
+        <Route path="mypage" element={<MyPage />} />
       </Routes>
     </>
   );
