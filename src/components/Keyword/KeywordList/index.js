@@ -46,6 +46,15 @@ const Item = styled.span`
     margin-right:40px;
 `;
 
+const ItemUnderBar = styled.div`
+    width:32px;
+    height:8px;
+    background-color:#222222;
+    position:absolute;
+    left:488px;
+    top:216px;
+`;
+
 
 const KeywordList = () => {
     return(
@@ -61,6 +70,7 @@ const KeywordList = () => {
                 <Item>아우미르</Item>
                 <Item>대신 전해드립니다-koreatech</Item>
             </Menu>
+            <ItemUnderBar></ItemUnderBar>
         </>
     );
 }
