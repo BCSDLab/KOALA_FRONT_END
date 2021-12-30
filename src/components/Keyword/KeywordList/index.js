@@ -30,6 +30,22 @@ const Title = styled.span`
     left:488px;
 `;
 
+const Menu = styled.nav`
+    width:1284px;
+    height:24px;
+    padding-bottom:15.3px;
+    justify-content:space-between;
+    position:absolute;
+    border-bottom:1.5px solid #eeeeee;
+    left:488px;
+    top:180px;
+`; 
+
+const Item = styled.span`
+    font-size:16px;
+    margin-right:40px;
+`;
+
 
 const KeywordList = () => {
     return(
@@ -39,7 +55,12 @@ const KeywordList = () => {
                 <LoginButton>로그아웃</LoginButton>
             </UserContainer>
             <Title>키워드 알림</Title>
-
+            <Menu>
+                <Item>전체</Item>
+                <Item>아우누리</Item>
+                <Item>아우미르</Item>
+                <Item>대신 전해드립니다-koreatech</Item>
+            </Menu>
         </>
     );
 }
