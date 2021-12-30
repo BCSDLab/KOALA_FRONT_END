@@ -22,6 +22,14 @@ const LoginButton = styled.button`
     text-align: center;
 `;
 
+const Title = styled.span`
+    font-size:18px;
+    min-width:87px;
+    position:absolute;
+    top:121px;
+    left:488px;
+`;
+
 
 const KeywordList = () => {
     return(
@@ -30,6 +38,8 @@ const KeywordList = () => {
                 <Username>uko05068님</Username>
                 <LoginButton>로그아웃</LoginButton>
             </UserContainer>
+            <Title>키워드 알림</Title>
+
         </>
     );
 }
