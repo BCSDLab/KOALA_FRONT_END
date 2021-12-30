@@ -14,8 +14,6 @@ const LoginButtonStyle = styled.button`
   color: #fff;
   font-size: 14px;
   font-weight: 500;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: center;
 `;
 
