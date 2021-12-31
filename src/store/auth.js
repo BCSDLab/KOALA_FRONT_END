@@ -35,6 +35,7 @@ export function* signUpRegisterSaga() {
 }
 
 const initialState = {
+  isOpen: false,
   isLoggedIn: false,
   authError: null,
   errorCode: '',

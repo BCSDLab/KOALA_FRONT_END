@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import SideNavbar from 'components/SideNavbar';
 import LoginButton from 'components/Shared/LoginButton';
 import styled from 'styled-components';
@@ -7,14 +8,15 @@ const MyPageContainer = styled.div`
   display: flex;
 `;
 
-const MyPageContent = styled.div`
-  width: 1570px;
-`;
+const MyPageContent = styled.div``;
 
 const UserInfo = styled.div`
-  margin: 121px 664px 181px 426px;
+  margin: ${({ isToggle }) =>
+    isToggle
+      ? ` 121px 664px 181px 522px;`
+      : `121px 664px 181px 426px;
+  `};
 `;
-//  121px 664px 181px 522px sideNav 열릴때
 
 const MainText = styled.div`
   width: 34px;
@@ -34,7 +36,7 @@ const MyInfo = styled.div`
   width: 48px;
   height: 24px;
   margin: 33px 67px 32px 80px;
-  ont-family: NotoSansCJKKR;
+  font-family: NotoSansCJKKR;
   font-size: 16px;
   font-weight: 500;
   font-stretch: normal;
@@ -237,12 +239,18 @@ const Resign = styled.div`
 `;
 
 const MyPage = () => {
+  const toggle = useSelector((state) => state.toggle.isOpen);
+
+  useEffect(() => {
+    console.log(toggle);
+  }, [toggle]);
   return (
     <MyPageContainer>
       <SideNavbar></SideNavbar>
+
       <MyPageContent>
         <LoginButton />
-        <UserInfo>
+        <UserInfo isToggle={toggle}>
           <MainText>설정</MainText>
           <MyInfo>내 정보</MyInfo>
           <UserImg src="/asset/BaseUserPNG.svg"></UserImg>

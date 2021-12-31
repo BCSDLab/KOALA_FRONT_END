@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch, connect } from 'react-redux';
+import { opened } from '../../store/toggle';
 import styled from 'styled-components';
 import SideNavMenu from './SideNavMenu';
 
@@ -76,14 +78,18 @@ const SettingImg = styled.img`
 
 const SideNavbar = () => {
   const [isSideMenu, setIsSideMenu] = useState(false);
+  const isOpen = useSelector((state) => state.toggle.isOpen);
+  const dispatch = useDispatch();
 
   const toggleSideMenu = () => {
     setIsSideMenu((prev) => !prev);
+    dispatch(opened());
+    console.log(isOpen);
   };
 
   return (
     <NavContainer>
-      <Nav isSideMenu={isSideMenu}>
+      <Nav isSideMenu={isOpen}>
         <MenuButton onClick={toggleSideMenu}>
           <MenuImg src="/asset/MenuBtn.svg" alt="Vector" />
         </MenuButton>
@@ -101,4 +107,11 @@ const SideNavbar = () => {
   );
 };
 
-export default SideNavbar;
+export default connect(
+  (state) => ({
+    isOpen: state.isOpen,
+  }),
+  {
+    opened,
+  }
+)(SideNavbar);
