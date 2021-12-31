@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import keywordList from './dummy';
 
 const UserContainer = styled.div`
     position:absolute;
@@ -134,12 +135,13 @@ const MainList = styled.div`
     position:absolute;
     left:501px;
     top:320px;
-    border-bottom:1.5px solid #eeeeee;
 `;
 
 const MainItem = styled.div`
     display:flex;
+    padding-bottom:15px;
     margin-bottom:15px;
+    border-bottom:1.5px solid #eeeeee;
 `;
 
 const MainCheckBox = styled(CheckBox)`
@@ -153,6 +155,8 @@ const MainContent = styled.div`
 `;
 
 const MainReadState = styled(MainContent)`
+    min-width:47px;
+    text-align:center;
     color:#999999;
     margin-right:24px;
 `;
@@ -196,13 +200,17 @@ const KeywordList = () => {
                 </SearchButton>
             </FilterList>
             <MainList>
-                <MainItem>
-                    <MainCheckBox></MainCheckBox>
-                    <MainCheckBoxTitle>아우누리</MainCheckBoxTitle>
-                    <MainContent>이유정장학재단_이유정장학금 장학생 선정안내</MainContent>
-                    <MainReadState>읽지 않음</MainReadState>
-                    <MainPeriod>8/15 - 18:30</MainPeriod>
-                </MainItem>
+                {keywordList.map((item)=>{
+                    return(
+                    <MainItem key={item.id}>
+                        <MainCheckBox></MainCheckBox>
+                        <MainCheckBoxTitle>{item.title}</MainCheckBoxTitle>
+                        <MainContent>{item.content}</MainContent>
+                        <MainReadState>{item.readState}</MainReadState>
+                        <MainPeriod>{item.period}</MainPeriod>
+                    </MainItem>
+                    );
+                })}
             </MainList>
         </>
     );
