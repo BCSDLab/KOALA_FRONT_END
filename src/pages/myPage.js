@@ -17,6 +17,7 @@ const UserInfo = styled.div`
       : `121px 664px 181px 426px;
   `};
 `;
+//  121px 664px 181px 522px sideNav 열릴때
 
 const MainText = styled.div`
   width: 34px;
