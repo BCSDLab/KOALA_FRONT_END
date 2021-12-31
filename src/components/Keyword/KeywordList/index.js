@@ -6,7 +6,7 @@ import * as s from './styles';
 const KeywordList = () => {
     return(
         <>
-            <KeywordHeader/>
+            <KeywordHeader title={'키워드 알림'}/>
             <s.Menu>
                 <s.Item>전체</s.Item>
                 <s.Item>아우누리</s.Item>
@@ -24,13 +24,13 @@ const KeywordList = () => {
                     <span>보관함으로 이동</span>
                 </s.FilterItem>
                 <s.FilterItem className='delete'>
-                    <s.FilterItemImage src='/asset/trash.svg' alt='trash'></s.FilterItemImage>
+                    <s.FilterItemImage src='/asset/trash.svg' alt='trash'/>
                     <span>삭제</span>
                 </s.FilterItem>
                 <s.SearchInput placeholder='알림대상/알림내용/키워드 입력'></s.SearchInput>
                 <s.SearchButton>
                     <span>검색하기</span>
-                    <s.SearchImage src='/asset/search.svg'></s.SearchImage>
+                    <s.SearchImage src='/asset/search.svg'/>
                 </s.SearchButton>
             </s.FilterList>
             <s.MainList>
