@@ -20,7 +20,7 @@ const KeywordList = () => {
                 <s.FilterItem className='read'>읽은 알림</s.FilterItem>
                 <s.FilterItem className='notread'>읽지 않은 알림</s.FilterItem>
                 <s.FilterItem className='goStore'>
-                    <s.FilterItemImage src='/asset/inbox-in.svg' alt='inbox-in'></s.FilterItemImage>
+                    <s.FilterItemImage src='/asset/inbox-in.svg' alt='inbox-in'/>
                     <span>보관함으로 이동</span>
                 </s.FilterItem>
                 <s.FilterItem className='delete'>
