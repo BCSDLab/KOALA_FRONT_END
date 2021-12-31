@@ -65,16 +65,6 @@ const FilterList = styled.nav`
     left:501px;
     top:263px;
 
-    .checkBox{
-        width:16px;
-        height:16px;
-        margin-right:24px;
-    }
-
-    .checkTitle{
-        margin-right:40px;
-    }
-
     .read,
     .notread {
         margin-right:15px;
@@ -96,12 +86,14 @@ const FilterList = styled.nav`
 const CheckBox = styled.div`
     width:16px;
     height:16px;
+    margin-right:24px;
     border-radius:3px;
     border:1px solid #c4c4c4;
 `;
 
 const CheckBoxTitle = styled.span`
     font-size:12px;
+    margin-right:40px;
 `;
 
 const FilterItem = styled.span`
@@ -137,6 +129,35 @@ const SearchImage = styled.img`
     margin-left:8px;
 `;
 
+const MainList = styled.div`
+    position:absolute;
+    left:501px;
+    top:320px;
+`;
+
+const MainItem = styled.div`
+    min-width:1350px;
+    display:flex;
+`;
+
+const MainCheckBox = styled(CheckBox)`
+`;
+const MainCheckBoxTitle = styled(CheckBoxTitle)`
+    margin-right:125px;
+`;
+const MainContent = styled.div`
+    font-size:12px;
+    margin-right:729px;
+`;
+
+const MainReadState = styled(MainContent)`
+    color:#999999;
+    margin-right:24px;
+`;
+
+const MainPeriod = styled(MainContent)`
+    margin-right:0px;
+`;
 
 const KeywordList = () => {
     return(
@@ -172,6 +193,15 @@ const KeywordList = () => {
                     <SearchImage src='/asset/search.svg'></SearchImage>
                 </SearchButton>
             </FilterList>
+            <MainList>
+                <MainItem>
+                    <MainCheckBox></MainCheckBox>
+                    <MainCheckBoxTitle>아우누리</MainCheckBoxTitle>
+                    <MainContent>이유정장학재단_이유정장학금 장학생 선정안내</MainContent>
+                    <MainReadState>읽지 않음</MainReadState>
+                    <MainPeriod>8/15 - 18:30</MainPeriod>
+                </MainItem>
+            </MainList>
         </>
     );
 }
