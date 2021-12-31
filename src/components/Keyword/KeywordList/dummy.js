@@ -70,7 +70,7 @@ const keywordList = [
         period:'8/15 - 18:30'
     },
     {
-        id:1009,
+        id:1010,
         title:'아우누리',
         content:'이유정장학재단_이유정장학금 장학생 선정안내',
         readState:'읽지 않음',
