@@ -130,14 +130,16 @@ const SearchImage = styled.img`
 `;
 
 const MainList = styled.div`
+    min-width:1310px;
     position:absolute;
     left:501px;
     top:320px;
+    border-bottom:1.5px solid #eeeeee;
 `;
 
 const MainItem = styled.div`
-    min-width:1350px;
     display:flex;
+    margin-bottom:15px;
 `;
 
 const MainCheckBox = styled(CheckBox)`
