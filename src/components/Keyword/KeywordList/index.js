@@ -31,7 +31,7 @@ const Title = styled.span`
 `;
 
 const Menu = styled.nav`
-    width:1284px;
+    min-width:1323px;
     height:24px;
     padding-bottom:15.3px;
     justify-content:space-between;
@@ -55,6 +55,88 @@ const ItemUnderBar = styled.div`
     top:216px;
 `;
 
+const FilterList = styled.nav`
+    min-width:1310px;
+    height:36px;
+    display:flex;
+    align-items:center;
+    font-size:12px;
+    position:absolute;
+    left:501px;
+    top:263px;
+
+    .checkBox{
+        width:16px;
+        height:16px;
+        margin-right:24px;
+    }
+
+    .checkTitle{
+        margin-right:40px;
+    }
+
+    .read,
+    .notread {
+        margin-right:15px;
+    }
+
+    .goStore {
+        margin-right:10px;
+        display:flex;
+        align-items:center;
+    }
+
+    .delete {
+        margin-right:24px;
+        display:flex;
+        align-items:center;
+    }
+`;
+
+const CheckBox = styled.div`
+    width:16px;
+    height:16px;
+    border-radius:3px;
+    border:1px solid #c4c4c4;
+`;
+
+const CheckBoxTitle = styled.span`
+    font-size:12px;
+`;
+
+const FilterItem = styled.span`
+    padding:8px;
+    border:1px solid #eee;
+    color:#999999;
+`;
+
+const FilterItemImage = styled.img`
+    margin-right:5px;
+`;
+
+const SearchInput = styled.input`
+    width:665px;
+    padding:8px;
+    border:none;
+    background-color:#eeeeee;
+`;
+
+const SearchButton = styled.button`
+    width:101px;
+    height:34px;
+    padding:8px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:12px;
+    background-color:#222222;
+    color:#ffffff;
+`;
+
+const SearchImage = styled.img`
+    margin-left:8px;
+`;
+
 
 const KeywordList = () => {
     return(
@@ -71,6 +153,25 @@ const KeywordList = () => {
                 <Item>대신 전해드립니다-koreatech</Item>
             </Menu>
             <ItemUnderBar></ItemUnderBar>
+            <FilterList>
+                <CheckBox className='checkBox'></CheckBox>
+                <CheckBoxTitle className='checkTitle'>전체 선택</CheckBoxTitle>
+                <FilterItem className='read'>읽은 알림</FilterItem>
+                <FilterItem className='notread'>읽지 않은 알림</FilterItem>
+                <FilterItem className='goStore'>
+                    <FilterItemImage src='/asset/inbox-in.svg' alt='inbox-in'></FilterItemImage>
+                    <span>보관함으로 이동</span>
+                </FilterItem>
+                <FilterItem className='delete'>
+                    <FilterItemImage src='/asset/trash.svg' alt='trash'></FilterItemImage>
+                    <span>삭제</span>
+                </FilterItem>
+                <SearchInput placeholder='알림대상/알림내용/키워드 입력'></SearchInput>
+                <SearchButton>
+                    <span>검색하기</span>
+                    <SearchImage src='/asset/search.svg'></SearchImage>
+                </SearchButton>
+            </FilterList>
         </>
     );
 }
