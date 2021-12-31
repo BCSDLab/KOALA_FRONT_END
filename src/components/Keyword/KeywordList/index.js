@@ -1,16 +1,12 @@
 import React from 'react';
-import styled from 'styled-components';
 import keywordList from './dummy';
+import KeywordHeader from '../KeywordHeader';
 import * as s from './styles';
 
 const KeywordList = () => {
     return(
         <>
-            <s.UserContainer>
-                <s.Username>uko05068님</s.Username>
-                <s.LoginButton>로그아웃</s.LoginButton>
-            </s.UserContainer>
-            <s.Title>키워드 알림</s.Title>
+            <KeywordHeader/>
             <s.Menu>
                 <s.Item>전체</s.Item>
                 <s.Item>아우누리</s.Item>
