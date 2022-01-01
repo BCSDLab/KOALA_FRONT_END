@@ -1,7 +1,8 @@
-import React,{useCallback} from 'react';
+import React, { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { removeCookie } from '../components/Shared/Cookies'
+import { removeCookie } from '../components/Shared/Cookies';
+import * as API from '../api';
 import SideNavbar from 'components/SideNavbar';
 import LoginButton from 'components/Shared/LoginButton';
 import EditNickName from 'components/Mypage/EditNickName';
@@ -93,7 +94,7 @@ const EtcTitle = styled.div`
 const Element = styled.div`
   width: 52px;
   height: 21px;
-  cursor : pointer;
+  cursor: pointer;
   margin: 0px 50px 32px 80px;
   font-family: NotoSansCJKKR;
   font-size: 14px;
@@ -108,20 +109,25 @@ const Resign = styled(Element)``;
 
 const MyPage = () => {
   const toggle = useSelector((state) => state.toggle.isOpen);
-  const userInformation = useSelector((state)=>state.myPage);
+  const userInformation = useSelector((state) => state.myPage);
   const loginInfo = useSelector((state) => state.auth);
   const naviagate = useNavigate();
   /*
     TODO:
     [] 유저정보 받아올 것: 이미지, 닉네임, 학교인증여부,   
   */
-    const logoutClick = useCallback(() => {
-      removeCookie('refresh_token');
-      loginInfo.isLoggedIn = false;
-      naviagate('/auth');
-      location.reload();
-    });
+  const logoutClick = useCallback(() => {
+    removeCookie('refresh_token');
+    loginInfo.isLoggedIn = false;
+    naviagate('/auth');
+    location.reload();
+  });
 
+  const resignClick = () => {
+    API.deleteUser();
+    naviagate('/auth');
+    location.reload();
+  };
   return (
     <MyPageContainer>
       <SideNavbar></SideNavbar>
@@ -136,12 +142,12 @@ const MyPage = () => {
           <NickNameTitle>닉네임</NickNameTitle>
           <EditNickName userNickName={userInformation.userNickName} />
           <SchoolAuthTitle>학교인증</SchoolAuthTitle>
-          <SchoolAuth/>
+          <SchoolAuth />
           <EtcTitle>기타</EtcTitle>
           <AutoLogin />
           <Contact>문의하기</Contact>
           <LogOut onClick={logoutClick}>로그아웃</LogOut>
-          <Resign>탈퇴하기</Resign>
+          <Resign onClick={resignClick}>탈퇴하기</Resign>
         </UserInfo>
       </MyPageContent>
     </MyPageContainer>

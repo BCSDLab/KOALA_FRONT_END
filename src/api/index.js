@@ -10,7 +10,9 @@ export const checkAccount = (account) => logined.get(`user/account-check?account
 
 export const checkEmail = (email) => logined.get(`user/email-check?email=${email}`);
 
-export const changeNickName = (nickName) => logined.post('user/nickname',nickName);
+export const changeNickName = (nickName) => logined.post('user/nickname', nickName);
+
+export const deleteUser = () => logined.patch('user/delete');
 
 export const signUp = ({ account, password, find_email, nickname }) =>
   logined.post('/user/sing-in', { account, password, find_email, nickname });

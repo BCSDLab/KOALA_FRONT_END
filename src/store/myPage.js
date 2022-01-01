@@ -3,34 +3,34 @@ import createRequestSaga, { createRequestSagaActionTypes } from './createRequest
 import { takeLatest } from '@redux-saga/core/effects';
 import * as API from 'api';
 
-const [CHANGENICKNAME, CHANGENICKNAME_SUCCESS, CHANGENICKNAME_FAILURE] = createRequestSagaActionTypes('myPage/CHANGENICKNAME');
+const [CHANGENICKNAME, CHANGENICKNAME_SUCCESS, CHANGENICKNAME_FAILURE] =
+  createRequestSagaActionTypes('myPage/CHANGENICKNAME');
 
-export const changeNickName =createAction(CHANGENICKNAME, ({ nickName }) => ({
-    nickName
-})); 
+export const changeNickName = createAction(CHANGENICKNAME, ({ nickName }) => ({
+  nickName,
+}));
 
 const changeNickNameSaga = createRequestSaga(CHANGENICKNAME, API.changeNickName);
 export function* changeNameSaga() {
   yield takeLatest(CHANGENICKNAME, changeNickNameSaga);
 }
 
-const initialState ={
-    userImg : null,
-    userNickName : 'uko05068',
-    schoolAuth : false,
+const initialState = {
+  userImg: null,
+  userNickName: 'uko05068',
+  schoolAuth: false,
 };
 
-
 const myPage = handleActions(
-    {
-      [CHANGENICKNAME_SUCCESS]: (state) => ({
-        ...state,
-     
-      }),
-      [CHANGENICKNAME_FAILURE]: (state) => ({
-        ...state,
-      }),
-    }, initialState
-)
+  {
+    [CHANGENICKNAME_SUCCESS]: (state) => ({
+      ...state,
+    }),
+    [CHANGENICKNAME_FAILURE]: (state) => ({
+      ...state,
+    }),
+  },
+  initialState
+);
 
 export default myPage;
