@@ -18,7 +18,7 @@ const MyPage = () => {
   const naviagate = useNavigate();
   /*
     TODO:
-    [] 유저정보 받아올 것: 이미지, 닉네임, 학교인증여부  
+    [] 유저정보 받아올 것: 이미지, 닉네임, 학교인증여부, 자동로그인여부(?)  
   */
   const logoutClick = useCallback(() => {
     removeCookie('refresh_token');
