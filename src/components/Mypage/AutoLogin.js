@@ -1,43 +1,17 @@
 import React, { useCallback, useState } from 'react';
-import styled from 'styled-components';
-
-const AutoLoginContent = styled.div`
-  display: flex;
-  width: 304px;
-  height: 21px;
-  margin: 0px 0px 32px 80px;
-`;
-const AutoLoginTitle = styled.div`
-  width: 65px;
-  height: 21px;
-  margin: 0px 0px 32px 0px;
-  font-family: NotoSansCJKKR;
-  font-size: 14px;
-  font-weight: 500;
-  text-align: left;
-  color: #999;
-`;
-const AutoLoginCheck = styled.img`
-  width: 16px;
-  height: 16px;
-  cursor : pointer;
-  margin-left: 223px;
-  padding-top: 2px;
-  padding-bottom: 3px;
-  object-fit: contain;
-`;
+import * as S from './styles';
 
 const AutoLogin = () => {
   const [isAuto, setIsAuto] = useState(false);
 
-  const check = useCallback(()=>{
-    setIsAuto((prev)=>!prev);
-  })
+  const check = useCallback(() => {
+    setIsAuto((prev) => !prev);
+  });
   return (
-    <AutoLoginContent>
-      <AutoLoginTitle>자동로그인 </AutoLoginTitle>
-      <AutoLoginCheck onClick={check} src={isAuto ? "/asset/CheckCircleOn.svg":"/asset/CheckCircleOff.svg"} />
-    </AutoLoginContent>
+    <S.AutoLoginContent>
+      <S.AutoLoginTitle>자동로그인 </S.AutoLoginTitle>
+      <S.AutoLoginCheck onClick={check} src={isAuto ? '/asset/CheckCircleOn.svg' : '/asset/CheckCircleOff.svg'} />
+    </S.AutoLoginContent>
   );
 };
 
