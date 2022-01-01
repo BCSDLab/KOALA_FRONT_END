@@ -37,6 +37,11 @@ const myPage = handleActions(
     }),
     [USERINFO_SUCCESS]: (state) => ({
       ...state,
+      /* 
+        UserImg : ~~,
+        userNickName: ~~,
+        schoolAuth : ~~,
+      */
     }),
     [USERINFO_FAILURE]: (state) => ({
       ...state,
