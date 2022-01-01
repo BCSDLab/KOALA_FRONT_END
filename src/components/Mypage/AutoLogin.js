@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 
 const AutoLoginContent = styled.div`
@@ -20,6 +20,7 @@ const AutoLoginTitle = styled.div`
 const AutoLoginCheck = styled.img`
   width: 16px;
   height: 16px;
+  cursor : pointer;
   margin-left: 223px;
   padding-top: 2px;
   padding-bottom: 3px;
@@ -27,10 +28,15 @@ const AutoLoginCheck = styled.img`
 `;
 
 const AutoLogin = () => {
+  const [isAuto, setIsAuto] = useState(false);
+
+  const check = useCallback(()=>{
+    setIsAuto((prev)=>!prev);
+  })
   return (
     <AutoLoginContent>
       <AutoLoginTitle>자동로그인 </AutoLoginTitle>
-      <AutoLoginCheck src="/asset/CheckCircle.svg" />
+      <AutoLoginCheck onClick={check} src={isAuto ? "/asset/CheckCircleOn.svg":"/asset/CheckCircleOff.svg"} />
     </AutoLoginContent>
   );
 };
