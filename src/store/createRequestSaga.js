@@ -17,6 +17,9 @@ export function* refreshLoginSaga() {
 export function* signUpRegisterSaga() {
   yield takeLatest(SIGNUP, signUpSaga);
 }
+export function* changeNameSaga() {
+  yield takeLatest(CHANGENICKNAME, changeNickNameSaga);
+}
 
 export default function createRequestSaga(type, request) {
   const SUCCESS = `${type}_SUCCESS`;
