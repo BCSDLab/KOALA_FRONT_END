@@ -5,14 +5,20 @@ import * as API from 'api';
 
 const [CHANGENICKNAME, CHANGENICKNAME_SUCCESS, CHANGENICKNAME_FAILURE] =
   createRequestSagaActionTypes('myPage/CHANGENICKNAME');
+const [USERINFO, USERINFO_SUCCESS, USERINFO_FAILURE] = createRequestSagaActionTypes('myPage/USERINFO');
 
 export const changeNickName = createAction(CHANGENICKNAME, ({ nickName }) => ({
   nickName,
 }));
+export const getUserInfo = createAction(USERINFO);
 
 const changeNickNameSaga = createRequestSaga(CHANGENICKNAME, API.changeNickName);
 export function* changeNameSaga() {
   yield takeLatest(CHANGENICKNAME, changeNickNameSaga);
+}
+const getUserInfoSaga = createRequestSaga(USERINFO, API.getUserInfo);
+export function* getUserSaga() {
+  yield takeLatest(USERINFO, getUserInfoSaga);
 }
 
 const initialState = {
@@ -27,6 +33,12 @@ const myPage = handleActions(
       ...state,
     }),
     [CHANGENICKNAME_FAILURE]: (state) => ({
+      ...state,
+    }),
+    [USERINFO_SUCCESS]: (state) => ({
+      ...state,
+    }),
+    [USERINFO_FAILURE]: (state) => ({
       ...state,
     }),
   },

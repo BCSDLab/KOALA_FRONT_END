@@ -14,5 +14,7 @@ export const changeNickName = (nickName) => logined.post('user/nickname', nickNa
 
 export const deleteUser = () => logined.patch('user/delete');
 
+export const getUserInfo = () => logined.get('user/my');
+
 export const signUp = ({ account, password, find_email, nickname }) =>
   logined.post('/user/sing-in', { account, password, find_email, nickname });

@@ -20,6 +20,9 @@ export function* signUpRegisterSaga() {
 export function* changeNameSaga() {
   yield takeLatest(CHANGENICKNAME, changeNickNameSaga);
 }
+export function* getUserSaga() {
+  yield takeLatest(USERINFO, getUserInfoSaga);
+}
 
 export default function createRequestSaga(type, request) {
   const SUCCESS = `${type}_SUCCESS`;
