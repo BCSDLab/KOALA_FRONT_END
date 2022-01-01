@@ -14,7 +14,11 @@ export function* changeNameSaga() {
   yield takeLatest(CHANGENICKNAME, changeNickNameSaga);
 }
 
-const initialState ={}
+const initialState ={
+    userImg : null,
+    userNickName : 'uko05068',
+    schoolAuth : false,
+};
 
 
 const myPage = handleActions(

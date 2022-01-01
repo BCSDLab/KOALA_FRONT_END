@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import SideNavbar from 'components/SideNavbar';
 import LoginButton from 'components/Shared/LoginButton';
 import EditNickName from 'components/Mypage/EditNickName';
+import SchoolAuth from 'components/Mypage/SchoolAuth';
 import AutoLogin from 'components/Mypage/AutoLogin';
 import styled from 'styled-components';
 
@@ -72,15 +73,9 @@ const NickNameTitle = styled(Wrapper)`
   margin: 0px 76px 24px 80px;
 `;
 
-const SchoolAuth = styled.div`
+const SchoolAuthTitle = styled(Wrapper)`
   width: 52px;
-  height: 21px;
   margin: 71.3px 50px 16px 80px;
-  font-family: NotoSansCJKKR;
-  font-size: 14px;
-  font-weight: 500;
-  text-align: center;
-  color: #999;
 `;
 const EtcTitle = styled.div`
   width: 32px;
@@ -124,8 +119,8 @@ const MyPage = () => {
           <UserName>uko05068</UserName>
           <NickNameTitle>닉네임</NickNameTitle>
           <EditNickName />
-          <SchoolAuth>학교인증</SchoolAuth>
-          <AutoLogin />
+          <SchoolAuthTitle>학교인증</SchoolAuthTitle>
+          <SchoolAuth/>
           <EtcTitle>기타</EtcTitle>
           <AutoLogin />
           <Contact>문의하기</Contact>
