@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { removeCookie } from '../components/Shared/Cookies';
@@ -14,6 +14,7 @@ const MyPage = () => {
   const toggle = useSelector((state) => state.toggle.isOpen); //사이드 네비게이션 상태 전역 상태 관리
   const userInformation = useSelector((state) => state.myPage); //저장된 유저 데이터
   const loginInfo = useSelector((state) => state.auth);
+  const [isShown, setIsShown] = useState(false);
   const dispatch = useDispatch();
   const naviagate = useNavigate();
   /*
@@ -33,6 +34,15 @@ const MyPage = () => {
     location.reload();
   }; //클릭 시 계정 삭제
 
+  const upload = () => {
+    const formData = new FormData();
+    const file = document.getElementById('file');
+    formData.append('file', file.files[0]);
+    /*axios.post("upload", formData,
+     { headers: { "Content-Type" : "multipart/form-data" } })
+     .then(function(res) 아직 이미지 업로드 안 API 안나옴
+     { ... handler });*/
+  };
   useEffect(() => {
     dispatch(getUserInfo()); //1. 렌더링 시 유저정보를 받아온다. => redux-state에 유저정보를 저장
   });
@@ -45,7 +55,21 @@ const MyPage = () => {
         <UserInfo isToggle={toggle}>
           <MainText>설정</MainText>
           <MyInfo>내 정보</MyInfo>
-          <UserImg src="/asset/BaseUserPNG.svg"></UserImg>
+          <UserImg
+            onMouseEnter={() => setIsShown(true)}
+            onMouseLeave={() => setIsShown(false)}
+            src="/asset/BaseUserPNG.svg"
+          ></UserImg>
+          {isShown && (
+            <PatchImg
+              onMouseEnter={() => setIsShown(true)}
+              onMouseLeave={() => setIsShown(false)}
+              type="file"
+              onClick={upload}
+            >
+              편집
+            </PatchImg>
+          )}
           <UserName>{userInformation.userNickName}</UserName>
           <NickNameTitle>닉네임</NickNameTitle>
           <EditNickName userNickName={userInformation.userNickName} />
@@ -104,7 +128,20 @@ const UserImg = styled.img`
   height: 72px;
   margin: 0px 98px 16px 195px;
 `;
-
+const PatchImg = styled.button`
+  position: absolute;
+  height: 72px;
+  width: 72px;
+  padding: 26px 23px 25px;
+  border-radius: 50%;
+  right: 45.2%;
+  font-family: NotoSansCJKKR;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  color: #fff;
+  background-color: rgba(34, 34, 34, 0.3);
+`;
 const UserName = styled.div`
   width: 304px;
   height: 24px;

@@ -35,8 +35,13 @@ const myPage = handleActions(
     [CHANGENICKNAME_FAILURE]: (state) => ({
       ...state,
     }),
-    [USERINFO_SUCCESS]: (state) => ({
+    [USERINFO_SUCCESS]: (state, { payload }) => ({
       ...state,
+      userNickName: payload.nickName,
+      /* 
+        UserImg : ~~,
+        schoolAuth : ~~,
+      */
     }),
     [USERINFO_FAILURE]: (state) => ({
       ...state,
