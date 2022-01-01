@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { removeCookie } from '../components/Shared/Cookies';
 import { getUserInfo } from '../store/myPage';
@@ -40,7 +40,6 @@ const MyPage = () => {
   return (
     <MyPageContainer>
       <SideNavbar></SideNavbar>
-
       <MyPageContent>
         <LoginButton />
         <UserInfo isToggle={toggle}>
