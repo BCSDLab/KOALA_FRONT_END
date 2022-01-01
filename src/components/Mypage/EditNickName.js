@@ -26,14 +26,9 @@ const EditImg = styled.img`
   right: 0px;
 `
 
-/*
-  TODO:
-  [x] 기존 닉네임 정보에서 받아온 닉네임 useState nickName에 입력
-  [] EditButton 클릭 시 닉네임 변경
-*/
+
 const EditNickName = ({userNickName}) => {
-  const [nickName , setNickName] = useState(`${userNickName}`)//본인의 원래 아이디를 초기설정 state로
-  
+  const [nickName , setNickName] = useState(`${userNickName}`)
   const EditName = () =>{
     dispatch(changeNickName(nickName))
   }

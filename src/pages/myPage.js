@@ -93,6 +93,7 @@ const EtcTitle = styled.div`
 const Element = styled.div`
   width: 52px;
   height: 21px;
+  cursor : pointer;
   margin: 0px 50px 32px 80px;
   font-family: NotoSansCJKKR;
   font-size: 14px;
@@ -112,7 +113,7 @@ const MyPage = () => {
   const naviagate = useNavigate();
   /*
     TODO:
-    [] 유저정보 받아오기 이미지랑 닉네임 학교인증 내용 자동로그인상태  
+    [] 유저정보 받아올 것: 이미지, 닉네임, 학교인증여부,   
   */
     const logoutClick = useCallback(() => {
       removeCookie('refresh_token');
@@ -120,7 +121,7 @@ const MyPage = () => {
       naviagate('/auth');
       location.reload();
     });
-    
+
   return (
     <MyPageContainer>
       <SideNavbar></SideNavbar>
