@@ -1,5 +1,7 @@
-import React from 'react';
+import React,{useCallback} from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { removeCookie } from '../components/Shared/Cookies'
 import SideNavbar from 'components/SideNavbar';
 import LoginButton from 'components/Shared/LoginButton';
 import EditNickName from 'components/Mypage/EditNickName';
@@ -105,7 +107,20 @@ const Resign = styled(Element)``;
 
 const MyPage = () => {
   const toggle = useSelector((state) => state.toggle.isOpen);
-
+  const userInformation = useSelector((state)=>state.myPage);
+  const loginInfo = useSelector((state) => state.auth);
+  const naviagate = useNavigate();
+  /*
+    TODO:
+    [] 유저정보 받아오기 이미지랑 닉네임 학교인증 내용 자동로그인상태  
+  */
+    const logoutClick = useCallback(() => {
+      removeCookie('refresh_token');
+      loginInfo.isLoggedIn = false;
+      naviagate('/auth');
+      location.reload();
+    });
+    
   return (
     <MyPageContainer>
       <SideNavbar></SideNavbar>
@@ -116,15 +131,15 @@ const MyPage = () => {
           <MainText>설정</MainText>
           <MyInfo>내 정보</MyInfo>
           <UserImg src="/asset/BaseUserPNG.svg"></UserImg>
-          <UserName>uko05068</UserName>
+          <UserName>{userInformation.userNickName}</UserName>
           <NickNameTitle>닉네임</NickNameTitle>
-          <EditNickName />
+          <EditNickName userNickName={userInformation.userNickName} />
           <SchoolAuthTitle>학교인증</SchoolAuthTitle>
           <SchoolAuth/>
           <EtcTitle>기타</EtcTitle>
           <AutoLogin />
           <Contact>문의하기</Contact>
-          <LogOut>로그아웃</LogOut>
+          <LogOut onClick={logoutClick}>로그아웃</LogOut>
           <Resign>탈퇴하기</Resign>
         </UserInfo>
       </MyPageContent>
