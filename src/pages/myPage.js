@@ -142,8 +142,7 @@ const OverLay = styled.div`
   height: 72px;
   width: 72px;
   border-radius: 50%;
-  right: 23.5%;
-  bottom: 66.5%;
+  margin: -88px 98px 16px 195px;
   font-family: NotoSansCJKKR;
   font-size: 14px;
   font-weight: 500;
