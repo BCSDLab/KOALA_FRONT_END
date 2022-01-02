@@ -1,13 +1,33 @@
-import React from 'react';
+import React,{useCallback,useEffect,useState} from 'react';
 import keywordList from './dummy';
 import KeywordHeader from '../KeywordHeader';
 import * as s from './styles';
 
 const KeywordList = () => {
+
+    const [list,setList] = useState(keywordList);
+
+    const onClickMenu = useCallback((e)=>{
+        const menu = e.target.innerText;
+
+        console.log(menu);
+
+        if(menu==='전체'){
+            setList(keywordList);
+        }else{
+            const filterList = keywordList.filter((item)=>{
+                return item.title === menu;
+            });
+            setList(filterList);
+        }
+
+    },[list]); 
+
+
     return(
         <>
             <KeywordHeader title={'키워드 알림'}/>
-            <s.Menu>
+            <s.Menu onClick={(e)=>onClickMenu(e)}>
                 <s.Item>전체</s.Item>
                 <s.Item>아우누리</s.Item>
                 <s.Item>아우미르</s.Item>
@@ -34,7 +54,7 @@ const KeywordList = () => {
                 </s.SearchButton>
             </s.FilterList>
             <s.MainList>
-                {keywordList.map((item)=>{
+                {list.map((item)=>{
                     return(
                     <s.MainItem key={item.id}>
                         <s.MainCheckBox></s.MainCheckBox>
