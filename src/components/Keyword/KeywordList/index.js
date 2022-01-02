@@ -5,12 +5,11 @@ import * as s from './styles';
 
 const KeywordList = () => {
 
+    const [menu,setMenu] = useState('전체');
     const [list,setList] = useState(keywordList);
 
     const onClickMenu = useCallback((e)=>{
         const menu = e.target.innerText;
-
-        console.log(menu);
 
         if(menu==='전체'){
             setList(keywordList);
@@ -20,6 +19,8 @@ const KeywordList = () => {
             });
             setList(filterList);
         }
+
+        setMenu(menu);
 
     },[list]); 
 
@@ -33,7 +34,7 @@ const KeywordList = () => {
                 <s.Item>아우미르</s.Item>
                 <s.Item>대신 전해드립니다-koreatech</s.Item>
             </s.Menu>
-            <s.ItemUnderBar></s.ItemUnderBar>
+            <s.ItemUnderBar menu={menu}></s.ItemUnderBar>
             <s.FilterList>
                 <s.CheckBox className='checkBox'></s.CheckBox>
                 <s.CheckBoxTitle className='checkTitle'>전체 선택</s.CheckBoxTitle>

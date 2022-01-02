@@ -21,8 +21,18 @@ export const ItemUnderBar = styled.div`
     height:8px;
     background-color:#222222;
     position:absolute;
-    left:488px;
     top:216px;
+    left:${props => {
+        if(props.menu === '전체'){
+            return '488px';
+        }else if(props.menu === '아우누리'){
+            return '568px';
+        }else if(props.menu === '아우미르'){
+            return '670px';
+        }else{
+            return '830px';
+        }
+    }}
 `;
 
 export const FilterList = styled.nav`
