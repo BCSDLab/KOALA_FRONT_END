@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { removeCookie } from '../components/Shared/Cookies';
@@ -12,15 +12,36 @@ import styled from 'styled-components';
 
 const MyPage = () => {
   const toggle = useSelector((state) => state.toggle.isOpen); //사이드 네비게이션 상태 전역 상태 관리
-  const userInformation = useSelector((state) => state.myPage); //저장된 유저 데이터
+  const userInformation = useSelector((state) => state.myPage); //2.저장된 유저 데이터 불러온다.
   const loginInfo = useSelector((state) => state.auth);
+  const [userImgFile, setUserImgFile] = useState(''); //기본 이미지 url 유저 정보안에 들어있어야함
+
+  const setFile = (e) => {
+    if (e.target.files[0]) {
+      const img = new FormData();
+      img.append('file', e.target.files[0]);
+      axios
+        .post('', img)
+        .then((res) => {
+          setImageUrl(res.data);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  };
+  const photoInput = useRef();
   const [isShown, setIsShown] = useState(false);
   const dispatch = useDispatch();
   const naviagate = useNavigate();
   /*
     TODO:
-    [] 유저정보 받아올 것: 이미지, 닉네임, 학교인증여부, 자동로그인여부(?)  
+    [] 유저정보 받아올 것: 이미지, 닉네임, 학교인증여부  
   */
+  const patch = () => {
+    photoInput.current.click();
+  };
+
   const logoutClick = useCallback(() => {
     removeCookie('refresh_token');
     loginInfo.isLoggedIn = false;
@@ -34,18 +55,9 @@ const MyPage = () => {
     location.reload();
   }; //클릭 시 계정 삭제
 
-  const upload = () => {
-    const formData = new FormData();
-    const file = document.getElementById('file');
-    formData.append('file', file.files[0]);
-    /*axios.post("upload", formData,
-     { headers: { "Content-Type" : "multipart/form-data" } })
-     .then(function(res) 아직 이미지 업로드 안 API 안나옴
-     { ... handler });*/
-  };
   useEffect(() => {
     dispatch(getUserInfo()); //1. 렌더링 시 유저정보를 받아온다. => redux-state에 유저정보를 저장
-  });
+  }, []);
 
   return (
     <MyPageContainer>
@@ -58,17 +70,14 @@ const MyPage = () => {
           <UserImg
             onMouseEnter={() => setIsShown(true)}
             onMouseLeave={() => setIsShown(false)}
-            src="/asset/BaseUserPNG.svg"
+            src="/asset/BaseUserPNG.svg" //유저정보의 이미지로 변경될 예정
+            alt="userImage"
           ></UserImg>
           {isShown && (
-            <PatchImg
-              onMouseEnter={() => setIsShown(true)}
-              onMouseLeave={() => setIsShown(false)}
-              type="file"
-              onClick={upload}
-            >
-              편집
-            </PatchImg>
+            <OverLay onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)}>
+              <PatchText onClick={patch}>편집</PatchText>
+              <PatchImg ref={photoInput} type="file" accept="image/*" onChange={(e) => setFile(e)} />
+            </OverLay>
           )}
           <UserName>{userInformation.userNickName}</UserName>
           <NickNameTitle>닉네임</NickNameTitle>
@@ -128,13 +137,13 @@ const UserImg = styled.img`
   height: 72px;
   margin: 0px 98px 16px 195px;
 `;
-const PatchImg = styled.button`
+const OverLay = styled.div`
   position: absolute;
   height: 72px;
   width: 72px;
-  padding: 26px 23px 25px;
   border-radius: 50%;
-  right: 45.2%;
+  right: 23.5%;
+  bottom: 66.5%;
   font-family: NotoSansCJKKR;
   font-size: 14px;
   font-weight: 500;
@@ -142,6 +151,16 @@ const PatchImg = styled.button`
   color: #fff;
   background-color: rgba(34, 34, 34, 0.3);
 `;
+
+const PatchText = styled.div`
+  padding: 26px 23px 25px;
+  cursor: pointer;
+`;
+
+const PatchImg = styled.input`
+  display: none;
+`;
+
 const UserName = styled.div`
   width: 304px;
   height: 24px;
@@ -153,7 +172,7 @@ const UserName = styled.div`
   color: #222;
 `;
 
-const Wrapper = styled.div`
+const Title = styled.div`
   height: 21px;
   font-family: NotoSansCJKKR;
   font-size: 14px;
@@ -162,12 +181,12 @@ const Wrapper = styled.div`
   color: #999;
 `;
 
-const NickNameTitle = styled(Wrapper)`
+const NickNameTitle = styled(Title)`
   width: 39px;
   margin: 0px 76px 24px 80px;
 `;
 
-const SchoolAuthTitle = styled(Wrapper)`
+const SchoolAuthTitle = styled(Title)`
   width: 52px;
   margin: 71.3px 50px 16px 80px;
 `;
