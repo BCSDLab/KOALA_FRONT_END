@@ -12,7 +12,7 @@ const AutoLogin = () => {
     setIsAuto((prev) => !prev);
     setCookie('isAuto', isAuto, {
       path: '/',
-      expire: time() + 86400 * 30,
+      expire: 86400 * 30,
     });
   });
   return (
