@@ -1,14 +1,34 @@
-import React,{useCallback,useEffect,useState} from 'react';
+import React,{useCallback,useState} from 'react';
 import keywordList from './dummy';
 import KeywordHeader from '../KeywordHeader';
 import * as s from './styles';
+
+const menuItem = [
+    {   
+        id:0,
+        title:'전체'
+    },
+    {   
+        id:1,
+        title:'아우누리'
+    },
+    {   
+        id:2,
+        title:'아우미르'
+    },
+    {   
+        id:3,
+        title:'대신 전해드립니다-koreatech'
+    },
+];
+
 
 const KeywordList = () => {
 
     const [menu,setMenu] = useState('전체');
     const [list,setList] = useState(keywordList);
 
-    const onClickMenu = useCallback((e)=>{
+    const onClickMenu = useCallback((e)=>{        
         const menu = e.target.innerText;
 
         if(menu==='전체'){
@@ -28,11 +48,12 @@ const KeywordList = () => {
     return(
         <>
             <KeywordHeader title={'키워드 알림'}/>
-            <s.Menu onClick={(e)=>onClickMenu(e)}>
-                <s.Item>전체</s.Item>
-                <s.Item>아우누리</s.Item>
-                <s.Item>아우미르</s.Item>
-                <s.Item>대신 전해드립니다-koreatech</s.Item>
+            <s.Menu>
+                {menuItem.map((item)=>{
+                    return(
+                        <s.Item onClick={(e)=>onClickMenu(e)} key={item.id}>{item.title}</s.Item>
+                    )
+                })}
             </s.Menu>
             <s.ItemUnderBar menu={menu}></s.ItemUnderBar>
             <s.FilterList>
