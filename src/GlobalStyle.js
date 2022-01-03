@@ -64,7 +64,7 @@ export const GlobalStyle = createGlobalStyle`
   button *{position:relative}
   legend{*width:0}
   input::-ms-clear{display:none}
-  input[type="text"]{border: solid 1px #222;height: 48px; padding: 14px 16px; width:100%; font-size: 14px; color: #222;}
+  input[type="text"]{border: solid 1px #222; font-size: 14px; color: #222;}
   input[type="radio"], input[type="checkbox"] {display: none;opacity: 0;}
   ::-webkit-input-placeholder{color:#999; font-size:14px;}
   :-ms-input-placeholder{color:#999; font-size:14px;}
