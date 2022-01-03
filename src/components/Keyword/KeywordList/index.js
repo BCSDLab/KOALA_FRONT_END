@@ -31,6 +31,7 @@ const KeywordList = () => {
     const [checkAll,setCheckAll] = useState(false);
     const [readNotification, setReadNotification] = useState(false);
     const [notReadNotification, setNotReadNotification] = useState(false);
+    const [keywordSearch,setKeywordSearch] = useState('');
 
     const onClickMenu = useCallback((e)=>{        
         const menu = e.target.innerText;
@@ -46,19 +47,36 @@ const KeywordList = () => {
 
     const onClickReadNotification = useCallback(()=>{
         setReadNotification((prev)=>!prev);
-        setNotReadNotification(false);
         if(notReadNotification){
             setList(menuFilterList);
         }
+        setNotReadNotification(false);
     },[notReadNotification,menuFilterList]);
 
     const onClickNotReadNotification = useCallback(()=>{
         setNotReadNotification((prev)=>!prev);
-        setReadNotification(false);
         if(readNotification){
-            setList(menuFilterList)
+            setList(menuFilterList);
         }
+        setReadNotification(false);
     },[readNotification,menuFilterList]);
+
+    const onChangeKeywordSearch = useCallback((e)=>{
+
+        setKeywordSearch(e.target.value);
+        
+    },[keywordSearch]);
+
+    const onClickSearch = useCallback(()=>{
+        const filterList = list.filter((item)=>{
+            if(item.content.includes(keywordSearch)){
+                return item;
+            }
+        });
+
+        setList(filterList);
+        setKeywordSearch('');
+    },[keywordSearch]);
 
     useEffect(()=>{
         if(menu==='전체'){
@@ -79,12 +97,13 @@ const KeywordList = () => {
             const filterList = list.filter((item)=>{
                 return item.readState === '읽음';
             })
+
             setList(filterList);
         }
         else{
             setList(menuFilterList);
         }
-    },[readNotification,notReadNotification]);
+    },[readNotification]);
 
     useEffect(()=>{
         if(notReadNotification){
@@ -96,8 +115,10 @@ const KeywordList = () => {
         else{
             setList(menuFilterList);
         }
-    },[notReadNotification])
+    },[notReadNotification]);
 
+
+    console.log(list);
 
     return(
         <>
@@ -105,7 +126,7 @@ const KeywordList = () => {
             <s.Menu>
                 {menuItem.map((item)=>{
                     return(
-                        <s.Item onClick={(e)=>onClickMenu(e)} key={item.id}>{item.title}</s.Item>
+                        <s.Item onClick={onClickMenu} key={item.id}>{item.title}</s.Item>
                     )
                 })}
             </s.Menu>
@@ -123,8 +144,8 @@ const KeywordList = () => {
                     <s.FilterItemImage src='/asset/trash.svg' alt='trash'/>
                     <span>삭제</span>
                 </s.FilterItem>
-                <s.SearchInput placeholder='알림대상/알림내용/키워드 입력'></s.SearchInput>
-                <s.SearchButton>
+                <s.SearchInput placeholder='알림대상/알림내용/키워드 입력' value={keywordSearch} onChange={onChangeKeywordSearch}></s.SearchInput>
+                <s.SearchButton onClick={onClickSearch}>
                     <span>검색하기</span>
                     <s.SearchImage src='/asset/search.svg'/>
                 </s.SearchButton>
