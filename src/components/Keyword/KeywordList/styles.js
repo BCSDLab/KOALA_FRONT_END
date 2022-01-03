@@ -14,6 +14,7 @@ export const Menu = styled.nav`
 export const Item = styled.span`
     font-size:16px;
     margin-right:40px;
+    cursor:pointer;
 `;
 
 export const ItemUnderBar = styled.div`
