@@ -33,6 +33,7 @@ const KeywordList = () => {
     const [notReadNotification, setNotReadNotification] = useState(false);
     const [keywordSearch,setKeywordSearch] = useState('');
     const [goStore, setGoStore] = useState(false);
+    const [deleteList, setDeleteList] = useState(false);
 
     const onClickMenu = useCallback((e)=>{        
         const menu = e.target.innerText;
@@ -74,6 +75,10 @@ const KeywordList = () => {
 
     const onClickGoStore = useCallback(()=>{
         setGoStore(true);
+    },[]);
+
+    const onClickDeleteList = useCallback(()=>{
+        setDeleteList(true);
     },[]);
 
     const onClickCheckSome = useCallback((id)=>{
@@ -138,6 +143,28 @@ const KeywordList = () => {
         }
     },[goStore]);
 
+    useEffect(()=>{
+        if(deleteList){
+            if(checkAll){
+                alert('모든 목록 삭제');
+                const filterList = [];
+                setList(filterList);
+                setCheckAll(false);
+                setDeleteList(false);
+
+            }else{      
+                alert('선택된 목록 삭제');
+                const filterList = list.filter((item)=>{
+                    return item.select!==true;
+                })
+
+                setList(filterList);
+                setGoStore(false);
+                setDeleteList(false);
+            }
+        }
+    },[deleteList]);
+
     return(
         <>
             <KeywordHeader title={'키워드 알림'}/>
@@ -158,7 +185,7 @@ const KeywordList = () => {
                     <s.FilterItemImage src='/asset/inbox-in.svg' alt='inbox-in'/>
                     <span>보관함으로 이동</span>
                 </s.FilterItem>
-                <s.FilterItem className='delete'>
+                <s.FilterItem onClick={onClickDeleteList} className='delete'>
                     <s.FilterItemImage src='/asset/trash.svg' alt='trash'/>
                     <span>삭제</span>
                 </s.FilterItem>
