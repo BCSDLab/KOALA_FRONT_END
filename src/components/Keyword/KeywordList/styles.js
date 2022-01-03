@@ -88,8 +88,20 @@ export const CheckBoxTitle = styled.span`
 
 export const FilterItem = styled.span`
     padding:8px;
-    border:1px solid #eee;
-    color:#999999;
+
+    ${props => {
+        if(props.readNotification || props.notReadNotification){
+            return `
+                border:1px solid #222222;
+                color:#222222;
+            `;
+        }else{
+            return `
+                border:1px solid #eee;
+                color:#999999;
+            `;
+        }
+    }}
 `;
 
 export const FilterItemImage = styled.img`

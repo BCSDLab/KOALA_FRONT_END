@@ -1,4 +1,4 @@
-import React,{useCallback,useState} from 'react';
+import React,{useCallback,useEffect,useState} from 'react';
 import keywordList from './dummy';
 import KeywordHeader from '../KeywordHeader';
 import * as s from './styles';
@@ -27,28 +27,77 @@ const KeywordList = () => {
 
     const [menu,setMenu] = useState('전체');
     const [list,setList] = useState(keywordList);
+    const [menuFilterList,setMenuFilterList] = useState(keywordList);
     const [checkAll,setCheckAll] = useState(false);
+    const [readNotification, setReadNotification] = useState(false);
+    const [notReadNotification, setNotReadNotification] = useState(false);
 
     const onClickMenu = useCallback((e)=>{        
         const menu = e.target.innerText;
+        setMenu(menu);
+        setCheckAll(false);
+        setReadNotification(false);
+        setNotReadNotification(false);
+    },[]);
 
+    const onClickAllSelect = useCallback(()=>{
+        setCheckAll((prev)=>!prev);
+    },[]);
+
+    const onClickReadNotification = useCallback(()=>{
+        setReadNotification((prev)=>!prev);
+        setNotReadNotification(false);
+        if(notReadNotification){
+            setList(menuFilterList);
+        }
+    },[notReadNotification,menuFilterList]);
+
+    const onClickNotReadNotification = useCallback(()=>{
+        setNotReadNotification((prev)=>!prev);
+        setReadNotification(false);
+        if(readNotification){
+            setList(menuFilterList)
+        }
+    },[readNotification,menuFilterList]);
+
+    useEffect(()=>{
         if(menu==='전체'){
             setList(keywordList);
+            setMenuFilterList(keywordList);
         }else{
             const filterList = keywordList.filter((item)=>{
                 return item.title === menu;
             });
             setList(filterList);
+            setMenuFilterList(filterList);
         }
+    },[menu]);
 
-        setMenu(menu);
-        setCheckAll(false);
+    useEffect(()=>{
 
-    },[list]);
+        if(readNotification){
+            const filterList = list.filter((item)=>{
+                return item.readState === '읽음';
+            })
+            setList(filterList);
+        }
+        else{
+            setList(menuFilterList);
+        }
+    },[readNotification,notReadNotification]);
 
-    const onClickAllSelect = useCallback(()=>{
-        setCheckAll((prev)=>!prev);
-    });
+    useEffect(()=>{
+        if(notReadNotification){
+            const filterList = list.filter((item)=>{
+                return item.readState === '읽지 않음';
+            })
+            setList(filterList);
+        }
+        else{
+            setList(menuFilterList);
+        }
+    },[notReadNotification])
+
 
     return(
         <>
@@ -64,8 +113,8 @@ const KeywordList = () => {
             <s.FilterList>
                 <s.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className='checkBox'></s.CheckBox>
                 <s.CheckBoxTitle onClick={onClickAllSelect} className='checkTitle'>전체 선택</s.CheckBoxTitle>
-                <s.FilterItem className='read'>읽은 알림</s.FilterItem>
-                <s.FilterItem className='notread'>읽지 않은 알림</s.FilterItem>
+                <s.FilterItem onClick={onClickReadNotification} readNotification={readNotification} className='read'>읽은 알림</s.FilterItem>
+                <s.FilterItem onClick={onClickNotReadNotification} notReadNotification={notReadNotification} className='notread'>읽지 않은 알림</s.FilterItem>
                 <s.FilterItem className='goStore'>
                     <s.FilterItemImage src='/asset/inbox-in.svg' alt='inbox-in'/>
                     <span>보관함으로 이동</span>
