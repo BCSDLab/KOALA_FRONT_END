@@ -70,6 +70,15 @@ export const CheckBox = styled.div`
     margin-right:24px;
     border-radius:3px;
     border:1px solid #c4c4c4;
+
+    ${props => {
+        if(props.checkAll){
+            return `
+            background-image:url('/asset/check.svg');
+            background-position:center;
+            `
+        }
+     }}
 `;
 
 export const CheckBoxTitle = styled.span`
@@ -125,6 +134,14 @@ export const MainItem = styled.div`
 `;
 
 export const MainCheckBox = styled(CheckBox)`
+    ${props => {
+       if(props.checkAll){
+           return `
+           background-image:url('/asset/check.svg');
+           background-position:center;
+           `
+       }
+    }}
 `;
 export const MainCheckBoxTitle = styled(CheckBoxTitle)`
     margin-right:125px;

@@ -27,6 +27,7 @@ const KeywordList = () => {
 
     const [menu,setMenu] = useState('전체');
     const [list,setList] = useState(keywordList);
+    const [checkAll,setCheckAll] = useState(false);
 
     const onClickMenu = useCallback((e)=>{        
         const menu = e.target.innerText;
@@ -41,9 +42,13 @@ const KeywordList = () => {
         }
 
         setMenu(menu);
+        setCheckAll(false);
 
-    },[list]); 
+    },[list]);
 
+    const onClickAllSelect = useCallback(()=>{
+        setCheckAll((prev)=>!prev);
+    });
 
     return(
         <>
@@ -57,8 +62,8 @@ const KeywordList = () => {
             </s.Menu>
             <s.ItemUnderBar menu={menu}></s.ItemUnderBar>
             <s.FilterList>
-                <s.CheckBox className='checkBox'></s.CheckBox>
-                <s.CheckBoxTitle className='checkTitle'>전체 선택</s.CheckBoxTitle>
+                <s.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className='checkBox'></s.CheckBox>
+                <s.CheckBoxTitle onClick={onClickAllSelect} className='checkTitle'>전체 선택</s.CheckBoxTitle>
                 <s.FilterItem className='read'>읽은 알림</s.FilterItem>
                 <s.FilterItem className='notread'>읽지 않은 알림</s.FilterItem>
                 <s.FilterItem className='goStore'>
@@ -79,7 +84,7 @@ const KeywordList = () => {
                 {list.map((item)=>{
                     return(
                     <s.MainItem key={item.id}>
-                        <s.MainCheckBox></s.MainCheckBox>
+                        <s.MainCheckBox checkAll={checkAll}></s.MainCheckBox>
                         <s.MainCheckBoxTitle>{item.title}</s.MainCheckBoxTitle>
                         <s.MainContent>{item.content}</s.MainContent>
                         <s.MainReadState>{item.readState}</s.MainReadState>
