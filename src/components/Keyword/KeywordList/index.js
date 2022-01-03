@@ -47,17 +47,11 @@ const KeywordList = () => {
 
     const onClickReadNotification = useCallback(()=>{
         setReadNotification((prev)=>!prev);
-        if(notReadNotification){
-            setList(menuFilterList);
-        }
         setNotReadNotification(false);
     },[notReadNotification,menuFilterList]);
 
     const onClickNotReadNotification = useCallback(()=>{
         setNotReadNotification((prev)=>!prev);
-        if(readNotification){
-            setList(menuFilterList);
-        }
         setReadNotification(false);
     },[readNotification,menuFilterList]);
 
@@ -73,7 +67,6 @@ const KeywordList = () => {
                 return item;
             }
         });
-
         setList(filterList);
         setKeywordSearch('');
     },[keywordSearch]);
@@ -92,33 +85,21 @@ const KeywordList = () => {
     },[menu]);
 
     useEffect(()=>{
-
-        if(readNotification){
-            const filterList = list.filter((item)=>{
-                return item.readState === '읽음';
-            })
-
-            setList(filterList);
-        }
-        else{
-            setList(menuFilterList);
-        }
-    },[readNotification]);
-
-    useEffect(()=>{
         if(notReadNotification){
-            const filterList = list.filter((item)=>{
+            const filterList = menuFilterList.filter((item)=>{
                 return item.readState === '읽지 않음';
             })
             setList(filterList);
+        }else if(readNotification){
+            const filterList = menuFilterList.filter((item)=>{
+                return item.readState === '읽음';
+            })
+            setList(filterList);
         }
         else{
             setList(menuFilterList);
         }
-    },[notReadNotification]);
-
-
-    console.log(list);
+    },[notReadNotification,readNotification]);
 
     return(
         <>
