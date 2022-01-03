@@ -136,10 +136,10 @@ const KeywordList = () => {
                     return(
                     <s.MainItem key={item.id}>
                         <s.MainCheckBox checkAll={checkAll}></s.MainCheckBox>
-                        <s.MainCheckBoxTitle>{item.title}</s.MainCheckBoxTitle>
-                        <s.MainContent>{item.content}</s.MainContent>
+                        <s.MainCheckBoxTitle readState={item.readState}>{item.title}</s.MainCheckBoxTitle>
+                        <s.MainContent readState={item.readState}>{item.content}</s.MainContent>
                         <s.MainReadState>{item.readState}</s.MainReadState>
-                        <s.MainPeriod>{item.period}</s.MainPeriod>
+                        <s.MainPeriod readState={item.readState}>{item.period}</s.MainPeriod>
                     </s.MainItem>
                     );
                 })}

@@ -157,10 +157,12 @@ export const MainCheckBox = styled(CheckBox)`
 `;
 export const MainCheckBoxTitle = styled(CheckBoxTitle)`
     margin-right:125px;
+    color:${props => props.readState==='읽음'?'#999999':'#222222'};
 `;
 export const MainContent = styled.div`
     font-size:12px;
     margin-right:729px;
+    color:${props => props.readState==='읽음'?'#999999':'#222222'};
 `;
 
 export const MainReadState = styled(MainContent)`
@@ -172,4 +174,5 @@ export const MainReadState = styled(MainContent)`
 
 export const MainPeriod = styled(MainContent)`
     margin-right:0px;
+    color:${props => props.readState==='읽음'?'#999999':'#222222'};
 `;
