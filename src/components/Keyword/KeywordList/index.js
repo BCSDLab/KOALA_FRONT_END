@@ -32,6 +32,7 @@ const KeywordList = () => {
     const [readNotification, setReadNotification] = useState(false);
     const [notReadNotification, setNotReadNotification] = useState(false);
     const [keywordSearch,setKeywordSearch] = useState('');
+    const [goStore, setGoStore] = useState(false);
 
     const onClickMenu = useCallback((e)=>{        
         const menu = e.target.innerText;
@@ -71,6 +72,21 @@ const KeywordList = () => {
         setKeywordSearch('');
     },[keywordSearch]);
 
+    const onClickGoStore = useCallback(()=>{
+        setGoStore(true);
+    },[]);
+
+    const onClickCheckSome = useCallback((id)=>{
+        const filterList = list.map((item)=>{
+            if(id === item.id){
+               item.select = !item.select;
+            }
+            return item;
+        })
+
+        setList(filterList);
+    },[list]);
+
     useEffect(()=>{
         if(menu==='전체'){
             setList(keywordList);
@@ -101,6 +117,27 @@ const KeywordList = () => {
         }
     },[notReadNotification,readNotification]);
 
+    useEffect(()=>{
+        if(goStore){
+            if(checkAll){
+                alert('모든 목록 보관');
+                const filterList = [];
+                setList(filterList);
+                setCheckAll(false);
+                setGoStore(false);
+
+            }else{      
+                alert('선택된 목록 보관');
+                const filterList = list.filter((item)=>{
+                    return item.select!==true;
+                })
+
+                setList(filterList);
+                setGoStore(false);
+            }
+        }
+    },[goStore]);
+
     return(
         <>
             <KeywordHeader title={'키워드 알림'}/>
@@ -117,7 +154,7 @@ const KeywordList = () => {
                 <s.CheckBoxTitle onClick={onClickAllSelect} className='checkTitle'>전체 선택</s.CheckBoxTitle>
                 <s.FilterItem onClick={onClickReadNotification} readNotification={readNotification} className='read'>읽은 알림</s.FilterItem>
                 <s.FilterItem onClick={onClickNotReadNotification} notReadNotification={notReadNotification} className='notread'>읽지 않은 알림</s.FilterItem>
-                <s.FilterItem className='goStore'>
+                <s.FilterItem onClick={onClickGoStore} goStore={goStore} className='goStore'>
                     <s.FilterItemImage src='/asset/inbox-in.svg' alt='inbox-in'/>
                     <span>보관함으로 이동</span>
                 </s.FilterItem>
@@ -135,7 +172,7 @@ const KeywordList = () => {
                 {list.map((item)=>{
                     return(
                     <s.MainItem key={item.id}>
-                        <s.MainCheckBox checkAll={checkAll}></s.MainCheckBox>
+                        <s.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={item.select} checkAll={checkAll}></s.MainCheckBox>
                         <s.MainCheckBoxTitle readState={item.readState}>{item.title}</s.MainCheckBoxTitle>
                         <s.MainContent readState={item.readState}>{item.content}</s.MainContent>
                         <s.MainReadState>{item.readState}</s.MainReadState>

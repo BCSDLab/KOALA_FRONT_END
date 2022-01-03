@@ -70,6 +70,7 @@ export const CheckBox = styled.div`
     margin-right:24px;
     border-radius:3px;
     border:1px solid #c4c4c4;
+    cursor:pointer;
 
     ${props => {
         if(props.checkAll){
@@ -84,10 +85,12 @@ export const CheckBox = styled.div`
 export const CheckBoxTitle = styled.span`
     font-size:12px;
     margin-right:40px;
+    cursor:pointer;
 `;
 
 export const FilterItem = styled.span`
     padding:8px;
+    cursor:pointer;
 
     ${props => {
         if(props.readNotification || props.notReadNotification){
@@ -147,7 +150,7 @@ export const MainItem = styled.div`
 
 export const MainCheckBox = styled(CheckBox)`
     ${props => {
-       if(props.checkAll){
+       if(props.checkAll || props.checkSome){
            return `
            background-image:url('/asset/check.svg');
            background-position:center;
