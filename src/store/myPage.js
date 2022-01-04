@@ -12,7 +12,7 @@ export const changeNickName = createAction(CHANGENICKNAME, ({ nickName }) => ({
 }));
 export const getUserInfo = createAction(USERINFO);
 
-const changeNickNameSaga = createRequestSaga(CHANGENICKNAME, API.changeNickName);
+const changeNickNameSaga = createRequestSaga(CHANGENICKNAME, API.changeNickname);
 export function* changeNameSaga() {
   yield takeLatest(CHANGENICKNAME, changeNickNameSaga);
 }
@@ -23,7 +23,8 @@ export function* getUserSaga() {
 
 const initialState = {
   userImg: null,
-  userNickName: 'uko05068',
+  userAccount: null,
+  userNickName: null,
   schoolAuth: false,
 };
 
@@ -37,11 +38,8 @@ const myPage = handleActions(
     }),
     [USERINFO_SUCCESS]: (state, { payload }) => ({
       ...state,
-      userNickName: payload.nickName,
-      /* 
-        UserImg : ~~,
-        schoolAuth : ~~,
-      */
+      userNickName: payload.body.nickname,
+      userAccount: payload.body.account,
     }),
     [USERINFO_FAILURE]: (state) => ({
       ...state,
