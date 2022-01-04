@@ -82,7 +82,6 @@ const SideNavbar = () => {
 
   const toggleSideMenu = () => {
     dispatch(opened());
-    console.log(isOpen);
   };
 
   return (
