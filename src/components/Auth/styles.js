@@ -127,7 +127,7 @@ export const CopyRight = styled.p`
   display: flex;
   align-items: center;
   justify-content: center;
-
+  margin-bottom: 65px;
   font-family: NotoSansCJKKR;
   font-size: 12px;
   font-weight: normal;
