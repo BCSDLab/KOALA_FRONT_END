@@ -1,8 +1,7 @@
 import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { removeCookie, getCookie } from '../components/Shared/Cookies';
-import { refresh } from 'store/auth';
+import { removeCookie } from '../components/Shared/Cookies';
 import { setTokenOnHeader } from 'api/logined';
 import { getUserInfo } from '../store/myPage';
 import SideNavbar from 'components/SideNavbar';
@@ -13,11 +12,10 @@ import AutoLogin from 'components/Mypage/AutoLogin';
 import styled from 'styled-components';
 
 const MyPage = () => {
-  const toggle = useSelector((state) => state.toggle.isOpen); //사이드 네비게이션 상태 전역 상태 관리
-  const userInformation = useSelector((state) => state.myPage); //2.저장된 유저 데이터 불러온다.
+  const toggle = useSelector((state) => state.toggle.isOpen);
+  const userInfor = useSelector((state) => state.myPage);
   const loginInfo = useSelector((state) => state.auth);
-  const token = useSelector((state) => state.auth.token);
-  const [userImgFile, setUserImgFile] = useState(''); //기본 이미지 url 유저 정보안에 들어있어야함
+  const [userImgFile, setUserImgFile] = useState('');
 
   const setFile = (e) => {
     if (e.target.files[0]) {
@@ -37,30 +35,29 @@ const MyPage = () => {
   const [isShown, setIsShown] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  /*
-    유저정보를 받아올 떄 유저 이미지, 유저 닉네임, 학교인증여부를 받아온다.  
-  */
+
   const patch = () => {
     photoInput.current.click();
   };
 
-  const logoutClick = useCallback(() => {
+  //클릭 시 로그아웃
+  const logout = useCallback(() => {
     removeCookie('refresh_token');
     loginInfo.isLoggedIn = false;
     navigate('/auth');
-    location.reload();
-  }); //클릭 시 로그아웃
+  });
 
-  const resignClick = () => {
+  //클릭 시 계정 삭제
+  const resign = () => {
     API.deleteUser();
     navigate('/auth');
     location.reload();
-  }; //클릭 시 계정 삭제
+  };
 
   useEffect(() => {
-    setTokenOnHeader(token);
-    dispatch(getUserInfo()); //1. 렌더링 시 유저정보를 받아온다. => redux-state에 유저정보를 저장
-  }, [token]);
+    setTokenOnHeader(loginInfo.token);
+    dispatch(getUserInfo());
+  }, [loginInfo.token]);
 
   return (
     <MyPageContainer>
@@ -82,16 +79,16 @@ const MyPage = () => {
               <PatchImg ref={photoInput} type="file" accept="image/*" onChange={(e) => setFile(e)} />
             </OverLay>
           )}
-          <UserName>{userInformation.userNickName}</UserName>
+          <UserName>{userInfor.userNickName}</UserName>
           <NickNameTitle>닉네임</NickNameTitle>
-          <EditNickName userNickName={userInformation.userNickName} />
+          <EditNickName userNickName={userInfor.userNickName} />
           <SchoolAuthTitle>학교인증</SchoolAuthTitle>
           <SchoolAuth />
           <EtcTitle>기타</EtcTitle>
           <AutoLogin />
           <Contact>문의하기</Contact>
-          <LogOut onClick={logoutClick}>로그아웃</LogOut>
-          <Resign onClick={resignClick}>탈퇴하기</Resign>
+          <LogOut onClick={logout}>로그아웃</LogOut>
+          <Resign onClick={resign}>탈퇴하기</Resign>
         </UserInfo>
       </MyPageContent>
     </MyPageContainer>
