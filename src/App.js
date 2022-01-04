@@ -10,10 +10,10 @@ import FindPw from 'components/Auth/FindPw';
 import RegisterDoc from 'components/Auth/RegisterDoc';
 import Register from 'components/Auth/Register';
 import ChangePw from 'components/Auth/ChangePw';
-import MainPage from 'pages/mainPage';
+import MainPage from 'pages/MainPage';
 import { setTokenOnHeader } from 'api/logined';
 import { getCookie } from 'components/Shared/Cookies';
-import MyPage from 'pages/myPage';
+import MyPage from 'pages/MyPage';
 
 const App = () => {
   const dispatch = useDispatch();
