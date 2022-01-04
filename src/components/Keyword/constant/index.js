@@ -8,3 +8,22 @@ export const WEEK = [
     {id:6,day:"일요일"},
     {id:7,day:"공휴일"},
 ];
+
+export const menuItem = [
+    {   
+        id:0,
+        title:'전체'
+    },
+    {   
+        id:1,
+        title:'아우누리'
+    },
+    {   
+        id:2,
+        title:'아우미르'
+    },
+    {   
+        id:3,
+        title:'대신 전해드립니다-koreatech'
+    },
+];

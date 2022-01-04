@@ -2,26 +2,7 @@ import React,{useCallback,useEffect,useState} from 'react';
 import keywordList from './dummy';
 import KeywordHeader from '../KeywordHeader';
 import * as s from './styles';
-
-const menuItem = [
-    {   
-        id:0,
-        title:'전체'
-    },
-    {   
-        id:1,
-        title:'아우누리'
-    },
-    {   
-        id:2,
-        title:'아우미르'
-    },
-    {   
-        id:3,
-        title:'대신 전해드립니다-koreatech'
-    },
-];
-
+import { menuItem } from '../constant';
 
 const KeywordList = () => {
 
