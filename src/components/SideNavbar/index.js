@@ -77,7 +77,6 @@ const SettingImg = styled.img`
 `;
 
 const SideNavbar = () => {
-  const [isSideMenu, setIsSideMenu] = useState(false);
   const isOpen = useSelector((state) => state.toggle.isOpen);
   const dispatch = useDispatch();
 
@@ -96,22 +95,15 @@ const SideNavbar = () => {
 
         <HashTagImg src="/asset/Hashtag.svg" alt="keyword" />
 
-        <HistoryImg isSideMenu={isSideMenu} src="/asset/History.svg" alt="history" />
+        <HistoryImg isSideMenu={isOpen} src="/asset/History.svg" alt="history" />
 
-        <ChatImg isSideMenu={isSideMenu} src="/asset/Chat.svg" alt="chat" />
+        <ChatImg isSideMenu={isOpen} src="/asset/Chat.svg" alt="chat" />
 
-        <SettingImg isSideMenu={isSideMenu} src="/asset/Setting.svg" alt="mypage" />
+        <SettingImg isSideMenu={isOpen} src="/asset/Setting.svg" alt="mypage" />
       </Nav>
-      {isSideMenu && <SideNavMenu />}
+      {isOpen && <SideNavMenu />}
     </NavContainer>
   );
 };
 
-export default connect(
-  (state) => ({
-    isOpen: state.isOpen,
-  }),
-  {
-    opened,
-  }
-)(SideNavbar);
+export default SideNavbar;
