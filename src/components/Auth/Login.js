@@ -50,6 +50,7 @@ const StyledInput = styled(S.StyledInput)`
     margin-top: 0;
   }
 `;
+
 const StyledOptionLink = styled(S.StyledLink)`
   padding: 0 15px;
   height: 12px;
@@ -70,14 +71,16 @@ const StyledInputContainer = styled.div`
 `;
 
 const PwdSee = styled.span`
-display: block;
-right: 16px;
-top: 14px;
-position: absolute;
-cursor: pointer;
-}
+  display: block;
+  right: 16px;
+  top: 14px;
+  position: absolute;
+  cursor: pointer;
 `;
-const EyeImg = styled.img``;
+const EyeImg = styled.img`
+  width: 24px;
+  height: 24px;
+`;
 
 const SNSLoginOptionSection = styled.section`
   display: ${({ display }) => (display ? 'none' : 'flex')};
@@ -199,23 +202,6 @@ const AuthMainForm = () => {
       navigate('/');
     }
   }, [userLog]);
-  // function onSuccess(googleUser) {
-  //   console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-  // }
-  // function onFailure(error) {
-  //   console.log(error);
-  // }
-  // function renderButton() {
-  //   gapi.signin2.render('my-signin2', {
-  //     scope: 'profile email',
-  //     width: 240,
-  //     height: 50,
-  //     longtitle: true,
-  //     theme: 'dark',
-  //     onsuccess: onSuccess,
-  //     onfailure: onFailure,
-  //   });
-  // }
 
   return (
     <LoginContainer>
