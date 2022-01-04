@@ -1,6 +1,6 @@
 import React from 'react';
 import SideNavbar from 'components/SideNavbar';
-import KeywordList from 'components/Keyword/KeywordList';
+import AddKeyword from 'components/Keyword/AddKeyword';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -11,7 +11,7 @@ const mainPage = () => {
   return (
     <Container>
       <SideNavbar/>
-      <KeywordList/>
+      <AddKeyword/>
     </Container>
   );
 };
