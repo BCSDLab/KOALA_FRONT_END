@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { removeCookie } from '../components/Shared/Cookies';
 import { getUserInfo } from '../store/myPage';
-import { LOGIN } from '../constant';
+import { LOGIN, REFRESH_TOKEN } from '../constant';
 import SideNavbar from 'components/SideNavbar';
 import LoginButton from 'components/Shared/LoginButton';
 import EditNickName from 'components/Mypage/EditNickName';
@@ -48,7 +48,7 @@ const MyPage = () => {
 
   //클릭 시 로그아웃
   const logout = useCallback(() => {
-    removeCookie('refresh_token');
+    removeCookie(REFRESH_TOKEN);
     loginInfo.isLoggedIn = false;
     navigate(LOGIN);
   });
