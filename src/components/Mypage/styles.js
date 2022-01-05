@@ -26,7 +26,7 @@ export const SchoolAuthButton = styled.button`
   color: #fff;
 `;
 
-export const StyledEditNickname = styled.form`
+export const StyledEditNickName = styled.form`
   display: flex;
   position: relative;
   width: 304px;
@@ -34,7 +34,7 @@ export const StyledEditNickname = styled.form`
   margin: 2.8px 0px 24px 80px;
 `;
 
-export const EditNicknameInput = styled.input`
+export const EditNickNameInput = styled.input`
   width: 304px;
   padding-bottom: 7.3px;
   border: 0;
