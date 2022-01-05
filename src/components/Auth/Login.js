@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Switch from 'components/Shared/Switch';
 import StyledButton from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
@@ -32,11 +32,11 @@ const LoginOptionButton = styled.button`
 const LoginOptionMenuBar = styled.div`
   display: block;
   position: absolute;
-  width: ${({ location }) => (location === 1 ? 167 : 176)}px;
+  width: ${({ isNormalLogin }) => (isNormalLogin ? 167 : 176)}px;
   height: 1px;
   background-color: #222;
   transition: transform 0.2s ease;
-  transform: translateX(${({ location }) => (location === 1 ? 0 : 167)}px);
+  transform: translateX(${({ isNormalLogin }) => (isNormalLogin ? 0 : 167)}px);
 `;
 
 const LoginForm = styled.form`
@@ -90,63 +90,53 @@ const SNSLoginOptionSection = styled.section`
   justify-content: center;
 `;
 
-const GoogleLoginButton = styled.button`
+const LoginButtonAttributes = css`
   width: 343px;
   height: 44px;
   margin-bottom: 16px;
   padding: 0 10px;
-  border: solid 0.5px #c4c4c4;
-  background-color: #fff;
 
   font-size: 16px;
   font-weight: normal;
   text-align: center;
+
+  background: 12px center no-repeat;
+
+  :after {
+    content: '로그인';
+  }
+`;
+
+const GoogleLoginButton = styled.button`
+  ${LoginButtonAttributes}
+  border: solid 1px #eee;
   color: #000;
 
+  background-color: #fff;
   background-image: url('/asset/google-logo.svg');
-  background-position-y: center;
-  background-position-x: 12px;
-  background-repeat: no-repeat;
 
   :after {
     content: '구글 로그인';
   }
 `;
 const NaverLoginButton = styled.button`
-  width: 343px;
-  height: 44px;
-  margin-bottom: 16px;
-  padding: 0 0 4px;
-  background-color: #03c75a;
-
-  font-size: 16px;
-  font-weight: normal;
-  text-align: center;
+  ${LoginButtonAttributes}
   color: #fff;
 
+  background-color: #03c75a;
   background-image: url('/asset/naver-logo.svg');
-  background-position-y: center;
-  background-position-x: 12px;
-  background-repeat: no-repeat;
+
   :after {
     content: '네이버 로그인';
   }
 `;
-const KakaoLoginButton = styled.button`
-  width: 343px;
-  height: 44px;
-  padding: 0 10px;
-  background-color: #fee500;
 
-  font-size: 16px;
-  font-weight: normal;
-  text-align: center;
+const KakaoLoginButton = styled.button`
+  ${LoginButtonAttributes}
   color: #000;
 
+  background-color: #fee500;
   background-image: url('/asset/kakao-logo.svg');
-  background-position-y: center;
-  background-position-x: 12px;
-  background-repeat: no-repeat;
 
   :after {
     content: '카카오 로그인';
@@ -159,7 +149,6 @@ const KakaoLoginButton = styled.button`
  * - [] 구글 로그인
  * - [] 네이버 로그인
  * - [] 카카오 로그인
- * @returns
  */
 const AuthMainForm = () => {
   const dispatch = useDispatch();
@@ -167,7 +156,7 @@ const AuthMainForm = () => {
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const userLog = useSelector((state) => state.auth.isLoggedIn);
-  const [isPasswordType, setIsPassswordType] = useState({
+  const [isPasswordType, setIsPasswordType] = useState({
     type: 'password',
     visible: false,
   });
@@ -187,7 +176,7 @@ const AuthMainForm = () => {
   };
 
   const handlePasswordType = (e) => {
-    setIsPassswordType(() => {
+    setIsPasswordType(() => {
       if (!isPasswordType.visible) return { type: 'text', visible: true };
       return { type: 'password', visible: false };
     });
@@ -212,7 +201,7 @@ const AuthMainForm = () => {
         <LoginOptionButton onClick={toggleLoginOption} isClicked={!isNormalLogin}>
           SNS로 로그인
         </LoginOptionButton>
-        <LoginOptionMenuBar location={isNormalLogin ? 1 : 2} />
+        <LoginOptionMenuBar isNormalLogin={isNormalLogin} />
       </LoginOptionContainer>
 
       <LoginForm display={isNormalLogin} onSubmit={submitHandler}>
@@ -251,7 +240,6 @@ const AuthMainForm = () => {
         <GoogleLoginButton />
         <NaverLoginButton />
         <KakaoLoginButton />
-        <div id="my-signin2"></div>
       </SNSLoginOptionSection>
 
       <S.OtherOption>
