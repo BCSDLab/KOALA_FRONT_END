@@ -6,7 +6,7 @@ import { getUserInfo } from '../store/myPage';
 import { LOGIN, REFRESH_TOKEN } from '../constant';
 import SideNavbar from 'components/SideNavbar';
 import LoginButton from 'components/Shared/LoginButton';
-import EditNickName from 'components/Mypage/EditNickName';
+import EditNickname from 'components/Mypage/EditNickname';
 import SchoolAuth from 'components/Mypage/SchoolAuth';
 import AutoLogin from 'components/Mypage/AutoLogin';
 import styled from 'styled-components';
@@ -20,7 +20,7 @@ const MyPage = () => {
   const toggle = useSelector((state) => state.toggle.isOpen);
   const userInfo = useSelector((state) => state.myPage);
   const loginInfo = useSelector((state) => state.auth);
-  const [userImgFile, setUserImgFile] = useState('/asset/BaseUserPNG.svg'); //유저 이미지 상태
+  const [userImgFile, setUserImgFile] = useState('/asset/BaseUser.svg'); //유저 이미지 상태
   const photoInput = useRef();
   const [isShown, setIsShown] = useState(false);
   const dispatch = useDispatch();
@@ -62,7 +62,7 @@ const MyPage = () => {
 
   //새로고침 시 유저정보 다시 받아오기
   useEffect(() => {
-    if (loginInfo.isLoggedIn == true) {
+    if (loginInfo.isLoggedIn) {
       dispatch(getUserInfo());
     }
   }, [loginInfo.isLoggedIn]);
@@ -75,21 +75,21 @@ const MyPage = () => {
         <UserInfo isToggle={toggle}>
           <MainText>설정</MainText>
           <MyInfo>내 정보</MyInfo>
-          <UserImg
+          <UserImage
             onMouseEnter={() => setIsShown(true)}
             onMouseLeave={() => setIsShown(false)}
             src={userImgFile}
             alt="userImage"
-          ></UserImg>
+          ></UserImage>
           {isShown && (
             <OverLay onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)}>
               <PatchText onClick={photoPatch}>편집</PatchText>
               <PatchImg ref={photoInput} type="file" accept="image/*" onChange={(e) => setFile(e)} />
             </OverLay>
           )}
-          <UserName>{userInfo.userNickName}</UserName>
-          <NickNameTitle>닉네임</NickNameTitle>
-          <EditNickName userNickName={userInfo.userNickName} />
+          <UserNickname>{userInfo.userNickname}</UserNickname>
+          <NicknameTitle>닉네임</NicknameTitle>
+          <EditNickname userNickname={userInfo.userNickname} />
           <SchoolAuthTitle>학교인증</SchoolAuthTitle>
           <SchoolAuth />
           <EtcTitle>기타</EtcTitle>
@@ -140,7 +140,7 @@ const MyInfo = styled.div`
   color: #222;
 `;
 
-const UserImg = styled.img`
+const UserImage = styled.img`
   width: 72px;
   height: 72px;
   margin: 0px 98px 16px 195px;
@@ -168,7 +168,7 @@ const PatchImg = styled.input`
   display: none;
 `;
 
-const UserName = styled.div`
+const UserNickname = styled.div`
   width: 304px;
   height: 24px;
   margin: 0px 0px 32px 80px;
@@ -188,7 +188,7 @@ const Title = styled.div`
   color: #999;
 `;
 
-const NickNameTitle = styled(Title)`
+const NicknameTitle = styled(Title)`
   width: 39px;
   margin: 0px 76px 24px 80px;
 `;
