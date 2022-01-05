@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch, connect } from 'react-redux';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { opened } from '../../store/toggle';
 import styled from 'styled-components';
 import SideNavMenu from './SideNavMenu';
