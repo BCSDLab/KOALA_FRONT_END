@@ -87,9 +87,9 @@ const MyPage = () => {
               <PatchImg ref={photoInput} type="file" accept="image/*" onChange={(e) => setFile(e)} />
             </OverLay>
           )}
-          <UserName>{userInfor.userNickName}</UserName>
+          <UserName>{userInfo.userNickName}</UserName>
           <NickNameTitle>닉네임</NickNameTitle>
-          <EditNickName userNickName={userInfor.userNickName} />
+          <EditNickName userNickName={userInfo.userNickName} />
           <SchoolAuthTitle>학교인증</SchoolAuthTitle>
           <SchoolAuth />
           <EtcTitle>기타</EtcTitle>
