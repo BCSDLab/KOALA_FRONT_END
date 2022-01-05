@@ -6,7 +6,7 @@ import { getUserInfo } from '../store/myPage';
 import { LOGIN, REFRESH_TOKEN } from '../constant';
 import SideNavbar from 'components/SideNavbar';
 import LoginButton from 'components/Shared/LoginButton';
-import EditNickName from 'components/Mypage/EditNickName';
+import EditNickname from 'components/Mypage/EditNickname';
 import SchoolAuth from 'components/Mypage/SchoolAuth';
 import AutoLogin from 'components/Mypage/AutoLogin';
 import styled from 'styled-components';
@@ -87,9 +87,9 @@ const MyPage = () => {
               <PatchImg ref={photoInput} type="file" accept="image/*" onChange={(e) => setFile(e)} />
             </OverLay>
           )}
-          <UserName>{userInfo.userNickName}</UserName>
-          <NickNameTitle>닉네임</NickNameTitle>
-          <EditNickName userNickName={userInfo.userNickName} />
+          <UserNickName>{userInfo.userNickname}</UserNickName>
+          <NicknameTitle>닉네임</NicknameTitle>
+          <EditNickname userNickName={userInfo.userNickname} />
           <SchoolAuthTitle>학교인증</SchoolAuthTitle>
           <SchoolAuth />
           <EtcTitle>기타</EtcTitle>
@@ -168,7 +168,7 @@ const PatchImg = styled.input`
   display: none;
 `;
 
-const UserName = styled.div`
+const UserNickname = styled.div`
   width: 304px;
   height: 24px;
   margin: 0px 0px 32px 80px;
@@ -188,7 +188,7 @@ const Title = styled.div`
   color: #999;
 `;
 
-const NickNameTitle = styled(Title)`
+const NicknameTitle = styled(Title)`
   width: 39px;
   margin: 0px 76px 24px 80px;
 `;
