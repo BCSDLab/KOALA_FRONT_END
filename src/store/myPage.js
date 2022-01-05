@@ -25,7 +25,7 @@ const initialState = {
   userImg: null,
   userAccount: null,
   userNickname: null,
-  schoolAuth: false,
+  schoolAuth: null,
 };
 
 const myPage = handleActions(
@@ -40,6 +40,7 @@ const myPage = handleActions(
       ...state,
       userNickname: payload.body.nickname,
       userAccount: payload.body.account,
+      schoolAuth: payload.body.is_auth,
     }),
     [USERINFO_FAILURE]: (state) => ({
       ...state,
