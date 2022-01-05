@@ -3,7 +3,7 @@ import * as S from './styles';
 
 const EditNickName = ({ userNickName }) => {
   const [nickName, setNickName] = useState('');
-  const EditName = () => {
+  const editName = () => {
     dispatch(changeNickName(nickName));
   };
 
@@ -15,7 +15,7 @@ const EditNickName = ({ userNickName }) => {
   }, [userNickName]);
 
   return (
-    <S.StyledEditNickName onSubmit={EditName}>
+    <S.StyledEditNickName onSubmit={editName}>
       <S.EditNickNameInput value={nickName || ''} onChange={nickNameHandler} />
       <S.EditButton>
         <S.EditImg src="/asset/pencil.svg" alt="pencil" />

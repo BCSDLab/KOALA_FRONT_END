@@ -10,11 +10,11 @@ import * as S from './styles';
   }
 */
 const SchoolAuth = () => {
-  const AuthState = useSelector((state) => state.myPage.schoolAuth);
+  const authState = useSelector((state) => state.myPage.schoolAuth);
 
   return (
     <S.SchoolAuthContent>
-      {AuthState ? (
+      {authState ? (
         <>
           <S.SchoolAuthState>미인증</S.SchoolAuthState>
           <S.SchoolAuthButton>인증하기</S.SchoolAuthButton>

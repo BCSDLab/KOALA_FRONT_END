@@ -19,7 +19,7 @@ import styled from 'styled-components';
 
 const MyPage = () => {
   const toggle = useSelector((state) => state.toggle.isOpen);
-  const userInfor = useSelector((state) => state.myPage);
+  const userInfo = useSelector((state) => state.myPage);
   const loginInfo = useSelector((state) => state.auth);
   const [userImgFile, setUserImgFile] = useState('/asset/BaseUserPNG.svg'); //유저 이미지 상태
   const photoInput = useRef();
@@ -106,7 +106,7 @@ const MyPage = () => {
 export default MyPage;
 
 const MyPageContainer = styled.div`
-  display: flex;z
+  display: flex;
 `;
 
 const MyPageContent = styled.div``;
