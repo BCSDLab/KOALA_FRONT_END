@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { removeCookie } from '../components/Shared/Cookies';
-import { setTokenOnHeader } from 'api/logined';
 import { getUserInfo } from '../store/myPage';
 import { LOGIN } from '../constant';
 import SideNavbar from 'components/SideNavbar';
@@ -63,9 +62,10 @@ const MyPage = () => {
 
   //새로고침 시 유저정보 다시 받아오기
   useEffect(() => {
-    setTokenOnHeader(loginInfo.token);
-    dispatch(getUserInfo());
-  }, [loginInfo.token]);
+    if (loginInfo.isLoggedIn == true) {
+      dispatch(getUserInfo());
+    }
+  }, [loginInfo.isLoggedIn]);
 
   return (
     <MyPageContainer>
@@ -114,7 +114,7 @@ const MyPageContent = styled.div``;
 const UserInfo = styled.div`
   margin: ${({ isToggle }) =>
     isToggle
-      ? ` 121px 664px 181px 522px;`
+      ? `121px 664px 181px 522px;`
       : `121px 664px 181px 426px;
   `};
 `;
