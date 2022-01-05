@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { removeCookie } from '../components/Shared/Cookies';
 import { setTokenOnHeader } from 'api/logined';
 import { getUserInfo } from '../store/myPage';
+import LOGIN from '../constant';
 import SideNavbar from 'components/SideNavbar';
 import LoginButton from 'components/Shared/LoginButton';
 import EditNickName from 'components/Mypage/EditNickName';
@@ -44,13 +45,13 @@ const MyPage = () => {
   const logout = useCallback(() => {
     removeCookie('refresh_token');
     loginInfo.isLoggedIn = false;
-    navigate('/auth');
+    navigate(LOGIN);
   });
 
   //클릭 시 계정 삭제
   const resign = () => {
     API.deleteUser();
-    navigate('/auth');
+    navigate(LOGIN);
     location.reload();
   };
 
