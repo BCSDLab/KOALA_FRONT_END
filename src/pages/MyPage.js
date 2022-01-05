@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import { removeCookie } from '../components/Shared/Cookies';
 import { setTokenOnHeader } from 'api/logined';
 import { getUserInfo } from '../store/myPage';
-import LOGIN from '../constant';
+import { LOGIN } from '../constant';
 import SideNavbar from 'components/SideNavbar';
 import LoginButton from 'components/Shared/LoginButton';
 import EditNickName from 'components/Mypage/EditNickName';
@@ -12,12 +12,22 @@ import SchoolAuth from 'components/Mypage/SchoolAuth';
 import AutoLogin from 'components/Mypage/AutoLogin';
 import styled from 'styled-components';
 
+/* 
+  마이페이지에 현재 user/my에서 유저 이미지에 대한 설계가 아직 진행되지 않았습니다. 
+  서버 설계가 완료되면 아래 작성해둔 함수를 활용해주세요
+*/
+
 const MyPage = () => {
   const toggle = useSelector((state) => state.toggle.isOpen);
   const userInfor = useSelector((state) => state.myPage);
   const loginInfo = useSelector((state) => state.auth);
-  const [userImgFile, setUserImgFile] = useState('');
+  const [userImgFile, setUserImgFile] = useState('/asset/BaseUserPNG.svg'); //유저 이미지 상태
+  const photoInput = useRef();
+  const [isShown, setIsShown] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  //이미지 파일 업로드 기능 함수
   const setFile = (e) => {
     if (e.target.files[0]) {
       const img = new FormData();
@@ -32,12 +42,8 @@ const MyPage = () => {
         });
     }
   };
-  const photoInput = useRef();
-  const [isShown, setIsShown] = useState(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const patch = () => {
+  const photoPatch = () => {
     photoInput.current.click();
   };
 
@@ -55,6 +61,7 @@ const MyPage = () => {
     location.reload();
   };
 
+  //새로고침 시 유저정보 다시 받아오기
   useEffect(() => {
     setTokenOnHeader(loginInfo.token);
     dispatch(getUserInfo());
@@ -71,12 +78,12 @@ const MyPage = () => {
           <UserImg
             onMouseEnter={() => setIsShown(true)}
             onMouseLeave={() => setIsShown(false)}
-            src="/asset/BaseUserPNG.svg" //유저정보의 이미지로 변경될 예정
+            src={userImgFile}
             alt="userImage"
           ></UserImg>
           {isShown && (
             <OverLay onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)}>
-              <PatchText onClick={patch}>편집</PatchText>
+              <PatchText onClick={photoPatch}>편집</PatchText>
               <PatchImg ref={photoInput} type="file" accept="image/*" onChange={(e) => setFile(e)} />
             </OverLay>
           )}
