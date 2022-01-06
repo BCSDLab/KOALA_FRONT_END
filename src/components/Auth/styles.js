@@ -28,7 +28,7 @@ export const StyledInput = styled.input`
 `;
 
 export const StyledLink = styled(Link)`
-  text-decoration: none;
+  font-size: 12px;
   color: #999;
   &:focus,
   &:hover,
@@ -39,13 +39,23 @@ export const StyledLink = styled(Link)`
     text-decoration: none;
   }
   ::after {
-    content: '|';
-    float: right;
-    color: #999;
+    top: 4px;
+    background-color: #c4c4c4;
     margin: 0 15px;
-  }
-  :last-child::after {
+    width: 1px;
+    height: 12px;
+    float: right;
+    position: relative;
     content: '';
+  }
+
+  :last-child::after {
+    content: none;
+    float: right;
+    margin: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
   }
 `;
 
@@ -62,10 +72,9 @@ export const AutoLoginCheck = styled.div`
   font-size: 10px;
 `;
 
-export const AutoLoginText = styled.div`
-  width: 58px;
-  height: 18px;
-  font-size: 9px;
+export const AutoLoginText = styled.label`
+  font-size: 12px;
+  color: #999;
 `;
 
 export const OtherOption = styled.div`
@@ -94,24 +103,37 @@ export const OauthLogin = styled.div`
   justify-content: space-between;
 `;
 
-export const NoneUser = styled.div`
-  width: 120px;
-  height: 21px;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 56px 90px 150px 125px;
+export const NoneUserLinkSection = styled.section`
+  height: 383px;
 `;
 
-export const CopyRight = styled.div`
-  width: 298px;
-  height: 18px;
-  font-size: 12px;
+export const NoneUserLink = styled(Link)`
+  display: inline-block;
+  width: 100%;
+  margin: 164px 0 198px 0;
+  font-size: 14px;
+  text-align: center;
+  font-family: NotoSansCJKKR;
+  text-decoration: underline;
+  color: #999;
+
+  :hover {
+    text-decoration: underline;
+  }
+}
+`;
+
+export const CopyRight = styled.p`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 30px 0 30px;
+  margin-bottom: 65px;
+  font-family: NotoSansCJKKR;
+  font-size: 12px;
+  font-weight: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #c4c4c4;
 `;
 
 export const Title = styled.div`
