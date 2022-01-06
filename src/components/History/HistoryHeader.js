@@ -8,6 +8,7 @@ const Header = styled.div`
 const HistoryHeaderTab = styled.div`
   font-size: 18px;
   margin-right: 72px;
+  cursor: pointer;
 `
 const HistoryHeader = () => {
     return (
