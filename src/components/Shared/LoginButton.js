@@ -1,5 +1,6 @@
 import React, { useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { LOGIN, REFRESH_TOKEN } from '../../constant';
 import { removeCookie } from 'components/Shared/Cookies';
 import { useNavigate } from 'react-router';
 import { useCallback } from 'react';
@@ -22,12 +23,13 @@ const LoginButton = () => {
   const navigate = useNavigate();
 
   const loginClick = useCallback(() => {
-    navigate(`/auth`);
+    navigate(LOGIN);
   });
 
   const logoutClick = useCallback(() => {
-    removeCookie('refresh_token');
+    removeCookie(REFRESH_TOKEN);
     loginInfo.isLoggedIn = false;
+    navigate(LOGIN);
     location.reload();
   });
 

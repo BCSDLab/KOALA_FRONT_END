@@ -35,6 +35,7 @@ export function* signUpRegisterSaga() {
 }
 
 const initialState = {
+  isOpen: false,
   isLoggedIn: false,
   authError: null,
   errorCode: '',
@@ -45,10 +46,10 @@ const auth = handleActions(
     [LOGIN_SUCESS]: (state, { payload: token }) => ({
       ...state,
       authError: null,
-      token: setCookie('refresh_token', `${token.refresh_token}`, {
+      setRefreshToken: setCookie('refresh_token', `${token.body.refresh_token}`, {
         path: '/',
       }),
-      token: setTokenOnHeader(token.access_token),
+      setAccessToken: setTokenOnHeader(token.body.access_token),
       isLoggedIn: true,
     }),
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
@@ -58,10 +59,10 @@ const auth = handleActions(
     [REFRESH_SUCESS]: (state, { payload: token }) => ({
       ...state,
       authError: null,
-      token: setCookie('refresh_token', `${token.refresh_token}`, {
+      setRefreshToken: setCookie('refresh_token', `${token.body.refresh_token}`, {
         path: '/',
       }),
-      token: setTokenOnHeader(token.access_token),
+      setAccessToken: setTokenOnHeader(token.body.access_token),
       isLoggedIn: true,
     }),
     [REFRESH_FAILURE]: (state, { payload: error }) => ({

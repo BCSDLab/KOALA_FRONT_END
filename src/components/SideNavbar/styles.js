@@ -5,6 +5,7 @@ export const SideMenuBackground = styled.div`
   width: 270px;
   height: 1110px;
   flex-grow: 0;
+  margin-right: 96px;
   padding: 40px 0 0;
   background-color: #f6f7f8;
 `;
