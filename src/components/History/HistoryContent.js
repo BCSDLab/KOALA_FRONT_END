@@ -34,12 +34,12 @@ const HistoryContent = () => {
     <MenuList>
         <HistoryCheckBox/>
         <SelectAll>전체선택</SelectAll>
-        <Menues onClick={() => showRead()}>
+        <Menues onClick={() => showRead()} isClicked={command==='read'?true:false}>
             <MenuName>
                 읽은 알림
             </MenuName>
         </Menues>
-        <Menues onClick={() => showNotRead()}>
+        <Menues onClick={() => showNotRead()} isClicked={command==='notRead'?true:false}>
             <MenuName>
                 읽지 않은 알림
             </MenuName>
