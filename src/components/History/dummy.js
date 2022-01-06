@@ -23,7 +23,7 @@ export const dummyList = [
     {
         id:4,
         sender:'아우미르',
-        text:'기숙사 신청안내',
+        text:'adsfasdfasdfasdfhagouawrgouhwrgqrhuoghoeroghoueqrhguheoqrhguoheuroqhgoueqrughuoeqrhguoheqroughuoeqhruoghoueqrghuoerqhgoheqrhguohguohqrguohuoeqrhgueruhguqerghouqerhguohqerougqerhgouerhguo',
         isRead:false,
         date:'8/25 - 18:30'
     },
