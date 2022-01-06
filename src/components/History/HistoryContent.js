@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import HistoryCheckBox from "./HisoryCheckBox";
+import { dummyList } from "./dummy";
 const MenuList = styled.div`
     display: flex;
     align-items: center;
@@ -28,19 +29,24 @@ const MenuName = styled.div`
 const SelectAll = styled.div`
     margin-right: 25px;
 `
-const KeyWordAlert = styled.div`
+const KeyWordAlert = styled.li`
     display: flex;
+    color: ${props => props.isRead?'#999999':'black'};
     padding: 15px 0 15px 0;
     border-bottom: 1px solid #eeeeee;
 `
+const KeyWordAlertList = styled.ol``
 const Sender = styled.div`
     font-size: 12px;
     margin-right: 119px;
 `
 const AlertTitle = styled.div`
     width: 899px;
+    max-width: 899px;
+    max-height: 18px;
     font-size: 12px;
     cursor: pointer;
+    overflow: hidden;
 `
 const MailBrowse = styled.div`
     width: 47px;
@@ -82,13 +88,18 @@ const HistoryContent = () => {
             </MenuName>
         </Menues>
     </MenuList>
-    <KeyWordAlert>
-        <HistoryCheckBox/>
-        <Sender>아우누리</Sender>
-        <AlertTitle>장학재단_장학생 선정안내</AlertTitle>
-        <MailBrowse>읽지않음</MailBrowse>
-        <ReceiveDate>8/22 - 18:30</ReceiveDate>
-    </KeyWordAlert>
+    <KeyWordAlertList>
+            {dummyList.map(mail => (
+                <KeyWordAlert isRead = {mail.isRead}>
+                    <HistoryCheckBox/>
+                    <Sender>{mail.sender}</Sender>
+                    <AlertTitle >{mail.text}</AlertTitle>
+                    <MailBrowse>{mail.isRead?'읽음':'읽지않음'}</MailBrowse>
+                    <ReceiveDate>{mail.date}</ReceiveDate>
+                </KeyWordAlert>
+            ))}
+    </KeyWordAlertList>
+
     </>
     )
 }
