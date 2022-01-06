@@ -14,6 +14,8 @@ import MainPage from 'pages/MainPage';
 import { setTokenOnHeader } from 'api/logined';
 import { getCookie } from 'components/Shared/Cookies';
 import MyPage from 'pages/MyPage';
+import ChatPage from 'pages/ChatPage';
+import ChatAuth from 'components/Chat/ChatAuth';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -38,6 +40,9 @@ const App = () => {
         </Route>
       </Routes>
       <Routes>
+        <Route path="chat/*" element={<ChatPage />}>
+          <Route path="auth" element={<ChatAuth />} />
+        </Route>
         <Route path="mypage" element={<MyPage />} />
       </Routes>
     </>
