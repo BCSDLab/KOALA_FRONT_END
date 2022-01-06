@@ -5,7 +5,7 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'NotoSansCJKKR';
     font-weight: normal;
     font-style: normal;
-    src: url(asset/fonts/NotoSansCJKkr/NotoSansCJKkr-Regular.otf) format('opentype');
+    src: url(/asset/fonts/NotoSansCJKkr/NotoSansCJKkr-Regular.otf) format('woff');
   }
   @font-face {
     font-family: 'NotoSansCJKKR';
