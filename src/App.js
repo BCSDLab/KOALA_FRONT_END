@@ -11,6 +11,7 @@ import RegisterDoc from 'components/Auth/RegisterDoc';
 import Register from 'components/Auth/Register';
 import ChangePw from 'components/Auth/ChangePw';
 import MainPage from 'pages/mainPage';
+import HistoryPage from 'pages/historyPage';
 import { setTokenOnHeader } from 'api/logined';
 import { getCookie } from 'components/Shared/Cookies';
 
@@ -26,7 +27,8 @@ const App = () => {
     <>
       <GlobalStyle />
       <Routes>
-        <Route path="/" element={<MainPage />} exact />
+        {/* <Route path="/" element={<MainPage />} exact /> */}
+        <Route path="/" element={<HistoryPage />} exact />
         <Route path="auth/*" element={<AuthPage />}>
           <Route index element={<Login />} />
           <Route path="createLog" element={<RegisterDoc />} />
