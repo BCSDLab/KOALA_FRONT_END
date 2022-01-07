@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
 import auth, { authSaga, refreshLoginSaga, signUpRegisterSaga } from './auth';
 import loading from './loading';
-import keyword,{inquiryKeywordSaga} from './keyword';
+import keyword,{inquiryKeywordSaga,getKeywordListSaga} from './keyword';
 
 const rootReducer = combineReducers({
   auth,
@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
 });
 
 export function* rootSaga() {
-  yield all([authSaga(), refreshLoginSaga(), signUpRegisterSaga(),inquiryKeywordSaga()]);
+  yield all([authSaga(), refreshLoginSaga(), signUpRegisterSaga(),inquiryKeywordSaga(),getKeywordListSaga()]);
 }
 
 export default rootReducer;

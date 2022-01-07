@@ -15,5 +15,6 @@ export const signUp = ({ account, password, find_email, nickname }) =>
 
 
 export const keywordAPI = {
-  InquiryKeyword : () => logined.get('/keyword')
+  InquiryKeyword : () => logined.get(`/keyword`),
+  getKeywordList : (keywordName) => logined.get(`/keyword/list?keyword-name=${keywordName}`)
 }

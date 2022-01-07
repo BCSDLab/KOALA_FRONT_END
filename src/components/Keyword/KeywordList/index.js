@@ -4,13 +4,12 @@ import KeywordHeader from '../KeywordHeader';
 import * as s from './styles';
 import { menuItem } from '../constant';
 import { useSelector, useDispatch } from 'react-redux';
-import { inquiry } from 'store/keyword';
-import { refresh } from 'store/auth';
+import { inquiry,getKeywordList } from 'store/keyword';
 
 const KeywordList = () => {
 
     const userInfo = useSelector((state)=>state.auth);
-    const inquiryKeyword = useSelector((state)=>state.keyword);
+    const {keywords} = useSelector((state)=>state.keyword);
     const dispatch = useDispatch();
 
     const [menu,setMenu] = useState('전체');
@@ -156,6 +155,7 @@ const KeywordList = () => {
     useEffect(()=>{
         if(userInfo.isLoggedIn){
             dispatch(inquiry());
+            dispatch(getKeywordList('키워드테스트'));
         }
     },[userInfo.isLoggedIn]);
 
