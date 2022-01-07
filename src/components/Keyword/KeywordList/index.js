@@ -4,6 +4,7 @@ import * as s from './styles';
 import { menuItem } from '../constant';
 import { useSelector, useDispatch } from 'react-redux';
 import { inquiry,getKeywordList } from 'store/keyword';
+import { AUNURI,AOUMIR } from '../constant';
 
 const KeywordList = () => {
 
@@ -20,13 +21,46 @@ const KeywordList = () => {
     const [goStore, setGoStore] = useState(false);
     const [deleteList, setDeleteList] = useState(false);
 
+
+    //utills
+    const getTitle = (url) => {
+        if(url.includes(AUNURI)){
+            return '아우누리'
+        }else if(url.includes(AOUMIR)){
+            return '아우미르'
+        }else{
+            return '대신 전해드립니다 - koreatech'
+        }
+    }
+
     const onClickMenu = useCallback((e)=>{        
         const menu = e.target.innerText;
         setMenu(menu);
         setCheckAll(false);
         setReadNotification(false);
         setNotReadNotification(false);
-    },[]);
+
+        if(menu === '전체'){
+            setList(keywordList);
+        }else if(menu === '아우누리'){
+            const filterList = keywordList.filter((item)=>{
+                if(item.url.includes(AUNURI)){
+                    return item;
+                }
+            })
+
+            setList(filterList);
+        }else if(menu === '아우미르'){
+            const filterList = keywordList.filter((item)=>{
+                if(item.url.includes(AOUMIR)){
+                    return item;
+                }
+            })
+
+            setList(filterList);
+        }
+
+    },[keywordList]);
 
     const onClickAllSelect = useCallback(()=>{
         setCheckAll((prev)=>!prev);
@@ -43,20 +77,21 @@ const KeywordList = () => {
     },[readNotification]);
 
     const onChangeKeywordSearch = useCallback((e)=>{
-
         setKeywordSearch(e.target.value);
-        
     },[keywordSearch]);
 
-    const onClickSearch = useCallback(()=>{
+    const onClickSearch = useCallback((e)=>{    
+        
         const filterList = list.filter((item)=>{
-            if(item.content.includes(keywordSearch)){
+            
+            if(`${item.title}`.includes(`${keywordSearch}`)){
                 return item;
             }
         });
+
         setList(filterList);
         setKeywordSearch('');
-    },[keywordSearch]);
+    },[list,keywordSearch]);
 
     const onClickGoStore = useCallback(()=>{
         setGoStore(true);
@@ -67,26 +102,8 @@ const KeywordList = () => {
     },[]);
 
     const onClickCheckSome = useCallback((id)=>{
-        const filterList = list.map((item)=>{
-            if(id === item.id){
-               item.select = !item.select;
-            }
-            return item;
-        })
 
-        setList(filterList);
-    },[list]);
-
-    useEffect(()=>{
-        if(menu==='전체'){
-            setList(keywordList);
-        }else{
-            const filterList = keywordList.filter((item)=>{
-                return item.title === menu;
-            });
-            setList(filterList);
-        }
-    },[menu]);
+    },[]);
 
     useEffect(()=>{
         if(notReadNotification){
@@ -183,7 +200,7 @@ const KeywordList = () => {
                     <span>삭제</span>
                 </s.FilterItem>
                 <s.SearchInput placeholder='알림대상/알림내용/키워드 입력' value={keywordSearch} onChange={onChangeKeywordSearch}></s.SearchInput>
-                <s.SearchButton onClick={onClickSearch}>
+                <s.SearchButton onClick={onClickSearch} onKeyPress={onClickSearch}>
                     <span>검색하기</span>
                     <s.SearchImage src='/asset/search.svg'/>
                 </s.SearchButton>
@@ -193,7 +210,7 @@ const KeywordList = () => {
                     return(
                     <s.MainItem key={item.id}>
                         <s.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={item.select} checkAll={checkAll}></s.MainCheckBox>
-                        <s.MainCheckBoxTitle readState={item.isRead}>아우누리</s.MainCheckBoxTitle>
+                        <s.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.url)}</s.MainCheckBoxTitle>
                         <s.MainContent readState={item.isRead}>{item.title}</s.MainContent>
                         <s.MainReadState>{item.isRead?"읽음":"읽지 않음"}</s.MainReadState>
                         <s.MainPeriod readState={item.isRead}>{item.createdAt}</s.MainPeriod>

@@ -27,3 +27,7 @@ export const menuItem = [
         title:'대신 전해드립니다-koreatech'
     },
 ];
+
+export const AUNURI = 'https://portal.koreatech.ac.kr';
+export const AOUMIR = 'https://dorm.koreatech.ac.kr/';
+export const KOREATECHINSTEADDELIVER = 'https://ko-kr.facebook.com/s.g.of.koreatech/';
