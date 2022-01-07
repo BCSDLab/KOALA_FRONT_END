@@ -1,27 +1,40 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { sendUniversity, authUniversity } from '../../store/chat';
 import styled from 'styled-components';
 import Button from '../Shared/Button';
 
-import * as S from 'components/Auth/styles';
-
 const ChatAuth = () => {
   const [email, setEmail] = useState('');
+  const [authNumber, setAuthNumber] = useState('');
+  const [isAuthNumeber, setIsAuthNumber] = useState(false);
   const [isEmail, setIsEmail] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isEmailSend, setIsEmailSend] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
+  const dispatch = useDispatch();
+  const chat = useSelector((state) => state.chat);
 
   const [minutes, setMinutes] = useState(parseInt('00'));
   const [seconds, setSeconds] = useState(parseInt('00'));
 
-  const sendAuthCode = () => {
-    // 메일 전송 로직 실행 후
-    setIsEmailSend(true);
-    if (isEmailSend) {
-      setIsError(false);
+  const sendEmail = () => {
+    if (isEmail) {
+      const mail = `${email}@koreatech.ac.kr`;
+      dispatch(sendUniversity(mail));
+      setIsEmailSend(true);
+      if (isEmailSend) {
+        setIsError(false);
+      }
+      setMinutes(parseInt('01'));
+      setSeconds(parseInt('01'));
+    } else {
+      alert('이메일을 입력해주세요');
     }
-    setMinutes(parseInt('05'));
-    setSeconds(parseInt('00'));
+  };
+  const authEmail = () => {
+    const secret = authNumber;
+    dispatch(authUniversity({ secret, email }));
   };
 
   const onChangeEmail = useCallback((e) => {
@@ -33,6 +46,16 @@ const ChatAuth = () => {
       setIsEmail(false);
     }
   }, []);
+  const onChangeAuthNumber = useCallback((e) => {
+    const currentAuthNumber = e.target.value;
+    setAuthNumber(currentAuthNumber);
+    if (currentAuthNumber) {
+      setIsAuthNumber(true);
+    } else {
+      setIsAuthNumber(false);
+    }
+  }, []);
+
   useEffect(() => {
     const countdown = setInterval(() => {
       if (parseInt(seconds) > 0) {
@@ -48,12 +71,17 @@ const ChatAuth = () => {
         }
       }
     }, 1000);
+    if (minutes == 0 && seconds == 0) {
+      chat.authNumberErrorMessage = '인증시간이 만료되었습니다.';
+    } else {
+      chat.authNumberErrorMessage = '';
+    }
     return () => clearInterval(countdown);
   }, [minutes, seconds]);
 
   useEffect(() => {
-    setIsDisabled(!isEmail);
-  }, [isEmail]);
+    setIsDisabled(!isEmail || !isAuthNumeber);
+  }, [isEmail, isAuthNumeber]);
 
   return (
     <ChatAuthStyle>
@@ -70,11 +98,13 @@ const ChatAuth = () => {
       <AuthNumberTitle>인증번호</AuthNumberTitle>
       <AuthNumberForm>
         <AuthNumberInput
+          value={authNumber}
+          onChange={onChangeAuthNumber}
           isError={isError}
           isEmailSend={isEmailSend}
           placeholder="학교 이메일로 인증번호가 전송됩니다."
         ></AuthNumberInput>
-        <AuthNumberButton onClick={sendAuthCode} isEmail={isEmail} disabled={!isEmail} type="button">
+        <AuthNumberButton onClick={sendEmail} isEmail={isEmail} type="button">
           {' '}
           {isEmailSend ? '재전송' : '인증번호 전송'}
         </AuthNumberButton>
@@ -84,8 +114,10 @@ const ChatAuth = () => {
           </AuthNumTime>
         )}
       </AuthNumberForm>
-      <S.InputErrorText>{isError ? '입력시간이 초과되었습니다.' : ''}</S.InputErrorText>
-      <AuthButton disabled={isDisabled}>인증하기</AuthButton>
+      <AuthNumberErrorText>{isError ? `${chat.authNumberErrorMessage}` : ''}</AuthNumberErrorText>
+      <AuthButton onClick={authEmail} disabled={isDisabled}>
+        인증하기
+      </AuthButton>
       <KoreatechLink>아우누리 바로가기</KoreatechLink>
       <SchoolCopyRight>COPYRIGHT © {new Date().getFullYear()} BCSD LAB ALL RIGHTS RESERVED.</SchoolCopyRight>
     </ChatAuthStyle>
@@ -205,6 +237,17 @@ const AuthNumTime = styled.label`
   color: #999;
 `;
 
+const AuthNumberErrorText = styled.span`
+  display: flex;
+  height: 16px;
+  left: 610px;
+  position: absolute;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: #ffd25d;
+  justify-content: flex-start;
+`;
 const AuthButton = styled(Button)`
   width: 368px;
   height: 48px;
