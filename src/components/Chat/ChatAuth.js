@@ -1,22 +1,91 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import Button from '../Shared/Button';
 
+import * as S from 'components/Auth/styles';
+
 const ChatAuth = () => {
+  const [email, setEmail] = useState('');
+  const [isEmail, setIsEmail] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isEmailSend, setIsEmailSend] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  const [minutes, setMinutes] = useState(parseInt('00'));
+  const [seconds, setSeconds] = useState(parseInt('00'));
+
+  const sendAuthCode = () => {
+    // 메일 전송 로직 실행 후
+    setIsEmailSend(true);
+    if (isEmailSend) {
+      setIsError(false);
+    }
+    setMinutes(parseInt('05'));
+    setSeconds(parseInt('00'));
+  };
+
+  const onChangeEmail = useCallback((e) => {
+    const currentEmail = e.target.value;
+    setEmail(currentEmail);
+    if (currentEmail) {
+      setIsEmail(true);
+    } else {
+      setIsEmail(false);
+    }
+  }, []);
+  useEffect(() => {
+    const countdown = setInterval(() => {
+      if (parseInt(seconds) > 0) {
+        setSeconds(parseInt(seconds) - 1);
+      }
+      if (parseInt(seconds) === 0) {
+        if (parseInt(minutes) === 0) {
+          clearInterval(countdown);
+          setIsError(isEmailSend);
+        } else {
+          setMinutes(parseInt(minutes) - 1);
+          setSeconds(59);
+        }
+      }
+    }, 1000);
+    return () => clearInterval(countdown);
+  }, [minutes, seconds]);
+
+  useEffect(() => {
+    setIsDisabled(!isEmail);
+  }, [isEmail]);
+
   return (
     <ChatAuthStyle>
       <ChatAuthTitle>아우누리 본인인증 단계</ChatAuthTitle>
       <UserImage src="/asset/BaseUser.svg" alt="BaseUser"></UserImage>
       <UserNickname>uko012345</UserNickname>
       <SchoolAuthTitle>학교 이메일</SchoolAuthTitle>
-      <SchoolAuthInput placeholder="학교 이메일을 입력해주세요"></SchoolAuthInput>
+      <SchoolAuthInput
+        value={email}
+        onChange={onChangeEmail}
+        placeholder="학교 이메일을 입력해주세요"
+      ></SchoolAuthInput>
       <SchoolAuthText>@koreatech.ac.kr</SchoolAuthText>
       <AuthNumberTitle>인증번호</AuthNumberTitle>
       <AuthNumberForm>
-        <AuthNumberInput placeholder="학교 이메일로 인증번호가 전송됩니다."></AuthNumberInput>
-        <AuthNumberButton>인증번호 전송</AuthNumberButton>
+        <AuthNumberInput
+          isError={isError}
+          isEmailSend={isEmailSend}
+          placeholder="학교 이메일로 인증번호가 전송됩니다."
+        ></AuthNumberInput>
+        <AuthNumberButton onClick={sendAuthCode} isEmail={isEmail} disabled={!isEmail} type="button">
+          {' '}
+          {isEmailSend ? '재전송' : '인증번호 전송'}
+        </AuthNumberButton>
+        {isEmailSend && (
+          <AuthNumTime>
+            {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+          </AuthNumTime>
+        )}
       </AuthNumberForm>
-      <AuthButton>인증하기</AuthButton>
+      <S.InputErrorText>{isError ? '입력시간이 초과되었습니다.' : ''}</S.InputErrorText>
+      <AuthButton disabled={isDisabled}>인증하기</AuthButton>
       <KoreatechLink>아우누리 바로가기</KoreatechLink>
       <SchoolCopyRight>COPYRIGHT © {new Date().getFullYear()} BCSD LAB ALL RIGHTS RESERVED.</SchoolCopyRight>
     </ChatAuthStyle>
@@ -122,8 +191,20 @@ const AuthNumberButton = styled.button`
   height: 37px;
   flex-grow: 0;
   color: #fff;
-  background-color: #222;
+  background: #222;
+  :hover {
+    background: #c4c4c4;
+  }
 `;
+const AuthNumTime = styled.label`
+  position: absolute;
+  bottom: 359px;
+  left: 830px;
+  font-size: 12px;
+  font-weight: normal;
+  color: #999;
+`;
+
 const AuthButton = styled(Button)`
   width: 368px;
   height: 48px;
