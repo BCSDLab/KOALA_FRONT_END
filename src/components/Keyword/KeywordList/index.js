@@ -13,7 +13,6 @@ const KeywordList = () => {
 
     const [menu,setMenu] = useState('전체');
     const [list,setList] = useState('');
-    const [menuFilterList,setMenuFilterList] = useState('');
     const [checkAll,setCheckAll] = useState(false);
     const [readNotification, setReadNotification] = useState(false);
     const [notReadNotification, setNotReadNotification] = useState(false);
@@ -36,12 +35,12 @@ const KeywordList = () => {
     const onClickReadNotification = useCallback(()=>{
         setReadNotification((prev)=>!prev);
         setNotReadNotification(false);
-    },[notReadNotification,menuFilterList]);
+    },[notReadNotification]);
 
     const onClickNotReadNotification = useCallback(()=>{
         setNotReadNotification((prev)=>!prev);
         setReadNotification(false);
-    },[readNotification,menuFilterList]);
+    },[readNotification]);
 
     const onChangeKeywordSearch = useCallback((e)=>{
 
@@ -80,14 +79,12 @@ const KeywordList = () => {
 
     useEffect(()=>{
         if(menu==='전체'){
-            setList('');
-            setMenuFilterList('');
+            setList(keywordList);
         }else{
             const filterList = keywordList.filter((item)=>{
                 return item.title === menu;
             });
-            setList('');
-            setMenuFilterList(filterList);
+            setList(filterList);
         }
     },[menu]);
 
@@ -102,6 +99,8 @@ const KeywordList = () => {
                 return item.isRead === true;
             })
             setList(filterList);
+        }else{
+            setList(keywordList);
         }
     },[notReadNotification,readNotification]);
 
@@ -194,10 +193,10 @@ const KeywordList = () => {
                     return(
                     <s.MainItem key={item.id}>
                         <s.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={item.select} checkAll={checkAll}></s.MainCheckBox>
-                        <s.MainCheckBoxTitle readState={item.readState}>아우누리</s.MainCheckBoxTitle>
-                        <s.MainContent readState={item.readState}>{item.title}</s.MainContent>
+                        <s.MainCheckBoxTitle readState={item.isRead}>아우누리</s.MainCheckBoxTitle>
+                        <s.MainContent readState={item.isRead}>{item.title}</s.MainContent>
                         <s.MainReadState>{item.isRead?"읽음":"읽지 않음"}</s.MainReadState>
-                        <s.MainPeriod readState={item.readState}>{item.createdAt}</s.MainPeriod>
+                        <s.MainPeriod readState={item.isRead}>{item.createdAt}</s.MainPeriod>
                     </s.MainItem>
                     );
                 })}
