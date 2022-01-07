@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-
 const CheckDotLabel = styled.label`
   display: inline-block;
   vertical-align: middle;
@@ -23,10 +22,9 @@ const CustomCheckDot = styled.div`
   border-radius: 3px;
   margin-right: 20px;
   border: solid 1px #c4c4c4;
-  transition: all 150ms;
   ${CheckDot}:checked + & {
-    border: solid 1px #ffd25d;
-    background-color: #ffd25d;
+    background: url("/asset/Check.svg");
+    background-position: center;
   }
 `;
 
