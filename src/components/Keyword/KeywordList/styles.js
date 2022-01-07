@@ -135,13 +135,13 @@ export const SearchImage = styled.img`
 `;
 
 export const MainList = styled.div`
-    min-width:1310px;
     position:absolute;
     left:501px;
     top:320px;
 `;
 
 export const MainItem = styled.div`
+    min-width:1310px;
     display:flex;
     padding-bottom:15px;
     margin-bottom:15px;
@@ -159,12 +159,14 @@ export const MainCheckBox = styled(CheckBox)`
     }}
 `;
 export const MainCheckBoxTitle = styled(CheckBoxTitle)`
+    min-width:45px;
     margin-right:125px;
     color:${props => props.readState==='읽음'?'#999999':'#222222'};
 `;
 export const MainContent = styled.div`
+    min-width:899px;
     font-size:12px;
-    margin-right:729px;
+    margin-right:65px;
     color:${props => props.readState==='읽음'?'#999999':'#222222'};
 `;
 
@@ -176,6 +178,7 @@ export const MainReadState = styled(MainContent)`
 `;
 
 export const MainPeriod = styled(MainContent)`
+    min-width:62px;
     margin-right:0px;
     color:${props => props.readState==='읽음'?'#999999':'#222222'};
 `;

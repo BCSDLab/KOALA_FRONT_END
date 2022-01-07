@@ -1,5 +1,4 @@
 import React,{useCallback,useEffect,useState} from 'react';
-import keywordList from './dummy';
 import KeywordHeader from '../KeywordHeader';
 import * as s from './styles';
 import { menuItem } from '../constant';
@@ -9,12 +8,12 @@ import { inquiry,getKeywordList } from 'store/keyword';
 const KeywordList = () => {
 
     const userInfo = useSelector((state)=>state.auth);
-    const {keywords} = useSelector((state)=>state.keyword);
+    const {keywordList} = useSelector((state)=>state.keyword);
     const dispatch = useDispatch();
 
     const [menu,setMenu] = useState('전체');
-    const [list,setList] = useState(keywordList);
-    const [menuFilterList,setMenuFilterList] = useState(keywordList);
+    const [list,setList] = useState('');
+    const [menuFilterList,setMenuFilterList] = useState('');
     const [checkAll,setCheckAll] = useState(false);
     const [readNotification, setReadNotification] = useState(false);
     const [notReadNotification, setNotReadNotification] = useState(false);
@@ -81,31 +80,28 @@ const KeywordList = () => {
 
     useEffect(()=>{
         if(menu==='전체'){
-            setList(keywordList);
-            setMenuFilterList(keywordList);
+            setList('');
+            setMenuFilterList('');
         }else{
             const filterList = keywordList.filter((item)=>{
                 return item.title === menu;
             });
-            setList(filterList);
+            setList('');
             setMenuFilterList(filterList);
         }
     },[menu]);
 
     useEffect(()=>{
         if(notReadNotification){
-            const filterList = menuFilterList.filter((item)=>{
-                return item.readState === '읽지 않음';
+            const filterList = keywordList.filter((item)=>{
+                return item.isRead === false;
             })
             setList(filterList);
         }else if(readNotification){
-            const filterList = menuFilterList.filter((item)=>{
-                return item.readState === '읽음';
+            const filterList = keywordList.filter((item)=>{
+                return item.isRead === true;
             })
             setList(filterList);
-        }
-        else{
-            setList(menuFilterList);
         }
     },[notReadNotification,readNotification]);
 
@@ -159,6 +155,10 @@ const KeywordList = () => {
         }
     },[userInfo.isLoggedIn]);
 
+    useEffect(()=>{
+        setList(keywordList);
+    },[keywordList])
+
     return(
         <>
             <KeywordHeader title={'키워드 알림'}/>
@@ -190,14 +190,14 @@ const KeywordList = () => {
                 </s.SearchButton>
             </s.FilterList>
             <s.MainList>
-                {list.map((item)=>{
+                {list&&list.map((item)=>{
                     return(
                     <s.MainItem key={item.id}>
                         <s.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={item.select} checkAll={checkAll}></s.MainCheckBox>
-                        <s.MainCheckBoxTitle readState={item.readState}>{item.title}</s.MainCheckBoxTitle>
-                        <s.MainContent readState={item.readState}>{item.content}</s.MainContent>
-                        <s.MainReadState>{item.readState}</s.MainReadState>
-                        <s.MainPeriod readState={item.readState}>{item.period}</s.MainPeriod>
+                        <s.MainCheckBoxTitle readState={item.readState}>아우누리</s.MainCheckBoxTitle>
+                        <s.MainContent readState={item.readState}>{item.title}</s.MainContent>
+                        <s.MainReadState>{item.isRead?"읽음":"읽지 않음"}</s.MainReadState>
+                        <s.MainPeriod readState={item.readState}>{item.createdAt}</s.MainPeriod>
                     </s.MainItem>
                     );
                 })}
