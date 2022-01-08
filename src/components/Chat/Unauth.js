@@ -1,11 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UNIVERSITY_AUTH } from '../../constant';
 import styled from 'styled-components';
 
 const Unauth = () => {
   const navigate = useNavigate();
   const auth = () => {
-    navigate('/chat/auth');
+    navigate(UNIVERSITY_AUTH);
   };
   return (
     <UnauthContent>
