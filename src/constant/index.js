@@ -1,6 +1,7 @@
 export const CREATE_ACCOUNT = '/auth/createAccount';
 export const LOGIN = '/auth';
 export const UNIVERSITY_AUTH = '/chat/auth';
+export const KOREATECH_HOMEPAGE = 'https://portal.koreatech.ac.kr/login.jsp';
 
 export const REFRESH_TOKEN = 'refresh_token';
 
