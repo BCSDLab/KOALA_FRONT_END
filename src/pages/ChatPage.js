@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import SideNavbar from 'components/SideNavbar';
+import LoginButton from 'components/Shared/LoginButton';
 import { Outlet } from 'react-router';
 import styled from 'styled-components';
 
@@ -9,6 +10,7 @@ const ChatPage = () => {
   return (
     <ChatPageContainer>
       <SideNavbar></SideNavbar>
+      <LoginButton />
       <ChatMainPageContainer isToggle={toggle}>
         <ChatHeader />
         <ChatContent />
@@ -34,6 +36,7 @@ const ChatHeader = styled.div`
   width: ${({ isToggle }) => (isToggle ? `1570px;` : `1840px;`)};
   height: 248px;
   display: flex;
+  z-index: 0;
   background-color: #eee;
 `;
 

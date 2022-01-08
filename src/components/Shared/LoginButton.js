@@ -16,6 +16,7 @@ const LoginButtonStyle = styled.button`
   font-size: 14px;
   font-weight: 500;
   text-align: center;
+  z-index: 1;
 `;
 
 const LoginButton = () => {
