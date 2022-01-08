@@ -154,7 +154,7 @@ export const MainCheckBox = styled(CheckBox)`
            return `
            background-image:url('/asset/check.svg');
            background-position:center;
-           `
+           `;
        }
     }}
 `;

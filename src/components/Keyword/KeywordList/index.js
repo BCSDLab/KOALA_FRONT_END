@@ -3,7 +3,7 @@ import KeywordHeader from '../KeywordHeader';
 import * as s from './styles';
 import { menuItem } from '../constant';
 import { useSelector, useDispatch } from 'react-redux';
-import { inquiry,getKeywordList } from 'store/keyword';
+import { inquiry,getKeywordList,deleteKeywordList } from 'store/keyword';
 import { AUNURI,AOUMIR } from '../constant';
 
 const KeywordList = () => {
@@ -15,6 +15,7 @@ const KeywordList = () => {
     const [menu,setMenu] = useState('전체');
     const [list,setList] = useState('');
     const [checkAll,setCheckAll] = useState(false);
+    const [checkListId,setCheckListId] = useState([]);
     const [readNotification, setReadNotification] = useState(false);
     const [notReadNotification, setNotReadNotification] = useState(false);
     const [keywordSearch,setKeywordSearch] = useState('');
@@ -102,8 +103,11 @@ const KeywordList = () => {
     },[]);
 
     const onClickCheckSome = useCallback((id)=>{
+        const newCheckListId = checkListId;
+        newCheckListId.push(id);
+        setCheckListId(newCheckListId);
 
-    },[]);
+    },[checkListId]);
 
     useEffect(()=>{
         if(notReadNotification){
@@ -146,9 +150,12 @@ const KeywordList = () => {
         if(deleteList){
             if(checkAll){
                 alert('모든 목록 삭제');
-                const filterList = [];
-                setList(filterList);
-                setCheckAll(false);
+
+                const startId = keywordList[0].id;
+                const endId = keywordList[keywordList.length-1].id;
+
+                dispatch(deleteKeywordList({startId,endId}));
+
                 setDeleteList(false);
 
             }else{      
@@ -173,7 +180,7 @@ const KeywordList = () => {
 
     useEffect(()=>{
         setList(keywordList);
-    },[keywordList])
+    },[keywordList,deleteList]);
 
     return(
         <>
@@ -200,16 +207,16 @@ const KeywordList = () => {
                     <span>삭제</span>
                 </s.FilterItem>
                 <s.SearchInput placeholder='알림대상/알림내용/키워드 입력' value={keywordSearch} onChange={onChangeKeywordSearch}></s.SearchInput>
-                <s.SearchButton onClick={onClickSearch} onKeyPress={onClickSearch}>
+                <s.SearchButton onClick={onClickSearch}>
                     <span>검색하기</span>
                     <s.SearchImage src='/asset/search.svg'/>
                 </s.SearchButton>
             </s.FilterList>
             <s.MainList>
-                {list&&list.map((item)=>{
+                {list&&list.map((item,index)=>{
                     return(
                     <s.MainItem key={item.id}>
-                        <s.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={item.select} checkAll={checkAll}></s.MainCheckBox>
+                        <s.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={checkListId[index]===item.id} checkAll={checkAll}></s.MainCheckBox>
                         <s.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.url)}</s.MainCheckBoxTitle>
                         <s.MainContent readState={item.isRead}>{item.title}</s.MainContent>
                         <s.MainReadState>{item.isRead?"읽음":"읽지 않음"}</s.MainReadState>
