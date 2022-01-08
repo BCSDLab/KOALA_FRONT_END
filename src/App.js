@@ -16,6 +16,7 @@ import { getCookie } from 'components/Shared/Cookies';
 import MyPage from 'pages/MyPage';
 import ChatPage from 'pages/ChatPage';
 import ChatAuth from 'components/Chat/ChatAuth';
+import Unauth from 'components/Chat/Unauth';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const App = () => {
       <Routes>
         <Route path="chat/*" element={<ChatPage />}>
           <Route path="auth" element={<ChatAuth />} />
+          <Route path="unauth" element={<Unauth />} />
         </Route>
         <Route path="mypage" element={<MyPage />} />
       </Routes>
