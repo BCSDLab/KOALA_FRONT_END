@@ -3,7 +3,7 @@ import KeywordHeader from '../KeywordHeader';
 import * as s from './styles';
 import { menuItem } from '../constant';
 import { useSelector, useDispatch } from 'react-redux';
-import { inquiry,getKeywordList,deleteKeywordList } from 'store/keyword';
+import { inquiry,getKeywordList,deleteKeywordList,deleteKeywordItem } from 'store/keyword';
 import { AUNURI,AOUMIR } from '../constant';
 
 const KeywordList = () => {
@@ -40,6 +40,7 @@ const KeywordList = () => {
         setCheckAll(false);
         setReadNotification(false);
         setNotReadNotification(false);
+        setCheckListId([]);
 
         if(menu === '전체'){
             setList(keywordList);
@@ -65,7 +66,15 @@ const KeywordList = () => {
 
     const onClickAllSelect = useCallback(()=>{
         setCheckAll((prev)=>!prev);
-    },[]);
+
+        if(checkAll){
+            const newCheckListId = list.map((item)=>item.id);
+            setCheckListId(newCheckListId);
+        }else{
+            setCheckListId([]);
+        }
+        
+    },[list]);
 
     const onClickReadNotification = useCallback(()=>{
         setReadNotification((prev)=>!prev);
@@ -103,9 +112,24 @@ const KeywordList = () => {
     },[]);
 
     const onClickCheckSome = useCallback((id)=>{
-        const newCheckListId = checkListId;
-        newCheckListId.push(id);
-        setCheckListId(newCheckListId);
+
+
+        let newCheckListId = [...checkListId];
+
+        if(checkListId.includes(id)){
+            
+            newCheckListId = checkListId.filter((item)=>{
+                if(item !== id){
+                    return item;
+                }
+            })
+
+            console.log(newCheckListId);
+            setCheckListId(newCheckListId);
+        }else{
+            newCheckListId.push(id);
+            setCheckListId(newCheckListId);
+        }
 
     },[checkListId]);
 
@@ -155,23 +179,26 @@ const KeywordList = () => {
                 const endId = keywordList[keywordList.length-1].id;
 
                 dispatch(deleteKeywordList({startId,endId}));
-
                 setDeleteList(false);
 
             }else{      
                 alert('선택된 목록 삭제');
-                const filterList = list.filter((item)=>{
-                    return item.select!==true;
-                })
 
-                setList(filterList);
-                setGoStore(false);
+                for(let i in checkListId){
+                    dispatch(deleteKeywordItem({id:i}));
+                }
+
                 setDeleteList(false);
             }
         }
+
+        setCheckAll(false);
+        setCheckListId([]);
+
     },[deleteList]);
 
     useEffect(()=>{
+
         if(userInfo.isLoggedIn){
             dispatch(inquiry());
             dispatch(getKeywordList('키워드테스트'));
@@ -181,6 +208,7 @@ const KeywordList = () => {
     useEffect(()=>{
         setList(keywordList);
     },[keywordList,deleteList]);
+
 
     return(
         <>
@@ -213,10 +241,10 @@ const KeywordList = () => {
                 </s.SearchButton>
             </s.FilterList>
             <s.MainList>
-                {list&&list.map((item,index)=>{
+                {list&&list.map((item)=>{
                     return(
                     <s.MainItem key={item.id}>
-                        <s.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={checkListId[index]===item.id} checkAll={checkAll}></s.MainCheckBox>
+                        <s.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={checkListId.includes(item.id)} checkAll={checkAll}></s.MainCheckBox>
                         <s.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.url)}</s.MainCheckBoxTitle>
                         <s.MainContent readState={item.isRead}>{item.title}</s.MainContent>
                         <s.MainReadState>{item.isRead?"읽음":"읽지 않음"}</s.MainReadState>

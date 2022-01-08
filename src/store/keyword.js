@@ -6,6 +6,7 @@ import { takeLatest } from "redux-saga/effects";
 const [INQUIRY,INQUIRY_SUCCESS,INQUIRY_FAILURE] = createRequestSagaActionTypes("keyword/INQUIRY");
 const [GETKEYWORDLIST,GETKEYWORDLIST_SUCCESS,GETKEYWORDLIST_FAILURE] = createRequestSagaActionTypes("keyword/GETKEYWORDLIST");
 const [DELETEKEYWORDLIST,DELETEKEYWORDLIST_SUCCESS,DELETEKEYWORDLIST_FAILURE] = createRequestSagaActionTypes("keyword/DELETEKEYWORDLIST");
+const [DELETEKEYWORDITEM,DELETEKEYWORDITEM_SUCCESS,DELETEKEYWORDITEM_FAILURE] = createRequestSagaActionTypes("keyword/DELETEKEYWORDITEM");
 
 export const inquiry = createAction(INQUIRY);
 export const getKeywordList = createAction(GETKEYWORDLIST);
@@ -13,6 +14,10 @@ export const deleteKeywordList = createAction(DELETEKEYWORDLIST,({startId,endId}
     startId,
     endId,
 }));
+export const deleteKeywordItem = createAction(DELETEKEYWORDITEM,({id})=>({
+    id,
+}));
+
 
 const inquirySaga = createRequestSaga(INQUIRY,keywordAPI.InquiryKeyword);
 export function* inquiryKeywordSaga(){
@@ -29,12 +34,18 @@ export function* deleteKeywordListSaga(){
     yield takeLatest(DELETEKEYWORDLIST,deleteListSaga);
 }
 
+const deleteItemSaga = createRequestSaga(DELETEKEYWORDITEM,keywordAPI.deleteKeywordItem);
+export function* deleteKeywordItemSaga(){
+    yield takeLatest(DELETEKEYWORDITEM,deleteItemSaga);
+}
+
 const initialState = {
     keywords:[],
     keywordList:[],
     inquiryResponse:false,
     getKeywordListResponse:false,
-    deleteKeywordLIstResponse:false
+    deleteKeywordListResponse:false,
+    deleteKeywordItemResponse:false
 };
 
 
@@ -70,6 +81,12 @@ const keyword = handleActions(
         [DELETEKEYWORDLIST_FAILURE] : () => ({
             deleteKeywordList : false
         }),
+        [DELETEKEYWORDITEM_SUCCESS] : () => ({
+            deleteKeywordItem : true
+        }),
+        [DELETEKEYWORDITEM_SUCCESS] : () => ({
+            deleteKeywordItem : false
+        })
     },
     initialState
 )

@@ -18,4 +18,5 @@ export const keywordAPI = {
   InquiryKeyword : () => logined.get(`/keyword`),
   getKeywordList : (keywordName) => logined.get(`/keyword/list?keyword-name=${keywordName}`),
   deleteKeywordList : ({startId,endId}) => logined.patch(`/keyword/list/notice?notice-id=${startId}-${endId}`),
+  deleteKeywordItem : (id) => logined.patch(`/keyword/list/notice?notice-id=${id}`),
 }
