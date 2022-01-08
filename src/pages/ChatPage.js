@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import SideNavbar from 'components/SideNavbar';
 import LoginButton from 'components/Shared/LoginButton';
+import Header from 'components/Chat/Header';
 import { Outlet } from 'react-router';
 import styled from 'styled-components';
 
@@ -12,7 +13,9 @@ const ChatPage = () => {
       <SideNavbar></SideNavbar>
       <LoginButton />
       <ChatMainPageContainer isToggle={toggle}>
-        <ChatHeader />
+        <ChatHeader>
+          <Header />
+        </ChatHeader>
         <ChatContent />
       </ChatMainPageContainer>
     </ChatPageContainer>
