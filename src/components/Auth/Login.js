@@ -20,6 +20,7 @@ const LoginOptionContainer = styled.div`
 `;
 
 const LoginOptionButton = styled.button`
+  border: none;
   min-width: 167px;
   max-width: 176px;
   padding: 12px 40.5px;
@@ -40,7 +41,6 @@ const LoginOptionMenuBar = styled.div`
 `;
 
 const LoginForm = styled.form`
-  display: ${({ display }) => (!display ? 'none' : 'block')};
   position: relative;
   width: 100%;
 `;
@@ -82,15 +82,16 @@ const EyeImg = styled.img`
   height: 24px;
 `;
 
-const SNSLoginOptionSection = styled.section`
-  display: ${({ display }) => (display ? 'none' : 'flex')};
+const SNSLoginOptionSection = styled.div`
   width: 100%;
+  height: fit-content;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
 `;
 
 const LoginButtonAttributes = css`
+  border: none;
   width: 343px;
   height: 44px;
   margin-bottom: 16px;
@@ -155,6 +156,7 @@ const AuthMainForm = () => {
   const navigate = useNavigate();
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
+  const [autoLogin, setAutoLogin] = useState(false);
   const userLog = useSelector((state) => state.auth.isLoggedIn);
   const [isPasswordType, setIsPasswordType] = useState({
     type: 'password',
@@ -182,8 +184,8 @@ const AuthMainForm = () => {
     });
   };
 
-  const toggleLoginOption = () => {
-    setIsNormalLogin(!isNormalLogin);
+  const isPasswordVisible = (e) => {
+    return isPasswordType.visible ? 'openEye' : 'closeEye';
   };
 
   useEffect(() => {
@@ -195,52 +197,48 @@ const AuthMainForm = () => {
   return (
     <LoginContainer>
       <LoginOptionContainer>
-        <LoginOptionButton onClick={toggleLoginOption} isClicked={isNormalLogin}>
+        <LoginOptionButton onClick={() => setIsNormalLogin(true)} isClicked={isNormalLogin}>
           일반 로그인
         </LoginOptionButton>
-        <LoginOptionButton onClick={toggleLoginOption} isClicked={!isNormalLogin}>
+        <LoginOptionButton onClick={() => setIsNormalLogin(false)} isClicked={!isNormalLogin}>
           SNS로 로그인
         </LoginOptionButton>
         <LoginOptionMenuBar isNormalLogin={isNormalLogin} />
       </LoginOptionContainer>
 
-      <LoginForm display={isNormalLogin} onSubmit={submitHandler}>
-        <StyledInputContainer>
-          <StyledInput value={account} onChange={accountHandler} name="account" placeholder="아이디 입력" />
-        </StyledInputContainer>
+      {isNormalLogin ? (
+        <LoginForm onSubmit={submitHandler}>
+          <StyledInputContainer>
+            <StyledInput value={account} onChange={accountHandler} name="account" placeholder="아이디 입력" />
+          </StyledInputContainer>
 
-        <StyledInputContainer>
-          <StyledInput
-            value={password}
-            type={isPasswordType.type}
-            onChange={passwordHandler}
-            name="password"
-            placeholder="비밀번호 입력"
-          />
-          <PwdSee onClick={handlePasswordType}>
-            {isPasswordType.visible ? (
-              <EyeImg src="/asset/openEye.svg" alt="openeye" />
-            ) : (
-              <EyeImg src="/asset/closeEye.svg" alt="closeeye" />
-            )}
-          </PwdSee>
-        </StyledInputContainer>
+          <StyledInputContainer>
+            <StyledInput
+              value={password}
+              type={isPasswordType.type}
+              onChange={passwordHandler}
+              name="password"
+              placeholder="비밀번호 입력"
+            />
+            <PwdSee onClick={handlePasswordType}>
+              <EyeImg src={'/asset/' + isPasswordVisible() + '.svg'} alt={isPasswordVisible()} />
+            </PwdSee>
+          </StyledInputContainer>
 
-        <S.AutoLogin>
-          <S.AutoLoginCheck>
-            <Switch />
-          </S.AutoLoginCheck>
-          <S.AutoLoginText>자동 로그인</S.AutoLoginText>
-        </S.AutoLogin>
+          <S.AutoLogin>
+            <Switch autoLogin={autoLogin} setAutoLogin={setAutoLogin} />
+            <S.AutoLoginText>자동 로그인</S.AutoLoginText>
+          </S.AutoLogin>
 
-        <StyledButton>로그인</StyledButton>
-      </LoginForm>
-
-      <SNSLoginOptionSection display={isNormalLogin}>
-        <GoogleLoginButton />
-        <NaverLoginButton />
-        <KakaoLoginButton />
-      </SNSLoginOptionSection>
+          <StyledButton>로그인</StyledButton>
+        </LoginForm>
+      ) : (
+        <SNSLoginOptionSection>
+          <GoogleLoginButton />
+          <NaverLoginButton />
+          <KakaoLoginButton />
+        </SNSLoginOptionSection>
+      )}
 
       <S.OtherOption>
         <S.StyledLink to="findId">아이디 찾기</S.StyledLink>

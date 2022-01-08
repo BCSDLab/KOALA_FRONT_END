@@ -60,9 +60,11 @@ export const StyledLink = styled(Link)`
 `;
 
 export const AutoLogin = styled.div`
-  width: 400px;
   display: flex;
-  margin-top: 8px;
+  width: 84px;
+  top: 8px;
+  align-items: center;
+  z-index: 1;
 `;
 
 export const AutoLoginCheck = styled.div`
@@ -73,8 +75,9 @@ export const AutoLoginCheck = styled.div`
 `;
 
 export const AutoLoginText = styled.label`
-  font-size: 12px;
   color: #999;
+  margin-left: 4px;
+  font-size: 12px;
 `;
 
 export const OtherOption = styled.div`
