@@ -6,29 +6,34 @@ import styled from 'styled-components';
 
 const AuthUniversity = () => {
   const [email, setEmail] = useState('');
+  const [isEmail, setIsEmail] = useState(false);
   const [authNumber, setAuthNumber] = useState('');
   const [isAuthNumeber, setIsAuthNumber] = useState(false);
-  const [isEmail, setIsEmail] = useState(false);
+
+  const [authError, setAuthError] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [isError, setIsError] = useState(false);
   const [isEmailSend, setIsEmailSend] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
-  const chat = useSelector((state) => state.chat);
+
   const [minutes, setMinutes] = useState(parseInt('00'));
   const [seconds, setSeconds] = useState(parseInt('00'));
+
+  const chat = useSelector((state) => state.chat);
   const dispatch = useDispatch();
 
   const sendEmail = () => {
     if (isEmail) {
       const mail = `${email}@koreatech.ac.kr`;
       dispatch(sendUniversity(mail));
-      setIsEmailSend(true);
-      if (isEmailSend) {
-        setIsError(false);
-      }
       setMinutes(parseInt('05'));
       setSeconds(parseInt('00'));
+      setIsEmailSend(true);
+      if (isEmailSend) {
+        setIsError(true);
+      }
     } else {
-      alert('이메일을 입력해주세요');
+      setEmailError('이메일을 입력해주세요');
     }
   };
   const authEmail = () => {
@@ -41,6 +46,8 @@ const AuthUniversity = () => {
     setEmail(currentEmail);
     if (currentEmail) {
       setIsEmail(true);
+      setAuthError('');
+      setEmailError('');
     } else {
       setIsEmail(false);
     }
@@ -48,6 +55,7 @@ const AuthUniversity = () => {
   const onChangeAuthNumber = useCallback((e) => {
     const currentAuthNumber = e.target.value;
     setAuthNumber(currentAuthNumber);
+
     if (currentAuthNumber) {
       setIsAuthNumber(true);
     } else {
@@ -71,9 +79,9 @@ const AuthUniversity = () => {
       }
     }, 1000);
     if (minutes == 0 && seconds == 0) {
-      chat.authNumberErrorMessage = '인증시간이 만료되었습니다.';
+      setAuthError('인증시간이 만료되었습니다.');
     } else {
-      chat.authNumberErrorMessage = '';
+      setAuthError('');
     }
     return () => clearInterval(countdown);
   }, [minutes, seconds]);
@@ -84,24 +92,23 @@ const AuthUniversity = () => {
 
   return (
     <>
-      <SchoolAuthTitle>학교 이메일</SchoolAuthTitle>
-      <SchoolAuthInput
+      <UniversityEmailTitle>학교 이메일</UniversityEmailTitle>
+      <UniversityEmailInput
         value={email}
         onChange={onChangeEmail}
         placeholder="학교 이메일을 입력해주세요"
-      ></SchoolAuthInput>
-      <SchoolAuthText>@koreatech.ac.kr</SchoolAuthText>
+      ></UniversityEmailInput>
+      <UniversityEmail>@koreatech.ac.kr</UniversityEmail>
+      <UniversityEmailError>{emailError}</UniversityEmailError>
       <AuthNumberTitle>인증번호</AuthNumberTitle>
       <AuthNumberForm>
         <AuthNumberInput
           value={authNumber}
           onChange={onChangeAuthNumber}
-          isError={isError}
-          isEmailSend={isEmailSend}
+          disabled={!isEmailSend}
           placeholder="학교 이메일로 인증번호가 전송됩니다."
         ></AuthNumberInput>
-        <AuthNumberButton onClick={sendEmail} isEmail={isEmail} type="button">
-          {' '}
+        <AuthNumberButton onClick={sendEmail} type="button">
           {isEmailSend ? '재전송' : '인증번호 전송'}
         </AuthNumberButton>
         {isEmailSend && (
@@ -110,7 +117,7 @@ const AuthUniversity = () => {
           </AuthNumTime>
         )}
       </AuthNumberForm>
-      <AuthNumberErrorText>{isError ? `${chat.authNumberErrorMessage}` : ''}</AuthNumberErrorText>
+      <AuthNumberErrorText>{isError ? authError : chat.authErrorMessage}</AuthNumberErrorText>
       <AuthButton onClick={authEmail} disabled={isDisabled}>
         인증하기
       </AuthButton>
@@ -118,38 +125,43 @@ const AuthUniversity = () => {
   );
 };
 
-const SchoolAuthTitle = styled.div`
+const UniversityEmailTitle = styled.div`
   width: 68px;
   height: 21px;
   margin: 0px 894px 16px 608px;
   font-family: NotoSansCJKKR;
   font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
   color: #222;
 `;
-const SchoolAuthInput = styled.input`
+const UniversityEmailInput = styled.input`
   width: 368px;
   margin: 0px 594px 4px 608px;
   padding-bottom: 2px;
   border: 0;
   border-bottom: 1.5px solid #c4c4c4;
 `;
-const SchoolAuthText = styled.div`
+const UniversityEmail = styled.div`
   width: 115px;
   height: 21px;
   font-family: NotoSansCJKKR;
   font-size: 14px;
-  font-weight: normal;
   position: absolute;
   top: 375px;
   left: 861px;
   text-align: right;
   color: #222;
+`;
+const UniversityEmailError = styled.div`
+  display: flex;
+  height: 16px;
+  left: 610px;
+  position: absolute;
+  margin: 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: #ffd25d;
+  justify-content: flex-start;
 `;
 const AuthNumberTitle = styled.div`
   width: 52px;
@@ -157,11 +169,6 @@ const AuthNumberTitle = styled.div`
   margin: 48px 910px 16px 608px;
   font-family: NotoSansCJKKR;
   font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
   color: #222;
 `;
