@@ -15,7 +15,7 @@ const LoginContainer = styled.div`
 
 const LoginOptionContainer = styled.div`
   margin-bottom: 40px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
   width: 343px;
 `;
 
@@ -35,7 +35,7 @@ const LoginOptionMenuBar = styled.div`
   position: absolute;
   width: ${({ isNormalLogin }) => (isNormalLogin ? 167 : 176)}px;
   height: 1px;
-  background-color: #222;
+  background-color: ${(props) => props.theme.colors.darkgray};
   transition: transform 0.2s ease;
   transform: translateX(${({ isNormalLogin }) => (isNormalLogin ? 0 : 167)}px);
 `;
@@ -55,7 +55,7 @@ const StyledOptionLink = styled(S.StyledLink)`
   padding: 0 15px;
   height: 12px;
   :nth-child(n) {
-    border-right: 1px solid #999;
+    border-right: 1px solid ${(props) => props.theme.colors.gray};
   }
   :last-child {
     border: none;
@@ -110,10 +110,10 @@ const LoginButtonAttributes = css`
 
 const GoogleLoginButton = styled.button`
   ${LoginButtonAttributes}
-  border: solid 1px #eee;
-  color: #000;
+  border: solid 1px ${(props) => props.theme.colors.lightgray};
+  color: ${(props) => props.theme.colors.black};
 
-  background-color: #fff;
+  background-color: ${(props) => props.theme.colors.white};
   background-image: url('/asset/google-logo.svg');
 
   :after {
@@ -122,7 +122,7 @@ const GoogleLoginButton = styled.button`
 `;
 const NaverLoginButton = styled.button`
   ${LoginButtonAttributes}
-  color: #fff;
+  color: ${(props) => props.theme.colors.white};
 
   background-color: #03c75a;
   background-image: url('/asset/naver-logo.svg');
@@ -134,7 +134,7 @@ const NaverLoginButton = styled.button`
 
 const KakaoLoginButton = styled.button`
   ${LoginButtonAttributes}
-  color: #000;
+  color: ${(props) => props.theme.colors.black};
 
   background-color: #fee500;
   background-image: url('/asset/kakao-logo.svg');
@@ -184,7 +184,7 @@ const AuthMainForm = () => {
     });
   };
 
-  const isPasswordVisible = (e) => {
+  const getPwdSvgName = (e) => {
     return isPasswordType.visible ? 'openEye' : 'closeEye';
   };
 
@@ -221,7 +221,7 @@ const AuthMainForm = () => {
               placeholder="비밀번호 입력"
             />
             <PwdSee onClick={handlePasswordType}>
-              <EyeImg src={'/asset/' + isPasswordVisible() + '.svg'} alt={isPasswordVisible()} />
+              <EyeImg src={'/asset/' + getPwdSvgName() + '.svg'} alt={getPwdSvgName()} />
             </PwdSee>
           </StyledInputContainer>
 
@@ -254,4 +254,5 @@ const AuthMainForm = () => {
     </LoginContainer>
   );
 };
+
 export default AuthMainForm;
