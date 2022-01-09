@@ -9,7 +9,7 @@ const StyledPwd = styled.div`
 `;
 
 const StyledInput = styled(S.StyledInput)`
-  border: solid 1px ${({ isError }) => (isError ? '#ffd25d' : '#c4c4c4')};
+  border: solid 1px ${({ isError, ...props }) => (isError ? theme.colors.yellow : theme.colors.silver)};
   margin: 0;
   background-image: ${({ isError }) => (isError ? `url('/asset/inputError.svg')` : 'none')};
   background-position-y: center;
