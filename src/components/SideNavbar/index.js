@@ -10,7 +10,7 @@ const Nav = styled.div`
   margin-right: ${({ isSideMenu }) => !isSideMenu && '696px'};
   padding: ${({ isSideMenu }) => (isSideMenu ? ` 40px 17px 0px;` : `40px 17px 91px;`)};
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
-  background-color: #fff;
+  background-color: ${(props) => props.theme.colors.white};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,7 +29,7 @@ const MenuButton = styled.button`
   padding: 3px 0;
   cursor: pointer;
   border: 0;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.colors.white};
 `;
 
 const MenuImg = styled.img`

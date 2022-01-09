@@ -49,7 +49,7 @@ const MenuTitle = styled.span`
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  color: #222;
+  color: ${(props) => props.theme.colors.darkgray};
 `;
 
 export const KeywordMain = styled(MenuTitle)`
@@ -64,7 +64,7 @@ export const KeywordSetting = styled(Link)`
   line-height: normal;
   letter-spacing: normal;
   text-align: right;
-  color: #999;
+  color: ${(props) => props.theme.colors.gray};
 `;
 
 export const KeywordDropdownButton = styled.img`
@@ -90,19 +90,19 @@ export const KeywordSection = styled.li`
 
 export const KeywordName = styled.span`
   font-size: 14px;
-  color: #222;
+  color: ${(props) => props.theme.colors.darkgray};
   font-weight: normal;
 `;
 
 export const KeywordCount = styled.span`
   width: 24px;
   height: 18px;
-  background: #ffd25d;
+  background: ${(props) => theme.colors.yellow};
   position: absolute;
   right: 24px;
   font-size: 12px;
   text-align: center;
-  color: #fff;
+  color: ${(props) => props.theme.colors.white};
 `;
 
 export const AddKeywordSection = styled.div`
@@ -124,13 +124,13 @@ export const AddText = styled(Link)`
   font-weight: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #222;
+  color: ${(props) => props.theme.colors.darkgray};
 `;
 
 export const HistoryList = styled(List)`
   height: 75px;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
+  border-top: 1px solid ${(props) => props.theme.colors.lightgray};
+  border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
 `;
 
 export const HistoryLink = styled(StyledLinkDiv)`
@@ -169,7 +169,7 @@ export const SetText = styled.span`
   font-size: 16px;
   font-weight: normal;
   margin: 6px 208px 14px 32px;
-  color: #222;
+  color: ${(props) => props.theme.colors.darkgray};
 `;
 
 export const Contact = styled(StyledLinkDiv)`
