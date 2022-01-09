@@ -7,8 +7,8 @@ const CheckBoxLabel = styled.label`
   width: 22px;
   height: 12px;
   border-radius: 50px;
-  color: #999;
-  background-color: ${({ checked }) => (checked ? '#ffd25d' : '#eee')};
+  color: ${(props) => props.theme.colors.gray};
+  background-color: ${({ checked, ...props }) => (checked ? props.theme.colors.yellow : props.theme.colors.lightgray)};
   font-size: 12px;
   cursor: pointer;
 
@@ -22,7 +22,8 @@ const CheckBoxBall = styled.i`
   border-radius: 50%;
   width: 10px;
   height: 10px;
-  background-color: ${({ isChecked }) => (isChecked ? '#eee' : '#ffd25d')};
+  background-color: ${({ isChecked, ...props }) =>
+    isChecked ? props.theme.colors.lightgray : props.theme.colors.yellow};
   margin: 1px;
   position: absolute;
 

@@ -5,18 +5,18 @@ import styled from 'styled-components';
 const AuthNumInput = styled.input`
   width: 218px;
   height: 44px;
-  border: solid 1px ${({ isError }) => (isError ? '#ffd25d' : '#c4c4c4')};
+  border: solid 1px ${({ isError, ...props }) => (isError ? theme.colors.yellow : theme.colors.silver)};
   outline: none;
   padding-left: 16px;
   flex-grow: 0;
 
   &:focus {
-    border: solid 1px #222;
+    border: solid 1px ${(props) => props.theme.colors.darkgray};
   }
   ::-webkit-input-placeholder {
     font-size: 14px;
     text-align: left;
-    color: #999;
+    color: ${(props) => props.theme.colors.gray};
     height: 21px;
     padding: 0px;
   }
@@ -31,7 +31,7 @@ const AuthNumTime = styled.label`
   left: 172px;
   font-size: 12px;
   font-weight: normal;
-  color: #999;
+  color: ${(props) => props.theme.colors.gray};
 `;
 
 const AuthForm = styled.div`
@@ -43,7 +43,7 @@ const AuthButton = styled.button`
   width: 125px;
   height: 48px;
   margin: 0 0 0 25px;
-  background: ${({ isEmail }) => (isEmail ? '#222' : '#c4c4c4')};
+  background: ${({ isEmail, ...props }) => (isEmail ? props.theme.colors.darkgray : props.theme.colors.silver)};
   font-size: 14px;
   border: 0;
   color: white;
@@ -51,7 +51,7 @@ const AuthButton = styled.button`
   font-weight: 500;
 
   :hover {
-    background: #c4c4c4;
+    background: ${(props) => props.theme.colors.silver};
   }
 `;
 
