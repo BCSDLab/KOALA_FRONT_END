@@ -171,7 +171,7 @@ export const InputErrorText = styled.span`
   margin: 4px 0;
   font-size: 11px;
   font-weight: 500;
-  color: ${(props) => theme.colors.yellow};
+  color: ${(props) => props.theme.colors.yellow};
   justify-content: flex-start;
 `;
 
@@ -211,7 +211,7 @@ export const CustomCheckDot = styled.div`
   border: solid 1px ${(props) => props.theme.colors.silver};
   transition: all 150ms;
   ${CheckDot}:checked + & {
-    border: solid 1px ${(props) => theme.colors.yellow};
-    background-color: ${(props) => theme.colors.yellow};
+    border: solid 1px ${(props) => props.theme.colors.yellow};
+    background-color: ${(props) => props.theme.colors.yellow};
   }
 `;

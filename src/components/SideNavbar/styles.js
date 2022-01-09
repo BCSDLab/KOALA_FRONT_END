@@ -97,7 +97,7 @@ export const KeywordName = styled.span`
 export const KeywordCount = styled.span`
   width: 24px;
   height: 18px;
-  background: ${(props) => theme.colors.yellow};
+  background: ${(props) => props.theme.colors.yellow};
   position: absolute;
   right: 24px;
   font-size: 12px;

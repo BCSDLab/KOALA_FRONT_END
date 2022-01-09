@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const AuthNumInput = styled.input`
   width: 218px;
   height: 44px;
-  border: solid 1px ${({ isError, ...props }) => (isError ? theme.colors.yellow : theme.colors.silver)};
+  border: solid 1px ${({ isError, ...props }) => (isError ? props.theme.colors.yellow : props.theme.colors.silver)};
   outline: none;
   padding-left: 16px;
   flex-grow: 0;
