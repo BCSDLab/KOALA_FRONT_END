@@ -127,9 +127,10 @@ const KeywordList = () => {
 
     },[checkListId]);
 
-    const onClickReadItem = useCallback((id)=>{
-        dispatch(readKeywordItem(id));
-        setIsReadItem((prev)=>!prev);
+    const onClickReadItem = useCallback((id,isRead)=>{
+        if(!isRead){
+            dispatch(readKeywordItem(id));
+        }
     },[])
 
 
@@ -266,7 +267,7 @@ const KeywordList = () => {
                         <s.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={checkListId.includes(item.id)} checkAll={checkAll}></s.MainCheckBox>
                         <s.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.url)}</s.MainCheckBoxTitle>
                         <a href={`${item.url}`} target='_blank'>
-                            <s.MainContent readState={item.isRead} onClick={() => onClickReadItem(item.id)}>{item.title}</s.MainContent>
+                            <s.MainContent readState={item.isRead} onClick={() => onClickReadItem(item.id,item.isRead)}>{item.title}</s.MainContent>
                         </a>
                         <s.MainReadState>{item.isRead?"읽음":"읽지 않음"}</s.MainReadState>
                         <s.MainPeriod readState={item.isRead}>{item.createdAt}</s.MainPeriod>
