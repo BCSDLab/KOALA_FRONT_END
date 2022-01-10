@@ -7,7 +7,8 @@ import keyword,{
   getKeywordListSaga,
   deleteKeywordListSaga,
   deleteKeywordItemSaga,
-  moveKeywordItemSaga} from './keyword';
+  moveKeywordItemSaga,
+  readKeywordItemSaga} from './keyword';
 
 const rootReducer = combineReducers({
   auth,
@@ -24,7 +25,8 @@ export function* rootSaga() {
     getKeywordListSaga(),
     deleteKeywordListSaga(),
     deleteKeywordItemSaga(),
-    moveKeywordItemSaga()]);
+    moveKeywordItemSaga(),
+    readKeywordItemSaga()]);
 }
 
 export default rootReducer;

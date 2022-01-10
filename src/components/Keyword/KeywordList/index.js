@@ -3,7 +3,7 @@ import KeywordHeader from '../KeywordHeader';
 import * as s from './styles';
 import { menuItem } from '../constant';
 import { useSelector, useDispatch } from 'react-redux';
-import { inquiry,getKeywordList,deleteKeywordList,deleteKeywordItem,moveKeywordItem } from 'store/keyword';
+import { inquiry,getKeywordList,deleteKeywordList,deleteKeywordItem,moveKeywordItem,readKeywordItem } from 'store/keyword';
 import { AUNURI,AOUMIR } from '../constant';
 
 const KeywordList = () => {
@@ -21,6 +21,7 @@ const KeywordList = () => {
     const [keywordSearch,setKeywordSearch] = useState('');
     const [goStore, setGoStore] = useState(false);
     const [deleteList, setDeleteList] = useState(false);
+    const [isReadItem,setIsReadItem] = useState(false);
 
 
     //utills
@@ -107,7 +108,6 @@ const KeywordList = () => {
 
     const onClickCheckSome = useCallback((id)=>{
 
-
         let newCheckListId = [...checkListId];
 
         if(checkListId.includes(id)){
@@ -125,6 +125,12 @@ const KeywordList = () => {
         }
 
     },[checkListId]);
+
+    const onClickReadItem = useCallback((id)=>{
+        dispatch(readKeywordItem(id));
+        setIsReadItem((prev)=>!prev);
+    },[])
+
 
     useEffect(()=>{
         if(notReadNotification){
@@ -193,8 +199,6 @@ const KeywordList = () => {
             }else{      
                 alert('선택된 목록 삭제');
 
-                console.log(checkListId);
-
             checkListId.forEach((id)=>{
                 dispatch(deleteKeywordItem(id));
             })
@@ -214,7 +218,8 @@ const KeywordList = () => {
             dispatch(inquiry());
             dispatch(getKeywordList('키워드테스트'));
         }
-    },[userInfo.isLoggedIn,deleteList]);
+
+    },[userInfo.isLoggedIn,deleteList,isReadItem]);
 
     useEffect(()=>{
         setList(keywordList);
@@ -257,7 +262,7 @@ const KeywordList = () => {
                     <s.MainItem key={item.id}>
                         <s.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={checkListId.includes(item.id)} checkAll={checkAll}></s.MainCheckBox>
                         <s.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.url)}</s.MainCheckBoxTitle>
-                        <s.MainContent readState={item.isRead}>{item.title}</s.MainContent>
+                        <s.MainContent readState={item.isRead} onClick={() => onClickReadItem(item.id)}>{item.title}</s.MainContent>
                         <s.MainReadState>{item.isRead?"읽음":"읽지 않음"}</s.MainReadState>
                         <s.MainPeriod readState={item.isRead}>{item.createdAt}</s.MainPeriod>
                     </s.MainItem>

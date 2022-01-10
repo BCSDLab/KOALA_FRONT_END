@@ -166,6 +166,7 @@ export const MainCheckBoxTitle = styled(CheckBoxTitle)`
 export const MainContent = styled.div`
     min-width:899px;
     font-size:12px;
+    cursor:pointer;
     margin-right:65px;
     color:${props => props.readState==='읽음'?'#999999':'#222222'};
 `;
