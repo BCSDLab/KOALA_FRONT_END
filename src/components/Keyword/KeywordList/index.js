@@ -5,6 +5,7 @@ import { menuItem } from '../constant';
 import { useSelector, useDispatch } from 'react-redux';
 import { inquiry,getKeywordList,deleteKeywordList,deleteKeywordItem,moveKeywordItem,readKeywordItem } from 'store/keyword';
 import { AUNURI,AOUMIR } from '../constant';
+import { Link } from 'react-router-dom';
 
 const KeywordList = () => {
 
@@ -264,7 +265,9 @@ const KeywordList = () => {
                     <s.MainItem key={item.id}>
                         <s.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={checkListId.includes(item.id)} checkAll={checkAll}></s.MainCheckBox>
                         <s.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.url)}</s.MainCheckBoxTitle>
-                        <s.MainContent readState={item.isRead} onClick={() => onClickReadItem(item.id)}>{item.title}</s.MainContent>
+                        <a href={`${item.url}`} target='_blank'>
+                            <s.MainContent readState={item.isRead} onClick={() => onClickReadItem(item.id)}>{item.title}</s.MainContent>
+                        </a>
                         <s.MainReadState>{item.isRead?"읽음":"읽지 않음"}</s.MainReadState>
                         <s.MainPeriod readState={item.isRead}>{item.createdAt}</s.MainPeriod>
                     </s.MainItem>
