@@ -3,7 +3,7 @@ import KeywordHeader from '../KeywordHeader';
 import * as s from './styles';
 import { menuItem } from '../constant';
 import { useSelector, useDispatch } from 'react-redux';
-import { inquiry,getKeywordList,deleteKeywordList,deleteKeywordItem } from 'store/keyword';
+import { inquiry,getKeywordList,deleteKeywordList,deleteKeywordItem,moveKeywordItem } from 'store/keyword';
 import { AUNURI,AOUMIR } from '../constant';
 
 const KeywordList = () => {
@@ -65,16 +65,10 @@ const KeywordList = () => {
     },[keywordList]);
 
     const onClickAllSelect = useCallback(()=>{
-        setCheckAll((prev)=>!prev);
 
-        if(checkAll){
-            const newCheckListId = list.map((item)=>item.id);
-            setCheckListId(newCheckListId);
-        }else{
-            setCheckListId([]);
-        }
+        setCheckAll((prev)=>!prev);
         
-    },[list]);
+    },[list,checkAll]);
 
     const onClickReadNotification = useCallback(()=>{
         setReadNotification((prev)=>!prev);
@@ -124,7 +118,6 @@ const KeywordList = () => {
                 }
             })
 
-            console.log(newCheckListId);
             setCheckListId(newCheckListId);
         }else{
             newCheckListId.push(id);
@@ -153,21 +146,37 @@ const KeywordList = () => {
         if(goStore){
             if(checkAll){
                 alert('모든 목록 보관');
-                const filterList = [];
-                setList(filterList);
                 setCheckAll(false);
                 setGoStore(false);
 
-            }else{      
-                alert('선택된 목록 보관');
-                const filterList = list.filter((item)=>{
-                    return item.select!==true;
+                keywordList.forEach((item)=>{
+                    const id = item.id
+                    dispatch(moveKeywordItem(id));
                 })
 
-                setList(filterList);
+            }else if(checkListId.length!==0){
+
+                alert('선택된 목록 보관');
+                const filterList = list.filter((item)=>{
+                    const id = item.id
+                    if(checkListId.includes(id)){
+                        return item;
+                    }
+                })
+
+                filterList.forEach((item)=>{
+                    const id = item.id
+                    dispatch(moveKeywordItem(id));
+                })
+
                 setGoStore(false);
+                
+            }else{
+                alert('알림을 선택해 주세요');
+                setGoStroe(false);
             }
         }
+
     },[goStore]);
 
     useEffect(()=>{

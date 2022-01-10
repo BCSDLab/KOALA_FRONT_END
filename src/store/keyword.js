@@ -7,6 +7,7 @@ const [INQUIRY,INQUIRY_SUCCESS,INQUIRY_FAILURE] = createRequestSagaActionTypes("
 const [GETKEYWORDLIST,GETKEYWORDLIST_SUCCESS,GETKEYWORDLIST_FAILURE] = createRequestSagaActionTypes("keyword/GETKEYWORDLIST");
 const [DELETEKEYWORDLIST,DELETEKEYWORDLIST_SUCCESS,DELETEKEYWORDLIST_FAILURE] = createRequestSagaActionTypes("keyword/DELETEKEYWORDLIST");
 const [DELETEKEYWORDITEM,DELETEKEYWORDITEM_SUCCESS,DELETEKEYWORDITEM_FAILURE] = createRequestSagaActionTypes("keyword/DELETEKEYWORDITEM");
+const [MOVEKEYWORDITEM,MOVEKEYWORDITEM_SUCCESS,MOVEKEYWORDITEM_FAILURE] = createRequestSagaActionTypes("keyword/MOVEKEYWORDITEM");
 
 export const inquiry = createAction(INQUIRY);
 export const getKeywordList = createAction(GETKEYWORDLIST);
@@ -17,8 +18,7 @@ export const deleteKeywordList = createAction(DELETEKEYWORDLIST,({startId,endId}
 export const deleteKeywordItem = createAction(DELETEKEYWORDITEM,({id})=>({
     id,
 }));
-
-
+export const moveKeywordItem = createAction(MOVEKEYWORDITEM);
 const inquirySaga = createRequestSaga(INQUIRY,keywordAPI.InquiryKeyword);
 export function* inquiryKeywordSaga(){
     yield takeLatest(INQUIRY,inquirySaga);
@@ -39,13 +39,19 @@ export function* deleteKeywordItemSaga(){
     yield takeLatest(DELETEKEYWORDITEM,deleteItemSaga);
 }
 
+const moveItemSaga = createRequestSaga(MOVEKEYWORDITEM,keywordAPI.movekeywordList);
+export function* moveKeywordItemSaga(){
+    yield takeLatest(MOVEKEYWORDITEM,moveItemSaga);
+}
+
 const initialState = {
     keywords:[],
     keywordList:[],
     inquiryResponse:false,
     getKeywordListResponse:false,
     deleteKeywordListResponse:false,
-    deleteKeywordItemResponse:false
+    deleteKeywordItemResponse:false,
+    moveKeywordItemResponse:false
 };
 
 
@@ -81,12 +87,25 @@ const keyword = handleActions(
         [DELETEKEYWORDLIST_FAILURE] : () => ({
             deleteKeywordList : false
         }),
+
         [DELETEKEYWORDITEM_SUCCESS] : () => ({
             deleteKeywordItem : true
         }),
-        [DELETEKEYWORDITEM_SUCCESS] : () => ({
+
+        [DELETEKEYWORDITEM_FAILURE] : () => ({
             deleteKeywordItem : false
-        })
+        }),
+
+        [MOVEKEYWORDITEM_SUCCESS] : () => ({
+            moveKeywordItemResponse : true
+        }),
+
+        [MOVEKEYWORDITEM_FAILURE] : () => ({
+            moveKeywordItemResponse : false
+        }),
+
+        
+
     },
     initialState
 )
