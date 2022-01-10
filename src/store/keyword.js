@@ -58,7 +58,7 @@ const initialState = {
     deleteKeywordListResponse:false,
     deleteKeywordItemResponse:false,
     moveKeywordItemResponse:false,
-    readKeywordItem:false
+    readKeywordItemResponse:false
 };
 
 
@@ -111,11 +111,11 @@ const keyword = handleActions(
             moveKeywordItemResponse : false
         }),
         [READKEYWORDITEM_SUCCESS] : () => ({
-            moveKeywordItemResponse : true
+            readKeywordItemResponse : true
         }),
 
         [READKEYWORDITEM_FAILURE] : () => ({
-            moveKeywordItemResponse : false
+            readKeywordItemResponse : false
         }),
 
         

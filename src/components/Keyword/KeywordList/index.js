@@ -9,7 +9,7 @@ import { AUNURI,AOUMIR } from '../constant';
 const KeywordList = () => {
 
     const userInfo = useSelector((state)=>state.auth);
-    const {keywordList} = useSelector((state)=>state.keyword);
+    const {keywordList,deleteKeywordItemResponse,deleteKeywordListResponse,readKeywordItemResponse} = useSelector((state)=>state.keyword);
     const dispatch = useDispatch();
 
     const [menu,setMenu] = useState('전체');
@@ -196,7 +196,7 @@ const KeywordList = () => {
                 dispatch(deleteKeywordList({startId,endId}));
                 setDeleteList(false);
 
-            }else{      
+            }else if(checkListId.length!==0){      
                 alert('선택된 목록 삭제');
 
             checkListId.forEach((id)=>{
@@ -204,27 +204,29 @@ const KeywordList = () => {
             })
 
                 setDeleteList(false);
+            }else{
+                alert('알림을 선택해 주세요');
             }
         }
 
         setCheckAll(false);
+        setDeleteList(false);
         setCheckListId([]);
 
     },[deleteList]);
 
     useEffect(()=>{
 
-        if(userInfo.isLoggedIn){
+        if(userInfo.isLoggedIn||deleteKeywordItemResponse||deleteKeywordListResponse||readKeywordItemResponse){
             dispatch(inquiry());
             dispatch(getKeywordList('키워드테스트'));
         }
 
-    },[userInfo.isLoggedIn,deleteList,isReadItem]);
+    },[userInfo.isLoggedIn,deleteKeywordItemResponse,deleteKeywordListResponse,readKeywordItemResponse]);
 
     useEffect(()=>{
         setList(keywordList);
     },[keywordList]);
-
 
     return(
         <>
