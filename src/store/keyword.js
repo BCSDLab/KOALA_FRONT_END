@@ -15,9 +15,7 @@ export const deleteKeywordList = createAction(DELETEKEYWORDLIST,({startId,endId}
     startId,
     endId,
 }));
-export const deleteKeywordItem = createAction(DELETEKEYWORDITEM,({id})=>({
-    id,
-}));
+export const deleteKeywordItem = createAction(DELETEKEYWORDITEM,(id)=>(id));
 export const moveKeywordItem = createAction(MOVEKEYWORDITEM);
 const inquirySaga = createRequestSaga(INQUIRY,keywordAPI.InquiryKeyword);
 export function* inquiryKeywordSaga(){

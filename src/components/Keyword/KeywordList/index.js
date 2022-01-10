@@ -173,7 +173,7 @@ const KeywordList = () => {
                 
             }else{
                 alert('알림을 선택해 주세요');
-                setGoStroe(false);
+                setGoStore(false);
             }
         }
 
@@ -193,9 +193,11 @@ const KeywordList = () => {
             }else{      
                 alert('선택된 목록 삭제');
 
-                for(let i in checkListId){
-                    dispatch(deleteKeywordItem({id:i}));
-                }
+                console.log(checkListId);
+
+            checkListId.forEach((id)=>{
+                dispatch(deleteKeywordItem(id));
+            })
 
                 setDeleteList(false);
             }
@@ -212,11 +214,11 @@ const KeywordList = () => {
             dispatch(inquiry());
             dispatch(getKeywordList('키워드테스트'));
         }
-    },[userInfo.isLoggedIn]);
+    },[userInfo.isLoggedIn,deleteList]);
 
     useEffect(()=>{
         setList(keywordList);
-    },[keywordList,deleteList]);
+    },[keywordList]);
 
 
     return(
