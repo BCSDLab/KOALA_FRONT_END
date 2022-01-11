@@ -1,7 +1,6 @@
-import React,{useCallback} from "react";
-import * as s from './styles';
+import React from "react";
+import * as S from './styles';
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
 
 const KeywordHeader = ({title,toggle}) => {
 
@@ -9,11 +8,11 @@ const KeywordHeader = ({title,toggle}) => {
 
     return(
         <>
-            <s.UserContainer toggle={toggle}>
-                {user.isLoggedIn&&<s.Username>test</s.Username>}
-                <s.LoginButton onClick={onClickLoggedInButton}>{user.isLoggedIn?'로그아웃':'로그인'}</s.LoginButton>
-            </s.UserContainer>
-            <s.Title toggle={toggle}>{title}</s.Title>
+            <S.UserContainer toggle={toggle}>
+                {user.isLoggedIn&&<S.Username>test</S.Username>}
+                <S.LoginButton onClick={onClickLoggedInButton}>{user.isLoggedIn?'로그아웃':'로그인'}</S.LoginButton>
+            </S.UserContainer>
+            <S.Title toggle={toggle}>{title}</S.Title>
         </>
     );
 }
