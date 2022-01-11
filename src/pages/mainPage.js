@@ -1,18 +1,10 @@
 import React from 'react';
-import SideNavbar from 'components/SideNavbar';
-import KeywordList from 'components/Keyword/KeywordList';
-import styled from 'styled-components';
+import KeywordPage from './keywordPage';
 
-const Container = styled.div`
-  display:flex;
-`;
 
 const mainPage = () => {
   return (
-    <Container>
-      <SideNavbar/>
-      <KeywordList/>
-    </Container>
+    <KeywordPage/>
   );
 };
 
