@@ -9,7 +9,7 @@ const [READHISTRORYITEM, READHISTRORYITEM_SUCCESS, READHISTRORYITEM_FAILURE] = c
 
 export const getHistoryList = createAction(GETHISTORYLIST, (pageNum) => (pageNum));
 export const deleteHistoryList = createAction(DELETEHISTORYLIST, (historyList) => (historyList));
-export const readHistoryList = createAction(READHISTRORYITEM, (noticeId) => (noticeId));
+export const readHistoryItem = createAction(READHISTRORYITEM, (noticeId) => (noticeId));
 
 const getHistorySaga = createRequestSaga(GETHISTORYLIST, historyAPI.getHistoryList);
 export function* getHistoryListSaga(){
