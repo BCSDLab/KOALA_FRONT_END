@@ -16,5 +16,5 @@ export const signUp = ({ account, password, find_email, nickname }) =>
 export const historyAPI = {
   getHistoryList : (pageNum) => logined.get(`/history?pageNum=${pageNum}`),
   deleteHistoryList : (historyList) => logined.patch(`/history/${historyList}`),
-  readHistoryItem : (noticeId) => logined.put(`/history/${noticeId}`)
+  readHistoryItem : (noticeId) => logined.put(`/history?notice-id=${noticeId}`)
 }
