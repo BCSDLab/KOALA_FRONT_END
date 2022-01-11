@@ -3,23 +3,22 @@ import KeywordHeader from '../KeywordHeader';
 import * as S from './styles';
 import { menuItem } from '../constant';
 import { useSelector, useDispatch } from 'react-redux';
-import { getKeywordList,deleteKeywordList,deleteKeywordItem,moveKeywordItem,readKeywordItem } from 'store/keyword';
+import { getKeywordList,deleteKeywordList,moveKeywordItem,readKeywordItem } from 'store/keyword';
 import { AUNURI,AOUMIR } from '../constant';
-import { getTitle } from '../utills/utills';
+import { getTitle,makeDeleteQuery } from '../utills/utills';
 
 const KeywordList = () => {
 
     const userInfo = useSelector((state)=>state.auth);
     const {
         keywordList,
-        deleteKeywordItemResponse,
         deleteKeywordListResponse,
         readKeywordItemResponse,
         getKeywordListResponse} = useSelector((state)=>state.keyword);
     const dispatch = useDispatch();
 
     const [menu,setMenu] = useState('전체');
-    const [list,setList] = useState('');
+    const [list,setList] = useState([]);
     const [checkAll,setCheckAll] = useState(false);
     const [checkListId,setCheckListId] = useState([]);
     const [readNotification, setReadNotification] = useState(false);
@@ -27,7 +26,6 @@ const KeywordList = () => {
     const [keywordSearch,setKeywordSearch] = useState('');
     const [goStore, setGoStore] = useState(false);
     const [deleteList, setDeleteList] = useState(false);
-
 
     const [isToggle,setIsToggel] = useState(false);
 
@@ -38,6 +36,10 @@ const KeywordList = () => {
         setReadNotification(false);
         setNotReadNotification(false);
         setCheckListId([]);
+
+        if(list.length===0){
+            return;
+        }
 
         if(menu === '전체'){
             setList(keywordList);
@@ -130,6 +132,10 @@ const KeywordList = () => {
 
 
     useEffect(()=>{
+        if(list.length===0){
+            return;
+        }
+
         if(notReadNotification){
             const filterList = keywordList.filter((item)=>{
                 return item.isRead === false;
@@ -146,6 +152,11 @@ const KeywordList = () => {
     },[notReadNotification,readNotification]);
 
     useEffect(()=>{
+
+        if(list.length===0){
+            return;
+        }
+
         if(goStore){
             if(checkAll){
                 alert('모든 목록 보관');
@@ -182,6 +193,11 @@ const KeywordList = () => {
     },[goStore]);
 
     useEffect(()=>{
+
+        if(list.length===0){
+            return;
+        }
+
         if(deleteList){
             if(checkAll){
                 alert('모든 목록 삭제');
@@ -189,15 +205,19 @@ const KeywordList = () => {
                 const startId = keywordList[0].id;
                 const endId = keywordList[keywordList.length-1].id;
 
-                dispatch(deleteKeywordList({startId,endId}));
+                const query = makeDeleteQuery(startId,endId);
+
+                dispatch(deleteKeywordList(query));
                 setDeleteList(false);
 
             }else if(checkListId.length!==0){      
                 alert('선택된 목록 삭제');
 
-            checkListId.forEach((id)=>{
-                dispatch(deleteKeywordItem(id));
-            })
+                const startId = checkListid[0];
+                const endId = checkListid[checkListId.length-1];
+                const query = makeDeleteQuery(startId,endId);
+
+                dispatch(deleteKeywordList(query));
 
                 setDeleteList(false);
             }else{
@@ -213,14 +233,18 @@ const KeywordList = () => {
 
     useEffect(()=>{
 
-        if(userInfo.isLoggedIn||deleteKeywordItemResponse||deleteKeywordListResponse||readKeywordItemResponse||getKeywordListResponse){
+        if(userInfo.isLoggedIn||deleteKeywordListResponse||readKeywordItemResponse||getKeywordListResponse){
             dispatch(getKeywordList('키워드테스트'));
-            setList(keywordList);
+
+            if(keywordList === "받은 알림이 없습니다."){
+                setList([]);
+            }else{
+                setList(keywordList);
+            }
         }
 
     },[
         userInfo.isLoggedIn
-        ,deleteKeywordItemResponse
         ,deleteKeywordListResponse
         ,readKeywordItemResponse
         ,getKeywordListResponse

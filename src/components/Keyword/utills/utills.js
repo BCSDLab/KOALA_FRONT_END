@@ -9,3 +9,17 @@ export const getTitle = (url) => {
         return '대신 전해드립니다 - koreatech'
     }
 }
+
+
+export const makeDeleteQuery = (startId,endId) => {
+    
+    let str = '';
+    
+    for (let i=startId;i<=endId;i++){
+        if(i==startId){
+            str+=`notice-id=${i}`;
+        }
+        str+=`&notice-id=${i}`;
+    }
+    return str;
+}

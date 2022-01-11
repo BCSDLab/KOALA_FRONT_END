@@ -6,7 +6,6 @@ import keyword,{
   inquiryKeywordSaga,
   getKeywordListSaga,
   deleteKeywordListSaga,
-  deleteKeywordItemSaga,
   moveKeywordItemSaga,
   readKeywordItemSaga} from './keyword';
 
@@ -24,7 +23,6 @@ export function* rootSaga() {
     inquiryKeywordSaga(),
     getKeywordListSaga(),
     deleteKeywordListSaga(),
-    deleteKeywordItemSaga(),
     moveKeywordItemSaga(),
     readKeywordItemSaga()]);
 }

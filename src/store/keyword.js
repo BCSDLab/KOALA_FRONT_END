@@ -6,17 +6,12 @@ import { takeLatest } from "redux-saga/effects";
 const [INQUIRY,INQUIRY_SUCCESS,INQUIRY_FAILURE] = createRequestSagaActionTypes("keyword/INQUIRY");
 const [GETKEYWORDLIST,GETKEYWORDLIST_SUCCESS,GETKEYWORDLIST_FAILURE] = createRequestSagaActionTypes("keyword/GETKEYWORDLIST");
 const [DELETEKEYWORDLIST,DELETEKEYWORDLIST_SUCCESS,DELETEKEYWORDLIST_FAILURE] = createRequestSagaActionTypes("keyword/DELETEKEYWORDLIST");
-const [DELETEKEYWORDITEM,DELETEKEYWORDITEM_SUCCESS,DELETEKEYWORDITEM_FAILURE] = createRequestSagaActionTypes("keyword/DELETEKEYWORDITEM");
 const [MOVEKEYWORDITEM,MOVEKEYWORDITEM_SUCCESS,MOVEKEYWORDITEM_FAILURE] = createRequestSagaActionTypes("keyword/MOVEKEYWORDITEM");
 const [READKEYWORDITEM,READKEYWORDITEM_SUCCESS,READKEYWORDITEM_FAILURE] = createRequestSagaActionTypes("keyword/READKEYWORDITEM");
 
 export const inquiry = createAction(INQUIRY);
 export const getKeywordList = createAction(GETKEYWORDLIST);
-export const deleteKeywordList = createAction(DELETEKEYWORDLIST,({startId,endId})=>({
-    startId,
-    endId,
-}));
-export const deleteKeywordItem = createAction(DELETEKEYWORDITEM,(id)=>(id));
+export const deleteKeywordList = createAction(DELETEKEYWORDLIST,(query)=>(query));
 export const moveKeywordItem = createAction(MOVEKEYWORDITEM);
 export const readKeywordItem = createAction(READKEYWORDITEM,(id)=>(id));
 
@@ -35,11 +30,6 @@ export function* deleteKeywordListSaga(){
     yield takeLatest(DELETEKEYWORDLIST,deleteListSaga);
 }
 
-const deleteItemSaga = createRequestSaga(DELETEKEYWORDITEM,keywordAPI.deleteKeywordItem);
-export function* deleteKeywordItemSaga(){
-    yield takeLatest(DELETEKEYWORDITEM,deleteItemSaga);
-}
-
 const moveItemSaga = createRequestSaga(MOVEKEYWORDITEM,keywordAPI.movekeywordList);
 export function* moveKeywordItemSaga(){
     yield takeLatest(MOVEKEYWORDITEM,moveItemSaga);
@@ -56,7 +46,6 @@ const initialState = {
     inquiryResponse:false,
     getKeywordListResponse:false,
     deleteKeywordListResponse:false,
-    deleteKeywordItemResponse:false,
     moveKeywordItemResponse:false,
     readKeywordItemResponse:false
 };
@@ -94,15 +83,6 @@ const keyword = handleActions(
         [DELETEKEYWORDLIST_FAILURE] : () => ({
             deleteKeywordList : false
         }),
-
-        [DELETEKEYWORDITEM_SUCCESS] : () => ({
-            deleteKeywordItem : true
-        }),
-
-        [DELETEKEYWORDITEM_FAILURE] : () => ({
-            deleteKeywordItem : false
-        }),
-
         [MOVEKEYWORDITEM_SUCCESS] : () => ({
             moveKeywordItemResponse : true
         }),
