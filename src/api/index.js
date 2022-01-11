@@ -12,3 +12,9 @@ export const checkEmail = (email) => logined.get(`user/email-check?email=${email
 
 export const signUp = ({ account, password, find_email, nickname }) =>
   logined.post('/user/sing-in', { account, password, find_email, nickname });
+
+export const historyAPI = {
+  getHistoryList : (pageNum) => logined.get(`/history?pageNum=${pageNum}`),
+  deleteHistoryList : (historyList) => logined.patch(`/history/${historyList}`),
+  readHistoryItem : (noticeId) => logined.put(`/history/${noticeId}`)
+}

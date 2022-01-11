@@ -1,25 +1,32 @@
+import React, { useEffect, useState } from "react";
 import HistoryCheckBox from "./HisoryCheckBox";
+import * as S from './History.Style';
+import { getHistoryList, deleteHistoryList, readHistoryItem, readHistoryList } from "store/history";
 import { dummyList } from "./dummy";
 const HistoryContent = () => {
+    const {historyList, deleteHistoryListResponse, readHistoryItemResponse} = useSelector((state) => state.history);
+    const userInfo = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
     const [alertList, setList] = useState(dummyList);
     const [command, setCommand] = useState(null);
     const [mailList, setMailList] = useState([]);
+    const [pageNum, setPageNum] = useState(1);
     const showRead = () =>{
         if(command === 'read'){
             setCommand(null);
-            setList(dummyList);
+            setList(historyList);
         }else{
             setCommand('read');
-            setList(dummyList.filter((mail) => (mail.isRead)));
+            setList(historyList.filter((mail) => (mail.isRead)));
         }
     }
     const showNotRead = () => {
         if(command === 'notRead'){
             setCommand(null);
-            setList(dummyList);
+            setList(historyList);
         }else{
             setCommand('notRead');
-            setList(dummyList.filter((mail) => (!mail.isRead)));
+            setList(historyList.filter((mail) => (!mail.isRead)));
         }
     }
     const moveToStorage = () => {
@@ -29,7 +36,6 @@ const HistoryContent = () => {
         console.log('메일 삭제');
     }
     const selectAllMail = (e) => {
-        console.log(e.target.checked);
         if(e.target.checked){
             setMailList(alertList.map(mail => {
                 return mail.id;
@@ -39,14 +45,26 @@ const HistoryContent = () => {
         }
     }
     const selectMail = (e, id) => {
-        console.log(e.target, id);
         if(e.target.checked){
             setMailList([...mailList, id]);
         }else{
             setMailList(mailList.filter(mailId => mailId !== id));
         }
     }
-    console.log(mailList);
+    useEffect(() => {
+        if(userInfo.isLoggedIn||deleteHistoryListResponse||readHistoryItemResponse){
+            dispatch(getHistoryList(pageNum));
+            console.log('work')
+        }
+    },[userInfo.isLoggedIn,deleteHistoryListResponse,readHistoryItemResponse]);
+    useEffect(() => {
+        setList(historyList.sort((a,b) => {
+            a = stringToDate(a.createdAt);
+            b = stringToDate(b.createdAt);
+            return a>b?-1:a<b?1:0;
+        }));
+        console.log(historyList)
+    }, [historyList]);
     return (
     <S.PageWrapper>
     <S.MenuList>
