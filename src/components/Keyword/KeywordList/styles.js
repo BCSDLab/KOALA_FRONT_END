@@ -7,8 +7,8 @@ export const Menu = styled.nav`
     justify-content:space-between;
     position:absolute;
     border-bottom:1.5px solid #eeeeee;
-    left:488px;
     top:180px;
+    left:${props=>props.toggle?'488px':'353px'};
 `; 
 
 export const Item = styled.span`
@@ -24,14 +24,27 @@ export const ItemUnderBar = styled.div`
     position:absolute;
     top:216px;
     left:${props => {
-        if(props.menu === '전체'){
-            return '488px';
-        }else if(props.menu === '아우누리'){
-            return '568px';
-        }else if(props.menu === '아우미르'){
-            return '670px';
-        }else{
-            return '830px';
+            if(props.toggle){
+                if(props.menu === '전체'){
+                    return '488px';
+                }else if(props.menu === '아우누리'){
+                    return '568px';
+                }else if(props.menu === '아우미르'){
+                    return '670px';
+                }else{
+                    return '830px';
+                }
+                
+            }else{
+                if(props.menu === '전체'){
+                    return '353px';
+                }else if(props.menu === '아우누리'){
+                    return '435px';
+                }else if(props.menu === '아우미르'){
+                    return '533px';
+                }else{
+                    return '695px';
+            }
         }
     }}
 `;
@@ -43,7 +56,7 @@ export const FilterList = styled.nav`
     align-items:center;
     font-size:12px;
     position:absolute;
-    left:501px;
+    left:${props=>props.toggle?'501px':'366px'};
     top:263px;
 
     .read,
@@ -136,7 +149,7 @@ export const SearchImage = styled.img`
 
 export const MainList = styled.div`
     position:absolute;
-    left:501px;
+    left:${props=>props.toggle?'501px':'366px'};
     top:320px;
 `;
 

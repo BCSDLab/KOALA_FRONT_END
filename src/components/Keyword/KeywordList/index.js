@@ -3,9 +3,8 @@ import KeywordHeader from '../KeywordHeader';
 import * as s from './styles';
 import { menuItem } from '../constant';
 import { useSelector, useDispatch } from 'react-redux';
-import { inquiry,getKeywordList,deleteKeywordList,deleteKeywordItem,moveKeywordItem,readKeywordItem } from 'store/keyword';
+import { getKeywordList,deleteKeywordList,deleteKeywordItem,moveKeywordItem,readKeywordItem } from 'store/keyword';
 import { AUNURI,AOUMIR } from '../constant';
-import { Link } from 'react-router-dom';
 
 const KeywordList = () => {
 
@@ -22,8 +21,9 @@ const KeywordList = () => {
     const [keywordSearch,setKeywordSearch] = useState('');
     const [goStore, setGoStore] = useState(false);
     const [deleteList, setDeleteList] = useState(false);
-    const [isReadItem,setIsReadItem] = useState(false);
 
+
+    const [isToggle,setIsToggel] = useState(false);
 
     //utills
     const getTitle = (url) => {
@@ -220,7 +220,6 @@ const KeywordList = () => {
     useEffect(()=>{
 
         if(userInfo.isLoggedIn||deleteKeywordItemResponse||deleteKeywordListResponse||readKeywordItemResponse){
-            dispatch(inquiry());
             dispatch(getKeywordList('키워드테스트'));
         }
 
@@ -232,16 +231,16 @@ const KeywordList = () => {
 
     return(
         <>
-            <KeywordHeader title={'키워드 알림'}/>
-            <s.Menu>
+            <KeywordHeader toggle={isToggle} title={'키워드 알림'}/>
+            <s.Menu toggle={isToggle}>
                 {menuItem.map((item)=>{
                     return(
                         <s.Item onClick={onClickMenu} key={item.id}>{item.title}</s.Item>
                     )
                 })}
             </s.Menu>
-            <s.ItemUnderBar menu={menu}></s.ItemUnderBar>
-            <s.FilterList>
+            <s.ItemUnderBar menu={menu} toggle={isToggle}></s.ItemUnderBar>
+            <s.FilterList toggle={isToggle}>
                 <s.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className='checkBox'></s.CheckBox>
                 <s.CheckBoxTitle onClick={onClickAllSelect} className='checkTitle'>전체 선택</s.CheckBoxTitle>
                 <s.FilterItem onClick={onClickReadNotification} readNotification={readNotification} className='read'>읽은 알림</s.FilterItem>
@@ -260,7 +259,7 @@ const KeywordList = () => {
                     <s.SearchImage src='/asset/search.svg'/>
                 </s.SearchButton>
             </s.FilterList>
-            <s.MainList>
+            <s.MainList toggle={isToggle}>
                 {list&&list.map((item)=>{
                     return(
                     <s.MainItem key={item.id}>
