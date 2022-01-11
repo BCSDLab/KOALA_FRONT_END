@@ -213,11 +213,17 @@ const KeywordList = () => {
             }else if(checkListId.length!==0){      
                 alert('선택된 목록 삭제');
 
-                const startId = checkListid[0];
-                const endId = checkListid[checkListId.length-1];
-                const query = makeDeleteQuery(startId,endId);
+                if(checkListId.length===1){
+                    const query = `notice-id=${checkListId[0]}`;
+                    dispatch(deleteKeywordList(query));
+                }else{
 
-                dispatch(deleteKeywordList(query));
+                    const startId = checkListId[0];
+                    const endId = checkListId[checkListId.length-1];
+                    const query = makeDeleteQuery(startId,endId);
+
+                    dispatch(deleteKeywordList(query));
+                }
 
                 setDeleteList(false);
             }else{
