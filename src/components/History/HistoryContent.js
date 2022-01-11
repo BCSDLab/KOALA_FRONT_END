@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-import styled from "styled-components";
 import HistoryCheckBox from "./HisoryCheckBox";
 import { dummyList } from "./dummy";
 const HistoryContent = () => {
@@ -50,107 +48,46 @@ const HistoryContent = () => {
     }
     console.log(mailList);
     return (
-    <>
-    <MenuList>
-        <HistoryCheckBox onClick={(e) => selectAllMail(e)}/>
-        <SelectAll>전체선택</SelectAll>
-        <Menues onClick={() => showRead()} isClicked={command==='read'?true:false}>
-            <MenuName>
+    <S.PageWrapper>
+    <S.MenuList>
+        <HistoryCheckBox onClick={(e) => selectAllMail(e)} readOnly/>
+        <S.SelectAll>전체선택</S.SelectAll>
+        <S.Menues onClick={() => showRead()} isClicked={command==='read'?true:false}>
+            <S.MenuName>
                 읽은 알림
-            </MenuName>
-        </Menues>
-        <Menues onClick={() => showNotRead()} isClicked={command==='notRead'?true:false}>
-            <MenuName>
+            </S.MenuName>
+        </S.Menues>
+        <S.Menues onClick={() => showNotRead()} isClicked={command==='notRead'?true:false}>
+            <S.MenuName>
                 읽지 않은 알림
-            </MenuName>
-        </Menues>
-        <Menues onClick={() => moveToStorage()}> 
-            <MenuLogo src="/asset/Storage.svg"/>
-            <MenuName>
+            </S.MenuName>
+        </S.Menues>
+        <S.Menues onClick={() => moveToStorage()}> 
+            <S.MenuLogo src="/asset/Storage.svg"/>
+            <S.MenuName>
                 보관함으로 이동
-            </MenuName>
-        </Menues>
-        <Menues onClick={() => deleteMail()}>
-            <MenuLogo src="/asset/Delete.svg"/>
-            <MenuName>
+            </S.MenuName>
+        </S.Menues>
+        <S.Menues onClick={() => deleteMail()}>
+            <S.MenuLogo src="/asset/Delete.svg"/>
+            <S.MenuName>
                 삭제
-            </MenuName>
-        </Menues>
-    </MenuList>
-    <KeyWordAlertList>
-            {alertList.map(mail => (
-                <KeyWordAlert isRead = {mail.isRead}>
-                    <HistoryCheckBox onClick={(e) => selectMail(e, mail.id)} checked={mailList.includes(mail.id)?true:false}/>
-                    <Sender>{mail.sender}</Sender>
-                    <AlertTitle>{mail.text}</AlertTitle>
-                    <MailBrowse>{mail.isRead?'읽음':'읽지않음'}</MailBrowse>
-                    <ReceiveDate>{mail.date}</ReceiveDate>
-                </KeyWordAlert>
+            </S.MenuName>
+        </S.Menues>
+    </S.MenuList>
+    <S.KeyWordAlertList>
+            {alertList.map((mail,id) => (
+                <S.KeyWordAlert isRead = {mail.isRead} key ={id}>
+                    <HistoryCheckBox onClick={(e) => selectMail(e, mail.id)} checked={mailList.includes(mail.id)?true:false} readOnly/>
+                    <S.Sender>{siteList[mail.site - 1]}</S.Sender>
+                    <S.AlertTitle href={mail.url} isRead = {mail.isRead} >{mail.title}</S.AlertTitle>
+                    <S.MailBrowse>{mail.isRead?'읽음':'읽지않음'}</S.MailBrowse>
+                    <S.ReceiveDate>{mail.createdAt}</S.ReceiveDate>
+                </S.KeyWordAlert>
             ))}
-    </KeyWordAlertList>
-
-    </>
+    </S.KeyWordAlertList>
+    </S.PageWrapper>
     )
 }
-const MenuList = styled.div`
-    display: flex;
-    align-items: center;
-    margin: 31px 0 17px 0;
-    &: last-child{
-        margin-right: 0;
-    }
-`
-const Menues = styled.div`
-    display: flex;
-    padding: 8px;
-    align-items: center;
-    border: solid 1px ${props => props.isClicked?'#222222':'#eeeeee'};
-    margin-right: 15px;
-    color: ${props => props.isClicked?'#222222':'#999999'};
-    cursor: pointer;
-`
-const MenuLogo = styled.img`
-    width: 16px;
-    height: 16px;
-    margin-right: 8px;
-`
-const MenuName = styled.div`
-`
-const SelectAll = styled.div`
-    margin-right: 25px;
-`
-const KeyWordAlert = styled.li`
-    display: flex;
-    color: ${props => props.isRead?'#999999':'#222222'};
-    padding: 15px 0 15px 0;
-    border-bottom: 1px solid #eeeeee;
-`
-const KeyWordAlertList = styled.ol``
-const Sender = styled.div`
-    font-size: 12px;
-    margin-right: 119px;
-`
-const AlertTitle = styled.div`
-    width: 899px;
-    max-width: 899px;
-    max-height: 18px;
-    font-size: 12px;
-    cursor: pointer;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-`
-const MailBrowse = styled.div`
-    width: 47px;
-    margin-right: 24px;
-    text-align: center;
-    font-size: 12px;
-    color: #999999;
-`
-const ReceiveDate = styled.div`
-    width: 67px;
-    font-size: 12px;
-`
-
 
 export default HistoryContent;
