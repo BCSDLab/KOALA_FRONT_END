@@ -3,6 +3,16 @@ import HistoryCheckBox from "./HisoryCheckBox";
 import * as S from './History.Style';
 import { getHistoryList, deleteHistoryList, readHistoryItem, readHistoryList } from "store/history";
 import { dummyList } from "./dummy";
+import { useDispatch, useSelector } from "react-redux";
+const siteList = ['아우누리'];
+const stringToDate = (date) => {
+    var yyyyMMdd = String(date);
+    var sYear = yyyyMMdd.substring(0,4);
+    var sMonth = yyyyMMdd.substring(5,7);
+    var sDate = yyyyMMdd.substring(8,10);
+    return new Date(Number(sYear), Number(sMonth)-1, Number(sDate));
+
+}
 const HistoryContent = () => {
     const {historyList, deleteHistoryListResponse, readHistoryItemResponse} = useSelector((state) => state.history);
     const userInfo = useSelector((state) => state.auth);
