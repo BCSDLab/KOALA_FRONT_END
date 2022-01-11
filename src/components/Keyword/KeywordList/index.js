@@ -1,15 +1,21 @@
 import React,{useCallback,useEffect,useState} from 'react';
 import KeywordHeader from '../KeywordHeader';
-import * as s from './styles';
+import * as S from './styles';
 import { menuItem } from '../constant';
 import { useSelector, useDispatch } from 'react-redux';
 import { getKeywordList,deleteKeywordList,deleteKeywordItem,moveKeywordItem,readKeywordItem } from 'store/keyword';
 import { AUNURI,AOUMIR } from '../constant';
+import { getTitle } from '../utills/utills';
 
 const KeywordList = () => {
 
     const userInfo = useSelector((state)=>state.auth);
-    const {keywordList,deleteKeywordItemResponse,deleteKeywordListResponse,readKeywordItemResponse} = useSelector((state)=>state.keyword);
+    const {
+        keywordList,
+        deleteKeywordItemResponse,
+        deleteKeywordListResponse,
+        readKeywordItemResponse,
+        getKeywordListResponse} = useSelector((state)=>state.keyword);
     const dispatch = useDispatch();
 
     const [menu,setMenu] = useState('전체');
@@ -24,17 +30,6 @@ const KeywordList = () => {
 
 
     const [isToggle,setIsToggel] = useState(false);
-
-    //utills
-    const getTitle = (url) => {
-        if(url.includes(AUNURI)){
-            return '아우누리'
-        }else if(url.includes(AOUMIR)){
-            return '아우미르'
-        }else{
-            return '대신 전해드립니다 - koreatech'
-        }
-    }
 
     const onClickMenu = useCallback((e)=>{        
         const menu = e.target.innerText;
@@ -184,7 +179,6 @@ const KeywordList = () => {
                 setGoStore(false);
             }
         }
-
     },[goStore]);
 
     useEffect(()=>{
@@ -219,61 +213,64 @@ const KeywordList = () => {
 
     useEffect(()=>{
 
-        if(userInfo.isLoggedIn||deleteKeywordItemResponse||deleteKeywordListResponse||readKeywordItemResponse){
+        if(userInfo.isLoggedIn||deleteKeywordItemResponse||deleteKeywordListResponse||readKeywordItemResponse||getKeywordListResponse){
             dispatch(getKeywordList('키워드테스트'));
+            setList(keywordList);
         }
 
-    },[userInfo.isLoggedIn,deleteKeywordItemResponse,deleteKeywordListResponse,readKeywordItemResponse]);
-
-    useEffect(()=>{
-        setList(keywordList);
-    },[keywordList]);
+    },[
+        userInfo.isLoggedIn
+        ,deleteKeywordItemResponse
+        ,deleteKeywordListResponse
+        ,readKeywordItemResponse
+        ,getKeywordListResponse
+    ]);
 
     return(
         <>
             <KeywordHeader toggle={isToggle} title={'키워드 알림'}/>
-            <s.Menu toggle={isToggle}>
+            <S.Menu toggle={isToggle}>
                 {menuItem.map((item)=>{
                     return(
-                        <s.Item onClick={onClickMenu} key={item.id}>{item.title}</s.Item>
+                        <S.Item onClick={onClickMenu} key={item.id}>{item.title}</S.Item>
                     )
                 })}
-            </s.Menu>
-            <s.ItemUnderBar menu={menu} toggle={isToggle}></s.ItemUnderBar>
-            <s.FilterList toggle={isToggle}>
-                <s.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className='checkBox'></s.CheckBox>
-                <s.CheckBoxTitle onClick={onClickAllSelect} className='checkTitle'>전체 선택</s.CheckBoxTitle>
-                <s.FilterItem onClick={onClickReadNotification} readNotification={readNotification} className='read'>읽은 알림</s.FilterItem>
-                <s.FilterItem onClick={onClickNotReadNotification} notReadNotification={notReadNotification} className='notread'>읽지 않은 알림</s.FilterItem>
-                <s.FilterItem onClick={onClickGoStore} goStore={goStore} className='goStore'>
-                    <s.FilterItemImage src='/asset/inbox-in.svg' alt='inbox-in'/>
+            </S.Menu>
+            <S.ItemUnderBar menu={menu} toggle={isToggle}></S.ItemUnderBar>
+            <S.FilterList toggle={isToggle}>
+                <S.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className='checkBox'></S.CheckBox>
+                <S.CheckBoxTitle onClick={onClickAllSelect} className='checkTitle'>전체 선택</S.CheckBoxTitle>
+                <S.FilterItem onClick={onClickReadNotification} readNotification={readNotification} className='read'>읽은 알림</S.FilterItem>
+                <S.FilterItem onClick={onClickNotReadNotification} notReadNotification={notReadNotification} className='notread'>읽지 않은 알림</S.FilterItem>
+                <S.FilterItem onClick={onClickGoStore} goStore={goStore} className='goStore'>
+                    <S.FilterItemImage src='/asset/inbox-in.svg' alt='inbox-in'/>
                     <span>보관함으로 이동</span>
-                </s.FilterItem>
-                <s.FilterItem onClick={onClickDeleteList} className='delete'>
-                    <s.FilterItemImage src='/asset/trash.svg' alt='trash'/>
+                </S.FilterItem>
+                <S.FilterItem onClick={onClickDeleteList} className='delete'>
+                    <S.FilterItemImage src='/asset/trash.svg' alt='trash'/>
                     <span>삭제</span>
-                </s.FilterItem>
-                <s.SearchInput placeholder='알림대상/알림내용/키워드 입력' value={keywordSearch} onChange={onChangeKeywordSearch}></s.SearchInput>
-                <s.SearchButton onClick={onClickSearch}>
+                </S.FilterItem>
+                <S.SearchInput placeholder='알림대상/알림내용/키워드 입력' value={keywordSearch} onChange={onChangeKeywordSearch}></S.SearchInput>
+                <S.SearchButton onClick={onClickSearch}>
                     <span>검색하기</span>
-                    <s.SearchImage src='/asset/search.svg'/>
-                </s.SearchButton>
-            </s.FilterList>
-            <s.MainList toggle={isToggle}>
+                    <S.SearchImage src='/asset/search.svg'/>
+                </S.SearchButton>
+            </S.FilterList>
+            <S.MainList toggle={isToggle}>
                 {list&&list.map((item)=>{
                     return(
-                    <s.MainItem key={item.id}>
-                        <s.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={checkListId.includes(item.id)} checkAll={checkAll}></s.MainCheckBox>
-                        <s.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.url)}</s.MainCheckBoxTitle>
+                    <S.MainItem key={item.id}>
+                        <S.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={checkListId.includes(item.id)} checkAll={checkAll}></S.MainCheckBox>
+                        <S.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.url)}</S.MainCheckBoxTitle>
                         <a href={`${item.url}`} target='_blank'>
-                            <s.MainContent readState={item.isRead} onClick={() => onClickReadItem(item.id,item.isRead)}>{item.title}</s.MainContent>
+                            <S.MainContent readState={item.isRead} onClick={() => onClickReadItem(item.id,item.isRead)}>{item.title}</S.MainContent>
                         </a>
-                        <s.MainReadState>{item.isRead?"읽음":"읽지 않음"}</s.MainReadState>
-                        <s.MainPeriod readState={item.isRead}>{item.createdAt}</s.MainPeriod>
-                    </s.MainItem>
+                        <S.MainReadState>{item.isRead?"읽음":"읽지 않음"}</S.MainReadState>
+                        <S.MainPeriod readState={item.isRead}>{item.createdAt}</S.MainPeriod>
+                    </S.MainItem>
                     );
                 })}
-            </s.MainList>
+            </S.MainList>
         </>
     );
 }
