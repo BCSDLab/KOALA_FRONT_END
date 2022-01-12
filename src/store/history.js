@@ -38,12 +38,18 @@ const history = handleActions(
         [GETHISTORYLIST_SUCCESS]: (state, {payload:history}) => ({
             ...state,
             historyList: history.body,
-            getHistoryListResponse: true
+            getHistoryListResponse: true,
+            getHistoryListResponse: false,
+            deleteHistoryResponse: false,
+            readHistoryItemResponse: false
         }),
         [GETHISTORYLIST_FAILURE]: (state) => ({
             ...state,
             historyList: [],
-            getHistoryListResponse: false
+            getHistoryListResponse: false,
+            getHistoryListResponse: false,
+            deleteHistoryResponse: false,
+            readHistoryItemResponse: false
         }),
 
         [DELETEHISTORYLIST_SUCCESS]: () => ({
