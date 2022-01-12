@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import HistoryCheckBox from "./HisoryCheckBox";
 import * as S from './History.Style';
-import { getHistoryList, deleteHistoryList, readHistoryItem, readHistoryList } from "store/history";
+import { getHistoryList, deleteHistoryList, readHistoryItem} from "store/history";
 import { dummyList } from "./dummy";
 import { useDispatch, useSelector } from "react-redux";
 const siteList = ['아우누리'];
@@ -11,10 +11,9 @@ const stringToDate = (date) => {
     var sMonth = yyyyMMdd.substring(5,7);
     var sDate = yyyyMMdd.substring(8,10);
     return new Date(Number(sYear), Number(sMonth)-1, Number(sDate));
-
 }
 const HistoryContent = () => {
-    const {historyList, deleteHistoryListResponse, readHistoryItemResponse} = useSelector((state) => state.history);
+    const {historyList, deleteHistoryResponse, readHistoryItemResponse} = useSelector((state) => state.history);
     const userInfo = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const [alertList, setList] = useState(dummyList);
@@ -43,7 +42,16 @@ const HistoryContent = () => {
         console.log('보관함으로 이동');
     }
     const deleteMail = () => {
-        console.log('메일 삭제');
+        if(mailList.length > 0){
+            var deleteMailQuery = "";
+            mailList.forEach((id) => {
+                deleteMailQuery += `notice-id=${id}&`;
+            });
+            dispatch(deleteHistoryList(deleteMailQuery));
+            setMailList([]);
+        }else{
+            alert("삭제할 메일을 선택해 주세요");
+        }
     }
     const selectAllMail = (e) => {
         if(e.target.checked){
@@ -65,18 +73,17 @@ const HistoryContent = () => {
         dispatch(readHistoryItem(id));
     }
     useEffect(() => {
-        if(userInfo.isLoggedIn||deleteHistoryListResponse||readHistoryItemResponse){
+        if(userInfo.isLoggedIn||deleteHistoryResponse||readHistoryItemResponse){
             dispatch(getHistoryList(pageNum));
-            console.log('work')
         }
-    },[userInfo.isLoggedIn,deleteHistoryListResponse,readHistoryItemResponse]);
+    },[userInfo.isLoggedIn,deleteHistoryResponse,readHistoryItemResponse]);
     useEffect(() => {
-        setList(historyList.sort((a,b) => {
+        setList(historyList?.sort((a, b) => {
             a = stringToDate(a.createdAt);
             b = stringToDate(b.createdAt);
-            return a>b?-1:a<b?1:0;
+            return a > b ? -1 : a < b ? 1 : 0;
         }));
-        console.log(historyList)
+        console.log(historyList);
     }, [historyList]);
     return (
     <S.PageWrapper>
@@ -107,7 +114,7 @@ const HistoryContent = () => {
         </S.Menues>
     </S.MenuList>
     <S.KeyWordAlertList>
-            {alertList.map((mail,id) => (
+            {alertList?.map((mail,id) => (
                 <S.KeyWordAlert isRead = {mail.isRead} key ={id}>
                     <HistoryCheckBox onClick={(e) => selectMail(e, mail.id)} checked={mailList.includes(mail.id)?true:false} readOnly/>
                     <S.Sender>{siteList[mail.site - 1]}</S.Sender>
