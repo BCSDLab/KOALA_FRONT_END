@@ -1,5 +1,5 @@
 import React from 'react';
-import KeywordPage from './keywordPage';
+import KeywordPage from './KeywordPage';
 
 
 const mainPage = () => {
