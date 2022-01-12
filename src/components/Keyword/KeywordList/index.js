@@ -1,11 +1,11 @@
 import React,{useCallback,useEffect,useState,useRef} from 'react';
 import KeywordHeader from '../KeywordHeader';
 import * as S from './styles';
-import { menuItem } from '../constant';
+import { menuItem } from 'constant';
+import { AUNURI,AOUMIR } from 'constant';
 import { useSelector, useDispatch } from 'react-redux';
 import { getKeywordList,deleteKeywordList,moveKeywordItem,readKeywordItem } from 'store/keyword';
-import { AUNURI,AOUMIR } from '../constant';
-import { getTitle,makeDeleteQuery } from '../utills/utills';
+import { getTitle,makeDeleteQuery } from '../utills';
 
 const KeywordList = () => {
 

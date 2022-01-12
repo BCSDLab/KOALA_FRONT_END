@@ -1,4 +1,4 @@
-import { AUNURI,AOUMIR } from '../constant';
+import { AUNURI,AOUMIR } from 'constant';
 
 export const getTitle = (url) => {
     if(url.includes(AUNURI)){
