@@ -23,7 +23,7 @@ const Ball = styled.div`
   border-radius: 50%;
   top: 1px;
   left: 1px;
-  transition: transform 0.2s linear;
+  transition: transform 0.2s;
   background-color: #ffd25d;
   ${SwitchCheckBox}:checked +& {
     transform: translateX(10px);
