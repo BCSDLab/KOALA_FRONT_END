@@ -1,4 +1,4 @@
-import React,{useCallback,useEffect,useState} from 'react';
+import React,{useCallback,useEffect,useState,useRef} from 'react';
 import KeywordHeader from '../KeywordHeader';
 import * as S from './styles';
 import { menuItem } from '../constant';
@@ -26,6 +26,8 @@ const KeywordList = () => {
     const [keywordSearch,setKeywordSearch] = useState('');
     const [goStore, setGoStore] = useState(false);
     const [deleteList, setDeleteList] = useState(false);
+
+    const inputSearch = useRef(null);
 
     const [isToggle,setIsToggel] = useState(false);
 
@@ -94,6 +96,7 @@ const KeywordList = () => {
 
         setList(filterList);
         setKeywordSearch('');
+        inputSearch.current.focus();
     },[list,keywordSearch]);
 
     const onClickGoStore = useCallback(()=>{
@@ -280,7 +283,7 @@ const KeywordList = () => {
                     <S.FilterItemImage src='/asset/trash.svg' alt='trash'/>
                     <span>삭제</span>
                 </S.FilterItem>
-                <S.SearchInput placeholder='알림대상/알림내용/키워드 입력' value={keywordSearch} onChange={onChangeKeywordSearch}></S.SearchInput>
+                <S.SearchInput ref={inputSearch} placeholder='알림대상/알림내용/키워드 입력' value={keywordSearch} onChange={onChangeKeywordSearch}></S.SearchInput>
                 <S.SearchButton onClick={onClickSearch}>
                     <span>검색하기</span>
                     <S.SearchImage src='/asset/search.svg'/>
