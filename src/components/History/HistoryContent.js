@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import HistoryCheckBox from "./HisoryCheckBox";
 import * as S from './History.Style';
-import { getHistoryList, deleteHistoryList, readHistoryItem} from "store/history";
+import { getHistoryList, deleteHistoryList, readHistoryItem, moveToScrap} from "store/history";
 import { dummyList } from "./dummy";
 import { useDispatch, useSelector } from "react-redux";
 const siteList = ['아우누리'];
@@ -40,6 +40,14 @@ const HistoryContent = () => {
     }
     const moveToStorage = () => {
         console.log('보관함으로 이동');
+        if(mailList.length > 0){
+           mailList.forEach((id) => {
+               console.log(JSON.stringify({"board_id": id}));
+               dispatch(moveToScrap());
+           })
+        }else{
+            alert('이동할 메일을 선택해 주세요');
+        }
     }
     const deleteMail = () => {
         if(mailList.length > 0){

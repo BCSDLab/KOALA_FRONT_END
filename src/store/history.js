@@ -6,10 +6,12 @@ import { takeLatest } from "redux-saga/effects";
 const [GETHISTORYLIST, GETHISTORYLIST_SUCCESS, GETHISTORYLIST_FAILURE] = createRequestSagaActionTypes("history/GETHISTORYLIST");
 const [DELETEHISTORYLIST, DELETEHISTORYLIST_SUCCESS, DELETEHISTORYLIST_FAILURE] = createRequestSagaActionTypes("history/DELETEHISTORYLIST");
 const [READHISTRORYITEM, READHISTRORYITEM_SUCCESS, READHISTRORYITEM_FAILURE] = createRequestSagaActionTypes("history/READHISTORYITEM");
+const [MOVETOSCRAP, MOVETOSCRAP_SUCCESS, MOVETOSCRAP_FAILURE] = createRequestSagaActionTypes("history/MOVETOSCRAP");
 
 export const getHistoryList = createAction(GETHISTORYLIST, (pageNum) => (pageNum));
 export const deleteHistoryList = createAction(DELETEHISTORYLIST, (historyList) => (historyList));
 export const readHistoryItem = createAction(READHISTRORYITEM, (noticeId) => (noticeId));
+export const moveToScrap = createAction(MOVETOSCRAP, (idList) => (idList));
 
 const getHistorySaga = createRequestSaga(GETHISTORYLIST, historyAPI.getHistoryList);
 export function* getHistoryListSaga(){
@@ -26,11 +28,17 @@ export function* readHistoryItemSaga(){
     yield takeLatest(READHISTRORYITEM, readHistorySaga);
 }
 
+const moveToScrapSaga = createRequestSaga(MOVETOSCRAP, historyAPI.moveToScrap);
+export function* moveToScrapItemSaga(){
+    yield takeLatest(MOVETOSCRAP, moveToScrapSaga);
+}
+
 const initialState = {
     historyList: [],
     getHistoryListResponse: false,
     deleteHistoryResponse: false,
-    readHistoryItemResponse: false
+    readHistoryItemResponse: false,
+    moveToScrapResponse: false
 };
 
 const history = handleActions(
@@ -39,14 +47,12 @@ const history = handleActions(
             ...state,
             historyList: history.body,
             getHistoryListResponse: true,
-            getHistoryListResponse: false,
             deleteHistoryResponse: false,
             readHistoryItemResponse: false
         }),
         [GETHISTORYLIST_FAILURE]: (state) => ({
             ...state,
             historyList: [],
-            getHistoryListResponse: false,
             getHistoryListResponse: false,
             deleteHistoryResponse: false,
             readHistoryItemResponse: false
@@ -64,6 +70,13 @@ const history = handleActions(
         }),
         [READHISTRORYITEM_FAILURE]: () => ({
             readHistoryItemResponse: false
+        }),
+
+        [MOVETOSCRAP_SUCCESS]: () => ({
+            moveToScrapResponse: true
+        }),
+        [MOVETOSCRAP_FAILURE]: () => ({
+            moveToScrapResponse: false
         })
     },
     initialState
