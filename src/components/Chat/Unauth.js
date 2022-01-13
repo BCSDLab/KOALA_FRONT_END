@@ -51,9 +51,17 @@ const UnauthTitle = styled.div`
   color: #222;
 `;
 const UnauthText = styled.div`
+  width: 320px;
+  height: 42px;
   margin-top: 24px;
   font-size: 14px;
   font-family: NotoSansCJKKR;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
   text-align: center;
   color: #222;
 `;
