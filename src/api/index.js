@@ -21,7 +21,5 @@ export const sendUniversityEmail = (email) => logined.post('user/email-send/UNIV
 export const authUniversityEmail = ({ email, secret }) =>
   logined.post('user/certification/UNIVERSITY', { email, secret });
 
-export const getChatRoom = () => logined.get('chat/room');
-
 export const signUp = ({ account, password, find_email, nickname }) =>
   logined.post('/user/sing-in', { account, password, find_email, nickname });

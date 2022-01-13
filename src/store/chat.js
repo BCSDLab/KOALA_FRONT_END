@@ -7,7 +7,7 @@ const [AUTH_UNIVERSITY, AUTH_UNIVERSITY_SUCCESS, AUTH_UNIVERSITY_FAILURE] =
   createRequestSagaActionTypes('chat/AUTH_UNIVERSITY');
 const [SEND_UNIVERSITY, SEND_UNIVERSITY_SUCCESS, SEND_UNIVERSITY_FAILURE] =
   createRequestSagaActionTypes('chat/SEND_UNIVERSITY');
-const [CHATROOM, CHATROOM_SUCCESS, CHATROOM_FAILURE] = createRequestSagaActionTypes('chat/CHATROOM');
+
 export const sendUniversity = createAction(SEND_UNIVERSITY, (email) => ({
   email,
 }));
@@ -16,7 +16,6 @@ export const authUniversity = createAction(AUTH_UNIVERSITY, ({ email, secret }) 
   email,
   secret,
 }));
-export const chatRoom = createAction(CHATROOM);
 
 const sendUniversitySaga = createRequestSaga(SEND_UNIVERSITY, API.sendUniversityEmail);
 export function* sendSchoolSaga() {
@@ -26,15 +25,10 @@ const authUniversitySaga = createRequestSaga(AUTH_UNIVERSITY, API.authUniversity
 export function* authSchoolSaga() {
   yield takeLatest(AUTH_UNIVERSITY, authUniversitySaga);
 }
-const chatSaga = createRequestSaga(CHATROOM, API.getChatRoom);
-export function* chatRoomSaga() {
-  yield takeLatest(CHATROOM, chatSaga);
-}
 
 const initialState = {
   emailErrorMessage: '',
   authNumberErrorMessage: '',
-  chatRoom: '',
 };
 
 const chat = handleActions(
@@ -54,13 +48,6 @@ const chat = handleActions(
     [AUTH_UNIVERSITY_FAILURE]: (state, { payload }) => ({
       ...state,
       authNumberErrorMessage: payload.errorMessage,
-    }),
-    [CHATROOM_SUCCESS]: (state, { payload }) => ({
-      ...state,
-      chatRoom: payload,
-    }),
-    [CHATROOM_FAILURE]: (state) => ({
-      ...state,
     }),
   },
   initialState
