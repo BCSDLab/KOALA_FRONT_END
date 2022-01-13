@@ -19,7 +19,7 @@ export const HashtageImage = styled.img`
     margin-right:8px;
 `;
 
-export const InputKeyword = styled.input`
+export const InputKeyword = styled.div`
     width:1040px;
     border:none;
 `;
@@ -27,12 +27,64 @@ export const InputKeyword = styled.input`
 export const SearchContainer = styled(HashtagContainer)`
     width:1092px;
     top:276px;
+    
+    ${props => {
+        if(!props.show){
+            return `
+                border:1px solid #222222;
+                border-bottom:none;
+            `;
+        }else {
+            if(props.alreadyRegister){
+                return `
+                    border:1.5px solid #ffd25d;
+                `;
+            }
+        }
+    }}
+`;
+
+export const RecommendItem = styled.li`
+    width:1079px;
+    height:37px;
+    padding-left:37px;
+    line-height:37px;
+    &:hover {
+        background-color:#eeeeee;
+    }
+`;
+
+
+export const RecommendContainer = styled.ul`
+    padding-left:none;
+    width:1116px;
+    border:1px solid #222222;
+    border-top:none;
+    position:absolute;
+    background-color:white;
+    left:588px;
+    top:325px;
+    z-index:1;
+    display : ${props => {
+        return props.show?'none':'block'
+    }};
+`;
+
+export const AlreadyRegisterMessage = styled.span`
+    color: #ffd25d;
+    height:15px;
+    font-size:11px;
+    position:absolute;
+    left:200px;
+    display:${props => props.alreadyRegister?'block':'none'};
 `;
 
 export const SearchImage = styled(HashtageImage)`
 `;
 
-export const InputSite = styled(InputKeyword)`
+export const InputSite = styled.input`
+    width:1040px;
+    border:none;
 `;
 
 export const SiteContainer = styled(HashtagContainer)`

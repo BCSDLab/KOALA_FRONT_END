@@ -33,7 +33,7 @@ export default function createRequestSaga(type, request) {
     } catch (error) {
       yield put({
         type: FAILURE,
-        payload: error.response.data,
+        payload: error,
       });
     }
     yield put(finishLoading(type));
