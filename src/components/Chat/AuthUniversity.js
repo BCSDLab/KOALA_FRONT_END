@@ -38,7 +38,8 @@ const AuthUniversity = () => {
   };
   const authEmail = () => {
     const secret = authNumber;
-    dispatch(authUniversity({ secret, email }));
+    const mail = `${email}@koreatech.ac.kr`;
+    dispatch(authUniversity({ secret, mail }));
   };
 
   const onChangeEmail = useCallback((e) => {
