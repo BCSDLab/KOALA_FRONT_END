@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { KOREATECH_HOMEPAGE } from '../../constant';
+import { AUNURI } from '../../constant';
 import { getUserInfo } from '../../store/myPage';
 import styled from 'styled-components';
 import AuthUniversity from './AuthUniversity';
@@ -21,7 +21,7 @@ const ChatAuth = () => {
       <UserImage src="/asset/BaseUser.svg" alt="BaseUser"></UserImage>
       <UserNickname>{userInfo.userAccount}</UserNickname>
       <AuthUniversity />
-      <KoreatechLink href={KOREATECH_HOMEPAGE} target="_blank">
+      <KoreatechLink href={AUNURI} target="_blank">
         아우누리 바로가기
       </KoreatechLink>
       <SchoolCopyRight>COPYRIGHT © {new Date().getFullYear()} BCSD LAB ALL RIGHTS RESERVED.</SchoolCopyRight>
