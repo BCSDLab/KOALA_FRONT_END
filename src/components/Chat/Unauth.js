@@ -47,10 +47,6 @@ const UnauthTitle = styled.div`
   font-family: NotoSansCJKKR;
   font-size: 18px;
   font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: center;
   color: #222;
 `;
@@ -58,11 +54,6 @@ const UnauthText = styled.div`
   margin-top: 24px;
   font-size: 14px;
   font-family: NotoSansCJKKR;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: center;
   color: #222;
 `;
@@ -77,9 +68,5 @@ const AuthButton = styled.button`
   position: relative;
   font-size: 14px;
   font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: center;
 `;

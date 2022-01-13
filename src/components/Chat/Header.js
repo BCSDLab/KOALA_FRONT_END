@@ -27,11 +27,6 @@ const ChatRoomTitle = styled.div`
   margin-bottom: 8px;
   font-family: NotoSansCJKKR;
   font-size: 12px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
   color: #222;
 `;
@@ -40,21 +35,13 @@ const ChatRoom = styled.div`
   font-family: NotoSansCJKKR;
   font-size: 16px;
   font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
   color: #222;
 `;
 const ChatRoomNotification = styled.ol`
   font-family: NotoSansCJKKR;
   font-size: 12px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
   line-height: 2;
-  letter-spacing: normal;
   text-align: left;
   color: #999;
 `;

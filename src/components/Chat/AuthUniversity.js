@@ -24,8 +24,8 @@ const AuthUniversity = () => {
 
   const sendEmail = () => {
     if (isEmail) {
-      const mail = `${email}@koreatech.ac.kr`;
-      dispatch(sendUniversity(mail));
+      const schoolEmail = `${email}@koreatech.ac.kr`;
+      dispatch(sendUniversity(schoolEmail));
       setMinutes(parseInt('05'));
       setSeconds(parseInt('00'));
       setIsEmailSend(true);
@@ -38,8 +38,8 @@ const AuthUniversity = () => {
   };
   const authEmail = () => {
     const secret = authNumber;
-    const mail = `${email}@koreatech.ac.kr`;
-    dispatch(authUniversity({ secret, mail }));
+    const schoolEmail = `${email}@koreatech.ac.kr`;
+    dispatch(authUniversity({ secret, schoolEmail }));
   };
 
   const onChangeEmail = useCallback((e) => {
@@ -94,11 +94,7 @@ const AuthUniversity = () => {
   return (
     <>
       <UniversityEmailTitle>학교 이메일</UniversityEmailTitle>
-      <UniversityEmailInput
-        value={email}
-        onChange={onChangeEmail}
-        placeholder="학교 이메일을 입력해주세요"
-      ></UniversityEmailInput>
+      <UniversityEmailInput value={email} onChange={onChangeEmail} placeholder="학교 이메일을 입력해주세요" />
       <UniversityEmail>@koreatech.ac.kr</UniversityEmail>
       <UniversityEmailError>{emailError}</UniversityEmailError>
       <AuthNumberTitle>인증번호</AuthNumberTitle>
@@ -108,7 +104,7 @@ const AuthUniversity = () => {
           onChange={onChangeAuthNumber}
           disabled={!isEmailSend}
           placeholder="학교 이메일로 인증번호가 전송됩니다."
-        ></AuthNumberInput>
+        />
         <AuthNumberButton onClick={sendEmail} type="button">
           {isEmailSend ? '재전송' : '인증번호 전송'}
         </AuthNumberButton>
