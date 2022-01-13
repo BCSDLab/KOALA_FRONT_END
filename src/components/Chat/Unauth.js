@@ -57,11 +57,6 @@ const UnauthText = styled.div`
   font-size: 14px;
   font-family: NotoSansCJKKR;
   font-size: 14px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: center;
   color: #222;
 `;
