@@ -179,6 +179,7 @@ const AuthNumberInput = styled.input`
   width: 260px;
   padding-bottom: 2px;
   border: 0;
+  background-color: #fff;
   border-bottom: 1.5px solid #c4c4c4;
 `;
 const AuthNumberButton = styled.button`
