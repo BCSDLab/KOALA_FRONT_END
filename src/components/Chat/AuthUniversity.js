@@ -114,7 +114,7 @@ const AuthUniversity = () => {
           </AuthNumTime>
         )}
       </AuthNumberForm>
-      <AuthNumberErrorText>{isError ? authError : chat.authErrorMessage}</AuthNumberErrorText>
+      <AuthNumberError>{isError ? authError : chat.authErrorMessage}</AuthNumberError>
       <AuthButton onClick={authEmail} disabled={isDisabled}>
         인증하기
       </AuthButton>
@@ -200,7 +200,7 @@ const AuthNumTime = styled.label`
   color: #999;
 `;
 
-const AuthNumberErrorText = styled.span`
+const AuthNumberError = styled.span`
   display: flex;
   height: 16px;
   left: 610px;
