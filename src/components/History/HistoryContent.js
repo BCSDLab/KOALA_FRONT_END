@@ -45,6 +45,7 @@ const HistoryContent = () => {
                dispatch(moveToScrap({"board_id": id}));
            })
            setMailList([]);
+           alert('보관함으로 이동되었습니다');
         }else{
             alert('이동할 메일을 선택해 주세요');
         }
