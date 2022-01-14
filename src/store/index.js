@@ -4,7 +4,8 @@ import auth, { authSaga, refreshLoginSaga, signUpRegisterSaga } from './auth';
 import history,{
   getHistoryListSaga,
   deleteHistoryListSaga,
-  readHistoryItemSaga} from './history';
+  readHistoryItemSaga,
+  moveToScrapItemSaga} from './history';
 import loading from './loading';
 
 const rootReducer = combineReducers({
@@ -20,7 +21,8 @@ export function* rootSaga() {
     signUpRegisterSaga(),
     getHistoryListSaga(),
     deleteHistoryListSaga(),
-    readHistoryItemSaga()]);
+    readHistoryItemSaga(),
+    moveToScrapItemSaga()]);
 }
 
 export default rootReducer;

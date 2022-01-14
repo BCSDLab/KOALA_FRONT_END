@@ -13,7 +13,7 @@ const stringToDate = (date) => {
     return new Date(Number(sYear), Number(sMonth)-1, Number(sDate));
 }
 const HistoryContent = () => {
-    const {historyList, deleteHistoryResponse, readHistoryItemResponse} = useSelector((state) => state.history);
+    const {historyList, deleteHistoryResponse, readHistoryItemResponse, moveToScrapResponse} = useSelector((state) => state.history);
     const userInfo = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const [alertList, setList] = useState(dummyList);
@@ -42,9 +42,9 @@ const HistoryContent = () => {
         console.log('보관함으로 이동');
         if(mailList.length > 0){
            mailList.forEach((id) => {
-               console.log(JSON.stringify({"board_id": id}));
-               dispatch(moveToScrap());
+               dispatch(moveToScrap({"board_id": id}));
            })
+           setMailList([]);
         }else{
             alert('이동할 메일을 선택해 주세요');
         }
@@ -81,7 +81,7 @@ const HistoryContent = () => {
         dispatch(readHistoryItem(id));
     }
     useEffect(() => {
-        if(userInfo.isLoggedIn||deleteHistoryResponse||readHistoryItemResponse){
+        if(userInfo.isLoggedIn||deleteHistoryResponse||readHistoryItemResponse||moveToScrapResponse){
             dispatch(getHistoryList(pageNum));
         }
     },[userInfo.isLoggedIn,deleteHistoryResponse,readHistoryItemResponse]);
