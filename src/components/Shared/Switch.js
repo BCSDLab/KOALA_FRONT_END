@@ -22,8 +22,7 @@ const CheckBoxBall = styled.i`
   border-radius: 50%;
   width: 10px;
   height: 10px;
-  background-color: ${({ isChecked, ...props }) =>
-    isChecked ? props.theme.colors.lightgray : props.theme.colors.yellow};
+  background-color: ${({ isChecked, ...props }) => props.theme.colors[isChecked ? 'lightgray' : 'yellow']};
   margin: 1px;
   position: absolute;
 
