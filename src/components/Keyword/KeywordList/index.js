@@ -4,26 +4,8 @@ import * as S from './styles';
 import { AUNURI,AOUMIR } from 'constant';
 import { useSelector, useDispatch } from 'react-redux';
 import { getKeywordList,deleteKeywordList,moveKeywordItem,readKeywordItem } from 'store/keyword';
-import { getTitle,makeDeleteQuery } from '../utills';
-
-const MENU_ITEM = [
-    {   
-        id:0,
-        title:'전체'
-    },
-    {   
-        id:1,
-        title:'아우누리'
-    },
-    {   
-        id:2,
-        title:'아우미르'
-    },
-    {   
-        id:3,
-        title:'대신 전해드립니다-koreatech'
-    },
-];
+import { getTitle,makeDeleteQuery } from '../utils';
+import { MENU_ITEM } from 'constant';
 
 const KeywordList = () => {
 

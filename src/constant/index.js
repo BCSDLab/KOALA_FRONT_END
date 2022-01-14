@@ -23,3 +23,22 @@ export const WEEK = [
 export const AUNURI = 'https://portal.koreatech.ac.kr';
 export const AOUMIR = 'https://dorm.koreatech.ac.kr/';
 export const KOREATECHINSTEADDELIVER = 'https://ko-kr.facebook.com/s.g.of.koreatech/';
+
+export const MENU_ITEM = [
+    {   
+        id:0,
+        title:'전체'
+    },
+    {   
+        id:1,
+        title:'아우누리'
+    },
+    {   
+        id:2,
+        title:'아우미르'
+    },
+    {   
+        id:3,
+        title:'대신 전해드립니다-koreatech'
+    },
+];
