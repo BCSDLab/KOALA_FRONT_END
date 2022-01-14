@@ -8,7 +8,7 @@ export const NICKNAME_ERROR = '124';
 export const ACCOUNT_ERROR = '123';
 
 
-// keyword
+// keywordPage 전용 constant
 export const WEEK = [
     {id:0,day:"월요일"},
     {id:1,day:"화요일"},
