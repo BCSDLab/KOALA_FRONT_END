@@ -3,41 +3,41 @@ import { createAction,handleActions } from "redux-actions";
 import createRequestSaga,{createRequestSagaActionTypes} from "./createRequestSaga";
 import { takeLatest } from "redux-saga/effects";
 
-const [INQUIRY,INQUIRY_SUCCESS,INQUIRY_FAILURE] = createRequestSagaActionTypes("keyword/INQUIRY");
-const [GETKEYWORDLIST,GETKEYWORDLIST_SUCCESS,GETKEYWORDLIST_FAILURE] = createRequestSagaActionTypes("keyword/GETKEYWORDLIST");
-const [DELETEKEYWORDLIST,DELETEKEYWORDLIST_SUCCESS,DELETEKEYWORDLIST_FAILURE] = createRequestSagaActionTypes("keyword/DELETEKEYWORDLIST");
-const [MOVEKEYWORDITEM,MOVEKEYWORDITEM_SUCCESS,MOVEKEYWORDITEM_FAILURE] = createRequestSagaActionTypes("keyword/MOVEKEYWORDITEM");
-const [READKEYWORDITEM,READKEYWORDITEM_SUCCESS,READKEYWORDITEM_FAILURE] = createRequestSagaActionTypes("keyword/READKEYWORDITEM");
+const [GET_KEYWORD,GET_KEYWORD_SUCCESS,GET_KEYWORD_FAILURE] = createRequestSagaActionTypes("keyword/INQUIRY");
+const [GET_KEYWORD_LIST,GET_KEYWORD_LIST_SUCCESS,GET_KEYWORD_LIST_FAILURE] = createRequestSagaActionTypes("keyword/GETKEYWORDLIST");
+const [DELETE_KEYWORD_LIST,DELETE_KEYWORD_LIST_SUCCESS,DELETE_KEYWORD_LIST_FAILURE] = createRequestSagaActionTypes("keyword/DELETEKEYWORDLIST");
+const [MOVE_KEYWORD_ITEM,MOVE_KEYWORD_ITEM_SUCCESS,MOVE_KEYWORD_ITEM_FAILURE] = createRequestSagaActionTypes("keyword/MOVEKEYWORDITEM");
+const [READ_KEYWORD_ITEM,READ_KEYWORD_ITEM_SUCCESS,READ_KEYWORD_ITEM_FAILURE] = createRequestSagaActionTypes("keyword/READKEYWORDITEM");
 
-export const inquiry = createAction(INQUIRY);
-export const getKeywordList = createAction(GETKEYWORDLIST);
-export const deleteKeywordList = createAction(DELETEKEYWORDLIST,(query)=>(query));
-export const moveKeywordItem = createAction(MOVEKEYWORDITEM);
-export const readKeywordItem = createAction(READKEYWORDITEM,(id)=>(id));
+export const inquiry = createAction(GET_KEYWORD);
+export const getKeywordList = createAction(GET_KEYWORD_LIST);
+export const deleteKeywordList = createAction(DELETE_KEYWORD_LIST,(query)=>(query));
+export const moveKeywordItem = createAction(MOVE_KEYWORD_ITEM);
+export const readKeywordItem = createAction(READ_KEYWORD_ITEM,(id)=>(id));
 
-const inquirySaga = createRequestSaga(INQUIRY,keywordAPI.getKeyword);
+const inquirySaga = createRequestSaga(GET_KEYWORD,keywordAPI.getKeyword);
 export function* inquiryKeywordSaga(){
-    yield takeLatest(INQUIRY,inquirySaga);
+    yield takeLatest(GET_KEYWORD,inquirySaga);
 }
 
-const getListSaga = createRequestSaga(GETKEYWORDLIST,keywordAPI.getKeywordList);
+const getListSaga = createRequestSaga(GET_KEYWORD_LIST,keywordAPI.getKeywordList);
 export function* getKeywordListSaga(){
-    yield takeLatest(GETKEYWORDLIST,getListSaga);
+    yield takeLatest(GET_KEYWORD_LIST,getListSaga);
 }
 
-const deleteListSaga = createRequestSaga(DELETEKEYWORDLIST,keywordAPI.deleteKeywordList);
+const deleteListSaga = createRequestSaga(DELETE_KEYWORD_LIST,keywordAPI.deleteKeywordList);
 export function* deleteKeywordListSaga(){
-    yield takeLatest(DELETEKEYWORDLIST,deleteListSaga);
+    yield takeLatest(DELETE_KEYWORD_LIST,deleteListSaga);
 }
 
-const moveItemSaga = createRequestSaga(MOVEKEYWORDITEM,keywordAPI.addScrap);
+const moveItemSaga = createRequestSaga(MOVE_KEYWORD_ITEM,keywordAPI.addScrap);
 export function* moveKeywordItemSaga(){
-    yield takeLatest(MOVEKEYWORDITEM,moveItemSaga);
+    yield takeLatest(MOVE_KEYWORD_ITEM,moveItemSaga);
 }
 
-const readItemSaga = createRequestSaga(READKEYWORDITEM,keywordAPI.readKeywordItem);
+const readItemSaga = createRequestSaga(READ_KEYWORD_ITEM,keywordAPI.readKeywordItem);
 export function* readKeywordItemSaga(){
-    yield takeLatest(READKEYWORDITEM,readItemSaga);
+    yield takeLatest(READ_KEYWORD_ITEM,readItemSaga);
 }
 
 const initialState = {
@@ -53,48 +53,48 @@ const initialState = {
 
 const keyword = handleActions(
     {
-        [INQUIRY_SUCCESS] : (state, {payload:keyword}) => ({
+        [GET_KEYWORD_SUCCESS] : (state, {payload:keyword}) => ({
             ...state,
             keywords : keyword.body,
             inquiryResponse : true
         }),
-        [INQUIRY_FAILURE] : (state) => ({
+        [GET_KEYWORD_FAILURE] : (state) => ({
             ...state,
             keywords : [],
             inquiryResponse:false
         }),
 
-        [GETKEYWORDLIST_SUCCESS] : (state, {payload:keyword}) => ({
+        [GET_KEYWORD_LIST_SUCCESS] : (state, {payload:keyword}) => ({
             ...state,
             keywordList:keyword.body,
             getKeywordListResponse:true
         }),
 
-        [GETKEYWORDLIST_FAILURE] : (state) => ({
+        [GET_KEYWORD_LIST_FAILURE] : (state) => ({
             ...state,
             keywordList:[],
             getKeywordListResponse:false
         }),
 
-        [DELETEKEYWORDLIST_SUCCESS] : () => ({
+        [DELETE_KEYWORD_LIST_SUCCESS] : () => ({
             deleteKeywordList : true
         }),
 
-        [DELETEKEYWORDLIST_FAILURE] : () => ({
+        [DELETE_KEYWORD_LIST_FAILURE] : () => ({
             deleteKeywordList : false
         }),
-        [MOVEKEYWORDITEM_SUCCESS] : () => ({
+        [MOVE_KEYWORD_ITEM_SUCCESS] : () => ({
             moveKeywordItemResponse : true
         }),
 
-        [MOVEKEYWORDITEM_FAILURE] : () => ({
+        [MOVE_KEYWORD_ITEM_FAILURE] : () => ({
             moveKeywordItemResponse : false
         }),
-        [READKEYWORDITEM_SUCCESS] : () => ({
+        [READ_KEYWORD_ITEM_SUCCESS] : () => ({
             readKeywordItemResponse : true
         }),
 
-        [READKEYWORDITEM_FAILURE] : () => ({
+        [READ_KEYWORD_ITEM_FAILURE] : () => ({
             readKeywordItemResponse : false
         }),
 
