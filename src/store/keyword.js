@@ -15,7 +15,7 @@ export const deleteKeywordList = createAction(DELETEKEYWORDLIST,(query)=>(query)
 export const moveKeywordItem = createAction(MOVEKEYWORDITEM);
 export const readKeywordItem = createAction(READKEYWORDITEM,(id)=>(id));
 
-const inquirySaga = createRequestSaga(INQUIRY,keywordAPI.InquiryKeyword);
+const inquirySaga = createRequestSaga(INQUIRY,keywordAPI.getKeyword);
 export function* inquiryKeywordSaga(){
     yield takeLatest(INQUIRY,inquirySaga);
 }

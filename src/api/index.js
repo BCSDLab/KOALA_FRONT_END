@@ -21,7 +21,7 @@ export const signUp = ({ account, password, find_email, nickname }) =>
 
 
 export const keywordAPI = {
-  InquiryKeyword : () => logined.get(`/keyword`),
+  getKeyword : () => logined.get(`/keyword`),
   getKeywordList : (keywordName) => logined.get(`/keyword/list?keyword-name=${keywordName}`),
   deleteKeywordList : (query) => logined.patch(`/keyword/list/notice?${query}`),
   deleteKeywordItem : (id) => logined.patch(`/keyword/list/notice?notice-id=${id}`),
