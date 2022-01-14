@@ -6,12 +6,20 @@ import history,{
   deleteHistoryListSaga,
   readHistoryItemSaga,
   moveToScrapItemSaga} from './history';
+import scrap,{
+  getScrapListSaga,
+  getMemoSaga,
+  deleteScrapItemSaga,
+  fixMemoSaga,
+  writeMemoSaga
+} from './scrap';
 import loading from './loading';
 
 const rootReducer = combineReducers({
   auth,
   loading,
-  history
+  history,
+  scrap
 });
 
 export function* rootSaga() {
@@ -22,7 +30,12 @@ export function* rootSaga() {
     getHistoryListSaga(),
     deleteHistoryListSaga(),
     readHistoryItemSaga(),
-    moveToScrapItemSaga()]);
+    moveToScrapItemSaga(),
+    getScrapListSaga(),
+    getMemoSaga(),
+    deleteScrapItemSaga(),
+    fixMemoSaga(),
+    writeMemoSaga()]);
 }
 
 export default rootReducer;

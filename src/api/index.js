@@ -15,6 +15,15 @@ export const signUp = ({ account, password, find_email, nickname }) =>
 
 export const historyAPI = {
   getHistoryList : (pageNum) => logined.get(`/history?pageNum=${pageNum}`),
-  deleteHistoryList : (historyList) => logined.patch(`/history/${historyList}`),
-  readHistoryItem : (noticeId) => logined.put(`/history?notice-id=${noticeId}`)
+  deleteHistoryList : (historyList) => logined.patch(`history?${historyList}`),
+  readHistoryItem : (noticeId) => logined.put(`/history?notice-id=${noticeId}`),
+  moveToScrap : (idList) => logined.post(`/scrap`, idList)
+}
+
+export const scrapAPI = {
+  getScrapList : () => logined.get(`/scrap`),
+  deleteScrapItem : (noticeIdList) => logined.delete(`/scrap`, noticeIdList),
+  getMemo : (userScrapId) => logined.get(`/memo/{userScrapId}?userScrapId=${userScrapId}`),
+  fixMemo : (memo) => logined.patch(`/memo`, memo),
+  writeMemo : (memo) => logined.post(`/memo`, memo)
 }
