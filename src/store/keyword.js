@@ -30,7 +30,7 @@ export function* deleteKeywordListSaga(){
     yield takeLatest(DELETEKEYWORDLIST,deleteListSaga);
 }
 
-const moveItemSaga = createRequestSaga(MOVEKEYWORDITEM,keywordAPI.movekeywordList);
+const moveItemSaga = createRequestSaga(MOVEKEYWORDITEM,keywordAPI.addScrap);
 export function* moveKeywordItemSaga(){
     yield takeLatest(MOVEKEYWORDITEM,moveItemSaga);
 }
