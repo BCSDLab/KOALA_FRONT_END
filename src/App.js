@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router';
+import { Route, Routes } from 'react-router-dom';
 import { refresh } from 'store/auth';
 import { GlobalStyle } from './GlobalStyle';
 import AuthPage from 'pages/AuthPage';
@@ -14,6 +14,9 @@ import MainPage from 'pages/MainPage';
 import { setTokenOnHeader } from 'api/logined';
 import { getCookie } from 'components/Shared/Cookies';
 import MyPage from 'pages/MyPage';
+import ChatPage from 'pages/ChatPage';
+import ChatAuth from 'components/Chat/ChatAuth';
+import Unauth from 'components/Chat/Unauth';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,8 +30,8 @@ const App = () => {
     <>
       <GlobalStyle />
       <Routes>
-        <Route path="/" element={<MainPage />} exact />
-        <Route path="auth/*" element={<AuthPage />}>
+        <Route exact path="/" element={<MainPage />} />
+        <Route exact path="auth/*" element={<AuthPage />}>
           <Route index element={<Login />} />
           <Route path="createLog" element={<RegisterDoc />} />
           <Route path="createAccount" element={<Register />} />
@@ -36,8 +39,10 @@ const App = () => {
           <Route path="findPw" element={<FindPw />} />
           <Route path="changePw" element={<ChangePw />} />
         </Route>
-      </Routes>
-      <Routes>
+        <Route exact path="chat/*" element={<ChatPage />}>
+          <Route path="auth" element={<ChatAuth />} />
+          <Route path="unauth" element={<Unauth />} />
+        </Route>
         <Route path="mypage" element={<MyPage />} />
       </Routes>
     </>

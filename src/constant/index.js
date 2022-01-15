@@ -1,5 +1,7 @@
 export const CREATE_ACCOUNT = '/auth/createAccount';
 export const LOGIN = '/auth';
+export const UNIVERSITY_AUTH = '/chat/auth';
+export const AUNURI = 'https://portal.koreatech.ac.kr';
 
 export const REFRESH_TOKEN = 'refresh_token';
 
