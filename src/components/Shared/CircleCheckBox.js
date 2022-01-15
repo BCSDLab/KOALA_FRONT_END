@@ -25,8 +25,8 @@ const CustomCheckDot = styled.div`
   border: solid 1px ${(props) => props.theme.colors.silver};
   transition: all 150ms;
   ${CheckDot}:checked + & {
-    border: solid 1px ${(props) => props.theme.colors.yellow};
-    background-color: ${(props) => props.theme.colors.yellow};
+    border: solid 1px ${({ theme }) => theme.colors.yellow};
+    background-color: ${({ theme }) => theme.colors.yellow};
   }
 `;
 
