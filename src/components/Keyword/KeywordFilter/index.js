@@ -1,10 +1,11 @@
-import React,{useCallback,useEffect,useState,useRef} from 'react';
+import React,{useCallback,useEffect,useState} from 'react';
 import * as S from './styles';
 import { useSelector, useDispatch } from 'react-redux';
-import { getKeywordList,deleteKeywordList,moveKeywordItem,readKeywordItem } from 'store/keyword';
+import { getKeywordList,deleteKeywordList,moveKeywordItem} from 'store/keyword';
 import { makeDeleteQuery } from '../utils';
 import KeywordList from '../KeywordList';
 import KeywordMenuBar from '../KeywordMenuBar';
+import KeywordSearch from '../KeywordSearch';
 
 const KeywordFilterBar = ({isToggle}) => {
     const userInfo = useSelector((state)=>state.auth);
@@ -15,85 +16,39 @@ const KeywordFilterBar = ({isToggle}) => {
         getKeywordListResponse
     } = useSelector((state)=>state.keyword);
     const dispatch = useDispatch();
+
     const [list,setList] = useState([]);
     const [checkAll,setCheckAll] = useState(false);
     const [checkListId,setCheckListId] = useState([]);
     const [readNotification, setReadNotification] = useState(false);
     const [notReadNotification, setNotReadNotification] = useState(false);
-    const [keywordSearch,setKeywordSearch] = useState('');
     const [goStore, setGoStore] = useState(false);
     const [deleteList, setDeleteList] = useState(false);
 
-    const inputSearch = useRef(null);
-
-    const onClickAllSelect = useCallback(()=>{
+    const onClickAllSelect = () => {
 
         setCheckAll((prev)=>!prev);
-        
-    },[list,checkAll]);
+    };
 
-    const onClickReadNotification = useCallback(()=>{
+    const onClickReadNotification = ()=>{
+
         setReadNotification((prev)=>!prev);
         setNotReadNotification(false);
-    },[notReadNotification]);
+    };
 
-    const onClickNotReadNotification = useCallback(()=>{
+    const onClickNotReadNotification = ()=>{
+
         setNotReadNotification((prev)=>!prev);
         setReadNotification(false);
-    },[readNotification]);
+    };
 
-    const onChangeKeywordSearch = useCallback((e)=>{
-        setKeywordSearch(e.target.value);
-    },[keywordSearch]);
-
-    const onClickSearch = useCallback((e)=>{    
-        
-        const filterList = list.filter((item)=>{
-            
-            if(`${item.title}`.includes(`${keywordSearch}`)){
-                return item;
-            }
-        });
-
-        setList(filterList);
-        setKeywordSearch('');
-        inputSearch.current.focus();
-    },[list,keywordSearch]);
-
-    const onClickGoStore = useCallback(()=>{
+    const onClickGoStore = ()=>{
         setGoStore(true);
-    },[]);
+    };
 
-    const onClickDeleteList = useCallback(()=>{
+    const onClickDeleteList = ()=>{
         setDeleteList(true);
-    },[]);
-
-    const onClickCheckSome = useCallback((id)=>{
-
-        let newCheckListId = [...checkListId];
-
-        if(checkListId.includes(id)){
-            
-            newCheckListId = checkListId.filter((item)=>{
-                if(item !== id){
-                    return item;
-                }
-            })
-
-            setCheckListId(newCheckListId);
-        }else{
-            newCheckListId.push(id);
-            setCheckListId(newCheckListId);
-        }
-
-    },[checkListId]);
-
-    const onClickReadItem = useCallback((id,isRead)=>{
-        if(!isRead){
-            dispatch(readKeywordItem(id));
-        }
-    },[])
-
+    };
 
     useEffect(()=>{
         if(list.length===0){
@@ -224,9 +179,9 @@ const KeywordFilterBar = ({isToggle}) => {
                 isToggle={isToggle} 
                 keywordList={keywordList}
                 setCheckAll={setCheckAll}
+                setCheckListId = {setCheckListId}
                 setReadNotification={setReadNotification}
                 setNotReadNotification={setNotReadNotification}
-                setCheckListId={setCheckListId}
                 list={list}
             />
             <S.FilterList toggle={isToggle}>
@@ -242,17 +197,12 @@ const KeywordFilterBar = ({isToggle}) => {
                     <S.FilterItemImage src='/asset/trash.svg' alt='trash'/>
                     <span>삭제</span>
                 </S.FilterItem>
-                <S.SearchInput ref={inputSearch} placeholder='알림대상/알림내용/키워드 입력' value={keywordSearch} onChange={onChangeKeywordSearch}></S.SearchInput>
-                <S.SearchButton onClick={onClickSearch}>
-                    <span>검색하기</span>
-                    <S.SearchImage src='/asset/search.svg'/>
-                </S.SearchButton>
+                <KeywordSearch setList={setList} list={list}/>
             </S.FilterList>
-            <KeywordList list={list}
-                onClickCheckSome={onClickCheckSome}
+            <KeywordList 
+                list={list}
                 checkListId={checkListId}
                 checkAll={checkAll}
-                onClickReadItem={onClickReadItem}
                 isToggle={isToggle}/>
         </>
     );

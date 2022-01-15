@@ -1,8 +1,39 @@
-import React from "react";
+import React,{useCallback} from "react";
 import * as S from './styles';
 import { getTitle } from "../utils";
+import { useDispatch } from "react-redux";
+import { readKeywordItem } from "store/keyword";
 
-const KeywordList = ({list,onClickCheckSome,checkListId,checkAll,onClickReadItem,isToggle,getTitle}) => {
+const KeywordList = ({list,checkListId,checkAll,setCheckListId,isToggle}) => {
+
+    const dispatch = useDispatch();
+    
+    const onClickCheckSome = useCallback((id)=>{
+
+        let newCheckListId = [...checkListId];
+
+        if(checkListId.includes(id)){
+            
+            newCheckListId = checkListId.filter((item)=>{
+                if(item !== id){
+                    return item;
+                }
+            })
+
+            setCheckListId(newCheckListId);
+        }else{
+            newCheckListId.push(id);
+            setCheckListId(newCheckListId);
+        }
+
+    },[checkListId]);
+
+    const onClickReadItem = (id,isRead)=>{
+        if(!isRead){
+            dispatch(readKeywordItem(id));
+        }
+    };
+
     return(
         <S.MainList toggle={isToggle}>
                 {list&&list.map((item)=>{

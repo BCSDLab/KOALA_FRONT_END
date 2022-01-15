@@ -48,6 +48,7 @@ const KeywordMenuBar = ({
 
     },[keywordList]);
 
+
     return(
         <>
             <S.Menu toggle={isToggle}>
