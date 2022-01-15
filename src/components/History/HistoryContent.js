@@ -18,7 +18,7 @@ const HistoryContent = () => {
     const dispatch = useDispatch();
     const [alertList, setList] = useState(dummyList);
     const [command, setCommand] = useState(null);
-    const [mailList, setMailList] = useState([]);
+    const [checkedList, setCheckedList] = useState([]);
     const [pageNum, setPageNum] = useState(1);
     const showRead = () =>{
         if(command === 'read'){
@@ -44,7 +44,7 @@ const HistoryContent = () => {
            mailList.forEach((id) => {
                dispatch(moveToScrap({"board_id": id}));
            })
-           setMailList([]);
+           setCheckedList([]);
            alert('보관함으로 이동되었습니다');
         }else{
             alert('이동할 메일을 선택해 주세요');
@@ -57,25 +57,25 @@ const HistoryContent = () => {
                 deleteMailQuery += `notice-id=${id}&`;
             });
             dispatch(deleteHistoryList(deleteMailQuery));
-            setMailList([]);
+            setCheckedList([]);
         }else{
             alert("삭제할 메일을 선택해 주세요");
         }
     }
     const selectAllMail = (e) => {
         if(e.target.checked){
-            setMailList(alertList.map(mail => {
+            setCheckedList(alertList.map(mail => {
                 return mail.id;
             }));
         }else{
-            setMailList([]);
+            setCheckedList([]);
         }
     }
     const selectMail = (e, id) => {
         if(e.target.checked){
-            setMailList([...mailList, id]);
+            setCheckedList([...mailList, id]);
         }else{
-            setMailList(mailList.filter(mailId => mailId !== id));
+            setCheckedList(mailList.filter(mailId => mailId !== id));
         }
     }
     const clickMail = (id) =>{
@@ -125,7 +125,7 @@ const HistoryContent = () => {
     <S.KeyWordAlertList>
             {alertList?.map((mail,id) => (
                 <S.KeyWordAlert isRead = {mail.isRead} key ={id}>
-                    <HistoryCheckBox onClick={(e) => selectMail(e, mail.id)} checked={mailList.includes(mail.id)?true:false} readOnly/>
+                    <HistoryCheckBox onClick={(e) => selectMail(e, mail.id)} checked={checkedList.includes(mail.id)?true:false} readOnly/>
                     <S.Sender>{siteList[mail.site - 1]}</S.Sender>
                     <S.AlertTitle href={mail.url} isRead = {mail.isRead} onClick={() => clickMail(mail.id)}>{mail.title}</S.AlertTitle>
                     <S.MailBrowse>{mail.isRead?'읽음':'읽지않음'}</S.MailBrowse>
