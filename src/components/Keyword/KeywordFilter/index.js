@@ -1,4 +1,4 @@
-import React,{useCallback,useEffect,useState} from 'react';
+import React,{useEffect,useState} from 'react';
 import * as S from './styles';
 import { useSelector, useDispatch } from 'react-redux';
 import { getKeywordList,deleteKeywordList,moveKeywordItem} from 'store/keyword';
