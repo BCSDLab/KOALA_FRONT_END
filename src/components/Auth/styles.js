@@ -1,24 +1,25 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import theme from 'theme';
 
 export const StyledInput = styled.input`
   width: 348px;
   height: 44px;
-  border: solid 1px #c4c4c4;
+  border: solid 1px ${(props) => props.theme.colors.silver};
   flex-grow: 0;
   padding-left: 16px;
   margin: 2px 0;
   position: relative;
   outline: none;
   &:focus {
-    border: solid 1px #222;
+    border: solid 1px ${(props) => props.theme.colors.darkgray};
   }
   ::-webkit-input-placeholder {
     font-size: 14px;
     line-height: normal;
     letter-spacing: normal;
     text-align: left;
-    color: #999;
+    color: ${(props) => props.theme.colors.gray};
     height: 21px;
     padding: 0px;
   }
@@ -29,18 +30,18 @@ export const StyledInput = styled.input`
 
 export const StyledLink = styled(Link)`
   font-size: 12px;
-  color: #999;
+  color: ${(props) => props.theme.colors.gray};
   &:focus,
   &:hover,
   &:visited,
   &:link,
   &:active {
-    color: #999;
+    color: ${(props) => props.theme.colors.gray};
     text-decoration: none;
   }
   ::after {
     top: 4px;
-    background-color: #c4c4c4;
+    background-color: ${(props) => props.theme.colors.silver};
     margin: 0 15px;
     width: 1px;
     height: 12px;
@@ -60,9 +61,11 @@ export const StyledLink = styled(Link)`
 `;
 
 export const AutoLogin = styled.div`
-  width: 400px;
   display: flex;
-  margin-top: 8px;
+  width: 84px;
+  top: 8px;
+  align-items: center;
+  z-index: 1;
 `;
 
 export const AutoLoginCheck = styled.div`
@@ -73,8 +76,9 @@ export const AutoLoginCheck = styled.div`
 `;
 
 export const AutoLoginText = styled.label`
+  color: ${(props) => props.theme.colors.gray};
+  margin-left: 4px;
   font-size: 12px;
-  color: #999;
 `;
 
 export const OtherOption = styled.div`
@@ -115,7 +119,7 @@ export const NoneUserLink = styled(Link)`
   text-align: center;
   font-family: NotoSansCJKKR;
   text-decoration: underline;
-  color: #999;
+  color: ${(props) => props.theme.colors.gray};
 
   :hover {
     text-decoration: underline;
@@ -133,7 +137,7 @@ export const CopyRight = styled.p`
   font-weight: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #c4c4c4;
+  color: ${(props) => props.theme.colors.silver};
 `;
 
 export const Title = styled.div`
@@ -153,7 +157,7 @@ export const Agree = styled.div`
 
 export const AllAgree = styled.div`
   margin-bottom: 24px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
 `;
 
 export const AgreeText = styled.div`
@@ -167,7 +171,7 @@ export const InputErrorText = styled.span`
   margin: 4px 0;
   font-size: 11px;
   font-weight: 500;
-  color: #ffd25d;
+  color: ${(props) => props.theme.colors.yellow};
   justify-content: flex-start;
 `;
 
@@ -179,7 +183,7 @@ export const Drop = styled.img`
 export const AuthDoc = styled.div`
   font-size: 12px;
   height: 166px;
-  border: 1px solid #c4c4c4;
+  border: 1px solid ${(props) => props.theme.colors.silver};
   padding: 16px;
 `;
 
@@ -204,10 +208,10 @@ export const CustomCheckDot = styled.div`
   height: 13px;
   border-radius: 50%;
   margin-right: 20px;
-  border: solid 1px #c4c4c4;
+  border: solid 1px ${(props) => props.theme.colors.silver};
   transition: all 150ms;
   ${CheckDot}:checked + & {
-    border: solid 1px #ffd25d;
-    background-color: #ffd25d;
+    border: solid 1px ${(props) => props.theme.colors.yellow};
+    background-color: ${(props) => props.theme.colors.yellow};
   }
 `;

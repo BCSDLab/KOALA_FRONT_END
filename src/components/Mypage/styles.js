@@ -11,19 +11,19 @@ export const SchoolAuthState = styled.div`
   font-family: NotoSansCJKKR;
   font-size: 14px;
   text-align: center;
-  color: #222;
+  color: ${(props) => props.theme.colors.darkgray};
 `;
 
 export const SchoolAuthButton = styled.button`
   width: 100px;
   height: 40px;
   flex-grow: 0;
-  background-color: #222;
+  background-color: ${(props) => props.theme.colors.darkgray};
   font-family: NotoSansCJKKR;
   font-size: 14px;
   font-weight: 500;
   text-align: center;
-  color: #fff;
+  color: ${(props) => props.theme.colors.white};
 `;
 
 export const StyledEditNickname = styled.form`
@@ -38,12 +38,12 @@ export const EditNicknameInput = styled.input`
   width: 304px;
   padding-bottom: 7.3px;
   border: 0;
-  border-bottom: 1.5px solid #c4c4c4;
+  border-bottom: 1.5px solid ${(props) => props.theme.colors.silver};
 `;
 
 export const EditButton = styled.button`
   cursor: pointer;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.colors.white};
 `;
 
 export const EditImg = styled.img`
@@ -67,7 +67,7 @@ export const AutoLoginTitle = styled.div`
   font-size: 14px;
   font-weight: 500;
   text-align: left;
-  color: #999;
+  color: ${(props) => props.theme.colors.gray};
 `;
 
 export const AutoLoginCheck = styled.img`
