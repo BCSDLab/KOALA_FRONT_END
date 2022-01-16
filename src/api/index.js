@@ -12,6 +12,11 @@ export const checkEmail = (email) => logined.get(`user/email-check?email=${email
 
 export const changeNickname = (nickName) => logined.post('user/nickname', nickName);
 
+export const changeUserImage = (file) =>
+  logined.patch('user/profile', file, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+
 export const deleteUser = () => logined.patch('user/delete');
 
 export const getUserInfo = () => logined.get('user/my');

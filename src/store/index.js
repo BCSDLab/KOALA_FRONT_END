@@ -3,7 +3,7 @@ import { all } from 'redux-saga/effects';
 import auth, { authSaga, refreshLoginSaga, signUpRegisterSaga } from './auth';
 import loading from './loading';
 import toggle from './toggle';
-import myPage, { changeNameSaga, getUserSaga } from './myPage';
+import myPage, { changeNameSaga, getUserSaga, changeImageSaga } from './myPage';
 import chat, { authSchoolSaga, sendSchoolSaga } from './chat';
 
 const rootReducer = combineReducers({
@@ -23,6 +23,7 @@ export function* rootSaga() {
     getUserSaga(),
     authSchoolSaga(),
     sendSchoolSaga(),
+    changeImageSaga(),
   ]);
 }
 

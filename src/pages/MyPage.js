@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { removeCookie } from '../components/Shared/Cookies';
-import { getUserInfo } from '../store/myPage';
+import { getUserInfo, changeProfile } from '../store/myPage';
 import { LOGIN, REFRESH_TOKEN } from '../constant';
 import SideNavbar from 'components/SideNavbar';
 import LoginButton from 'components/Shared/LoginButton';
@@ -20,7 +20,6 @@ const MyPage = () => {
   const toggle = useSelector((state) => state.toggle.isOpen);
   const userInfo = useSelector((state) => state.myPage);
   const loginInfo = useSelector((state) => state.auth);
-  const [userImgFile, setUserImgFile] = useState('/asset/BaseUser.svg'); //유저 이미지 상태
   const photoInput = useRef();
   const [isShown, setIsShown] = useState(false);
   const dispatch = useDispatch();
@@ -30,15 +29,9 @@ const MyPage = () => {
   const setFile = (e) => {
     if (e.target.files[0]) {
       const img = new FormData();
-      img.append('file', e.target.files[0]);
-      axios
-        .post('', img)
-        .then((res) => {
-          setImageUrl(res.data);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+      const file = photoInput.current.files[0];
+      img.append('file', file);
+      dispatch(changeProfile(img));
     }
   };
 
@@ -78,7 +71,7 @@ const MyPage = () => {
           <UserImage
             onMouseEnter={() => setIsShown(true)}
             onMouseLeave={() => setIsShown(false)}
-            src={userImgFile}
+            src={userInfo.userImg}
             alt="userImage"
           ></UserImage>
           {isShown && (
@@ -91,7 +84,7 @@ const MyPage = () => {
           <NicknameTitle>닉네임</NicknameTitle>
           <EditNickname userNickname={userInfo.userNickname} />
           <SchoolAuthTitle>학교인증</SchoolAuthTitle>
-          <SchoolAuth />
+          <SchoolAuth is_auth={userInfo.is_auth} />
           <EtcTitle>기타</EtcTitle>
           <AutoLogin />
           <Contact>문의하기</Contact>
@@ -144,6 +137,7 @@ const UserImage = styled.img`
   width: 72px;
   height: 72px;
   margin: 0px 98px 16px 195px;
+  border-radius: 50%;
 `;
 const OverLay = styled.div`
   position: absolute;
