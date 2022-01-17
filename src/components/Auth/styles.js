@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import theme from 'theme';
 
 export const StyledInput = styled.input`
   width: 348px;
@@ -11,6 +10,7 @@ export const StyledInput = styled.input`
   margin: 2px 0;
   position: relative;
   outline: none;
+
   &:focus {
     border: solid 1px ${(props) => props.theme.colors.darkgray};
   }
@@ -58,6 +58,29 @@ export const StyledLink = styled(Link)`
     height: 0;
     margin: 0;
   }
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    color: #a8a8a8;
+    font-weight: normal;
+    &:focus,
+    &:hover,
+    &:visited,
+    &:link,
+    &:active {
+      color: #a8a8a8;
+    }
+
+    ::after {
+      top: 4px;
+      background-color: ${(props) => props.theme.colors.lightgray};
+      margin: 0 15px;
+      width: 1px;
+      height: 12px;
+      float: right;
+      position: relative;
+      content: '';
+    }
+  }
 `;
 
 export const AutoLogin = styled.div`
@@ -66,6 +89,10 @@ export const AutoLogin = styled.div`
   top: 8px;
   align-items: center;
   z-index: 1;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 113px;
+  }
 `;
 
 export const AutoLoginCheck = styled.div`
@@ -79,15 +106,28 @@ export const AutoLoginText = styled.label`
   color: ${(props) => props.theme.colors.gray};
   margin-left: 4px;
   font-size: 12px;
+
+  :after {
+    content: '자동 로그인';
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    :after {
+      content: '로그인 상태 유지';
+    }
+  }
 `;
 
 export const OtherOption = styled.div`
-  width: 380px;
   display: flex;
+  width: 380px;
+  margin-top: 16px;
   align-items: center;
   justify-content: center;
-  font-size: 11px;
-  margin-top: 16px;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    margin-top: 32px;
+  }
 `;
 
 export const SNSLoginText = styled.div`
@@ -108,21 +148,31 @@ export const OauthLogin = styled.div`
 `;
 
 export const NoneUserLinkSection = styled.section`
-  height: 383px;
+  height: ${({ isNormalLogin }) => (isNormalLogin ? '383px' : '471px')};
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    height: 163px;
+    display: ${({ isNormalLogin }) => (isNormalLogin ? 'block' : 'none')};
+  }
 `;
 
 export const NoneUserLink = styled(Link)`
   display: inline-block;
   width: 100%;
-  margin: 164px 0 198px 0;
+  margin: ${({ isNormalLogin }) => (isNormalLogin ? '164px 0 198px 0' : '252px 0 198px 0')};
+  color: ${(props) => props.theme.colors.gray};
   font-size: 14px;
+  font-weight: normal;
   text-align: center;
   font-family: NotoSansCJKKR;
   text-decoration: underline;
-  color: ${(props) => props.theme.colors.gray};
 
   :hover {
     text-decoration: underline;
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    margin: 72px 0 70px 0;
   }
 }
 `;
@@ -138,6 +188,10 @@ export const CopyRight = styled.p`
   line-height: normal;
   letter-spacing: normal;
   color: ${(props) => props.theme.colors.silver};
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    display: none;
+  }
 `;
 
 export const Title = styled.div`

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import LoginForm from 'components/Auth/LoginForm';
+import LoginForm from 'components/Auth/Login/LoginForm';
 import * as S from 'components/Auth/styles';
 import { useNavigate } from 'react-router';
 
@@ -12,9 +12,14 @@ const LoginContainer = styled.div`
 `;
 
 const LoginOptionContainer = styled.div`
-  margin-bottom: 40px;
-  border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
   width: 343px;
+  border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
+  margin-bottom: 40px;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 328px;
+    margin-bottom: 32px;
+  }
 `;
 
 const LoginOptionButton = styled.button`
@@ -26,6 +31,12 @@ const LoginOptionButton = styled.button`
   font-size: 16px;
   font-weight: ${({ isClicked }) => (isClicked ? 'bold' : 'normal')};
   text-align: center;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    min-width: 164px;
+    max-width: 164px;
+    font-size: 14px;
+  }
 `;
 
 const LoginOptionMenuBar = styled.div`
@@ -36,6 +47,11 @@ const LoginOptionMenuBar = styled.div`
   background-color: ${(props) => props.theme.colors.darkgray};
   transition: transform 0.2s ease;
   transform: translateX(${({ isNormalLogin }) => (isNormalLogin ? 0 : 167)}px);
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 164px;
+    transform: translateX(${({ isNormalLogin }) => (isNormalLogin ? 0 : 164)}px);
+  }
 `;
 
 const SNSLoginOptionSection = styled.div`
@@ -63,6 +79,12 @@ const LoginButtonAttributes = css`
   :after {
     content: '로그인';
   }
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 328px;
+    height: 48px;
+    background-size: 18px 18.8px;
+  }
 `;
 
 const GoogleLoginButton = styled.button`
@@ -86,6 +108,10 @@ const NaverLoginButton = styled.button`
 
   :after {
     content: '네이버 로그인';
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    background-size: 18px 17.4px;
   }
 `;
 
@@ -141,14 +167,10 @@ const AuthMainForm = () => {
         </SNSLoginOptionSection>
       )}
 
-      <S.OtherOption>
-        <S.StyledLink to="findId">아이디 찾기</S.StyledLink>
-        <S.StyledLink to="findPw">비밀번호 찾기</S.StyledLink>
-        <S.StyledLink to="createLog">회원가입</S.StyledLink>
-      </S.OtherOption>
-
-      <S.NoneUserLinkSection>
-        <S.NoneUserLink to="/keywordList">비회원으로 이용하기</S.NoneUserLink>
+      <S.NoneUserLinkSection isNormalLogin={isNormalLogin}>
+        <S.NoneUserLink isNormalLogin={isNormalLogin} to="/keywordList">
+          비회원으로 이용하기
+        </S.NoneUserLink>
       </S.NoneUserLinkSection>
 
       <S.CopyRight>COPYRIGHT © {new Date().getFullYear()} BCSD LAB ALL RIGHTS RESERVED.</S.CopyRight>
