@@ -15,5 +15,6 @@ export const signUp = ({ account, password, find_email, nickname }) =>
 
 
 export const addKeyword = {
-  getRecommendation : (site) => logined.get(`keyword/site/search?site=${site}`)
+  getRecommendation : (site) => logined.get(`keyword/site/search?site=${site}`),
+  modifyKeyword : (keywordName,object) => logined.put(`keyword?keyword-name=${keywordName}`,object)
 };  
