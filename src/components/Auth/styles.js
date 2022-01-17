@@ -126,7 +126,37 @@ export const OtherOption = styled.div`
   justify-content: center;
 
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    margin-top: 32px;
+    margin-top: 16.6px;
+
+    a:nth-child(2) {
+      right: -75px;
+      position: relative;
+
+      ::after {
+        content: none;
+        float: right;
+        margin: 0;
+        width: 0;
+        height: 0;
+        margin: 0;
+      }
+    }
+
+    a:nth-child(3) {
+      left: -68px;
+      position: relative;
+
+      ::after {
+        top: 4px;
+        background-color: ${(props) => props.theme.colors.lightgray};
+        margin: 0 15px;
+        width: 1px;
+        height: 12px;
+        float: right;
+        position: relative;
+        content: '';
+      }
+    }
   }
 `;
 
