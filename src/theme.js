@@ -14,7 +14,7 @@ const colors = {
  * iPhone 6/7/8/SE/X: 375px
  * iPhone 12pro: 390px
  * iPad/iPad mini: 768px
- * iPad Pro
+ * iPad Pro: 1024px
  */
 const deviceSizes = {
   mobile: '360px',
