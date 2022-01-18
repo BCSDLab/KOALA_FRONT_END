@@ -14,11 +14,13 @@ const FindPw = () => {
   const [secret, setSecret] = useState('');
   const [accountMessage, setAccountMessage] = useState('');
   const [emailMessage, setEmailMessage] = useState('');
+  const [secretMessage, setSecretMessage] = useState('');
 
   const [isAccount, setIsAccount] = useState(false);
   const [isEmail, setIsEmail] = useState(false);
   const [isEmailError, setIsEmailError] = useState(false);
   const [isAccountError, setIsAccountError] = useState(false);
+  const [isSecretError, setIsSecretError] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
 
   const auth = useSelector((state) => state.auth);
@@ -64,6 +66,10 @@ const FindPw = () => {
     setEmailMessage(errorText);
   };
 
+  const secretError = (change, errorText) => {
+    setIsSecretError(change);
+    setSecretMessage(errorText);
+  };
   const nextClick = () => {
     dispatch(authFindPassword(account, email, secret));
   };
@@ -83,7 +89,7 @@ const FindPw = () => {
     } else if (auth.errorCode == NOT_SEND_EMAIL) {
       errorEmail(true, '먼저 이메일을 전송해주세요');
     } else if (auth.errorCode == NOT_MATCH_SECRET) {
-      errorEmail(true, '인증번호가 틀렸습니다.');
+      setSecretMessage('인증번호가 틀렸습니다.');
     } else if (auth.authSuccess) {
       navigate('/auth/changePw');
       auth.errorCode = null;
@@ -111,6 +117,10 @@ const FindPw = () => {
       />
 
       <AuthNumber
+        secretError={secretError}
+        isSecretError={isSecretError}
+        secretMessage={secretMessage}
+        setSecretMessage={setSecretMessage}
         errorEmail={errorEmail}
         errorAccount={errorAccount}
         setEmailMessage={setEmailMessage}

@@ -69,7 +69,6 @@ const AuthButton = styled.button`
  * @returns
  */
 const AuthNumber = (props) => {
-  const [isError, setIsError] = useState(false);
   const [isEmailSend, setIsEmailSend] = useState(false);
   const dispatch = useDispatch();
   const [minutes, setMinutes] = useState(parseInt('00'));
@@ -93,6 +92,7 @@ const AuthNumber = (props) => {
         if (parseInt(minutes) === 0) {
           clearInterval(countdown);
           setIsError(isEmailSend);
+          props.secretError(isEmailSend, '요청시간이 만료되었습니다.');
         } else {
           setMinutes(parseInt(minutes) - 1);
           setSeconds(59);
@@ -107,9 +107,6 @@ const AuthNumber = (props) => {
       props.errorAccount(false, '');
       props.errorEmail(false, '');
       setIsEmailSend(true);
-      if (isEmailSend) {
-        setIsError(false);
-      }
       setMinutes(parseInt('05'));
       setSeconds(parseInt('00'));
     } else if (auth.errorCode == NOT_EXIST_ACCOUNT) {
@@ -137,7 +134,7 @@ const AuthNumber = (props) => {
           </AuthNumTime>
         )}
       </AuthForm>
-      <S.InputErrorText>{isError ? '입력시간이 초과되었습니다.' : ''}</S.InputErrorText>
+      <S.InputErrorText>{props.isSecretError ? props.secretMessage : ''}</S.InputErrorText>
     </>
   );
 };
