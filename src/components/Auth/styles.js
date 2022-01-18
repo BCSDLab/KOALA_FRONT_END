@@ -51,12 +51,11 @@ export const StyledLink = styled(Link)`
   }
 
   :last-child::after {
-    content: none;
+    content: '';
     float: right;
     margin: 0;
     width: 0;
     height: 0;
-    margin: 0;
   }
 
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
@@ -133,12 +132,11 @@ export const OtherOption = styled.div`
       position: relative;
 
       ::after {
-        content: none;
+        content: '';
         float: right;
         margin: 0;
         width: 0;
         height: 0;
-        margin: 0;
       }
     }
 
