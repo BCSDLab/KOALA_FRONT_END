@@ -23,7 +23,7 @@ const getUserInfoSaga = createRequestSaga(USERINFO, API.getUserInfo);
 export function* getUserSaga() {
   yield takeLatest(USERINFO, getUserInfoSaga);
 }
-const changeProfileSaga = createRequestSaga(CHANGE_PROFILE, API.changeUserImage);
+const changeProfileSaga = createRequestSaga(CHANGE_PROFILE, API.changeUserProfile);
 export function* changeImageSaga() {
   yield takeLatest(CHANGE_PROFILE, changeProfileSaga);
 }

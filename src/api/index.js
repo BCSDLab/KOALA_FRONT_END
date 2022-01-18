@@ -12,7 +12,7 @@ export const checkEmail = (email) => logined.get(`user/email-check?email=${email
 
 export const changeNickname = (nickName) => logined.post('user/nickname', nickName);
 
-export const changeUserImage = (file) =>
+export const changeUserProfile = (file) =>
   logined.patch('user/profile', file, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
