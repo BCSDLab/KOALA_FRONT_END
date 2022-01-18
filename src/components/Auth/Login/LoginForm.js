@@ -17,7 +17,7 @@ const StyledInput = styled(S.StyledInput)`
   }
 
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: -webkit-fill-available;
+    width: 308px;
     height: 44px;
     border: solid 1px ${(props) => props.theme.colors.lightgray};
   }

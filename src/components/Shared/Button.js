@@ -25,7 +25,7 @@ const StyledButton = styled.button`
   }
 
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: -webkit-fill-available;
+    width: 328px;
     font-size: 14px;
     font-weight: 500;
   }
