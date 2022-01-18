@@ -8,7 +8,10 @@ import * as authAPI from 'api';
 const [LOGIN, LOGIN_SUCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/LOGIN');
 const [REFRESH, REFRESH_SUCESS, REFRESH_FAILURE] = createRequestSagaActionTypes('auth/REFRESH');
 const [SIGNUP, SIGNUP_SUCESS, SIGNUP_FALIURE] = createRequestSagaActionTypes('auth/SIGNUP');
-
+const [SEND_FIND_PASSWORD, SEND_FIND_PASSWORD_SUCCESS, SEND_FIND_PASSWORD_FAILURE] =
+  createRequestSagaActionTypes('auth/FIND_PASSWORD');
+const [AUTH_FIND_PASSWORD, AUTH_FIND_PASSWORD_SUCCESS, AUTH_FIND_PASSWORD_FAILURE] =
+  createRequestSagaActionTypes('auth/AUTH_FIND_PASSWORD');
 export const login = createAction(LOGIN, ({ account, password }) => ({
   account,
   password,
@@ -19,6 +22,15 @@ export const signUp = createAction(SIGNUP, ({ account, password, find_email, nic
   password,
   find_email,
   nickName,
+}));
+export const sendFindPassword = createAction(SEND_FIND_PASSWORD, (account, email) => ({
+  account,
+  email,
+}));
+export const authFindPassword = createAction(AUTH_FIND_PASSWORD, (account, email, secret) => ({
+  account,
+  email,
+  secret,
 }));
 
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
@@ -32,6 +44,14 @@ export function* refreshLoginSaga() {
 const signUpSaga = createRequestSaga(SIGNUP, authAPI.signUp);
 export function* signUpRegisterSaga() {
   yield takeLatest(SIGNUP, signUpSaga);
+}
+const sendFindPWSaga = createRequestSaga(SEND_FIND_PASSWORD, authAPI.sendFindPassword);
+export function* sendPasswordSaga() {
+  yield takeLatest(SEND_FIND_PASSWORD, sendFindPWSaga);
+}
+const authFindPWSaga = createRequestSaga(AUTH_FIND_PASSWORD, authAPI.authFindPassword);
+export function* authPasswordSaga() {
+  yield takeLatest(AUTH_FIND_PASSWORD, authFindPWSaga);
 }
 
 const initialState = {
@@ -75,6 +95,24 @@ const auth = handleActions(
       errorCode: '',
     }),
     [SIGNUP_FALIURE]: (state, { payload: error }) => ({
+      ...state,
+      errorCode: error.code,
+    }),
+    [SEND_FIND_PASSWORD_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      ...payload,
+      errorCode: '',
+    }),
+    [SEND_FIND_PASSWORD_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      errorCode: error.code,
+    }),
+    [AUTH_FIND_PASSWORD_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      ...payload,
+      errorCode: '',
+    }),
+    [AUTH_FIND_PASSWORD_FAILURE]: (state, { payload: error }) => ({
       ...state,
       errorCode: error.code,
     }),

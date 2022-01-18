@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
-import auth, { authSaga, refreshLoginSaga, signUpRegisterSaga } from './auth';
+import auth, { authSaga, refreshLoginSaga, signUpRegisterSaga, sendPasswordSaga, authPasswordSaga } from './auth';
 import loading from './loading';
 import toggle from './toggle';
 import myPage, { changeNameSaga, getUserSaga } from './myPage';
@@ -23,6 +23,8 @@ export function* rootSaga() {
     getUserSaga(),
     authSchoolSaga(),
     sendSchoolSaga(),
+    sendPasswordSaga(),
+    authPasswordSaga(),
   ]);
 }
 

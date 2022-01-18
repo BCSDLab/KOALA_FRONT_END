@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { sendFindPassword } from 'store/auth';
 import * as S from 'components/Auth/styles';
 import styled from 'styled-components';
 
@@ -65,21 +67,26 @@ const AuthButton = styled.button`
  * @param {*} 이메일 확인 여부
  * @returns
  */
-const AuthNumber = ({ isEmail = false }) => {
+const AuthNumber = (props) => {
   const [isError, setIsError] = useState(false);
   const [isEmailSend, setIsEmailSend] = useState(false);
-
+  const dispatch = useDispatch();
   const [minutes, setMinutes] = useState(parseInt('00'));
   const [seconds, setSeconds] = useState(parseInt('00'));
 
   const sendAuthCode = () => {
-    // 메일 전송 로직 실행 후
+    dispatch(sendFindPassword(props.account, props.email));
     setIsEmailSend(true);
     if (isEmailSend) {
       setIsError(false);
     }
     setMinutes(parseInt('05'));
     setSeconds(parseInt('00'));
+  };
+  const onChangeSecret = (e) => {
+    const currentSecret = e.target.value;
+    console.log(currentSecret);
+    props.setSecret(currentSecret);
   };
 
   useEffect(() => {
@@ -103,8 +110,14 @@ const AuthNumber = ({ isEmail = false }) => {
   return (
     <>
       <AuthForm>
-        <AuthNumInput isError={isError} isEmailSend={isEmailSend} placeholder="인증번호 입력" />
-        <AuthButton onClick={sendAuthCode} isEmail={isEmail} disabled={!isEmail} type="button">
+        <AuthNumInput
+          value={props.secret}
+          onChange={onChangeSecret}
+          isError={isError}
+          isEmailSend={isEmailSend}
+          placeholder="인증번호 입력"
+        />
+        <AuthButton onClick={sendAuthCode} isEmail={props.isEmail} disabled={!props.isEmail} type="button">
           {isEmailSend ? '재전송' : '인증번호 전송'}
         </AuthButton>
         {isEmailSend && (
