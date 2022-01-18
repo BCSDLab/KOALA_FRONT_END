@@ -209,6 +209,8 @@ const KeywordFilterBar = ({isToggle}) => {
                 }
             });
             setList(filterList);
+        }else{
+            setList([]);
         }
     },[menu]);
 
