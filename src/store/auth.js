@@ -58,6 +58,8 @@ const initialState = {
   isOpen: false,
   isLoggedIn: false,
   authError: null,
+  authSuccess: false,
+  sendSuccess: false,
   errorCode: '',
 };
 
@@ -101,20 +103,23 @@ const auth = handleActions(
     [SEND_FIND_PASSWORD_SUCCESS]: (state, { payload }) => ({
       ...state,
       ...payload,
-      errorCode: '',
+      errorCode: payload.code,
+      sendSuccess: true,
     }),
     [SEND_FIND_PASSWORD_FAILURE]: (state, { payload: error }) => ({
       ...state,
       errorCode: error.code,
+      sendSuccess: false,
     }),
     [AUTH_FIND_PASSWORD_SUCCESS]: (state, { payload }) => ({
       ...state,
-      ...payload,
-      errorCode: '',
+      errorCode: payload.code,
+      authSuccess: true,
     }),
     [AUTH_FIND_PASSWORD_FAILURE]: (state, { payload: error }) => ({
       ...state,
       errorCode: error.code,
+      authSuccess: false,
     }),
   },
   initialState
