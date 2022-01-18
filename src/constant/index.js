@@ -20,9 +20,6 @@ export const WEEK = [
     {id:7,day:"공휴일"},
 ];
 
-export const AUNURI = 'https://portal.koreatech.ac.kr';
-export const AOUMIR = 'https://dorm.koreatech.ac.kr/';
-export const KOREATECHINSTEADDELIVER = 'https://ko-kr.facebook.com/s.g.of.koreatech/';
 
 export const MENU_ITEM = [
     {   

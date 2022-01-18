@@ -1,25 +1,20 @@
-import React,{useRef,useState,useCallback} from "react";
+import React,{useRef,useCallback} from "react";
 import * as S from './styles';
 
-const KeywordSearch = ({setList,list}) => {
+const KeywordSearch = ({keywordSearch,setKeywordSearch,setSearchButton}) => {
 
     const inputSearch = useRef(null);
-    const [keywordSearch,setKeywordSearch] = useState('');
 
-    const onChangeKeywordSearch =(e)=>{
+    const onChangeKeywordSearch = (e)=>{
         setKeywordSearch(e.target.value);
     };
 
-    const onClickSearch =useCallback(()=>{    
-        const filterList = list.filter((item)=>{
-            if(`${item.title}`.includes(`${keywordSearch}`)){
-                return item;
-            }
-        });
-        setList(filterList);
-        setKeywordSearch('');
+    const onClickSearch = useCallback(()=>{
+        
+        setSearchButton(true);
         inputSearch.current.focus();
-    },[list]);
+        
+    },[]);
 
     return(
         <>

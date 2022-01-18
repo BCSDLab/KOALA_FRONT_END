@@ -1,53 +1,12 @@
 import React,{useCallback,useState} from "react";
 import * as S from './styles';
-import { MENU_ITEM,AUNURI,AOUMIR } from "constant";
+import { MENU_ITEM } from "constant";
 
 const KeywordMenuBar = ({
         isToggle,
-        keywordList,
-        setCheckAll,
-        setReadNotification,
-        setNotReadNotification,
-        setCheckListId,
-        list
+        menu,
+        onClickMenu,
     }) => {
-
-    const [menu,setMenu] = useState('전체');
-
-    const onClickMenu = useCallback((e)=>{
-
-        setMenu(e.target.innerText);
-        setCheckAll(false);
-        setReadNotification(false);
-        setNotReadNotification(false);
-        setCheckListId([]);
-
-        if(list.length===0){
-            return;
-        }
-
-        if(menu === '전체'){
-            setList(keywordList);
-        }else if(menu === '아우누리'){
-            const filterList = keywordList.filter((item)=>{
-                if(item.url.includes(AUNURI)){
-                    return item;
-                }
-            })
-
-            setList(filterList);
-        }else if(menu === '아우미르'){
-            const filterList = keywordList.filter((item)=>{
-                if(item.url.includes(AOUMIR)){
-                    return item;
-                }
-            })
-
-            setList(filterList);
-        }
-
-    },[keywordList]);
-
 
     return(
         <>

@@ -1,6 +1,6 @@
 import logined from './logined';
 
-export const login = ({ account, password }) => logined.post('user/login', { account, password });
+export const login = ({ account, password }) => logined.post('user/login?device_token=aasdfasdf', { account, password });
 
 export const refresh = () => logined.post('user/refresh');
 

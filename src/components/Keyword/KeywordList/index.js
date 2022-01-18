@@ -30,7 +30,7 @@ const KeywordList = ({list,checkListId,checkAll,setCheckListId,isToggle}) => {
 
     const onClickReadItem = (id,isRead)=>{
         if(!isRead){
-            dispatch(readKeywordItem(id));
+            dispatch(readKeywordItem(id)); 
         }
     };
 
@@ -40,7 +40,7 @@ const KeywordList = ({list,checkListId,checkAll,setCheckListId,isToggle}) => {
                     return(
                     <S.MainItem key={item.id}>
                         <S.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={checkListId.includes(item.id)} checkAll={checkAll}></S.MainCheckBox>
-                        <S.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.url)}</S.MainCheckBoxTitle>
+                        <S.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.site)}</S.MainCheckBoxTitle>
                         <a href={`${item.url}`} target='_blank'>
                             <S.MainContent readState={item.isRead} onClick={() => onClickReadItem(item.id,item.isRead)}>{item.title}</S.MainContent>
                         </a>
