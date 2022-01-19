@@ -9,3 +9,16 @@ export const changeSiteName = (value) => {
         return 'FACEBOOK';
     }
 }
+
+export const changeAlarmTerm = (value) => {
+    switch(value){
+        case 0 : return '5';
+        case 1 : return '10';
+        case 2 : return '15';
+        case 3 : return '30';
+        case 4 : return '60';
+        case 5 : return '120';
+        case 6 : return '240';
+        default : return;
+    }
+}

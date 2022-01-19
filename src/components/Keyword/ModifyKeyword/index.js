@@ -4,7 +4,7 @@ import { getRecommendation, patchModifyKeyword } from "store/modifyKeyword";
 import * as S from './styles';
 import { useDispatch,useSelector } from "react-redux";
 import { ALARM_TERM } from "constant";;
-import { changeSiteName } from "../utils";
+import { changeSiteName,changeAlarmTerm } from "../utils";
 
 const AddKeyword = () => {
 
@@ -44,35 +44,41 @@ const AddKeyword = () => {
 
         const newList = selectRecommendItem.filter((item)=>item!==selectRecommendItem[id]);
         setSelectRecommendItem(newList);
+
     },[selectRecommendItem]);
 
     const onClickNormalAlarm = () => {
+
         setIsNormalAlarm((prev)=>!prev);
         setIsImportantAlarm(false);
     }
 
     const onClickImportantAlarm = () => {
+
         setIsImportantAlarm((prev)=>!prev);
         setIsNormalAlarm(false);
     }
 
     const onClickSlientAlarm = () => {
+
         setIsSlientAlarm((prev)=>!prev);
         setIsVibrationAlarm(false);
     }
 
     const onClickVibrationAlarm = () => {
+
         setIsVibrationAlarm((prev)=>!prev);
         setIsSlientAlarm(false);
     }
 
     const onClickAlarmTerm = (id) => {
+
         setAlarmTerm(id);
     }
 
     const onClickModifyButton = useCallback(() => {
         const data = {
-            alarmCycle : alarmTerm,
+            alarmCycle : changeAlarmTerm(alarmTerm),
             alarmMode : isNormalAlarm?1:0,
             isImportant : isImportantAlarm?1:0,
             name : "키워드",
