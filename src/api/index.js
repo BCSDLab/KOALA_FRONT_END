@@ -1,6 +1,6 @@
 import logined from './logined';
 
-export const login = ({ account, password }) => logined.post('user/login', { account, password });
+export const login = ({ account, password }) => logined.post('user/login?device_token=asdfasdf', { account, password });
 
 export const refresh = () => logined.post('user/refresh');
 
@@ -16,5 +16,5 @@ export const signUp = ({ account, password, find_email, nickname }) =>
 
 export const addKeyword = {
   getRecommendation : (site) => logined.get(`keyword/site/search?site=${site}`),
-  modifyKeyword : (keywordName,object) => logined.put(`keyword?keyword-name=${keywordName}`,object)
+  modifyKeyword : ({keywordName,object}) => logined.put(`keyword?keyword-name=${keywordName}`,object)
 };  

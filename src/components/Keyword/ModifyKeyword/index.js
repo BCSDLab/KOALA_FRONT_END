@@ -3,8 +3,8 @@ import KeywordHeader from "../KeywordHeader";
 import { getRecommendation, patchModifyKeyword } from "store/modifyKeyword";
 import * as S from './styles';
 import { useDispatch,useSelector } from "react-redux";
-import { ALARM_TERM } from "constant";
-import { patchModifyKeywordSaga } from "store/modifyKeyword";
+import { ALARM_TERM } from "constant";;
+import { changeSiteName } from "../utils";
 
 const AddKeyword = () => {
 
@@ -28,7 +28,10 @@ const AddKeyword = () => {
 
     const onClickRecommendItem = useCallback((e)=>{
 
-        const {innerText:value} = e.target;
+        console.log('추천 아이템 클릭');
+
+        let {innerText:value} = e.target;
+
         if(!selectRecommendItem.includes(site)){
             setSelectRecommendItem([...selectRecommendItem,value]);
             setSite("");
@@ -40,6 +43,7 @@ const AddKeyword = () => {
     },[selectRecommendItem,site]);
 
     const onClickDeleteRecommendItem = useCallback((id)=>{
+
         const newList = selectRecommendItem.filter((item)=>item!==selectRecommendItem[id]);
         setSelectRecommendItem(newList);
     },[selectRecommendItem]);
@@ -72,12 +76,18 @@ const AddKeyword = () => {
         const data = {
             alarmCycle : alarmTerm,
             alarmMode : isNormalAlarm?1:0,
-            isImportant : isImportantAlarm,
-            name : "키워드 테스트",
-            siteList : selectRecommendItem
+            isImportant : isImportantAlarm?1:0,
+            name : "키워드",
+            siteList : selectRecommendItem.map((item)=>changeSiteName(item))
         };
 
-        dispatch(patchModifyKeyword("키워드 테스트",data));
+        dispatch(patchModifyKeyword(data.name,data));
+
+        setIsNormalAlarm(false);
+        setIsImportantAlarm(false);
+        setIsSlientAlarm(false);
+        setIsVibrationAlarm(false);
+        setAlarmTerm(false);
 
     },[alarmTerm,isNormalAlarm,isImportantAlarm,selectRecommendItem]);
  
