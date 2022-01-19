@@ -62,21 +62,26 @@ const AuthButton = styled.button`
  * TODO:
  * - [x] 스타일: 인증번호 에러 스타일 (입력시간 초과, 인증번호 틀림)
  * - [x] 스타일: 인증번호 시간
- * - [] 인증번호 전송 후 알림
+ * - [x] 인증번호 전송 후 알림
  *  - 입력 시간 초과
  *  - 인증번호 틀림
  * @param {*} 이메일 확인 여부
  * @returns
  */
 const AuthNumber = (props) => {
+  const [isError, setIsError] = useState(false);
   const [isEmailSend, setIsEmailSend] = useState(false);
-  const dispatch = useDispatch();
+
   const [minutes, setMinutes] = useState(parseInt('00'));
   const [seconds, setSeconds] = useState(parseInt('00'));
+
   const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
   const sendAuthCode = () => {
     dispatch(sendFindPassword(props.account, props.email));
   };
+
   const onChangeSecret = (e) => {
     const currentSecret = e.target.value;
     console.log(currentSecret);
