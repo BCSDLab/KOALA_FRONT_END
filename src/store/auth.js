@@ -46,7 +46,6 @@ export function* nonLoginSaga() {
 const initialState = {
   isOpen: false,
   isLoggedIn: false,
-  userType: null,
   authError: null,
   errorCode: '',
 };

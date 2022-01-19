@@ -6,6 +6,7 @@ import StyledButton from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import { login } from '../../store/auth';
 import { guid } from 'api/logined';
+import { removeCookie } from 'components/Shared/Cookies';
 
 const LoginFormContainer = styled.form`
   position: relative;
@@ -59,7 +60,7 @@ const LoginForm = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     const deviceToken = guid();
-    console.log(deviceToken);
+    removeCookie('device_token');
     dispatch(login({ deviceToken, account, password }));
   };
 

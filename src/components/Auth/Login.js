@@ -6,6 +6,7 @@ import * as S from 'components/Auth/styles';
 import { useNavigate } from 'react-router';
 import { nonMemberLogin } from 'store/auth';
 import { guid } from 'api/logined';
+import { getCookie, setCookie } from 'components/Shared/Cookies';
 
 const LoginContainer = styled.div`
   display: flex;
@@ -117,16 +118,24 @@ const AuthMainForm = () => {
   const [isNormalLogin, setIsNormalLogin] = useState(true);
   const dispatch = useDispatch();
 
+  /*
+   * - guid 함수를 통해 고유값을 만들어 device에 저장
+   * - device_token 쿠키에 device를 저장
+   * - non-member api로 비회원 token 요청
+   */
   const nonMemberService = () => {
     const device = guid();
-    console.log(device);
+    setCookie('device_token', `${device}`, {
+      path: '/',
+    });
     dispatch(nonMemberLogin(device));
   };
   useEffect(() => {
-    if (auth.isLoggedIn && userInfo.userType === 'NORMAL') {
+    const nonMemberCheck = getCookie('device_token');
+    if (auth.isLoggedIn && nonMemberCheck === '') {
       navigate(-1);
     }
-  }, [auth.isLoggedIn, userInfo.userType]);
+  }, [auth.isLoggedIn]);
 
   return (
     <LoginContainer>
