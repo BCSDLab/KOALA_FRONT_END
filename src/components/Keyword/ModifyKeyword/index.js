@@ -28,8 +28,6 @@ const AddKeyword = () => {
 
     const onClickRecommendItem = useCallback((e)=>{
 
-        console.log('추천 아이템 클릭');
-
         let {innerText:value} = e.target;
 
         if(!selectRecommendItem.includes(site)){
