@@ -22,11 +22,11 @@ const CustomCheckDot = styled.div`
   height: 13px;
   border-radius: 50%;
   margin-right: 20px;
-  border: solid 1px #c4c4c4;
+  border: solid 1px ${(props) => props.theme.colors.silver};
   transition: all 150ms;
   ${CheckDot}:checked + & {
-    border: solid 1px #ffd25d;
-    background-color: #ffd25d;
+    border: solid 1px ${({ theme }) => theme.colors.yellow};
+    background-color: ${({ theme }) => theme.colors.yellow};
   }
 `;
 

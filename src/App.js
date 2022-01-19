@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { refresh } from 'store/auth';
-import { GlobalStyle } from './GlobalStyle';
 import AuthPage from 'pages/AuthPage';
 import Login from 'components/Auth/Login';
 import FindId from 'components/Auth/FindId';
@@ -28,7 +27,6 @@ const App = () => {
   }, []);
   return (
     <>
-      <GlobalStyle />
       <Routes>
         <Route exact path="/" element={<MainPage />} />
         <Route exact path="auth/*" element={<AuthPage />}>

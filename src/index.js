@@ -5,10 +5,14 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from '@redux-saga/core';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyle } from './GlobalStyle';
+import theme from './theme';
 import App from './App';
 import rootReducer, { rootSaga } from './store';
 import logger from 'redux-logger';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 const sagaMiddleware = createSagaMiddleware();
@@ -19,7 +23,10 @@ sagaMiddleware.run(rootSaga);
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root')
