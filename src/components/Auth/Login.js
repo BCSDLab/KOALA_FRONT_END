@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
 import LoginForm from 'components/Auth/LoginForm';
 import * as S from 'components/Auth/styles';
 import { useNavigate } from 'react-router';
+import { nonMemberLogin } from 'store/auth';
 import { guid } from 'api/logined';
 
 const LoginContainer = styled.div`
@@ -111,17 +112,21 @@ const KakaoLoginButton = styled.button`
  */
 const AuthMainForm = () => {
   const navigate = useNavigate();
-  const userLog = useSelector((state) => state.auth.isLoggedIn);
+  const auth = useSelector((state) => state.auth);
+  const userInfo = useSelector((state) => state.myPage);
   const [isNormalLogin, setIsNormalLogin] = useState(true);
+  const dispatch = useDispatch();
 
-  const nonMemberLogin = () => {
-    const nonUser = guid();
+  const nonMemberService = () => {
+    const device = guid();
+    console.log(device);
+    dispatch(nonMemberLogin(device));
   };
   useEffect(() => {
-    if (userLog) {
-      navigate('/');
+    if (auth.isLoggedIn && userInfo.userType === 'NORMAL') {
+      navigate(-1);
     }
-  }, [userLog]);
+  }, [auth.isLoggedIn, userInfo.userType]);
 
   return (
     <LoginContainer>
@@ -152,7 +157,7 @@ const AuthMainForm = () => {
       </S.OtherOption>
 
       <S.NoneUserLinkSection>
-        <S.NoneUserLink onClick={nonMemberLogin} to="/keywordList">
+        <S.NoneUserLink onClick={nonMemberService} to="/">
           비회원으로 이용하기
         </S.NoneUserLink>
       </S.NoneUserLinkSection>

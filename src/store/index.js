@@ -1,15 +1,16 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
-import auth, { authSaga, refreshLoginSaga, signUpRegisterSaga } from './auth';
+import auth, { authSaga, refreshLoginSaga, signUpRegisterSaga, nonLoginSaga } from './auth';
 import toggle from './toggle';
 import myPage, { changeNameSaga, getUserSaga, changeImageSaga } from './myPage';
 import loading from './loading';
-import keyword,{
+import keyword, {
   inquiryKeywordSaga,
   getKeywordListSaga,
   deleteKeywordListSaga,
   moveKeywordItemSaga,
-  readKeywordItemSaga} from './keyword';
+  readKeywordItemSaga,
+} from './keyword';
 import chat, { authSchoolSaga, sendSchoolSaga } from './chat';
 
 const rootReducer = combineReducers({
@@ -23,8 +24,8 @@ const rootReducer = combineReducers({
 
 export function* rootSaga() {
   yield all([
-    authSaga(), 
-    refreshLoginSaga(), 
+    authSaga(),
+    refreshLoginSaga(),
     signUpRegisterSaga(),
     inquiryKeywordSaga(),
     getKeywordListSaga(),
@@ -36,6 +37,7 @@ export function* rootSaga() {
     authSchoolSaga(),
     sendSchoolSaga(),
     changeImageSaga(),
+    nonLoginSaga(),
   ]);
 }
 

@@ -22,7 +22,7 @@ export const signUp = createAction(SIGNUP, ({ account, password, find_email, nic
   find_email,
   nickName,
 }));
-export const nonMemberLogin = createAction(NON_MEMBER, (deviceToken) => ({
+export const nonMemberLogin = createAction(NON_MEMBER, ({ deviceToken }) => ({
   deviceToken,
 }));
 
@@ -46,6 +46,7 @@ export function* nonLoginSaga() {
 const initialState = {
   isOpen: false,
   isLoggedIn: false,
+  userType: null,
   authError: null,
   errorCode: '',
 };
