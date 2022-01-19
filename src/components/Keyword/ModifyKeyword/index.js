@@ -88,6 +88,7 @@ const AddKeyword = () => {
         setIsSlientAlarm(false);
         setIsVibrationAlarm(false);
         setAlarmTerm(false);
+        setSelectRecommendItem([]);
 
     },[alarmTerm,isNormalAlarm,isImportantAlarm,selectRecommendItem]);
  
