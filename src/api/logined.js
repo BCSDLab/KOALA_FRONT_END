@@ -9,9 +9,20 @@ export const setTokenOnHeader = (token) => {
 };
 
 export const guid = () => {
-  return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
-    (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16)
-  );
+  var now = new Date().getTime();
+  var dif = (typeof performance !== 'undefined' && performance.now && performance.now() * 1000) || 0; //페이지 로드 이후 시간에서 마이크로초가 지원되지 않는 경우 0
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var random = Math.random() * 16; //타임스탬프가 없어질때 까지 이를 생성
+    if (now > 0) {
+      random = (now + random) % 16 | 0;
+      now = Math.floor(now / 16);
+    } else {
+      //마이크로초 지원 시 마이크로초 사용
+      random = (dif + random) % 16 | 0;
+      dif = Math.floor(dif / 16);
+    }
+    return (c === 'x' ? random : (random & 0x3) | 0x8).toString(16);
+  });
 };
 
 export default logined;

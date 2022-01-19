@@ -3,6 +3,8 @@ import logined from './logined';
 export const login = ({ deviceToken, account, password }) =>
   logined.post(`user/login?device_token=${deviceToken}`, { account, password });
 
+export const nonMember = ({ deviceToken }) => logined.post(`/user/non-member?device_token=${deviceToken}`);
+
 export const refresh = () => logined.post('user/refresh');
 
 export const checkNickname = (nickName) => logined.get(`/user/nickname-check?nickname=${nickName}`);

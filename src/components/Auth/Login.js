@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components';
 import LoginForm from 'components/Auth/LoginForm';
 import * as S from 'components/Auth/styles';
 import { useNavigate } from 'react-router';
+import { guid } from 'api/logined';
 
 const LoginContainer = styled.div`
   display: flex;
@@ -113,6 +114,9 @@ const AuthMainForm = () => {
   const userLog = useSelector((state) => state.auth.isLoggedIn);
   const [isNormalLogin, setIsNormalLogin] = useState(true);
 
+  const nonMemberLogin = () => {
+    const nonUser = guid();
+  };
   useEffect(() => {
     if (userLog) {
       navigate('/');
@@ -148,7 +152,9 @@ const AuthMainForm = () => {
       </S.OtherOption>
 
       <S.NoneUserLinkSection>
-        <S.NoneUserLink to="/keywordList">비회원으로 이용하기</S.NoneUserLink>
+        <S.NoneUserLink onClick={nonMemberLogin} to="/keywordList">
+          비회원으로 이용하기
+        </S.NoneUserLink>
       </S.NoneUserLinkSection>
 
       <S.CopyRight>COPYRIGHT © {new Date().getFullYear()} BCSD LAB ALL RIGHTS RESERVED.</S.CopyRight>
