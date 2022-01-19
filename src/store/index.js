@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
 import auth, { authSaga, refreshLoginSaga, signUpRegisterSaga } from './auth';
 import toggle from './toggle';
+import myPage, { changeNameSaga, getUserSaga, changeImageSaga } from './myPage';
 import loading from './loading';
 import keyword,{
   inquiryKeywordSaga,
@@ -9,7 +10,6 @@ import keyword,{
   deleteKeywordListSaga,
   moveKeywordItemSaga,
   readKeywordItemSaga} from './keyword';
-import myPage, { changeNameSaga, getUserSaga } from './myPage';
 import chat, { authSchoolSaga, sendSchoolSaga } from './chat';
 
 const rootReducer = combineReducers({
@@ -35,6 +35,7 @@ export function* rootSaga() {
     getUserSaga(),
     authSchoolSaga(),
     sendSchoolSaga(),
+    changeImageSaga(),
   ]);
 }
 

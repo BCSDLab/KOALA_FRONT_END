@@ -6,11 +6,14 @@ import * as API from 'api';
 const [CHANGENICKNAME, CHANGENICKNAME_SUCCESS, CHANGENICKNAME_FAILURE] =
   createRequestSagaActionTypes('myPage/CHANGENICKNAME');
 const [USERINFO, USERINFO_SUCCESS, USERINFO_FAILURE] = createRequestSagaActionTypes('myPage/USERINFO');
+const [CHANGE_PROFILE, CHANGE_PROFILE_SUCCESS, CHANGE_PROFILE_FAILURE] =
+  createRequestSagaActionTypes('myPage/CHANGE_PROFILE');
 
 export const changeNickname = createAction(CHANGENICKNAME, ({ nickName }) => ({
   nickName,
 }));
 export const getUserInfo = createAction(USERINFO);
+export const changeProfile = createAction(CHANGE_PROFILE, (file) => file);
 
 const changeNicknameSaga = createRequestSaga(CHANGENICKNAME, API.changeNickname);
 export function* changeNameSaga() {
@@ -20,12 +23,16 @@ const getUserInfoSaga = createRequestSaga(USERINFO, API.getUserInfo);
 export function* getUserSaga() {
   yield takeLatest(USERINFO, getUserInfoSaga);
 }
+const changeProfileSaga = createRequestSaga(CHANGE_PROFILE, API.changeUserProfile);
+export function* changeImageSaga() {
+  yield takeLatest(CHANGE_PROFILE, changeProfileSaga);
+}
 
 const initialState = {
   userImg: null,
   userAccount: null,
   userNickname: null,
-  schoolAuth: null,
+  isAuth: '0',
 };
 
 const myPage = handleActions(
@@ -40,9 +47,17 @@ const myPage = handleActions(
       ...state,
       userNickname: payload.body.nickname,
       userAccount: payload.body.account,
-      schoolAuth: payload.body.is_auth,
+      isAuth: payload.body.is_auth,
+      userImg: payload.body.profile,
     }),
     [USERINFO_FAILURE]: (state) => ({
+      ...state,
+    }),
+    [CHANGE_PROFILE_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      userImg: payload.body.profileUrl,
+    }),
+    [CHANGE_PROFILE_FAILURE]: (state) => ({
       ...state,
     }),
   },
