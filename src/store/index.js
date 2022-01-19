@@ -9,12 +9,16 @@ import keyword,{
   deleteKeywordListSaga,
   moveKeywordItemSaga,
   readKeywordItemSaga} from './keyword';
+import myPage, { changeNameSaga, getUserSaga } from './myPage';
+import chat, { authSchoolSaga, sendSchoolSaga } from './chat';
 
 const rootReducer = combineReducers({
   auth,
   loading,
   keyword,
-  toggle
+  toggle,
+  myPage,
+  chat,
 });
 
 export function* rootSaga() {
@@ -26,7 +30,12 @@ export function* rootSaga() {
     getKeywordListSaga(),
     deleteKeywordListSaga(),
     moveKeywordItemSaga(),
-    readKeywordItemSaga()]);
+    readKeywordItemSaga(),
+    changeNameSaga(),
+    getUserSaga(),
+    authSchoolSaga(),
+    sendSchoolSaga(),
+  ]);
 }
 
 export default rootReducer;

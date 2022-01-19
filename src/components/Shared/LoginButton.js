@@ -8,14 +8,15 @@ import { useCallback } from 'react';
 const LoginButtonStyle = styled.button`
   width: 80px;
   height: 32px;
-  background: #222;
+  background: ${(props) => props.theme.colors.darkgray};
   position: absolute;
   top: 40px;
   right: 80px;
-  color: #fff;
+  color: ${(props) => props.theme.colors.white};
   font-size: 14px;
   font-weight: 500;
   text-align: center;
+  z-index: 1;
 `;
 
 const LoginButton = () => {

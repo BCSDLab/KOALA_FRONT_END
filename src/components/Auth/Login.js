@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import Switch from 'components/Shared/Switch';
-import StyledButton from 'components/Shared/Button';
+import LoginForm from 'components/Auth/LoginForm';
 import * as S from 'components/Auth/styles';
-import { login } from '../../store/auth';
 import { useNavigate } from 'react-router';
 
 const LoginContainer = styled.div`
@@ -15,11 +13,12 @@ const LoginContainer = styled.div`
 
 const LoginOptionContainer = styled.div`
   margin-bottom: 40px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
   width: 343px;
 `;
 
 const LoginOptionButton = styled.button`
+  border: none;
   min-width: 167px;
   max-width: 176px;
   padding: 12px 40.5px;
@@ -34,63 +33,22 @@ const LoginOptionMenuBar = styled.div`
   position: absolute;
   width: ${({ isNormalLogin }) => (isNormalLogin ? 167 : 176)}px;
   height: 1px;
-  background-color: #222;
+  background-color: ${(props) => props.theme.colors.darkgray};
   transition: transform 0.2s ease;
   transform: translateX(${({ isNormalLogin }) => (isNormalLogin ? 0 : 167)}px);
 `;
 
-const LoginForm = styled.form`
-  display: ${({ display }) => (!display ? 'none' : 'block')};
-  position: relative;
+const SNSLoginOptionSection = styled.div`
+  display: flex;
   width: 100%;
-`;
-
-const StyledInput = styled(S.StyledInput)`
-  & + & {
-    margin-top: 0;
-  }
-`;
-
-const StyledOptionLink = styled(S.StyledLink)`
-  padding: 0 15px;
-  height: 12px;
-  :nth-child(n) {
-    border-right: 1px solid #999;
-  }
-  :last-child {
-    border: none;
-  }
-`;
-
-const StyledInputContainer = styled.div`
-  margin-bottom: 16px;
-  position: relative;
-  :nth-child(2) {
-    margin-bottom: 8px;
-  }
-`;
-
-const PwdSee = styled.span`
-  display: block;
-  right: 16px;
-  top: 14px;
-  position: absolute;
-  cursor: pointer;
-`;
-const EyeImg = styled.img`
-  width: 24px;
-  height: 24px;
-`;
-
-const SNSLoginOptionSection = styled.section`
-  display: ${({ display }) => (display ? 'none' : 'flex')};
-  width: 100%;
+  height: fit-content;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
 `;
 
 const LoginButtonAttributes = css`
+  border: none;
   width: 343px;
   height: 44px;
   margin-bottom: 16px;
@@ -109,10 +67,10 @@ const LoginButtonAttributes = css`
 
 const GoogleLoginButton = styled.button`
   ${LoginButtonAttributes}
-  border: solid 1px #eee;
-  color: #000;
+  border: solid 1px ${(props) => props.theme.colors.lightgray};
+  color: ${(props) => props.theme.colors.black};
 
-  background-color: #fff;
+  background-color: ${(props) => props.theme.colors.white};
   background-image: url('/asset/google-logo.svg');
 
   :after {
@@ -121,7 +79,7 @@ const GoogleLoginButton = styled.button`
 `;
 const NaverLoginButton = styled.button`
   ${LoginButtonAttributes}
-  color: #fff;
+  color: ${(props) => props.theme.colors.white};
 
   background-color: #03c75a;
   background-image: url('/asset/naver-logo.svg');
@@ -133,7 +91,7 @@ const NaverLoginButton = styled.button`
 
 const KakaoLoginButton = styled.button`
   ${LoginButtonAttributes}
-  color: #000;
+  color: ${(props) => props.theme.colors.black};
 
   background-color: #fee500;
   background-image: url('/asset/kakao-logo.svg');
@@ -151,40 +109,9 @@ const KakaoLoginButton = styled.button`
  * - [] 카카오 로그인
  */
 const AuthMainForm = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [account, setAccount] = useState('');
-  const [password, setPassword] = useState('');
   const userLog = useSelector((state) => state.auth.isLoggedIn);
-  const [isPasswordType, setIsPasswordType] = useState({
-    type: 'password',
-    visible: false,
-  });
   const [isNormalLogin, setIsNormalLogin] = useState(true);
-
-  const accountHandler = (e) => {
-    setAccount(e.target.value);
-  };
-
-  const passwordHandler = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(login({ account, password }));
-  };
-
-  const handlePasswordType = (e) => {
-    setIsPasswordType(() => {
-      if (!isPasswordType.visible) return { type: 'text', visible: true };
-      return { type: 'password', visible: false };
-    });
-  };
-
-  const toggleLoginOption = () => {
-    setIsNormalLogin(!isNormalLogin);
-  };
 
   useEffect(() => {
     if (userLog) {
@@ -195,52 +122,24 @@ const AuthMainForm = () => {
   return (
     <LoginContainer>
       <LoginOptionContainer>
-        <LoginOptionButton onClick={toggleLoginOption} isClicked={isNormalLogin}>
+        <LoginOptionButton onClick={() => setIsNormalLogin(true)} isClicked={isNormalLogin}>
           일반 로그인
         </LoginOptionButton>
-        <LoginOptionButton onClick={toggleLoginOption} isClicked={!isNormalLogin}>
+        <LoginOptionButton onClick={() => setIsNormalLogin(false)} isClicked={!isNormalLogin}>
           SNS로 로그인
         </LoginOptionButton>
         <LoginOptionMenuBar isNormalLogin={isNormalLogin} />
       </LoginOptionContainer>
 
-      <LoginForm display={isNormalLogin} onSubmit={submitHandler}>
-        <StyledInputContainer>
-          <StyledInput value={account} onChange={accountHandler} name="account" placeholder="아이디 입력" />
-        </StyledInputContainer>
-
-        <StyledInputContainer>
-          <StyledInput
-            value={password}
-            type={isPasswordType.type}
-            onChange={passwordHandler}
-            name="password"
-            placeholder="비밀번호 입력"
-          />
-          <PwdSee onClick={handlePasswordType}>
-            {isPasswordType.visible ? (
-              <EyeImg src="/asset/openEye.svg" alt="openeye" />
-            ) : (
-              <EyeImg src="/asset/closeEye.svg" alt="closeeye" />
-            )}
-          </PwdSee>
-        </StyledInputContainer>
-
-        <S.AutoLogin>
-          <S.AutoLoginCheck>
-            <Switch />
-          </S.AutoLoginCheck>
-          <S.AutoLoginText>자동 로그인</S.AutoLoginText>
-        </S.AutoLogin>
-
-        <StyledButton>로그인</StyledButton>
-      </LoginForm>
-
-      <SNSLoginOptionSection display={isNormalLogin}>
-        <GoogleLoginButton />
-        <NaverLoginButton />
-        <KakaoLoginButton />
-      </SNSLoginOptionSection>
+      {isNormalLogin ? (
+        <LoginForm />
+      ) : (
+        <SNSLoginOptionSection>
+          <GoogleLoginButton />
+          <NaverLoginButton />
+          <KakaoLoginButton />
+        </SNSLoginOptionSection>
+      )}
 
       <S.OtherOption>
         <S.StyledLink to="findId">아이디 찾기</S.StyledLink>
@@ -256,4 +155,5 @@ const AuthMainForm = () => {
     </LoginContainer>
   );
 };
+
 export default AuthMainForm;

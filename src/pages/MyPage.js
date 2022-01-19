@@ -126,7 +126,7 @@ const MainText = styled.div`
   font-size: 18px;
   font-weight: 500;
   text-align: left;
-  color: #222;
+  color: ${(props) => props.theme.colors.darkgray};
 `;
 
 const MyInfo = styled.div`
@@ -137,7 +137,7 @@ const MyInfo = styled.div`
   font-size: 16px;
   font-weight: 500;
   text-align: center;
-  color: #222;
+  color: ${(props) => props.theme.colors.darkgray};
 `;
 
 const UserImage = styled.img`
@@ -155,7 +155,7 @@ const OverLay = styled.div`
   font-size: 14px;
   font-weight: 500;
   text-align: left;
-  color: #fff;
+  color: ${(props) => props.theme.colors.white};
   background-color: rgba(34, 34, 34, 0.3);
 `;
 
@@ -176,7 +176,7 @@ const UserNickname = styled.div`
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  color: #222;
+  color: ${(props) => props.theme.colors.darkgray};
 `;
 
 const Title = styled.div`
@@ -185,7 +185,7 @@ const Title = styled.div`
   font-size: 14px;
   font-weight: 500;
   text-align: center;
-  color: #999;
+  color: ${(props) => props.theme.colors.gray};
 `;
 
 const NicknameTitle = styled(Title)`
@@ -205,7 +205,7 @@ const EtcTitle = styled.div`
   font-size: 16px;
   font-weight: 500;
   text-align: center;
-  color: #222;
+  color: ${(props) => props.theme.colors.darkgray};
 `;
 
 const Element = styled.div`
@@ -217,7 +217,7 @@ const Element = styled.div`
   font-size: 14px;
   font-weight: 500;
   text-align: center;
-  color: #999;
+  color: ${(props) => props.theme.colors.gray};
 `;
 
 const Contact = styled(Element)``;
