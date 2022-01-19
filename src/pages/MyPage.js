@@ -84,7 +84,7 @@ const MyPage = () => {
           <NicknameTitle>닉네임</NicknameTitle>
           <EditNickname userNickname={userInfo.userNickname} />
           <SchoolAuthTitle>학교인증</SchoolAuthTitle>
-          <SchoolAuth is_auth={userInfo.is_auth} />
+          <SchoolAuth isAuth={userInfo.isAuth} />
           <EtcTitle>기타</EtcTitle>
           <AutoLogin />
           <Contact>문의하기</Contact>

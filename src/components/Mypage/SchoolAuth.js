@@ -1,10 +1,10 @@
 import React from 'react';
 import * as S from './styles';
 
-const SchoolAuth = ({ is_auth }) => {
+const SchoolAuth = ({ isAuth }) => {
   return (
     <S.SchoolAuthContent>
-      {is_auth == false ? (
+      {isAuth == false ? (
         <>
           <S.SchoolAuthState>미인증</S.SchoolAuthState>
           <S.SchoolAuthButton>인증하기</S.SchoolAuthButton>

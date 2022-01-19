@@ -32,7 +32,7 @@ const initialState = {
   userImg: null,
   userAccount: null,
   userNickname: null,
-  schoolAuth: null,
+  isAuth: '0',
 };
 
 const myPage = handleActions(
@@ -47,7 +47,7 @@ const myPage = handleActions(
       ...state,
       userNickname: payload.body.nickname,
       userAccount: payload.body.account,
-      schoolAuth: payload.body.is_auth,
+      isAuth: payload.body.is_auth,
       userImg: payload.body.profile,
     }),
     [USERINFO_FAILURE]: (state) => ({
