@@ -5,6 +5,7 @@ import Switch from 'components/Shared/Switch';
 import StyledButton from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import { login } from '../../store/auth';
+import { guid } from 'api/logined';
 
 const LoginFormContainer = styled.form`
   position: relative;
@@ -57,7 +58,9 @@ const LoginForm = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(login({ account, password }));
+    const deviceToken = guid();
+    console.log(deviceToken);
+    dispatch(login({ deviceToken, account, password }));
   };
 
   const handlePasswordType = (e) => {

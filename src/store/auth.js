@@ -9,7 +9,8 @@ const [LOGIN, LOGIN_SUCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/
 const [REFRESH, REFRESH_SUCESS, REFRESH_FAILURE] = createRequestSagaActionTypes('auth/REFRESH');
 const [SIGNUP, SIGNUP_SUCESS, SIGNUP_FALIURE] = createRequestSagaActionTypes('auth/SIGNUP');
 
-export const login = createAction(LOGIN, ({ account, password }) => ({
+export const login = createAction(LOGIN, ({ deviceToken, account, password }) => ({
+  deviceToken,
   account,
   password,
 }));
