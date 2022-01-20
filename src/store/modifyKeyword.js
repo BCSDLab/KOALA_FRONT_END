@@ -1,7 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, { createRequestSagaActionTypes } from './createRequestSaga';
 import { takeLatest } from '@redux-saga/core/effects';
-import { addKeyword } from 'api';
+import { keywordAPI } from 'api';
 
 const [GET_RECOMMENDATION,GET_RECOMMENDATION_SUCCESS,GET_RECOMMENDATION_FAILURE] = createRequestSagaActionTypes('modifyKeyword/GET_RECOMMENDATION');
 const [MODIFY_KEYWORD,MODIFY_KEYWORD_SUCCESS,MODIFY_KEYWORD_FAILURE]= createRequestSagaActionTypes('modifyKeyword/MODIFY_KEYWORD');
@@ -12,12 +12,12 @@ export const patchModifyKeyword = createAction(MODIFY_KEYWORD,(keywordName,objec
     object
 }));
 
-const getRecommendationSaga = createRequestSaga(GET_RECOMMENDATION,addKeyword.getRecommendation);
+const getRecommendationSaga = createRequestSaga(GET_RECOMMENDATION,keywordAPI.getRecommendation);
 export function* getKeywordRecommendationSaga(){
     yield takeLatest(GET_RECOMMENDATION,getRecommendationSaga);
 }
 
-const patchModifySaga = createRequestSaga(MODIFY_KEYWORD,addKeyword.modifyKeyword);
+const patchModifySaga = createRequestSaga(MODIFY_KEYWORD,keywordAPI.modifyKeyword);
 export function* patchModifyKeywordSaga(){
     yield takeLatest(MODIFY_KEYWORD,patchModifySaga);
 }

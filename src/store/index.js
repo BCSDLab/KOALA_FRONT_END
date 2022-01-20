@@ -16,7 +16,10 @@ import chat, { authSchoolSaga, sendSchoolSaga } from './chat';
 const rootReducer = combineReducers({
   auth,
   loading,
-  modifyKeyword
+  modifyKeyword,
+  toggle,
+  keyword,
+  myPage
 });
 
 export function* rootSaga() {
