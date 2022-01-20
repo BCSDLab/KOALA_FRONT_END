@@ -27,5 +27,5 @@ export const Title = styled.span`
     min-width:120px;
     position:absolute;
     top:121px;
-    left:488px;
+    left:${props => props.toggle?'488px':'353px'};
 `;

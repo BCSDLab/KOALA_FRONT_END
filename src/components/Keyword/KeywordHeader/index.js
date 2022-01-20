@@ -1,14 +1,18 @@
 import React from "react";
-import * as s from './styles';
+import * as S from './styles';
+import { useSelector } from "react-redux";
 
-const KeywordHeader = ({title}) => {
+const KeywordHeader = ({title,toggle}) => {
+
+    const user = useSelector((state)=>state.auth);
+
     return(
         <>
-            <s.UserContainer>
-                <s.Username>uko05068님</s.Username>
-                <s.LoginButton>로그아웃</s.LoginButton>
-            </s.UserContainer>
-            <s.Title>{title}</s.Title>
+            <S.UserContainer toggle={toggle}>
+                {user.isLoggedIn&&<S.Username>test</S.Username>}
+                <S.LoginButton>{user.isLoggedIn?'로그아웃':'로그인'}</S.LoginButton>
+            </S.UserContainer>
+            <S.Title toggle={toggle}>{title}</S.Title>
         </>
     );
 }

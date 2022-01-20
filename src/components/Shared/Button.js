@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
-  background: #222;
+  background: ${(props) => props.theme.colors.darkgray};
   width: 368px;
   height: 48px;
   border: 0;
@@ -16,12 +16,12 @@ const StyledButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background: #c4c4c4;
+    background: ${(props) => props.theme.colors.silver};
   }
 
   :disabled,
   [disabled] {
-    background: #c4c4c4;
+    background: ${(props) => props.theme.colors.silver};
     cursor: default;
   }
 `;
