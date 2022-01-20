@@ -59,9 +59,8 @@ const LoginForm = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const deviceToken = uuid();
     removeCookie('device_token');
-    dispatch(login({ deviceToken, account, password }));
+    dispatch(login({ deviceToken: uuid(), account, password }));
   };
 
   const handlePasswordType = (e) => {
