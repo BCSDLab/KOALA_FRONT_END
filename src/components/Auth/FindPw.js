@@ -66,7 +66,7 @@ const FindPw = () => {
     setEmailMessage(errorText);
   };
 
-  const secretError = (change, errorText) => {
+  const errorSecret = (change, errorText) => {
     setIsSecretError(change);
     setSecretMessage(errorText);
   };
@@ -117,18 +117,18 @@ const FindPw = () => {
       />
 
       <AuthNumber
-        secretError={secretError}
+        type="PASSWORD"
+        account={account}
+        errorAccount={errorAccount}
+        email={email}
+        errorEmail={errorEmail}
+        isEmail={isEmail}
+        secret={secret}
+        errorSecret={errorSecret}
+        setSecret={setSecret}
         isSecretError={isSecretError}
         secretMessage={secretMessage}
         setSecretMessage={setSecretMessage}
-        errorEmail={errorEmail}
-        errorAccount={errorAccount}
-        setEmailMessage={setEmailMessage}
-        secret={secret}
-        setSecret={setSecret}
-        isEmail={isEmail}
-        email={email}
-        account={account}
       />
       {isDisabled ? (
         <Button style={{ background: 'gray' }} disabled={true} type="button">

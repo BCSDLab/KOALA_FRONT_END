@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { sendFindPassword } from 'store/auth';
+import { sendFindPassword, sendFindId } from 'store/auth';
 import { NOT_EXIST_ACCOUNT, NOT_MATCH_EMAIL } from 'constant';
 import * as S from 'components/Auth/styles';
 import styled from 'styled-components';
@@ -79,7 +79,9 @@ const AuthNumber = (props) => {
   const dispatch = useDispatch();
 
   const sendAuthCode = () => {
-    dispatch(sendFindPassword(props.account, props.email));
+    if (props.type === 'PASSWORD') return dispatch(sendFindPassword(props.account, props.email));
+
+    dispatch(sendFindId(props.email));
   };
 
   const onChangeSecret = (e) => {
@@ -97,7 +99,7 @@ const AuthNumber = (props) => {
         if (parseInt(minutes) === 0) {
           clearInterval(countdown);
           setIsError(isEmailSend);
-          props.secretError(isEmailSend, '요청시간이 만료되었습니다.');
+          props.errorSecret(isEmailSend, '요청시간이 만료되었습니다.');
         } else {
           setMinutes(parseInt(minutes) - 1);
           setSeconds(59);
@@ -109,15 +111,11 @@ const AuthNumber = (props) => {
 
   useEffect(() => {
     if (auth.errorCode == '200') {
-      props.errorAccount(false, '');
+      if (props.type == 'PASSWORD') props.errorAccount(false, '');
       props.errorEmail(false, '');
       setIsEmailSend(true);
       setMinutes(parseInt('05'));
       setSeconds(parseInt('00'));
-    } else if (auth.errorCode == NOT_EXIST_ACCOUNT) {
-      props.errorAccount(true, '존재하지 않는 계정입니다.');
-    } else if (auth.errorCode == NOT_MATCH_EMAIL) {
-      props.errorEmail(true, '가입할 때 설정한 찾기용 이메일과 일치하지 않습니다.');
     }
   }, [auth.errorCode]);
   return (
@@ -126,7 +124,7 @@ const AuthNumber = (props) => {
         <AuthNumInput
           value={props.secret}
           onChange={onChangeSecret}
-          isError={isError}
+          isError={props.isSecretError}
           isEmailSend={isEmailSend}
           placeholder="인증번호 입력"
         />

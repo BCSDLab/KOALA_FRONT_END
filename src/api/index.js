@@ -17,6 +17,12 @@ export const sendFindPassword = ({ account, email }) => logined.post('user/email
 export const authFindPassword = (account, email, secret) =>
   logined.post('user/email/certification/PASSWORD', account, email, secret);
 
+export const sendFindAccount = ({ email }) => logined.post('user/email-send/ACCOUNT', { email });
+
+export const authFindAccount = (email, secret) => logined.post('user/email/certification/ACCOUNT', email, secret);
+
+export const findAccount = ({ email }) => logined.get(`/user/account-find?email=${email}`);
+
 export const deleteUser = () => logined.patch('user/delete');
 
 export const getUserInfo = () => logined.get('user/my');
