@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import SideNavbar from 'components/SideNavbar';
-import KeywordFilterBar from 'components/Keyword/KeywordFilter';
+import AddKeyword from 'components/Keyword/AddKeyword';
 import KeywordHeader from 'components/Keyword/KeywordHeader';
 import styled from 'styled-components';
 
@@ -16,8 +16,7 @@ const KeywordPage = () => {
   return (
     <Container>
       <SideNavbar/>
-      <KeywordHeader toggle={isToggle} title={'키워드 알림'}/>
-      <KeywordFilterBar toggle={isToggle}/>
+      <AddKeyword toggle={isToggle}/>
     </Container>
   );
 };
