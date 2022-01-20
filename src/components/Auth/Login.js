@@ -132,7 +132,7 @@ const AuthMainForm = () => {
   };
   useEffect(() => {
     const nonMemberCheck = getCookie('device_token');
-    if (auth.isLoggedIn && nonMemberCheck === '') {
+    if (auth.isLoggedIn && nonMemberCheck == undefined) {
       navigate(-1);
     }
   }, [auth.isLoggedIn]);
