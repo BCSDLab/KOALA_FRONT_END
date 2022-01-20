@@ -5,7 +5,7 @@ import LoginForm from 'components/Auth/LoginForm';
 import * as S from 'components/Auth/styles';
 import { useNavigate } from 'react-router';
 import { nonMemberLogin } from 'store/auth';
-import { guid } from 'api/logined';
+import { uuid } from 'api/logined';
 import { getCookie, setCookie } from 'components/Shared/Cookies';
 
 const LoginContainer = styled.div`
@@ -114,7 +114,6 @@ const KakaoLoginButton = styled.button`
 const AuthMainForm = () => {
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
-  const userInfo = useSelector((state) => state.myPage);
   const [isNormalLogin, setIsNormalLogin] = useState(true);
   const dispatch = useDispatch();
 
@@ -124,8 +123,8 @@ const AuthMainForm = () => {
    * - non-member api로 비회원 token 요청
    */
   const nonMemberService = () => {
-    const device = guid();
-    setCookie('device_token', `${device}`, {
+    const deviceToken = uuid();
+    setCookie('device_token', deviceToken, {
       path: '/',
     });
     dispatch(nonMemberLogin(device));
