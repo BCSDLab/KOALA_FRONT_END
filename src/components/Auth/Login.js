@@ -131,8 +131,8 @@ const AuthMainForm = () => {
     dispatch(nonMemberLogin(device));
   };
   useEffect(() => {
-    const nonMemberCheck = getCookie('device_token');
-    if (auth.isLoggedIn && nonMemberCheck == undefined) {
+    const memberCheck = getCookie('device_token');
+    if (auth.isLoggedIn && memberCheck == undefined) {
       navigate(-1);
     }
   }, [auth.isLoggedIn]);
