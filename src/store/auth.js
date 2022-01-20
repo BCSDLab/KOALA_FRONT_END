@@ -12,6 +12,12 @@ const [SEND_FIND_PASSWORD, SEND_FIND_PASSWORD_SUCCESS, SEND_FIND_PASSWORD_FAILUR
   createRequestSagaActionTypes('auth/FIND_PASSWORD');
 const [AUTH_FIND_PASSWORD, AUTH_FIND_PASSWORD_SUCCESS, AUTH_FIND_PASSWORD_FAILURE] =
   createRequestSagaActionTypes('auth/AUTH_FIND_PASSWORD');
+const [SEND_FIND_ACCOUNT, SEND_FIND_ACCOUNT_SUCCESS, SEND_FIND_ACCOUNT_FAILURE] =
+  createRequestSagaActionTypes('auth/SEND_FIND_ACCOUNT');
+const [AUTH_FIND_ACCOUNT, AUTH_FIND_ACCOUNT_SUCCESS, AUTH_FIND_ACCOUNT_FAILURE] =
+  createRequestSagaActionTypes('auth/AUTH_FIND_ACCOUNT');
+const [FIND_ACCOUNT, FIND_ACCOUNT_SUCCESS, FIND_ACCOUNT_FAILURE] = createRequestSagaActionTypes('auth/FIND_ACCOUNT');
+
 export const login = createAction(LOGIN, ({ account, password }) => ({
   account,
   password,
@@ -31,6 +37,16 @@ export const authFindPassword = createAction(AUTH_FIND_PASSWORD, (account, email
   account,
   email,
   secret,
+}));
+export const sendFindId = createAction(SEND_FIND_ACCOUNT, (email) => ({
+  email,
+}));
+export const authFindId = createAction(AUTH_FIND_ACCOUNT, (email, secret) => ({
+  email,
+  secret,
+}));
+export const setFindAccount = createAction(FIND_ACCOUNT, (email) => ({
+  email,
 }));
 
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
@@ -53,6 +69,18 @@ const authFindPWSaga = createRequestSaga(AUTH_FIND_PASSWORD, authAPI.authFindPas
 export function* authPasswordSaga() {
   yield takeLatest(AUTH_FIND_PASSWORD, authFindPWSaga);
 }
+const sendFindIdSaga = createRequestSaga(SEND_FIND_ACCOUNT, authAPI.sendFindAccount);
+export function* sendAccountSaga() {
+  yield takeLatest(SEND_FIND_ACCOUNT, sendFindIdSaga);
+}
+const authFindIdSaga = createRequestSaga(AUTH_FIND_ACCOUNT, authAPI.authFindAccount);
+export function* authAccountSaga() {
+  yield takeLatest(AUTH_FIND_ACCOUNT, authFindIdSaga);
+}
+const findAccountSaga = createRequestSaga(FIND_ACCOUNT, authAPI.findAccount);
+export function* setAccountSaga() {
+  yield takeLatest(FIND_ACCOUNT, findAccountSaga);
+}
 
 const initialState = {
   isOpen: false,
@@ -61,6 +89,7 @@ const initialState = {
   authSuccess: false,
   sendSuccess: false,
   errorCode: '',
+  blindAccount: '',
 };
 
 const auth = handleActions(
@@ -120,6 +149,35 @@ const auth = handleActions(
       ...state,
       errorCode: error.code,
       authSuccess: false,
+    }),
+    [SEND_FIND_ACCOUNT_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      ...payload,
+      errorCode: payload.code,
+      sendSuccess: true,
+    }),
+    [SEND_FIND_ACCOUNT_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      errorCode: error.code,
+      sendSuccess: false,
+    }),
+    [AUTH_FIND_ACCOUNT_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      errorCode: payload.code,
+      authSuccess: true,
+    }),
+    [AUTH_FIND_ACCOUNT_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      errorCode: error.code,
+      authSuccess: false,
+    }),
+    [FIND_ACCOUNT_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      blindAccount: payload.body.email,
+    }),
+    [FIND_ACCOUNT_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      ...error,
     }),
   },
   initialState

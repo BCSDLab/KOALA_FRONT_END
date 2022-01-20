@@ -11,4 +11,5 @@ export const ACCOUNT_ERROR = '123';
 export const NOT_EXIST_ACCOUNT = '128';
 export const NOT_MATCH_EMAIL = '143';
 export const NOT_SEND_EMAIL = '144';
+export const EXPIRE_AUTH_NUMBER = '139';
 export const NOT_MATCH_SECRET = '140';
