@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { refresh } from 'store/auth';
+import { getUserInfo } from 'store/myPage';
 import AuthPage from 'pages/AuthPage';
 import Login from 'components/Auth/Login';
 import FindId from 'components/Auth/FindId';
@@ -19,12 +20,20 @@ import Unauth from 'components/Chat/Unauth';
 
 const App = () => {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   useEffect(() => {
     const token = getCookie('refresh_token');
     setTokenOnHeader(token);
     dispatch(refresh());
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(getUserInfo());
+    }
+  }, [isLoggedIn]);
+
   return (
     <>
       <Routes>
