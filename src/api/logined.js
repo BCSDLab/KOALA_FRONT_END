@@ -9,10 +9,10 @@ export const setTokenOnHeader = (token) => {
 };
 
 export const uuid = () => {
-  var timeStamp = new Date().getTime(); //타임스탬프
-  var time = (typeof performance !== 'undefined' && performance.now && performance.now() * 1000) || 0; //페이지 로드 이후 시간(마이크로초) || 지원되지 않는 경우 0
+  let timeStamp = new Date().getTime(); //타임스탬프
+  let time = (typeof performance !== 'undefined' && performance.now && performance.now() * 1000) || 0; //페이지 로드 이후 시간(마이크로초) || 지원되지 않는 경우 0
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (count) {
-    var random = Math.random() * 16; //랜덤의 0 ~ 16
+    let random = Math.random() * 16; //랜덤의 0 ~ 16
     if (timeStamp > 0) {
       //타임스탬프 소진시 까지
       random = (timeStamp + random) % 16 | 0;
