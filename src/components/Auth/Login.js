@@ -113,28 +113,32 @@ const KakaoLoginButton = styled.button`
  */
 const AuthMainForm = () => {
   const navigate = useNavigate();
-  const auth = useSelector((state) => state.auth);
+  const userInfo = useSelector((state) => state.myPage);
   const [isNormalLogin, setIsNormalLogin] = useState(true);
   const dispatch = useDispatch();
 
   /*
-   * - guid 함수를 통해 고유값을 만들어 device에 저장
-   * - device_token 쿠키에 device를 저장
-   * - non-member api로 비회원 token 요청
+   * - guid 함수를 통해 고유값을 device_token과 같이 활용한다.
+   * - 비회원이든, 회원이든 첫 로그인 시에는 고윳값을 로컬스토리지에 저장한다.
+   * - 비회원 로그인의 경우에는 비회원 로그인 API를 통해 로그인한다.
    */
   const nonMemberService = () => {
-    const deviceToken = uuid();
-    setCookie('device_token', deviceToken, {
-      path: '/',
-    });
-    dispatch(nonMemberLogin(device));
-  };
-  useEffect(() => {
-    const memberCheck = getCookie('device_token');
-    if (auth.isLoggedIn && memberCheck == undefined) {
-      navigate(-1);
+    let deviceToken;
+    if (!localStorage.getItem('user_token')) {
+      deviceToken = uuid();
+      localStorage.setItem('user_token', `webuser+${deviceToken}`);
+    } else {
+      deviceToken = localStorage.getItem('user_token');
     }
-  }, [auth.isLoggedIn]);
+    dispatch(nonMemberLogin(deviceToken));
+  };
+
+  //회원이 로그인페이지에 접속하게 되면 메인 페이지로 돌려보낸다.
+  useEffect(() => {
+    if (userInfo.userType === 'NORMAL') {
+      navigate('/');
+    }
+  }, [userInfo.userType]);
 
   return (
     <LoginContainer>
