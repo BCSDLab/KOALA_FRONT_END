@@ -93,9 +93,9 @@ const FindId = () => {
   useEffect(() => {}, []);
   return (
     <div>
+      <S.Title>아이디 찾기</S.Title>
       <form>
         <IdfForm isView={isView}>
-          <S.Title>아이디 찾기</S.Title>
           <IdInput
             name="email"
             value={email}
