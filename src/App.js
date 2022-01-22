@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, Navigate } from 'react-router-dom';
+import { LOGIN } from './constant';
 import { refresh } from 'store/auth';
 import { getUserInfo } from 'store/myPage';
 import AuthPage from 'pages/AuthPage';
@@ -24,7 +25,7 @@ const AuthrizedRoute = () => {
     return <div>로딩중입니다.</div>;
   }
 
-  return isLoggedIn ? <Outlet /> : <Navigate to="/auth" replace={true} />;
+  return isLoggedIn ? <Outlet /> : <Navigate to={LOGIN} replace={true} />;
 };
 
 const App = () => {
