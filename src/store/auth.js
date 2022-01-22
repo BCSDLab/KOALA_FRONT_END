@@ -5,6 +5,13 @@ import { setCookie } from 'components/Shared/Cookies';
 import { setTokenOnHeader } from 'api/logined';
 import * as authAPI from 'api';
 
+function* setToken(action) {
+  setCookie('refresh_token', action.payload.body.refresh_token, {
+    path: '/',
+  });
+  setTokenOnHeader(action.payload.body.access_token);
+}
+
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/LOGIN');
 const [REFRESH, REFRESH_SUCCESS, REFRESH_FAILURE] = createRequestSagaActionTypes('auth/REFRESH');
 const [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FALIURE] = createRequestSagaActionTypes('auth/SIGNUP');
@@ -29,10 +36,12 @@ export const nonMemberLogin = createAction(GUEST, ({ deviceToken }) => ({
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
+  yield takeLatest(LOGIN_SUCCESS, setToken);
 }
 const refreshSaga = createRequestSaga(REFRESH, authAPI.refresh);
 export function* refreshLoginSaga() {
   yield takeLatest(REFRESH, refreshSaga);
+  yield takeLatest(REFRESH_SUCCESS, setToken);
 }
 const signUpSaga = createRequestSaga(SIGNUP, authAPI.signUp);
 export function* signUpRegisterSaga() {
@@ -41,6 +50,7 @@ export function* signUpRegisterSaga() {
 const nonMemberSaga = createRequestSaga(GUEST, authAPI.nonMember);
 export function* nonLoginSaga() {
   yield takeLatest(GUEST, nonMemberSaga);
+  yield takeLatest(GUEST_SUCCESS, setToken);
 }
 
 const initialState = {
@@ -48,7 +58,6 @@ const initialState = {
   isLoggedIn: null,
   authError: null,
   errorCode: '',
-  isGuest: false,
 };
 
 const auth = handleActions(
@@ -58,13 +67,9 @@ const auth = handleActions(
       isLoggedIn: null,
       authError: null,
     }),
-    [LOGIN_SUCCESS]: (state, { payload: token }) => ({
+    [LOGIN_SUCCESS]: (state) => ({
       ...state,
       authError: null,
-      setRefreshToken: setCookie('refresh_token', `${token.body.refresh_token}`, {
-        path: '/',
-      }),
-      setAccessToken: setTokenOnHeader(token.body.access_token),
       isLoggedIn: true,
     }),
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
@@ -72,13 +77,9 @@ const auth = handleActions(
       authError: error,
       isLoggedIn: false,
     }),
-    [REFRESH_SUCCESS]: (state, { payload: token }) => ({
+    [REFRESH_SUCCESS]: (state) => ({
       ...state,
       authError: null,
-      setRefreshToken: setCookie('refresh_token', `${token.body.refresh_token}`, {
-        path: '/',
-      }),
-      setAccessToken: setTokenOnHeader(token.body.access_token),
       isLoggedIn: true,
     }),
     [REFRESH_FAILURE]: (state, { payload: error }) => ({
@@ -100,12 +101,8 @@ const auth = handleActions(
       isLoggedIn: null,
       authError: null,
     }),
-    [GUEST_SUCCESS]: (state, { payload: token }) => ({
+    [GUEST_SUCCESS]: (state) => ({
       ...state,
-      setRefreshToken: setCookie('refresh_token', `${token.body.refresh_token}`, {
-        path: '/',
-      }),
-      setAccessToken: setTokenOnHeader(token.body.access_token),
       isLoggedIn: true,
     }),
     [GUEST_FALIURE]: (state, { payload: error }) => ({
