@@ -6,7 +6,6 @@ import * as S from 'components/Auth/styles';
 import { useNavigate } from 'react-router';
 import { nonMemberLogin } from 'store/auth';
 import { uuid } from 'api/logined';
-import { getCookie, setCookie } from 'components/Shared/Cookies';
 
 const LoginContainer = styled.div`
   display: flex;

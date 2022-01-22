@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import { refresh } from 'store/auth';
 import { getUserInfo } from 'store/myPage';
 import AuthPage from 'pages/AuthPage';
@@ -17,6 +17,15 @@ import MyPage from 'pages/MyPage';
 import ChatPage from 'pages/ChatPage';
 import ChatAuth from 'components/Chat/ChatAuth';
 import Unauth from 'components/Chat/Unauth';
+
+const AuthrizedRoute = () => {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  if (isLoggedIn === null) {
+    return <div>로딩중입니다.</div>;
+  }
+
+  return isLoggedIn ? <Outlet /> : <Navigate to="/auth" replace={true} />;
+};
 
 const App = () => {
   const dispatch = useDispatch();
@@ -47,17 +56,13 @@ const App = () => {
           <Route path="changePw" element={<ChangePw />} />
         </Route>
 
-        {isLoggedIn ? (
-          <>
-            <Route exact path="chat/*" element={<ChatPage />}>
-              <Route path="auth" element={<ChatAuth />} />
-              <Route path="unauth" element={<Unauth />} />
-            </Route>
-            <Route path="mypage" element={<MyPage />} />
-          </>
-        ) : (
-          <Navigate to="/auth" replace={true} />
-        )}
+        <Route element={<AuthrizedRoute />}>
+          <Route exact path="chat/*" element={<ChatPage />}>
+            <Route path="auth" element={<ChatAuth />} />
+            <Route path="unauth" element={<Unauth />} />
+          </Route>
+          <Route path="mypage" element={<MyPage />} />
+        </Route>
       </Routes>
     </>
   );
