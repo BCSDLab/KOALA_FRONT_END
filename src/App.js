@@ -46,11 +46,18 @@ const App = () => {
           <Route path="findPw" element={<FindPw />} />
           <Route path="changePw" element={<ChangePw />} />
         </Route>
-        <Route exact path="chat/*" element={<ChatPage />}>
-          <Route path="auth" element={<ChatAuth />} />
-          <Route path="unauth" element={<Unauth />} />
-        </Route>
-        <Route path="mypage" element={<MyPage />} />
+
+        {isLoggedIn ? (
+          <>
+            <Route exact path="chat/*" element={<ChatPage />}>
+              <Route path="auth" element={<ChatAuth />} />
+              <Route path="unauth" element={<Unauth />} />
+            </Route>
+            <Route path="mypage" element={<MyPage />} />
+          </>
+        ) : (
+          <Navigate to="/auth" replace={true} />
+        )}
       </Routes>
     </>
   );
