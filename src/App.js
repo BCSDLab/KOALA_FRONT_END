@@ -19,7 +19,7 @@ import ChatPage from 'pages/ChatPage';
 import ChatAuth from 'components/Chat/ChatAuth';
 import Unauth from 'components/Chat/Unauth';
 
-const AuthrizedRoute = () => {
+const AuthorizedRoute = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   if (isLoggedIn === null) {
     return <div>로딩중입니다.</div>;
@@ -57,7 +57,7 @@ const App = () => {
           <Route path="changePw" element={<ChangePw />} />
         </Route>
 
-        <Route element={<AuthrizedRoute />}>
+        <Route element={<AuthorizedRoute />}>
           <Route exact path="chat/*" element={<ChatPage />}>
             <Route path="auth" element={<ChatAuth />} />
             <Route path="unauth" element={<Unauth />} />
