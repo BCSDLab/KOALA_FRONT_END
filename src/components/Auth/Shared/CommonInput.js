@@ -24,7 +24,7 @@ const ErrorImg = styled.img`
   right: 0;
 `;
 
-const IdInput = (props, ref) => {
+const CommonInput = (props, ref) => {
   return (
     <StyledId>
       <StyledInput
@@ -42,4 +42,4 @@ const IdInput = (props, ref) => {
   );
 };
 
-export default React.forwardRef(IdInput);
+export default React.forwardRef(CommonInput);

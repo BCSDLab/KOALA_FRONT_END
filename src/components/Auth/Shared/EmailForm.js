@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
 import { useSelector } from 'react-redux';
 import { NOT_MATCH_EMAIL, NOT_SEND_EMAIL } from 'constant';
-import IdInput from 'components/Auth/Shared/IdInput';
+import CommonInput from './CommonInput';
 
 const EmailForm = React.forwardRef((props, ref) => {
   const [isEmailError, setIsEmailError] = useState(false);
@@ -46,7 +46,7 @@ const EmailForm = React.forwardRef((props, ref) => {
     }
   }, [errorCode]);
   return (
-    <IdInput
+    <CommonInput
       ref={inputRef}
       name="email"
       onChange={onChange}

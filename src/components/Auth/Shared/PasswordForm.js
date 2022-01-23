@@ -1,5 +1,5 @@
 import React, { useState, useRef, useImperativeHandle } from 'react';
-import PwdInput from '../Shared/PwdInput';
+import PwdInput from './PwdInput';
 
 const PasswordForm = React.forwardRef((props, ref) => {
   const [isErrorPassword, setIsErrorPassowrd] = useState(false);

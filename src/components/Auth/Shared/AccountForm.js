@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useImperativeHandle } from 'react';
 import { useSelector } from 'react-redux';
 import { NOT_EXIST_ACCOUNT } from 'constant';
-import IdInput from 'components/Auth/Shared/IdInput';
+import CommonInput from './CommonInput';
 
 const AccountForm = React.forwardRef((props, ref) => {
   const [accountMessage, setAccountMessage] = useState('');
@@ -42,7 +42,7 @@ const AccountForm = React.forwardRef((props, ref) => {
   );
 
   return (
-    <IdInput
+    <CommonInput
       name="account"
       onChange={onChange}
       ref={inputRef}
