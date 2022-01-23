@@ -198,7 +198,7 @@ const auth = handleActions(
     }),
     [FIND_ACCOUNT_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      ...error,
+      errorCode: error.code,
     }),
   },
   initialState
