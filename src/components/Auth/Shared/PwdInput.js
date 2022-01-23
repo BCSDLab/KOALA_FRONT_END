@@ -33,7 +33,7 @@ const ErrorImg = styled.img`
   right: 0;
 `;
 
-const PwdInput = (props) => {
+const PwdInput = (props, ref) => {
   const [isPasswordType, setIsPassswordType] = useState({
     type: 'password',
     visible: false,
@@ -48,6 +48,7 @@ const PwdInput = (props) => {
   return (
     <StyledPwd>
       <StyledInput
+        ref={ref}
         autoComplete="new-password"
         name={props.password}
         placeholder={props.placeholder}
@@ -69,4 +70,4 @@ const PwdInput = (props) => {
   );
 };
 
-export default PwdInput;
+export default React.forwardRef(PwdInput);
