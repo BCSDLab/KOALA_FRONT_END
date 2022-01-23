@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { authFindPassword, changingPassword } from 'store/auth';
+import { authFindPassword, changingPassword, resetAuthState } from 'store/auth';
 import AccountForm from './Shared/AccountForm';
 import EmailForm from './Shared/EmailForm';
 import AuthNumberForm from './Shared/AuthNumberForm';
@@ -65,6 +65,7 @@ const FindPw = () => {
   useEffect(() => {
     if (changeComplete) {
       navigate(LOGIN);
+      dispatch(resetAuthState());
     }
   }, [changeComplete]);
 
