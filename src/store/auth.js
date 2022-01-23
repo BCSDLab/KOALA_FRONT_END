@@ -17,6 +17,8 @@ const [SEND_FIND_ACCOUNT, SEND_FIND_ACCOUNT_SUCCESS, SEND_FIND_ACCOUNT_FAILURE] 
 const [AUTH_FIND_ACCOUNT, AUTH_FIND_ACCOUNT_SUCCESS, AUTH_FIND_ACCOUNT_FAILURE] =
   createRequestSagaActionTypes('auth/AUTH_FIND_ACCOUNT');
 const [FIND_ACCOUNT, FIND_ACCOUNT_SUCCESS, FIND_ACCOUNT_FAILURE] = createRequestSagaActionTypes('auth/FIND_ACCOUNT');
+const [CHANGE_PASSWORD, CHANGE_PASSWORD_SUCCESS, CHANGE_PASSWORD_FAILURE] =
+  createRequestSagaActionTypes('auth/CHANGE_PASSWORD');
 
 export const login = createAction(LOGIN, ({ account, password }) => ({
   account,
@@ -37,6 +39,10 @@ export const authFindPassword = createAction(AUTH_FIND_PASSWORD, (account, email
   account,
   email,
   secret,
+}));
+export const changingPassword = createAction(CHANGE_PASSWORD, (account, password) => ({
+  account,
+  password,
 }));
 export const sendFindId = createAction(SEND_FIND_ACCOUNT, (email) => ({
   email,
@@ -73,6 +79,10 @@ const sendFindIdSaga = createRequestSaga(SEND_FIND_ACCOUNT, authAPI.sendFindAcco
 export function* sendAccountSaga() {
   yield takeLatest(SEND_FIND_ACCOUNT, sendFindIdSaga);
 }
+const changePasswordSaga = createRequestSaga(CHANGE_PASSWORD, authAPI.changePassword);
+export function* changeingPasswordSaga() {
+  yield takeLatest(CHANGE_PASSWORD, changePasswordSaga);
+}
 const authFindIdSaga = createRequestSaga(AUTH_FIND_ACCOUNT, authAPI.authFindAccount);
 export function* authAccountSaga() {
   yield takeLatest(AUTH_FIND_ACCOUNT, authFindIdSaga);
@@ -88,6 +98,7 @@ const initialState = {
   authError: null,
   authSuccess: false,
   sendSuccess: false,
+  changeComplete: false,
   errorCode: '',
   blindAccount: '',
 };
@@ -149,6 +160,16 @@ const auth = handleActions(
       ...state,
       errorCode: error.code,
       authSuccess: false,
+    }),
+    [CHANGE_PASSWORD_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      errorCode: payload.code,
+      changeComplete: true,
+    }),
+    [CHANGE_PASSWORD_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      errorCode: error.code,
+      changeComplete: false,
     }),
     [SEND_FIND_ACCOUNT_SUCCESS]: (state, { payload }) => ({
       ...state,

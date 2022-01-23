@@ -17,6 +17,8 @@ export const sendFindPassword = ({ account, email }) => logined.post('user/email
 export const authFindPassword = (account, email, secret) =>
   logined.post('user/email/certification/PASSWORD', account, email, secret);
 
+export const changePassword = (account, password) => logined.post('/user/password-change', account, password);
+
 export const sendFindAccount = ({ email }) => logined.post('user/email-send/ACCOUNT', { email });
 
 export const authFindAccount = (email, secret) => logined.post('user/email/certification/ACCOUNT', email, secret);

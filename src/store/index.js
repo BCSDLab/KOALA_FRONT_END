@@ -9,6 +9,7 @@ import auth, {
   sendAccountSaga,
   authAccountSaga,
   setAccountSaga,
+  changeingPasswordSaga,
 } from './auth';
 import loading from './loading';
 import toggle from './toggle';
@@ -37,6 +38,7 @@ export function* rootSaga() {
     sendAccountSaga(),
     authAccountSaga(),
     setAccountSaga(),
+    changeingPasswordSaga(),
   ]);
 }
 
