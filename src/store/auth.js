@@ -19,6 +19,9 @@ const [AUTH_FIND_ACCOUNT, AUTH_FIND_ACCOUNT_SUCCESS, AUTH_FIND_ACCOUNT_FAILURE] 
 const [FIND_ACCOUNT, FIND_ACCOUNT_SUCCESS, FIND_ACCOUNT_FAILURE] = createRequestSagaActionTypes('auth/FIND_ACCOUNT');
 const [CHANGE_PASSWORD, CHANGE_PASSWORD_SUCCESS, CHANGE_PASSWORD_FAILURE] =
   createRequestSagaActionTypes('auth/CHANGE_PASSWORD');
+const RESET_AUTH_STATE = {
+  type: 'RESET_STATE',
+};
 
 export const login = createAction(LOGIN, ({ account, password }) => ({
   account,
@@ -54,6 +57,7 @@ export const authFindId = createAction(AUTH_FIND_ACCOUNT, (email, secret) => ({
 export const setFindAccount = createAction(FIND_ACCOUNT, (email) => ({
   email,
 }));
+export const resetAuthState = createAction(RESET_AUTH_STATE);
 
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 export function* authSaga() {
@@ -105,6 +109,9 @@ const initialState = {
 
 const auth = handleActions(
   {
+    [RESET_AUTH_STATE]: (state) => ({
+      ...(state = initialState),
+    }),
     [LOGIN_SUCESS]: (state, { payload: token }) => ({
       ...state,
       authError: null,

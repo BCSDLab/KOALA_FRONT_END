@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { LOGIN } from '../../constant';
 import AuthNumberForm from './Shared/AuthNumberForm';
-import { authFindId, setFindAccount } from 'store/auth';
+import { authFindId, setFindAccount, resetAuthState } from 'store/auth';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import styled from 'styled-components';
@@ -23,8 +23,8 @@ const FindAccountText = styled.div`
 /**
  * TODO:
  * - [x] 이메일 형식 검사 스타일
- * - [] 가입 하지 않은 이메일 알림
- * - [] 이메일 전송 후 다음 버튼 활성화
+ * - [x] 가입 하지 않은 이메일 알림
+ * - [x] 이메일 전송 후 다음 버튼 활성화
  * @returns
  */
 const FindId = () => {
@@ -53,6 +53,7 @@ const FindId = () => {
     dispatch(authFindId(email, secret));
   };
   const completeClick = () => {
+    dispatch(resetAuthState());
     navigate(LOGIN);
   };
 
