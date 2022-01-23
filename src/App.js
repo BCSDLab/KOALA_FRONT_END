@@ -8,7 +8,6 @@ import FindId from 'components/Auth/FindId';
 import FindPw from 'components/Auth/FindPw';
 import RegisterDoc from 'components/Auth/RegisterDoc';
 import Register from 'components/Auth/Register';
-import ChangePw from 'components/Auth/ChangePw';
 import MainPage from 'pages/MainPage';
 import { setTokenOnHeader } from 'api/logined';
 import { getCookie } from 'components/Shared/Cookies';
@@ -35,7 +34,6 @@ const App = () => {
           <Route path="createAccount" element={<Register />} />
           <Route path="findId" element={<FindId />} />
           <Route path="findPw" element={<FindPw />} />
-          <Route path="changePw" element={<ChangePw />} />
         </Route>
         <Route exact path="chat/*" element={<ChatPage />}>
           <Route path="auth" element={<ChatAuth />} />
