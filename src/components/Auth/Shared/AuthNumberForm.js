@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NOT_MATCH_SECRET } from 'constant';
 import * as S from 'components/Auth/styles';
 import styled from 'styled-components';
-import { sendFindPassword, sendFindId } from 'store/auth';
+import { sendFindPassword, sendFindId, resetAuthState } from 'store/auth';
 
 const AuthNumberForm = React.forwardRef((props, ref) => {
   const [secretMessage, setSecretMessage] = useState('');
@@ -72,6 +72,7 @@ const AuthNumberForm = React.forwardRef((props, ref) => {
       setIsEmailSend(true);
       setMinutes(parseInt('05'));
       setSeconds(parseInt('00'));
+      dispatch(resetAuthState());
     }
   }, [auth.sendSuccess]);
 
@@ -131,8 +132,8 @@ const AuthNumInput = styled.input`
 
 const AuthNumTime = styled.label`
   position: absolute;
-  bottom: 18px;
-  left: 172px;
+  bottom: 15px;
+  left: 175px;
   font-size: 12px;
   font-weight: normal;
   color: ${(props) => props.theme.colors.gray};
