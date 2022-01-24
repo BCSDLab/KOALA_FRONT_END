@@ -141,8 +141,8 @@ const AddKeyword = () => {
         </S.AlreadyRegisterMessage>
       </S.SearchContainer>
       <S.RecommendContainer show={site === ''} alreadyRegister={alreadyRegisterItem}>
-        {siteRecommendationList.length !== 0 &&
-          siteRecommendationList.map((item, index) => {
+        {recommendList.length !== 0 &&
+          recommendList.map((item, index) => {
             return (
               <S.RecommendItem onClick={onClickRecommendItem} key={index}>
                 {item}
