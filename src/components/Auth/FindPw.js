@@ -9,6 +9,7 @@ import PasswordForm from './Shared/PasswordForm';
 import ConfiremdPasswordForm from './Shared/ConfiremdPasswordForm';
 import { LOGIN } from 'constant';
 import * as S from 'components/Auth/styles';
+import styled from 'styled-components';
 import Button from 'components/Shared/Button';
 
 const FindPw = () => {
@@ -96,10 +97,10 @@ const FindPw = () => {
       ) : (
         <>
           <S.Title>비밀번호 변경하기</S.Title>
-          <form>
+          <ChangePasswordForm>
             <PasswordForm ref={passwordRef} onChange={onChangePassword} />
             <ConfiremdPasswordForm ref={confirmedRef} password={password} onChange={onChangeConfirmed} />
-          </form>
+          </ChangePasswordForm>
           {isPasswordError || isConfirmedPasswordError ? (
             <Button style={{ background: 'gray' }} disabled={true} type="button">
               완료
@@ -114,3 +115,7 @@ const FindPw = () => {
 };
 
 export default FindPw;
+
+const ChangePasswordForm = styled.form`
+  margin-bottom: 88px;
+`;
