@@ -132,11 +132,7 @@ export const OtherOption = styled.div`
       position: relative;
 
       ::after {
-        content: '';
-        float: right;
-        margin: 0;
-        width: 0;
-        height: 0;
+        display: none;
       }
     }
 
