@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import KeywordHeader from '../KeywordHeader';
 import { getSiteRecommendation, patchModifyKeyword, getKeywordRecommendation } from 'store/modifyKeyword';
+import { inquiry } from 'store/keyword';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { ALARM_TERM } from 'constant';
@@ -10,15 +11,19 @@ const AddKeyword = () => {
   const [site, setSite] = useState('');
   const [recommendKeyword, setRecommendKeyword] = useState('');
   const [recommendList, setRecommendList] = useState([]);
+  const [recommendKeywords, setRecommendKeywords] = useState([]);
   const [selectRecommendItem, setSelectRecommendItem] = useState([]);
+  const [selectRecommendKeyword, setSelectRecommendKeyword] = useState('');
   const [alreadyRegisterItem, setAlreadyRegisterItem] = useState(false);
+  const [alreadyRegisterKeyword, setAlreadyRegisterKeyword] = useState(false);
   const [isNormalAlarm, setIsNormalAlarm] = useState(false);
   const [isImportantAlarm, setIsImportantAlarm] = useState(false);
   const [isSlientAlarm, setIsSlientAlarm] = useState(false);
   const [isVibrationAlarm, setIsVibrationAlarm] = useState(false);
   const [alarmTerm, setAlarmTerm] = useState(null);
 
-  const { siteRecommendationList } = useSelector((state) => state.modifyKeyword);
+  const { siteRecommendationList, keywordRecommendationList } = useSelector((state) => state.modifyKeyword);
+  const { keywords } = useSelector((state) => state.keyword);
   const dispatch = useDispatch();
 
   const onChangeSite = (e) => {
@@ -41,6 +46,18 @@ const AddKeyword = () => {
     [selectRecommendItem, site]
   );
 
+  const onClickRecommendKeyword = useCallback(
+    (item) => {
+      if (!keywords.includes(item)) {
+        setSelectRecommendKeyword(item);
+        setRecommendKeywords([]);
+      } else {
+        setAlreadyRegisterKeyword(true);
+      }
+    },
+    [keywords]
+  );
+
   const onClickDeleteRecommendItem = useCallback(
     (id) => {
       const newList = selectRecommendItem.filter((item) => item !== selectRecommendItem[id]);
@@ -51,7 +68,9 @@ const AddKeyword = () => {
 
   const onChangeRecommendKeyword = (e) => {
     const { value } = e.target;
+    setAlreadyRegisterKeyword(false);
     setRecommendKeyword(value);
+    setSelectRecommendKeyword('');
   };
 
   const onClickNormalAlarm = () => {
@@ -117,17 +136,42 @@ const AddKeyword = () => {
     }
   }, [siteRecommendationList]);
 
+  useEffect(() => {
+    if (keywordRecommendationList.length !== 0) {
+      if (JSON.stringify(recommendKeywords) !== JSON.stringify(keywordRecommendationList)) {
+        setRecommendKeywords([...keywordRecommendationList]);
+      }
+    }
+  }, [keywordRecommendationList]);
+
+  useEffect(() => {
+    dispatch(inquiry());
+  }, []);
+
   return (
     <>
       <KeywordHeader title={'키워드 추가하기'} />
-      <S.HashtagContainer>
+      <S.HashtagContainer keyword={recommendKeyword === ''} alreadyRegister={alreadyRegisterKeyword}>
         <S.HashtageImage src="/asset/hashtagblack.svg" alt="hashtage_image" />
         <S.InputKeyword
           placeholder="키워드 입력"
           onChange={onChangeRecommendKeyword}
-          value={recommendKeyword}
+          value={selectRecommendKeyword === '' ? recommendKeyword : selectRecommendKeyword}
         ></S.InputKeyword>
+        <S.AlreadyRegisterKeyword alreadyRegister={alreadyRegisterKeyword}>
+          이미 등록한 사이트입니다.
+        </S.AlreadyRegisterKeyword>
       </S.HashtagContainer>
+      <S.RecommendKeywordContainer show={recommendKeyword === ''}>
+        {recommendKeywords.length !== 0 &&
+          recommendKeywords.map((item, index) => {
+            return (
+              <S.RecommendItem onClick={() => onClickRecommendKeyword(item)} key={index}>
+                {item}
+              </S.RecommendItem>
+            );
+          })}
+      </S.RecommendKeywordContainer>
       <S.SearchContainer show={site === ''} alreadyRegister={alreadyRegisterItem}>
         <S.SearchImage src="/asset/searchblack.svg" alt="search_image" />
         <S.InputSite
@@ -140,7 +184,7 @@ const AddKeyword = () => {
           이미 등록한 사이트입니다.
         </S.AlreadyRegisterMessage>
       </S.SearchContainer>
-      <S.RecommendContainer show={site === ''} alreadyRegister={alreadyRegisterItem}>
+      <S.RecommendSiteContainer show={site === ''} alreadyRegister={alreadyRegisterItem}>
         {recommendList.length !== 0 &&
           recommendList.map((item, index) => {
             return (
@@ -149,7 +193,7 @@ const AddKeyword = () => {
               </S.RecommendItem>
             );
           })}
-      </S.RecommendContainer>
+      </S.RecommendSiteContainer>
       <S.SiteContainer>
         <S.SiteList>
           {selectRecommendItem.map((item, index) => {

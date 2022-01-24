@@ -10,6 +10,21 @@ export const HashtagContainer = styled.div`
   position: absolute;
   left: 588px;
   top: 212px;
+
+  ${(props) => {
+    if (!props.keyword) {
+      return `
+                border:1px solid #222222;
+                border-bottom:none;
+            `;
+    } else {
+      if (props.alreadyRegister) {
+        return `
+                    border:1.5px solid #ffd25d;
+                `;
+      }
+    }
+  }}
 `;
 
 export const HashtageImage = styled.img`
@@ -23,9 +38,16 @@ export const InputKeyword = styled.input`
   border: none;
 `;
 
-export const SearchContainer = styled(HashtagContainer)`
+export const SearchContainer = styled.div`
+  position: absolute;
   width: 1092px;
+  height: 48px;
   top: 276px;
+  left: 588px;
+  padding-left: 24px;
+  align-items: center;
+  border: 1px solid #eee;
+  display: flex;
 
   ${(props) => {
     if (!props.show) {
@@ -53,7 +75,7 @@ export const RecommendItem = styled.li`
   }
 `;
 
-export const RecommendContainer = styled.ul`
+export const RecommendSiteContainer = styled.ul`
   padding-left: none;
   width: 1116px;
   border: 1px solid #222222;
@@ -68,9 +90,31 @@ export const RecommendContainer = styled.ul`
   }};
 `;
 
-export const KeywordRecommendContainer = styled(RecommendContainer)``;
+export const RecommendKeywordContainer = styled.ul`
+  padding-left: none;
+  width: 1116px;
+  border: 1px solid #222222;
+  border-top: none;
+  position: absolute;
+  background-color: white;
+  left: 588px;
+  top: 261px;
+  z-index: 1;
+  display: ${(props) => {
+    return props.show ? 'none' : 'block';
+  }};
+`;
 
 export const AlreadyRegisterMessage = styled.span`
+  color: #ffd25d;
+  height: 15px;
+  font-size: 11px;
+  position: absolute;
+  left: 200px;
+  display: ${(props) => (props.alreadyRegister ? 'block' : 'none')};
+`;
+
+export const AlreadyRegisterKeyword = styled.span`
   color: #ffd25d;
   height: 15px;
   font-size: 11px;
@@ -86,8 +130,11 @@ export const InputSite = styled.input`
   border: none;
 `;
 
-export const SiteContainer = styled(HashtagContainer)`
+export const SiteContainer = styled.div`
+  position: absolute;
   top: 335px;
+  left: 588px;
+  width: 1092px;
   height: 117px;
   background-color: #eee;
   padding: 10px 12px;
@@ -169,8 +216,10 @@ export const CheckBoxContent = styled.span`
   color: #999999;
 `;
 
-export const SettingContainer = styled(HashtagContainer)`
+export const SettingContainer = styled.div`
+  width: 1092px;
   height: 159px;
+  position: absolute;
   left: 588px;
   top: 570px;
   display: flex;
