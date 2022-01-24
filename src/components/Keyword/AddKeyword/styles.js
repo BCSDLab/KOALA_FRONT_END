@@ -69,6 +69,10 @@ export const RecommendContainer = styled.ul`
     }};
 `;
 
+export const KeywordRecommendContainer = styled(RecommendContainer)`
+
+`;
+
 export const AlreadyRegisterMessage = styled.span`
     color: #ffd25d;
     height:15px;

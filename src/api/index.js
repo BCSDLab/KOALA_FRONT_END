@@ -37,7 +37,7 @@ export const signUp = ({ account, password, find_email, nickname }) =>
     deleteKeywordItem : (id) => logined.patch(`/keyword/list/notice?notice-id=${id}`),
     addScrap : (data) => logined.post(`/scrap`,{"board_id":data}),
     readKeywordItem : (id) => logined.patch(`/keyword/list/notice/reading-check?notice-id=${id}`),
-    getRecommendation : (site) => logined.get(`keyword/site/search?site=${site}`),
+    getSiteRecommendation : (site) => logined.get(`keyword/site/search?site=${site}`),
     modifyKeyword : ({keywordName,object}) => logined.put(`keyword?keyword-name=${keywordName}`,object),
-    adKeywordItem : (id) => logined.patch(`/keyword/list/notice/reading-check?notice-id=${id}`)
+    getKeywordRecommendation : (keyword) => logined.get(`keyword/search?keyword=${keyword}`)
 }

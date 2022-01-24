@@ -3,7 +3,7 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
 import auth, { authSaga, refreshLoginSaga, signUpRegisterSaga } from './auth';
-import modifyKeyword,{getKeywordRecommendationSaga,patchModifyKeywordSaga} from './modifyKeyword';
+import modifyKeyword,{getKeywordRecommendationSaga,patchModifyKeywordSaga,getSiteRecommendationSaga,getKeywordRecommendationSaga} from './modifyKeyword';
 import toggle from './toggle';
 import myPage, { changeNameSaga, getUserSaga, changeImageSaga } from './myPage';
 import loading from './loading';
@@ -27,7 +27,7 @@ const rootReducer = combineReducers({
 
 export function* rootSaga() {
   yield all([
-    authSaga(), 
+    authSaga(),
     refreshLoginSaga(), 
     signUpRegisterSaga(),
     inquiryKeywordSaga(),
@@ -40,8 +40,9 @@ export function* rootSaga() {
     authSchoolSaga(),
     sendSchoolSaga(),
     changeImageSaga(),
-    getKeywordRecommendationSaga(),
-    patchModifyKeywordSaga()
+    getSiteRecommendationSaga(),
+    patchModifyKeywordSaga(),
+    getKeywordRecommendationSaga()
   ]);
 }
 

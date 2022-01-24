@@ -1,6 +1,6 @@
 import React, { useCallback,useEffect,useState } from "react";
 import KeywordHeader from "../KeywordHeader";
-import { getRecommendation, patchModifyKeyword } from "store/modifyKeyword";
+import { getSiteRecommendation, patchModifyKeyword } from "store/modifyKeyword";
 import * as S from './styles';
 import { useDispatch,useSelector } from "react-redux";
 import { ALARM_TERM } from "constant";;
@@ -9,6 +9,7 @@ import { changeSiteName,changeAlarmTerm } from "../utils";
 const AddKeyword = () => {
 
     const [site,setSite] = useState("");
+    const [recommendKeyword,setRecommendKeyword] = useState("");
     const [recommendList,setRecommendList]=useState([]);
     const [selectRecommendItem,setSelectRecommendItem] = useState([]);
     const [alreadyRegisterItem,setAlreadyRegisterItem] = useState(false);
@@ -46,6 +47,11 @@ const AddKeyword = () => {
         setSelectRecommendItem(newList);
 
     },[selectRecommendItem]);
+
+    const onChangeRecommendKeyword = (e) => {
+        const {value} = e.target;
+        setRecommendKeyword(value);
+    }
 
     const onClickNormalAlarm = () => {
 
@@ -98,7 +104,7 @@ const AddKeyword = () => {
  
     useEffect(()=>{
         if(site!==""){
-            dispatch(getRecommendation(site));
+            dispatch(getSiteRecommendation(site));
         }
     },[site]);
 
@@ -111,12 +117,18 @@ const AddKeyword = () => {
         }
     },[recommendationList]);
 
+    useEffect(()=>{
+        if(recommendKeyword!=""){
+            
+        }
+    },[recommendKeyword])
+
     return(
         <>
             <KeywordHeader title={"키워드 추가하기"}/>
             <S.HashtagContainer>
                 <S.HashtageImage src="/asset/hashtagblack.svg" alt="hashtage_image"/>
-                <S.InputKeyword>키워드 테스트</S.InputKeyword>
+                <S.InputKeyword placeholder="키워드 입력" onChange={onChangeRecommendKeyword} value={recommendKeyword}></S.InputKeyword>
             </S.HashtagContainer>
             <S.SearchContainer show={site === ""} alreadyRegister={alreadyRegisterItem}>
                 <S.SearchImage src="/asset/searchblack.svg" alt="search_image"/>
