@@ -1,7 +1,8 @@
 import React from 'react';
+import KeywordPage from './KeywordPage';
 
 const mainPage = () => {
-  return <div>테스트</div>;
+  return <KeywordPage />;
 };
 
 export default mainPage;
