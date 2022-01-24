@@ -74,8 +74,6 @@ const LoginButtonAttributes = css`
   font-weight: normal;
   text-align: center;
 
-  background: 12px center no-repeat;
-
   :after {
     content: '로그인';
   }
@@ -83,7 +81,7 @@ const LoginButtonAttributes = css`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 328px;
     height: 48px;
-    background-size: 18px 18.8px;
+    font-size: 14px;
   }
 `;
 
@@ -92,26 +90,33 @@ const GoogleLoginButton = styled.button`
   border: solid 1px ${(props) => props.theme.colors.lightgray};
   color: ${(props) => props.theme.colors.black};
 
-  background-color: ${(props) => props.theme.colors.white};
-  background-image: url('/asset/google-logo.svg');
+  background: 12px center no-repeat ${(props) => props.theme.colors.white} url('/asset/google-logo.svg');
+  background-size: 18px;
 
   :after {
     content: '구글 로그인';
   }
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    background: 13px center no-repeat ${(props) => props.theme.colors.white} url('/asset/google-logo.svg');
+    background-size: 18px 18.8px;
+  }
 `;
+
 const NaverLoginButton = styled.button`
   ${LoginButtonAttributes}
   color: ${(props) => props.theme.colors.white};
 
-  background-color: #03c75a;
-  background-image: url('/asset/naver-logo.svg');
+  background: 14px center no-repeat #03c75a url('/asset/naver-logo.svg');
+  background-size: 12.1px 12px;
 
   :after {
     content: '네이버 로그인';
   }
 
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    background-size: 18px 17.4px;
+    background: 15px center no-repeat #03c75a url('/asset/naver-logo.svg');
+    background-size: 14.1px 14.6px;
   }
 `;
 
@@ -119,11 +124,15 @@ const KakaoLoginButton = styled.button`
   ${LoginButtonAttributes}
   color: ${(props) => props.theme.colors.black};
 
-  background-color: #fee500;
-  background-image: url('/asset/kakao-logo.svg');
+  background: 14px center no-repeat #fee500 url('/asset/kakao-logo.svg');
+  background-size: 18px 16.6px;
 
   :after {
     content: '카카오 로그인';
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    background-size: 18px 17.4px;
   }
 `;
 
