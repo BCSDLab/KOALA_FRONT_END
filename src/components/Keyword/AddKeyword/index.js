@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import KeywordHeader from '../KeywordHeader';
-import { getSiteRecommendation, patchModifyKeyword } from 'store/modifyKeyword';
+import { getSiteRecommendation, patchModifyKeyword, getKeywordRecommendation } from 'store/modifyKeyword';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { ALARM_TERM } from 'constant';
@@ -18,10 +18,10 @@ const AddKeyword = () => {
   const [isVibrationAlarm, setIsVibrationAlarm] = useState(false);
   const [alarmTerm, setAlarmTerm] = useState(null);
 
-  const { recommendationList } = useSelector((state) => state.modifyKeyword);
+  const { siteRecommendationList } = useSelector((state) => state.modifyKeyword);
   const dispatch = useDispatch();
 
-  const searchSite = (e) => {
+  const onChangeSite = (e) => {
     setSite(e.target.value);
     setAlreadyRegisterItem(false);
   };
@@ -104,17 +104,18 @@ const AddKeyword = () => {
   }, [site]);
 
   useEffect(() => {
-    if (recommendationList.length !== 0) {
-      if (JSON.stringify(recommendList) !== JSON.stringify(recommendationList)) {
-        setRecommendList([...recommendationList]);
-      }
-    }
-  }, [recommendationList]);
-
-  useEffect(() => {
-    if (recommendKeyword != '') {
+    if (recommendKeyword !== '') {
+      dispatch(getKeywordRecommendation(recommendKeyword));
     }
   }, [recommendKeyword]);
+
+  useEffect(() => {
+    if (siteRecommendationList.length !== 0) {
+      if (JSON.stringify(recommendList) !== JSON.stringify(siteRecommendationList)) {
+        setRecommendList([...siteRecommendationList]);
+      }
+    }
+  }, [siteRecommendationList]);
 
   return (
     <>
@@ -132,7 +133,7 @@ const AddKeyword = () => {
         <S.InputSite
           placeholder="알림받을 사이트 검색"
           value={site}
-          onChange={searchSite}
+          onChange={onChangeSite}
           alreadyRegister={alreadyRegisterItem}
         ></S.InputSite>
         <S.AlreadyRegisterMessage alreadyRegister={alreadyRegisterItem}>
@@ -140,8 +141,8 @@ const AddKeyword = () => {
         </S.AlreadyRegisterMessage>
       </S.SearchContainer>
       <S.RecommendContainer show={site === ''} alreadyRegister={alreadyRegisterItem}>
-        {recommendList.length !== 0 &&
-          recommendList.map((item, index) => {
+        {siteRecommendationList.length !== 0 &&
+          siteRecommendationList.map((item, index) => {
             return (
               <S.RecommendItem onClick={onClickRecommendItem} key={index}>
                 {item}

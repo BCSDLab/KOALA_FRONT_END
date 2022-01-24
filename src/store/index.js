@@ -5,7 +5,6 @@ import modifyKeyword, {
   getKeywordRecommendationSaga,
   patchModifyKeywordSaga,
   getSiteRecommendationSaga,
-  getKeywordRecommendationSaga,
 } from './modifyKeyword';
 import toggle from './toggle';
 import myPage, { changeNameSaga, getUserSaga, changeImageSaga } from './myPage';
