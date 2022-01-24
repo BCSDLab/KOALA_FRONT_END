@@ -40,4 +40,5 @@ export const keywordAPI = {
   getSiteRecommendation: (site) => logined.get(`keyword/site/search?site=${site}`),
   modifyKeyword: ({ keywordName, object }) => logined.put(`keyword?keyword-name=${keywordName}`, object),
   getKeywordRecommendation: (keyword) => logined.get(`keyword/search?keyword=${keyword}`),
+  createKeyword: (object) => logined.post(`/keyword`, object),
 };

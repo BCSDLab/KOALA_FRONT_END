@@ -21,6 +21,8 @@ export const patchModifyKeyword = createAction(MODIFY_KEYWORD, (keywordName, obj
   object,
 }));
 
+export const createKeyword = createAction(CREATE_KEYWORD, (object) => object);
+
 const getKeywordSaga = createRequestSaga(GET_KEYWORD_RECOMMENDATION, keywordAPI.getKeywordRecommendation);
 export function* getKeywordRecommendationSaga() {
   yield takeLatest(GET_KEYWORD_RECOMMENDATION, getKeywordSaga);
@@ -36,12 +38,18 @@ export function* patchModifyKeywordSaga() {
   yield takeLatest(MODIFY_KEYWORD, patchModifySaga);
 }
 
+const createSaga = createRequestSaga(CREATE_KEYWORD, keywordAPI.createKeyword);
+export function* createKeywordSaga() {
+  yield takeLatest(CREATE_KEYWORD, createSaga);
+}
+
 const initialState = {
   siteRecommendationList: [],
   keywordRecommendationList: [],
   getSiteRecommendationResponse: false,
   getKeywordRecommendationResponse: false,
   patchRecommendationResponse: false,
+  createKeywordResponse: false,
 };
 
 const modifyKeyword = handleActions(
@@ -73,6 +81,14 @@ const modifyKeyword = handleActions(
     [GET_KEYWORD_RECOMMENDATION_FAILURE]: (state) => ({
       ...state,
       getKeywordRecommendationResponse: false,
+    }),
+    [CREATE_KEYWORD_SUCCESS]: (state) => ({
+      ...state,
+      createKeywordResponse: true,
+    }),
+    [CREATE_KEYWORD_FAILURE]: (state) => ({
+      ...state,
+      createKeywordResponse: false,
     }),
   },
   initialState

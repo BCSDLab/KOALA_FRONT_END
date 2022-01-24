@@ -5,6 +5,7 @@ import modifyKeyword, {
   getKeywordRecommendationSaga,
   patchModifyKeywordSaga,
   getSiteRecommendationSaga,
+  createKeywordSaga,
 } from './modifyKeyword';
 import toggle from './toggle';
 import myPage, { changeNameSaga, getUserSaga, changeImageSaga } from './myPage';
@@ -46,6 +47,7 @@ export function* rootSaga() {
     getSiteRecommendationSaga(),
     patchModifyKeywordSaga(),
     getKeywordRecommendationSaga(),
+    createKeywordSaga(),
   ]);
 }
 

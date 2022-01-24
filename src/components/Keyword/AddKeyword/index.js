@@ -1,6 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import KeywordHeader from '../KeywordHeader';
-import { getSiteRecommendation, patchModifyKeyword, getKeywordRecommendation } from 'store/modifyKeyword';
+import {
+  getSiteRecommendation,
+  patchModifyKeyword,
+  getKeywordRecommendation,
+  createKeyword,
+} from 'store/modifyKeyword';
 import { inquiry } from 'store/keyword';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
@@ -97,16 +102,16 @@ const AddKeyword = () => {
     setAlarmTerm(id);
   };
 
-  const onClickModifyButton = useCallback(() => {
+  const onClickCreateButton = useCallback(() => {
     const data = {
       alarmCycle: changeAlarmTerm(alarmTerm),
       alarmMode: isNormalAlarm ? 1 : 0,
       isImportant: isImportantAlarm ? 1 : 0,
-      name: '키워드',
+      name: selectRecommendKeyword,
       siteList: selectRecommendItem.map((item) => changeSiteName(item)),
     };
 
-    dispatch(patchModifyKeyword(data.name, data));
+    dispatch(createKeyword(data));
 
     setIsNormalAlarm(false);
     setIsImportantAlarm(false);
@@ -114,6 +119,8 @@ const AddKeyword = () => {
     setIsVibrationAlarm(false);
     setAlarmTerm(false);
     setSelectRecommendItem([]);
+    setRecommendKeyword('');
+    setSelectRecommendKeyword('');
   }, [alarmTerm, isNormalAlarm, isImportantAlarm, selectRecommendItem]);
 
   useEffect(() => {
@@ -241,7 +248,7 @@ const AddKeyword = () => {
           </S.AlarmType>
         </S.AlarmContainer>
       </S.SettingContainer>
-      <S.EditButton onClick={onClickModifyButton}>수정</S.EditButton>
+      <S.EditButton onClick={onClickCreateButton}>등록</S.EditButton>
       <S.CancelButton>취소</S.CancelButton>
     </>
   );
