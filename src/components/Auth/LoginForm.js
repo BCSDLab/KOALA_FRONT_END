@@ -5,6 +5,7 @@ import Switch from 'components/Shared/Switch';
 import StyledButton from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import { login } from '../../store/auth';
+import { uuid } from 'api/logined';
 
 const LoginFormContainer = styled.form`
   position: relative;
@@ -55,9 +56,21 @@ const LoginForm = () => {
     setPassword(e.target.value);
   };
 
+  /*
+   * - 회원 로그인 시에 로그인에 대한 첫 로그인 시에는
+   * - user_token이 이미 저장된 경우에는 이를 불러오고 아닌 경우에는
+   * - uuid로 생성해서 로컬스토리지에 저장한다.
+   */
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(login({ account, password }));
+    let deviceToken;
+    if (!localStorage.getItem('user_token')) {
+      deviceToken = uuid();
+      localStorage.setItem('user_token', `webuser+${deviceToken}`);
+    } else {
+      deviceToken = localStorage.getItem('user_token');
+    }
+    dispatch(login({ deviceToken, account, password }));
   };
 
   const handlePasswordType = (e) => {

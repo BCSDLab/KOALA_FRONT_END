@@ -1,5 +1,6 @@
 import React from 'react';
 import * as S from './styles';
+import LoginButton from 'components/Shared/LoginButton';
 import { useSelector } from 'react-redux';
 
 const KeywordHeader = ({ title, toggle }) => {

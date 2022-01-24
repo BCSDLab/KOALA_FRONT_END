@@ -1,6 +1,9 @@
 import logined from './logined';
 
-export const login = ({ account, password }) => logined.post('user/login?device_token=aasdfasdf', { account, password });
+export const login = ({ deviceToken, account, password }) =>
+  logined.post(`user/login?device_token=${deviceToken}`, { account, password });
+
+export const nonMember = ({ deviceToken }) => logined.post(`/user/non-member?device_token=${deviceToken}`);
 
 export const refresh = () => logined.post('user/refresh');
 
@@ -30,12 +33,12 @@ export const signUp = ({ account, password, find_email, nickname }) =>
   logined.post('/user/sing-in', { account, password, find_email, nickname });
 
 export const keywordAPI = {
-  getKeyword : () => logined.get(`/keyword`),
-  getKeywordList : (keywordName) => logined.get(`/keyword/list?keyword-name=${keywordName}`),
-  deleteKeywordList : (query) => logined.patch(`/keyword/list/notice?${query}`),
-  deleteKeywordItem : (id) => logined.patch(`/keyword/list/notice?notice-id=${id}`),
-  addScrap : (data) => logined.post(`/scrap`,{"board_id":data}),
-  readKeywordItem : (id) => logined.patch(`/keyword/list/notice/reading-check?notice-id=${id}`),
-  getRecommendation : (site) => logined.get(`keyword/site/search?site=${site}`),
-  modifyKeyword : ({keywordName,object}) => logined.put(`keyword?keyword-name=${keywordName}`,object)
-}
+  getKeyword: () => logined.get(`/keyword`),
+  getKeywordList: (keywordName) => logined.get(`/keyword/list?keyword-name=${keywordName}`),
+  deleteKeywordList: (query) => logined.patch(`/keyword/list/notice?${query}`),
+  deleteKeywordItem: (id) => logined.patch(`/keyword/list/notice?notice-id=${id}`),
+  addScrap: (data) => logined.post(`/scrap`, { board_id: data }),
+  readKeywordItem: (id) => logined.patch(`/keyword/list/notice/reading-check?notice-id=${id}`),
+  getRecommendation: (site) => logined.get(`keyword/site/search?site=${site}`),
+  modifyKeyword: ({ keywordName, object }) => logined.put(`keyword?keyword-name=${keywordName}`, object),
+};

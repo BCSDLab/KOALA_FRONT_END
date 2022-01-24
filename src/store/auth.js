@@ -5,11 +5,20 @@ import { setCookie } from 'components/Shared/Cookies';
 import { setTokenOnHeader } from 'api/logined';
 import * as authAPI from 'api';
 
-const [LOGIN, LOGIN_SUCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/LOGIN');
-const [REFRESH, REFRESH_SUCESS, REFRESH_FAILURE] = createRequestSagaActionTypes('auth/REFRESH');
-const [SIGNUP, SIGNUP_SUCESS, SIGNUP_FALIURE] = createRequestSagaActionTypes('auth/SIGNUP');
+function* setToken(action) {
+  setCookie('refresh_token', action.payload.body.refresh_token, {
+    path: '/',
+  });
+  setTokenOnHeader(action.payload.body.access_token);
+}
 
-export const login = createAction(LOGIN, ({ account, password }) => ({
+const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/LOGIN');
+const [REFRESH, REFRESH_SUCCESS, REFRESH_FAILURE] = createRequestSagaActionTypes('auth/REFRESH');
+const [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FALIURE] = createRequestSagaActionTypes('auth/SIGNUP');
+const [GUEST, GUEST_SUCCESS, GUEST_FALIURE] = createRequestSagaActionTypes('auth/GUEST');
+
+export const login = createAction(LOGIN, ({ deviceToken, account, password }) => ({
+  deviceToken,
   account,
   password,
 }));
@@ -20,56 +29,65 @@ export const signUp = createAction(SIGNUP, ({ account, password, find_email, nic
   find_email,
   nickName,
 }));
+export const nonMemberLogin = createAction(GUEST, ({ deviceToken }) => ({
+  deviceToken,
+}));
 
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
+  yield takeLatest(LOGIN_SUCCESS, setToken);
 }
 const refreshSaga = createRequestSaga(REFRESH, authAPI.refresh);
 export function* refreshLoginSaga() {
   yield takeLatest(REFRESH, refreshSaga);
+  yield takeLatest(REFRESH_SUCCESS, setToken);
 }
 const signUpSaga = createRequestSaga(SIGNUP, authAPI.signUp);
 export function* signUpRegisterSaga() {
   yield takeLatest(SIGNUP, signUpSaga);
 }
+const nonMemberSaga = createRequestSaga(GUEST, authAPI.nonMember);
+export function* nonLoginSaga() {
+  yield takeLatest(GUEST, nonMemberSaga);
+  yield takeLatest(GUEST_SUCCESS, setToken);
+}
 
 const initialState = {
   isOpen: false,
-  isLoggedIn: false,
+  isLoggedIn: null,
   authError: null,
   errorCode: '',
 };
 
 const auth = handleActions(
   {
-    [LOGIN_SUCESS]: (state, { payload: token }) => ({
+    [LOGIN]: (state) => ({
+      ...state,
+      isLoggedIn: null,
+      authError: null,
+    }),
+    [LOGIN_SUCCESS]: (state) => ({
       ...state,
       authError: null,
-      setRefreshToken: setCookie('refresh_token', `${token.body.refresh_token}`, {
-        path: '/',
-      }),
-      setAccessToken: setTokenOnHeader(token.body.access_token),
       isLoggedIn: true,
     }),
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error,
+      isLoggedIn: false,
     }),
-    [REFRESH_SUCESS]: (state, { payload: token }) => ({
+    [REFRESH_SUCCESS]: (state) => ({
       ...state,
       authError: null,
-      setRefreshToken: setCookie('refresh_token', `${token.body.refresh_token}`, {
-        path: '/',
-      }),
-      setAccessToken: setTokenOnHeader(token.body.access_token),
       isLoggedIn: true,
     }),
     [REFRESH_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error,
+      isLoggedIn: false,
     }),
-    [SIGNUP_SUCESS]: (state, { payload }) => ({
+    [SIGNUP_SUCCESS]: (state, { payload }) => ({
       ...state,
       ...payload,
       errorCode: '',
@@ -77,6 +95,20 @@ const auth = handleActions(
     [SIGNUP_FALIURE]: (state, { payload: error }) => ({
       ...state,
       errorCode: error.code,
+    }),
+    [GUEST]: (state) => ({
+      ...state,
+      isLoggedIn: null,
+      authError: null,
+    }),
+    [GUEST_SUCCESS]: (state) => ({
+      ...state,
+      isLoggedIn: true,
+    }),
+    [GUEST_FALIURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error.code,
+      isLoggedIn: false,
     }),
   },
   initialState

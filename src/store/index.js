@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
-import auth, { authSaga, refreshLoginSaga, signUpRegisterSaga } from './auth';
+import auth, { authSaga, refreshLoginSaga, signUpRegisterSaga, nonLoginSaga } from './auth';
 import modifyKeyword, { getKeywordRecommendationSaga, patchModifyKeywordSaga } from './modifyKeyword';
 import toggle from './toggle';
 import myPage, { changeNameSaga, getUserSaga, changeImageSaga } from './myPage';
@@ -40,6 +40,7 @@ export function* rootSaga() {
     changeImageSaga(),
     getKeywordRecommendationSaga(),
     patchModifyKeywordSaga(),
+    nonLoginSaga(),
   ]);
 }
 
