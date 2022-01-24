@@ -1,13 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import * as S from './styles';
 
-const SchoolAuth = () => {
-  const authState = useSelector((state) => state.myPage.schoolAuth);
-
+const SchoolAuth = ({ isAuth }) => {
   return (
     <S.SchoolAuthContent>
-      {authState == false ? (
+      {isAuth == false ? (
         <>
           <S.SchoolAuthState>미인증</S.SchoolAuthState>
           <S.SchoolAuthButton>인증하기</S.SchoolAuthButton>
