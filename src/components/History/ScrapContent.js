@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { dummyList } from "./dummy";
+import React, { useState, useEffect, useRef } from "react";
 import { memoDummy } from "./memoDummy";
 import * as S from "./Scrap.Style"
 import {KeyWordAlertList,Sender} from "./History.Style"
 import { useDispatch, useSelector } from "react-redux";
 import HistoryCheckBox from "./HisoryCheckBox";
-import scrap, { getMemo, getScrapList } from "store/scrap";
+import { getMemo, getScrapList, deleteScrapItem } from "store/scrap";
 const memoState = ["READ", "WRITE", 'FIX'];
 const siteList = ['아우누리'];
+const stringToDate = (date) => {
+    var yyyyMMdd = String(date);
+    var sYear = yyyyMMdd.substring(0,4);
+    var sMonth = yyyyMMdd.substring(5,7);
+    var sDate = yyyyMMdd.substring(8,10);
+    return new Date(Number(sYear), Number(sMonth)-1, Number(sDate));
+}
 const ScrapContent = () => {
-    const {scrapList, memoList, getMemoResponse} = useSelector((state) => state.scrap);
+    const {scrapList, memo, getMemoResponse,deleteScrapResponse} = useSelector((state) => state.scrap);
     const userInfo = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const [memoItemList, setMemo] = useState(memoDummy);
@@ -18,14 +24,6 @@ const ScrapContent = () => {
     const [pageState, setState] = useState("READ");
     const [currentMail, setCurr] = useState(null);
     const [checkedList, setCheckedList] = useState([]);
-    useEffect(() => {
-        if(userInfo.isLoggedIn||getMemoResponse){
-            dispatch(getScrapList())
-        }
-    },[userInfo.isLoggedIn, getMemoResponse]);
-    useEffect(() => {
-        setScrap(scrapList);
-    },[scrapList])
 
     // useEffect(() => {
     //     scrapItemList.forEach(item => {
@@ -42,6 +40,7 @@ const ScrapContent = () => {
             setState("WRITE");
             setCurr(id);
             console.log("메모 작성 시작")
+            // letter.current.innerText = refLetter.current + '/100'
         }else if(pageState === "WRITE"){
             e.target.innerText = "수정";
             setState("READ");
@@ -80,7 +79,28 @@ const ScrapContent = () => {
             setCheckedList(checkedList.filter(mailId => mailId !== id));
         }
     }
-    console.log(checkedList);
+    const deleteAlert = () => {
+        if(checkedList.length > 0){
+            console.log(checkedList)
+            dispatch(deleteScrapItem(checkedList));
+            setCheckedList([]);
+        }else{
+            alert("삭제할 메일을 선택해 주세요")
+        }
+    }
+    useEffect(() => {
+        if(userInfo.isLoggedIn||getMemoResponse||deleteScrapResponse){
+            dispatch(getScrapList())
+        }
+    },[userInfo.isLoggedIn, getMemoResponse,deleteScrapResponse]);
+    useEffect(() => {
+        setScrap(scrapList?.sort((a, b) => {
+            a = stringToDate(a.createdAt);
+            b = stringToDate(b.createdAt);
+            return a > b ? -1 : a < b ? 1 : 0;
+        }));
+        console.log(scrapList);
+    },[scrapList]);
     return (
     <S.Wrapper>
         <S.MenuList>
@@ -88,16 +108,16 @@ const ScrapContent = () => {
                 <HistoryCheckBox onClick={(e) => selectAll(e)}/>
             </S.CheckBox>
             <S.MenuName>전체선택</S.MenuName>
-            <S.Menu>
+            <S.Menu onClick={deleteAlert}>
                 <S.MenuLogo src="/asset/Delete.svg"/>
                 <S.MenuName>삭제</S.MenuName>
             </S.Menu>
         </S.MenuList>
         <KeyWordAlertList>
-            {scrapItemList.map((mail) => (
+            {scrapItemList?.map((mail) => (
                 <S.StorageAlert key ={mail.id}>
                     <HistoryCheckBox onClick = {(e) => selectMail(e, mail.id)} checked={checkedList.includes(mail.id)?true:false} readOnly/>
-                    <Sender>{siteList[mail.site-1]}</Sender>
+                    <Sender>{mail.site}</Sender>
                     <S.MemoAlertWrapper>
                         <S.AlertContent>
                             <S.AlertTitle href={mail.url}>{mail.title}</S.AlertTitle>
@@ -113,25 +133,31 @@ const ScrapContent = () => {
                         </S.AlertContent>
                         <S.MemoWrapper>
                             {memoIdList.includes(mail.userScrapId)?
-                            <>
-                            {mail.userScrapId === currentMail?null:<S.MemoCircle />}
-                            {mail.userScrapId === currentMail&&(pageState === "FIX" || pageState === "WRITE")?
-                            <S.WriteBlock defaultValue={memoDummy.filter(memo => memo.userScrapId === mail.userScrapId)
-                                .map(memo => {
-                                    return memo.text;
-                                })}>
-                            </S.WriteBlock>
-                            :
-                            <S.MemoBlock >
-                                {memoDummy.filter(memo => memo.userScrapId === mail.userScrapId)
+                                <>
+                                {mail.userScrapId === currentMail?null:<S.MemoCircle />}
+                                {mail.userScrapId === currentMail&&(pageState === "FIX" || pageState === "WRITE")?
+                                    <S.memoContent>
+                                        <S.WriteBlock defaultValue={memoDummy.filter(memo => memo.userScrapId === mail.userScrapId)
                                             .map(memo => {
                                                 return memo.text;
-                                            })}
-                            </S.MemoBlock>}
-                            </>
-                            :mail.userScrapId === currentMail&&(pageState === "FIX" || pageState === "WRITE")?
-                            <S.WriteBlock/>
-                            :null
+                                            })} onChange={(e) => checkByte(e)} maxLength={100} ref={memoValue}/>
+                                        <S.LetterCounter><S.LettterLength ref={letter}>0</S.LettterLength>/100</S.LetterCounter>
+                                    </S.memoContent>
+                                    :
+                                    <S.MemoBlock>
+                                        {memoDummy.filter(memo => memo.userScrapId === mail.userScrapId)
+                                                    .map(memo => {
+                                                        return memo.text;
+                                                    })}
+                                    </S.MemoBlock>
+                                }
+                                </>
+                                :mail.userScrapId === currentMail&&(pageState === "FIX" || pageState === "WRITE")?
+                                    <S.memoContent>
+                                        <S.WriteBlock onChange={(e) => checkByte(e)} maxLength={100}/>
+                                        <S.LetterCounter><span ref={letter}>0</span>/100</S.LetterCounter>
+                                    </S.memoContent>
+                                    :null
                             }
                         </S.MemoWrapper>
                     </S.MemoAlertWrapper>
