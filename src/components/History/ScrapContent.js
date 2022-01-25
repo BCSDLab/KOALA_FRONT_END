@@ -4,7 +4,7 @@ import * as S from "./Scrap.Style"
 import {KeyWordAlertList,Sender} from "./History.Style"
 import { useDispatch, useSelector } from "react-redux";
 import HistoryCheckBox from "./HisoryCheckBox";
-import { getMemo, getScrapList, deleteScrapItem, fixMemo } from "store/scrap";
+import { getMemo, getScrapList, deleteScrapItem, fixMemo, writeMemo } from "store/scrap";
 const memoState = ["READ", "WRITE", 'FIX'];
 const siteList = ['아우누리'];
 const stringToDate = (date) => {
@@ -15,7 +15,7 @@ const stringToDate = (date) => {
     return new Date(Number(sYear), Number(sMonth)-1, Number(sDate));
 }
 const ScrapContent = () => {
-    const {scrapList, memoList, getMemoResponse,deleteScrapResponse, fixMemoResponse} = useSelector((state) => state.scrap);
+    const {scrapList, memoList, getMemoResponse,deleteScrapResponse, fixMemoResponse, writeMemoResponse} = useSelector((state) => state.scrap);
     const userInfo = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const [memoItemList, setMemo] = useState(memoDummy);
@@ -25,7 +25,8 @@ const ScrapContent = () => {
     const [currentMail, setCurr] = useState(null);
     const [checkedList, setCheckedList] = useState([]);
     const letter = useRef();
-    const memoValue = useRef(null);
+    const fixMemoValue = useRef(null);
+    const writeMemoValue = useRef();
     // useEffect(() => {
     //     if(memoValue.current){
     //         console.log('asdfsdf')
@@ -41,7 +42,7 @@ const ScrapContent = () => {
         // }
         // dispatch(getMemo(13))
         dispatch(getMemo(14))
-        // dispatch(getMemo(17))
+        dispatch(getMemo(17))
         // dispatch(getMemo(18))
         // dispatch(getMemo(20))
     },[scrapItemList])
@@ -58,12 +59,13 @@ const ScrapContent = () => {
             console.log("메모 작성 시작")
             
         }else if(pageState === "WRITE"){
-            e.target.innerText = "수정";
             setState("READ");
             setIdList([...memoIdList, id]);
             setCurr(null);
             console.log("메모 작성 완료")
-            // console.log(memoValue.current.value)
+            e.target.innerText = "수정";
+            const memoStatement = writeMemoValue.current.value
+            dispatch(writeMemo({"memo":memoStatement, "user_scrap_id":id}));
         }
     };
     const fix = (e,id) => {
@@ -77,7 +79,7 @@ const ScrapContent = () => {
             setCurr(null);
             e.target.innerText = "수정";
             console.log('메모 수정 완료');
-            const memoStatement = memoValue.current.value
+            const memoStatement = fixMemoValue.current.value
             dispatch(fixMemo({"memo":memoStatement, "user_scrap_id":id}));
         }
     }
@@ -167,7 +169,7 @@ const ScrapContent = () => {
                                         <S.WriteBlock defaultValue={memoDummy.filter(memo => memo.userScrapId === mail.userScrapId)
                                             .map(memo => {
                                                 return memo.text;
-                                            })} onChange={(e) => checkByte(e)} maxLength={100} ref={memoValue}/>
+                                            })} onChange={(e) => checkByte(e)} maxLength={100} ref={fixMemoValue}/>
                                         <S.LetterCounter><S.LettterLength ref={letter}>0</S.LettterLength>/100</S.LetterCounter>
                                     </S.memoContent>
                                     :
@@ -181,7 +183,7 @@ const ScrapContent = () => {
                                 </>
                                 :mail.userScrapId === currentMail&&(pageState === "FIX" || pageState === "WRITE")?
                                     <S.memoContent>
-                                        <S.WriteBlock onChange={(e) => checkByte(e)} maxLength={100}/>
+                                        <S.WriteBlock onChange={(e) => checkByte(e)} maxLength={100} ref={writeMemoValue}/>
                                         <S.LetterCounter><span ref={letter}>0</span>/100</S.LetterCounter>
                                     </S.memoContent>
                                     :null
