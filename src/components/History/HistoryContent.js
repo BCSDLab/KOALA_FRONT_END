@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import HistoryCheckBox from "./HisoryCheckBox";
 import * as S from './History.Style';
 import { getHistoryList, deleteHistoryList, readHistoryItem, moveToScrap} from "store/history";
-import { dummyList } from "./dummy";
 import { useDispatch, useSelector } from "react-redux";
 const siteList = ['아우누리'];
 const stringToDate = (date) => {
@@ -16,7 +15,7 @@ const HistoryContent = () => {
     const {historyList, deleteHistoryResponse, readHistoryItemResponse, moveToScrapResponse} = useSelector((state) => state.history);
     const userInfo = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-    const [alertList, setList] = useState(dummyList);
+    const [alertList, setList] = useState([]);
     const [command, setCommand] = useState(null);
     const [checkedList, setCheckedList] = useState([]);
     const [pageNum, setPageNum] = useState(1);
@@ -40,8 +39,8 @@ const HistoryContent = () => {
     }
     const moveToStorage = () => {
         console.log('보관함으로 이동');
-        if(mailList.length > 0){
-           mailList.forEach((id) => {
+        if(checkedList.length > 0){
+            checkedList.forEach((id) => {
                dispatch(moveToScrap({"board_id": id}));
            })
            setCheckedList([]);
@@ -51,9 +50,9 @@ const HistoryContent = () => {
         }
     }
     const deleteMail = () => {
-        if(mailList.length > 0){
+        if(checkedList.length > 0){
             var deleteMailQuery = "";
-            mailList.forEach((id) => {
+            checkedList.forEach((id) => {
                 deleteMailQuery += `notice-id=${id}&`;
             });
             dispatch(deleteHistoryList(deleteMailQuery));
@@ -73,9 +72,9 @@ const HistoryContent = () => {
     }
     const selectMail = (e, id) => {
         if(e.target.checked){
-            setCheckedList([...mailList, id]);
+            setCheckedList([...checkedList, id]);
         }else{
-            setCheckedList(mailList.filter(mailId => mailId !== id));
+            setCheckedList(checkedList.filter(mailId => mailId !== id));
         }
     }
     const clickMail = (id) =>{
