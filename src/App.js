@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import { LOGIN } from './constant';
 import { refresh } from 'store/auth';
+import { getUserInfo } from 'store/myPage';
 import AuthPage from 'pages/AuthPage';
 import Login from 'components/Auth/Login/Login';
 import RegisterDoc from 'components/Auth/Register/RegisterDoc';
@@ -17,14 +19,31 @@ import ChatPage from 'pages/ChatPage';
 import ChatAuth from 'components/Chat/ChatAuth';
 import Unauth from 'components/Chat/Unauth';
 
+const AuthorizedRoute = () => {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  if (isLoggedIn === null) {
+    return <div>로딩중입니다.</div>;
+  }
+
+  return isLoggedIn ? <Outlet /> : <Navigate to={LOGIN} replace={true} />;
+};
+
 const App = () => {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   useEffect(() => {
     const token = getCookie('refresh_token');
     setTokenOnHeader(token);
     dispatch(refresh());
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      dispatch(getUserInfo());
+    }
+  }, [isLoggedIn]);
+
   return (
     <>
       <Routes>
@@ -37,11 +56,14 @@ const App = () => {
           <Route path="findPw" element={<FindPw />} />
           <Route path="changePw" element={<ChangePw />} />
         </Route>
-        <Route exact path="chat/*" element={<ChatPage />}>
-          <Route path="auth" element={<ChatAuth />} />
-          <Route path="unauth" element={<Unauth />} />
+
+        <Route element={<AuthorizedRoute />}>
+          <Route exact path="chat/*" element={<ChatPage />}>
+            <Route path="auth" element={<ChatAuth />} />
+            <Route path="unauth" element={<Unauth />} />
+          </Route>
+          <Route path="mypage" element={<MyPage />} />
         </Route>
-        <Route path="mypage" element={<MyPage />} />
       </Routes>
     </>
   );

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
 import LoginForm from 'components/Auth/Login/LoginForm';
 import * as S from 'components/Auth/styles';
 import { useNavigate } from 'react-router';
+import { nonMemberLogin } from 'store/auth';
+import { uuid } from 'api/logined';
 
 const LoginContainer = styled.div`
   display: flex;
@@ -145,14 +147,32 @@ const KakaoLoginButton = styled.button`
  */
 const AuthMainForm = () => {
   const navigate = useNavigate();
-  const userLog = useSelector((state) => state.auth.isLoggedIn);
+  const userInfo = useSelector((state) => state.myPage);
   const [isNormalLogin, setIsNormalLogin] = useState(true);
+  const dispatch = useDispatch();
 
+  /*
+   * - guid 함수를 통해 고유값을 device_token과 같이 활용한다.
+   * - 비회원이든, 회원이든 첫 로그인 시에는 고윳값을 로컬스토리지에 저장한다.
+   * - 비회원 로그인의 경우에는 비회원 로그인 API를 통해 로그인한다.
+   */
+  const nonMemberService = () => {
+    let deviceToken;
+    if (!localStorage.getItem('user_token')) {
+      deviceToken = uuid();
+      localStorage.setItem('user_token', `webuser+${deviceToken}`);
+    } else {
+      deviceToken = localStorage.getItem('user_token');
+    }
+    dispatch(nonMemberLogin(deviceToken));
+  };
+
+  //회원이 로그인페이지에 접속하게 되면 메인 페이지로 돌려보낸다.
   useEffect(() => {
-    if (userLog) {
+    if (userInfo.userType === 'NORMAL') {
       navigate('/');
     }
-  }, [userLog]);
+  }, [userInfo.userType]);
 
   return (
     <LoginContainer>
@@ -177,7 +197,7 @@ const AuthMainForm = () => {
       )}
 
       <S.NoneUserLinkSection isNormalLogin={isNormalLogin}>
-        <S.NoneUserLink isNormalLogin={isNormalLogin} to="/keywordList">
+        <S.NoneUserLink isNormalLogin={isNormalLogin} onClick={nonMemberService} to="/">
           비회원으로 이용하기
         </S.NoneUserLink>
       </S.NoneUserLinkSection>

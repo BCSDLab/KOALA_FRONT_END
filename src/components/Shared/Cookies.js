@@ -1,7 +1,7 @@
-export const setCookie = (name, value, options = {}) => {
+export const setCookie = (name, value, options) => {
   let date = new Date();
-  date.setDate(date.getDate() + options);
-  let Cookie = `${name}=${value};Expires=${date.toUTCString()}`;
+  date.setDate(date.getDate() + options.expires);
+  let Cookie = `${name}=${value};expires=${date.toUTCString()};`;
   document.cookie = Cookie;
 };
 
