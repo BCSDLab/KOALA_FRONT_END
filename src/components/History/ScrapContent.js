@@ -4,7 +4,7 @@ import * as S from "./Scrap.Style"
 import {KeyWordAlertList,Sender} from "./History.Style"
 import { useDispatch, useSelector } from "react-redux";
 import HistoryCheckBox from "./HisoryCheckBox";
-import { getMemo, getScrapList, deleteScrapItem } from "store/scrap";
+import { getMemo, getScrapList, deleteScrapItem, fixMemo } from "store/scrap";
 const memoState = ["READ", "WRITE", 'FIX'];
 const siteList = ['아우누리'];
 const stringToDate = (date) => {
@@ -15,7 +15,7 @@ const stringToDate = (date) => {
     return new Date(Number(sYear), Number(sMonth)-1, Number(sDate));
 }
 const ScrapContent = () => {
-    const {scrapList, memo, getMemoResponse,deleteScrapResponse} = useSelector((state) => state.scrap);
+    const {scrapList, memoList, getMemoResponse,deleteScrapResponse, fixMemoResponse} = useSelector((state) => state.scrap);
     const userInfo = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const [memoItemList, setMemo] = useState(memoDummy);
@@ -24,33 +24,49 @@ const ScrapContent = () => {
     const [pageState, setState] = useState("READ");
     const [currentMail, setCurr] = useState(null);
     const [checkedList, setCheckedList] = useState([]);
-
+    const letter = useRef();
+    const memoValue = useRef(null);
     // useEffect(() => {
-    //     scrapItemList.forEach(item => {
-    //         dispatch(getMemo(item.userScrapId));
-    //     })
-    //     setMemo([...memoItemList, memoList]);
-    //     console.log(memoItemList);
-    // },[scrapItemList])
+    //     if(memoValue.current){
+    //         console.log('asdfsdf')
+    //         console.log(memoValue.current.value)
+    //     }
+    //     console.log(memoValue.current)
+    // },[memoValue.current])
+
+    useEffect(() => {
+        // for(let x=0; x<scrapItemList.length; x++){
+        //     console.log(scrapItemList[x].userScrapId)
+        //     dispatch(getMemo(scrapItemList[x].userScrapId))
+        // }
+        // dispatch(getMemo(13))
+        dispatch(getMemo(14))
+        // dispatch(getMemo(17))
+        // dispatch(getMemo(18))
+        // dispatch(getMemo(20))
+    },[scrapItemList])
+    useEffect(() => {
+        console.log(memoList)
+    },[memoList])
     //상태에 따라 메모/수정/완료 표시
 
-    const writeMemo = (e, id) => {
+    const write = (e, id) => {
         if(pageState === "READ"){
             e.target.innerText = "완료";
             setState("WRITE");
             setCurr(id);
             console.log("메모 작성 시작")
-            // letter.current.innerText = refLetter.current + '/100'
+            
         }else if(pageState === "WRITE"){
             e.target.innerText = "수정";
             setState("READ");
             setIdList([...memoIdList, id]);
             setCurr(null);
             console.log("메모 작성 완료")
+            // console.log(memoValue.current.value)
         }
-
     };
-    const fixMemo = (e,id) => {
+    const fix = (e,id) => {
         if(pageState === "READ"){
             setState("FIX");
             e.target.innerText = "완료";
@@ -61,8 +77,11 @@ const ScrapContent = () => {
             setCurr(null);
             e.target.innerText = "수정";
             console.log('메모 수정 완료');
+            const memoStatement = memoValue.current.value
+            dispatch(fixMemo({"memo":memoStatement, "user_scrap_id":id}));
         }
     }
+    console.log(pageState)
     const selectAll = (e) => {
         if(e.target.checked){
             setCheckedList(scrapItemList.map(mail => {
@@ -88,11 +107,19 @@ const ScrapContent = () => {
             alert("삭제할 메일을 선택해 주세요")
         }
     }
+    const checkByte = (obj) => {
+        const len = countLetter( obj.target.value);
+        letter.current.innerText = len;
+    }
+    const countLetter = (letter) => {
+        return letter.length;
+    }
+
     useEffect(() => {
-        if(userInfo.isLoggedIn||getMemoResponse||deleteScrapResponse){
+        if(userInfo.isLoggedIn||getMemoResponse||deleteScrapResponse||fixMemoResponse){
             dispatch(getScrapList())
         }
-    },[userInfo.isLoggedIn, getMemoResponse,deleteScrapResponse]);
+    },[userInfo.isLoggedIn, getMemoResponse,deleteScrapResponse,fixMemoResponse]);
     useEffect(() => {
         setScrap(scrapList?.sort((a, b) => {
             a = stringToDate(a.createdAt);
@@ -124,8 +151,8 @@ const ScrapContent = () => {
                             <S.AlertProp>
                                 {
                                 memoIdList.includes(mail.userScrapId)?
-                                <S.MemoOption onClick={(e)=>fixMemo(e,mail.userScrapId)}>수정</S.MemoOption>
-                                :<S.MemoOption onClick={(e) => writeMemo(e,mail.userScrapId)}>메모</S.MemoOption>
+                                <S.MemoOption onClick={(e)=>fix(e,mail.userScrapId)}>수정</S.MemoOption>
+                                :<S.MemoOption onClick={(e) => write(e,mail.userScrapId)}>메모</S.MemoOption>
                                 }
                                 <S.DivideLine src="/asset/DivideLine.svg" />
                                 <S.ReceiveDate>{mail.created_at}</S.ReceiveDate>
