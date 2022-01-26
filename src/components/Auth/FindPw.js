@@ -66,9 +66,14 @@ const FindPw = () => {
   useEffect(() => {
     if (changeComplete) {
       navigate(LOGIN);
-      dispatch(resetAuthState());
     }
   }, [changeComplete]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetAuthState());
+    };
+  }, []);
 
   return (
     <div>

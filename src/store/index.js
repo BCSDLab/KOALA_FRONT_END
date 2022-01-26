@@ -10,11 +10,11 @@ import auth, {
   authAccountSaga,
   setAccountSaga,
   changeingPasswordSaga,
+  nonLoginSaga,
 } from './auth';
 import loading from './loading';
 import toggle from './toggle';
 import myPage, { changeNameSaga, getUserSaga, changeImageSaga } from './myPage';
-import loading from './loading';
 import keyword, {
   inquiryKeywordSaga,
   getKeywordListSaga,

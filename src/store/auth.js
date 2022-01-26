@@ -5,10 +5,9 @@ import { setCookie } from 'components/Shared/Cookies';
 import { setTokenOnHeader } from 'api/logined';
 import * as authAPI from 'api';
 
-
-const [LOGIN, LOGIN_SUCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/LOGIN');
-const [REFRESH, REFRESH_SUCESS, REFRESH_FAILURE] = createRequestSagaActionTypes('auth/REFRESH');
-const [SIGNUP, SIGNUP_SUCESS, SIGNUP_FALIURE] = createRequestSagaActionTypes('auth/SIGNUP');
+const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/LOGIN');
+const [REFRESH, REFRESH_SUCCESS, REFRESH_FAILURE] = createRequestSagaActionTypes('auth/REFRESH');
+const [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FALIURE] = createRequestSagaActionTypes('auth/SIGNUP');
 const [GUEST, GUEST_SUCCESS, GUEST_FALIURE] = createRequestSagaActionTypes('auth/GUEST');
 const [SEND_FIND_PASSWORD, SEND_FIND_PASSWORD_SUCCESS, SEND_FIND_PASSWORD_FAILURE] =
   createRequestSagaActionTypes('auth/FIND_PASSWORD');
@@ -109,6 +108,7 @@ export function* authAccountSaga() {
 const findAccountSaga = createRequestSaga(FIND_ACCOUNT, authAPI.findAccount);
 export function* setAccountSaga() {
   yield takeLatest(FIND_ACCOUNT, findAccountSaga);
+}
 const nonMemberSaga = createRequestSaga(GUEST, authAPI.nonMember);
 export function* nonLoginSaga() {
   yield takeLatest(GUEST, nonMemberSaga);
@@ -224,6 +224,7 @@ const auth = handleActions(
     [FIND_ACCOUNT_FAILURE]: (state, { payload: error }) => ({
       ...state,
       errorCode: error.code,
+    }),
     [GUEST]: (state) => ({
       ...state,
       isLoggedIn: null,

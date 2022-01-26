@@ -20,13 +20,6 @@ const FindAccountText = styled.div`
   margin-bottom: 216px;
 `;
 
-/**
- * TODO:
- * - [x] 이메일 형식 검사 스타일
- * - [x] 가입 하지 않은 이메일 알림
- * - [x] 이메일 전송 후 다음 버튼 활성화
- * @returns
- */
 const FindId = () => {
   const [email, setEmail] = useState('');
   const [secret, setSecret] = useState('');
@@ -53,7 +46,6 @@ const FindId = () => {
     dispatch(authFindId(email, secret));
   };
   const completeClick = () => {
-    dispatch(resetAuthState());
     navigate(LOGIN);
   };
 
@@ -62,6 +54,12 @@ const FindId = () => {
       dispatch(setFindAccount(email));
     }
   }, [auth.authSuccess]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetAuthState());
+    };
+  }, []);
 
   return (
     <div>
