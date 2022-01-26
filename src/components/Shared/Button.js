@@ -12,7 +12,6 @@ const StyledButton = styled.button`
   ouline: none;
   flex-grow: 0;
   color: white;
-
   cursor: pointer;
 
   &:hover {
@@ -23,6 +22,12 @@ const StyledButton = styled.button`
   [disabled] {
     background: ${(props) => props.theme.colors.silver};
     cursor: default;
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 328px;
+    font-size: 14px;
+    font-weight: 500;
   }
 `;
 
