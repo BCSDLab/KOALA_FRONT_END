@@ -1,4 +1,5 @@
 import React, { useState, useRef, useImperativeHandle } from 'react';
+import { PASSWORD_REGEXP } from 'constant';
 import PwdInput from './PwdInput';
 
 const PasswordForm = React.forwardRef((props, ref) => {
@@ -9,9 +10,7 @@ const PasswordForm = React.forwardRef((props, ref) => {
   const validate = () => {
     const currentPassword = inputRef.current.value;
     let isError;
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,18}$/;
-
-    if (!passwordRegex.test(currentPassword)) {
+    if (!PASSWORD_REGEXP.test(currentPassword)) {
       isError = true;
       setErrorPasswordMessage('숫자+영문자+특수문자 조합으로 8자리 이상 입력해주세요');
     } else {

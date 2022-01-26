@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
 import { useSelector } from 'react-redux';
-import { NOT_MATCH_EMAIL, NOT_SEND_EMAIL } from 'constant';
+import { NOT_MATCH_EMAIL, NOT_SEND_EMAIL, EMAIL_REGEXP } from 'constant';
 import CommonInput from './CommonInput';
 
 const EmailForm = React.forwardRef((props, ref) => {
@@ -14,9 +14,8 @@ const EmailForm = React.forwardRef((props, ref) => {
     setEmailMessage(errorText);
   };
   const validate = (value) => {
-    const emailRegex = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,4}$/i;
     let isError;
-    if (!emailRegex.test(value)) {
+    if (!EMAIL_REGEXP.test(value)) {
       setEmailMessage('이메일 형식이 일치하지 않습니다.');
       isError = true;
     } else {
