@@ -15,11 +15,11 @@ const stringToDate = (date) => {
     return new Date(Number(sYear), Number(sMonth)-1, Number(sDate));
 }
 const ScrapContent = () => {
-    const {scrapList, memoList, getMemoResponse,deleteScrapResponse, fixMemoResponse, writeMemoResponse} = useSelector((state) => state.scrap);
+    const {scrapList, memoList, getMemoListResponse,deleteScrapResponse, fixMemoResponse, writeMemoResponse} = useSelector((state) => state.scrap);
     const userInfo = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const [memoItemList, setMemo] = useState(memoDummy);
-    const [memoIdList, setIdList] = useState([13,14]);
+    const [memoIdList, setIdList] = useState([14]);
     const [scrapItemList, setScrap] = useState([]);
     const [pageState, setState] = useState("READ");
     const [currentMail, setCurr] = useState(null);
@@ -40,15 +40,17 @@ const ScrapContent = () => {
         //     console.log(scrapItemList[x].userScrapId)
         //     dispatch(getMemo(scrapItemList[x].userScrapId))
         // }
-        // dispatch(getMemo(13))
-        dispatch(getMemo(14))
-        dispatch(getMemo(17))
+        dispatch(getMemo(13))
+        // dispatch(getMemo(14))
+        // dispatch(getMemo(17))
         // dispatch(getMemo(18))
         // dispatch(getMemo(20))
     },[scrapItemList])
     useEffect(() => {
-        console.log(memoList)
+        setMemo([...memoItemList, memoList])
+
     },[memoList])
+    console.log("메모리스트", memoItemList)
     //상태에 따라 메모/수정/완료 표시
 
     const write = (e, id) => {
@@ -74,13 +76,14 @@ const ScrapContent = () => {
             e.target.innerText = "완료";
             setCurr(id);
             console.log("메모 수정 시작")
+            console.log(fixMemoValue.current)
         }else if (pageState === "FIX"){
             setState("READ");
             setCurr(null);
             e.target.innerText = "수정";
             console.log('메모 수정 완료');
             const memoStatement = fixMemoValue.current.value
-            dispatch(fixMemo({"memo":memoStatement, "user_scrap_id":id}));
+            // dispatch(fixMemo({"memo":memoStatement, "user_scrap_id":id}));
         }
     }
     console.log(pageState)
@@ -118,10 +121,10 @@ const ScrapContent = () => {
     }
 
     useEffect(() => {
-        if(userInfo.isLoggedIn||getMemoResponse||deleteScrapResponse||fixMemoResponse){
+        if(userInfo.isLoggedIn||getMemoListResponse||deleteScrapResponse||fixMemoResponse){
             dispatch(getScrapList())
         }
-    },[userInfo.isLoggedIn, getMemoResponse,deleteScrapResponse,fixMemoResponse]);
+    },[userInfo.isLoggedIn, deleteScrapResponse,fixMemoResponse]);
     useEffect(() => {
         setScrap(scrapList?.sort((a, b) => {
             a = stringToDate(a.createdAt);
@@ -165,12 +168,18 @@ const ScrapContent = () => {
                                 <>
                                 {mail.userScrapId === currentMail?null:<S.MemoCircle />}
                                 {mail.userScrapId === currentMail&&(pageState === "FIX" || pageState === "WRITE")?
-                                    <S.memoContent>
+                                    <S.memoContent >
                                         <S.WriteBlock defaultValue={memoDummy.filter(memo => memo.userScrapId === mail.userScrapId)
                                             .map(memo => {
                                                 return memo.text;
                                             })} onChange={(e) => checkByte(e)} maxLength={100} ref={fixMemoValue}/>
-                                        <S.LetterCounter><S.LettterLength ref={letter}>0</S.LettterLength>/100</S.LetterCounter>
+                                        <S.LetterCounter>
+                                            <S.LettterLength ref={letter}>{memoDummy.filter(memo => memo.userScrapId === mail.userScrapId)
+                                            .map(memo => {
+                                                return memo.text.length;
+                                            })}
+                                            </S.LettterLength>/100
+                                        </S.LetterCounter>
                                     </S.memoContent>
                                     :
                                     <S.MemoBlock>
