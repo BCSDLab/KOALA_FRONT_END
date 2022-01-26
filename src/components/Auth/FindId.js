@@ -78,13 +78,9 @@ const FindId = () => {
               />
             </IdfForm>
           </form>
-          {isEmailError || isAuthNumError ? (
-            <NextButton style={{ background: 'gray' }} disabled={true} type="button">
-              다음
-            </NextButton>
-          ) : (
-            <NextButton onClick={authClick}>다음</NextButton>
-          )}
+          <NextButton onClick={authClick} disabled={isEmailError || isAuthNumError} type="button">
+            다음
+          </NextButton>
         </>
       ) : (
         <>

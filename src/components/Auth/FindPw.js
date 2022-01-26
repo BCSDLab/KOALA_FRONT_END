@@ -91,13 +91,9 @@ const FindPw = () => {
             isEmailError={isEmailError}
             onChange={onChangeAuth}
           ></AuthNumberForm>
-          {isAccountError || isEmailError || isAuthNumError ? (
-            <Button style={{ background: 'gray' }} disabled={true} type="button">
-              다음
-            </Button>
-          ) : (
-            <Button onClick={nextClick}>다음</Button>
-          )}
+          <Button onClick={nextClick} disabled={isAccountError || isEmailError || isAuthNumError} type="button">
+            다음
+          </Button>
         </>
       ) : (
         <>
@@ -106,13 +102,9 @@ const FindPw = () => {
             <PasswordForm ref={passwordRef} onChange={onChangePassword} />
             <ConfiremdPasswordForm ref={confirmedRef} password={password} onChange={onChangeConfirmed} />
           </ChangePasswordForm>
-          {isPasswordError || isConfirmedPasswordError ? (
-            <Button style={{ background: 'gray' }} disabled={true} type="button">
-              완료
-            </Button>
-          ) : (
-            <Button onClick={changePasswordClick}>완료</Button>
-          )}
+          <Button onClick={changePasswordClick} disabled={isPasswordError || isConfirmedPasswordError} type="button">
+            완료
+          </Button>
         </>
       )}
     </div>
