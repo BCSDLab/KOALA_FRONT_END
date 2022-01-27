@@ -1,13 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { LOGIN } from '../../constant';
-import AuthNumberForm from './Shared/AuthNumberForm';
+import { LOGIN } from 'constant';
+import AuthNumberForm from '../Shared/AuthNumberForm';
 import { authFindId, setFindAccount, resetAuthState } from 'store/auth';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import styled from 'styled-components';
-import EmailForm from './Shared/EmailForm';
+import EmailForm from '../Shared/EmailForm';
 
 const IdfForm = styled.div`
   margin-bottom: 120px;
