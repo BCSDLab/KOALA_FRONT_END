@@ -34,11 +34,7 @@ export const SearchContainer = styled(HashtagContainer)`
                 border-bottom:none;
             `;
     } else {
-      if (props.alreadyRegister) {
-        return `
-                    border:1.5px solid #ffd25d;
-                `;
-      }
+      props.alreadyRegister && `border:1.5px solid #ffd25d;`;
     }
   }}
 `;
