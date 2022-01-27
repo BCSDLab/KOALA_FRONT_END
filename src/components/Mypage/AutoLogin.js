@@ -1,5 +1,4 @@
 import React, { useCallback, useState } from 'react';
-import { getCookie, setCookie } from '../Shared/Cookies';
 import * as S from './styles';
 
 const AutoLogin = () => {

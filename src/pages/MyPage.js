@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { removeCookie } from '../components/Shared/Cookies';
 import { getUserInfo, changeProfile } from '../store/myPage';
 import { LOGIN, REFRESH_TOKEN } from '../constant';
+import useMatchMedia from 'hooks/useMatchMedia';
 import SideNavbar from 'components/SideNavbar';
 import LoginButton from 'components/Shared/LoginButton';
 import EditNickname from 'components/Mypage/EditNickname';
@@ -15,7 +16,7 @@ import styled from 'styled-components';
   마이페이지에 현재 user/my에서 유저 이미지에 대한 설계가 아직 진행되지 않았습니다. 
   서버 설계가 완료되면 아래 작성해둔 함수를 활용해주세요
 */
-
+const queries = ['(max-width: 375px)'];
 const MyPage = () => {
   const toggle = useSelector((state) => state.toggle.isOpen);
   const userInfo = useSelector((state) => state.myPage);
@@ -24,6 +25,7 @@ const MyPage = () => {
   const [isShown, setIsShown] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [mobile] = useMatchMedia(queries);
 
   //이미지 파일 업로드 기능 함수
   const setFile = (e) => {
@@ -63,8 +65,9 @@ const MyPage = () => {
   return (
     <MyPageContainer>
       <SideNavbar></SideNavbar>
+
       <MyPageContent>
-        <LoginButton />
+        {!mobile && <LoginButton />}
         <UserInfo isToggle={toggle}>
           <MainText>설정</MainText>
           <MyInfo>내 정보</MyInfo>
@@ -102,7 +105,11 @@ const MyPageContainer = styled.div`
   display: flex;
 `;
 
-const MyPageContent = styled.div``;
+const MyPageContent = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 360px;
+  }
+`;
 
 const UserInfo = styled.div`
   margin: ${({ isToggle }) =>
@@ -110,6 +117,10 @@ const UserInfo = styled.div`
       ? `121px 664px 181px 522px;`
       : `121px 664px 181px 426px;
   `};
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 360px;
+    margin: 0;
+  }
 `;
 
 const MainText = styled.div`
@@ -120,6 +131,24 @@ const MainText = styled.div`
   font-weight: 500;
   text-align: left;
   color: ${(props) => props.theme.colors.darkgray};
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 360px;
+    height: 74px;
+    display: flex;
+    box-sizing: border-box;
+    border-bottom: 1px solid #eee;
+    justify-content: center;
+    align-items: center;
+    font-family: NotoSansCJKKR;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #222;
+  }
 `;
 
 const MyInfo = styled.div`
@@ -131,6 +160,20 @@ const MyInfo = styled.div`
   font-weight: 500;
   text-align: center;
   color: ${(props) => props.theme.colors.darkgray};
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 118px;
+    height: 21px;
+    margin: 24px 0 0 16px;
+    font-family: NotoSansCJKKR;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #222;
+  }
 `;
 
 const UserImage = styled.img`
@@ -138,6 +181,13 @@ const UserImage = styled.img`
   height: 72px;
   margin: 0px 98px 16px 195px;
   border-radius: 50%;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 56px;
+    height: 56px;
+    margin: 5px 152px 0 152px;
+    border-radius: 50%;
+    object-fit: contain;
+  }
 `;
 const OverLay = styled.div`
   position: absolute;
@@ -151,15 +201,46 @@ const OverLay = styled.div`
   text-align: left;
   color: ${(props) => props.theme.colors.white};
   background-color: rgba(34, 34, 34, 0.3);
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: -56px 152px 0 152px;
+    font-family: NotoSansCJKKR;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: left;
+    border-radius: 50%;
+    object-fit: contain;
+  }
 `;
 
 const PatchText = styled.div`
   padding: 26px 23px 25px;
   cursor: pointer;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 26px;
+    height: 21px;
+    padding: 0;
+    font-family: NotoSansCJKKR;
+    font-size: 14px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #fff;
+  }
 `;
 
 const PatchImg = styled.input`
   display: none;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  }
 `;
 
 const UserNickname = styled.div`
@@ -171,6 +252,22 @@ const UserNickname = styled.div`
   font-weight: bold;
   text-align: center;
   color: ${(props) => props.theme.colors.darkgray};
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 360px;
+    height: 27px;
+    display: flex;
+    margin: 19px 0 0 0;
+    justify-content: center;
+    font-family: NotoSansCJKKR;
+    font-size: 18px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: #222;
+  }
 `;
 
 const Title = styled.div`
@@ -180,16 +277,35 @@ const Title = styled.div`
   font-weight: 500;
   text-align: center;
   color: ${(props) => props.theme.colors.gray};
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 118px;
+    height: 21px;
+    font-family: NotoSansCJKKR;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #999;
+  }
 `;
 
 const NicknameTitle = styled(Title)`
   width: 39px;
   margin: 0px 76px 24px 80px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    margin: 48px 226px 16px 16px;
+  }
 `;
 
 const SchoolAuthTitle = styled(Title)`
   width: 52px;
   margin: 71.3px 50px 16px 80px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    margin: 26px 226px 16px 16px;
+  }
 `;
 const EtcTitle = styled.div`
   width: 32px;
@@ -200,6 +316,20 @@ const EtcTitle = styled.div`
   font-weight: 500;
   text-align: center;
   color: ${(props) => props.theme.colors.darkgray};
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 118px;
+    height: 21px;
+    margin: 38px 3px 16px 16px;
+    font-family: NotoSansCJKKR;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #999;
+  }
 `;
 
 const Element = styled.div`
@@ -212,6 +342,20 @@ const Element = styled.div`
   font-weight: 500;
   text-align: center;
   color: ${(props) => props.theme.colors.gray};
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 68px;
+    height: 21px;
+    margin: 16px 53px 16px 16px;
+    font-family: NotoSansCJKKR;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #222;
+  }
 `;
 
 const Contact = styled(Element)``;
