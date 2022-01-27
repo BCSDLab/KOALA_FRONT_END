@@ -70,7 +70,6 @@ const HashTagImg = styled.img`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 23px;
     height: 23.3px;
-    margin-left: 5px;
     object-fit: contain;
   }
 `;
@@ -88,8 +87,6 @@ const HistoryImg = styled.img`
     width: 23px;
     height: 23.3px;
     margin: 0;
-    margin-left: 9px;
-    margin-right: 11px;
     object-fit: contain;
   }
 `;
@@ -106,8 +103,6 @@ const ChatImg = styled.img`
     width: 23px;
     height: 23.3px;
     margin: 0;
-    margin-left: 5px;
-    margin-right: 6px;
     object-fit: contain;
   }
 `;
@@ -131,7 +126,11 @@ const SettingImg = styled.img`
 const MenuItemText = styled.span`
   width: 45px;
   height: 18px;
+  color: ${(props) => (props.current ? `#222` : `#999`)};
   font-family: NotoSansCJKKR;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 12px;
   font-weight: normal;
   font-stretch: normal;
@@ -140,66 +139,26 @@ const MenuItemText = styled.span`
   letter-spacing: normal;
   text-align: left;
   display: flex;
-  color: #999;
-`;
-const SettingText = styled(MenuItemText)`
-  color: ${(props) => (props.current ? `#222` : `#999`)};
 `;
 
 const Icon = styled.div`
-  display: flex;
-  justify-content: center;
-  align-item: center;
-  flex-direction: column;
-  margin-left: 51px;
-  width: 45px;
-`;
-
-const KeywordIcon = styled.div`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 90px;
     height: 74px;
-    padding: 15.2px 0 15.5px 35px;
     display: flex;
+    border-top: ${(props) => props.current && `2px solid #222`};
+    padding: 0;
     flex-direction: column;
     justify-content: center;
-    align-item: center;
+    align-items: center;
   }
 `;
 
-const HistoryIcon = styled.div`
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 90px;
-    height: 74px;
-    display: flex;
-    padding: 15.2px 0 15.5px 21px;
-    flex-direction: column;
-    justify-content: center;
-    align-item: center;
-  }
-`;
-const ChattingIcon = styled.div`
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 90px;
-    height: 74px;
-    display: flex;
-    padding: 15.2px 0 15.5px 26px;
-    flex-direction: column;
-    justify-content: center;
-    align-item: center;
-  }
-`;
-const SettingIcon = styled.div`
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 90px;
-    height: 74px;
-    display: flex;
-    padding: 15.2px 0 15.5px 21px;
-    flex-direction: column;
-    justify-content: center;
-    align-item: center;
-  }
-`;
+const KeywordIcon = styled(Icon)``;
+const HistoryIcon = styled(Icon)``;
+const ChattingIcon = styled(Icon)``;
+const SettingIcon = styled(Icon)``;
+
 const queries = ['(max-width: 375px)'];
 const SideNavbar = () => {
   const isOpen = useSelector((state) => state.toggle.isOpen);
@@ -218,21 +177,36 @@ const SideNavbar = () => {
         <MenuButton onClick={toggleSideMenu}>
           <MenuImg src="/asset/MenuBtn.svg" alt="Vector" />
         </MenuButton>
-        <KeywordIcon>
-          <HashTagImg src="/asset/Hashtag.svg" alt="keyword" />
-          {mobile && <MenuItemText>키워드</MenuItemText>}
+        <KeywordIcon current={location.pathname === '/keyword'}>
+          <HashTagImg
+            src={location.pathname === '/keyword' ? '/asset/Hashtagblack.svg' : '/asset/Hashtag.svg'}
+            alt="keyword"
+          />
+          {mobile && <MenuItemText current={location.pathname === '/keyword'}>키워드</MenuItemText>}
         </KeywordIcon>
-        <HistoryIcon>
-          <HistoryImg isSideMenu={isOpen} src="/asset/History.svg" alt="history" />
-          {mobile && <MenuItemText>히스토리</MenuItemText>}
+        <HistoryIcon current={location.pathname === '/history'}>
+          <HistoryImg
+            isSideMenu={isOpen}
+            src={location.pathname === '/history' ? '/asset/HistoryBlack.svg' : '/asset/History.svg'}
+            alt="history"
+          />
+          {mobile && <MenuItemText current={location.pathname === '/history'}>히스토리</MenuItemText>}
         </HistoryIcon>
-        <ChattingIcon>
-          <ChatImg isSideMenu={isOpen} src="/asset/Chat.svg" alt="chat" />
-          {mobile && <MenuItemText>채팅방</MenuItemText>}
+        <ChattingIcon current={location.pathname === '/chat'}>
+          <ChatImg
+            isSideMenu={isOpen}
+            src={location.pathname === '/history' ? '/asset/Chatblack.svg' : '/asset/Chat.svg'}
+            alt="chat"
+          />
+          {mobile && <MenuItemText current={location.pathname === '/chat'}>채팅방</MenuItemText>}
         </ChattingIcon>
-        <SettingIcon>
-          <SettingImg isSideMenu={isOpen} src="/asset/Setting.svg" alt="mypage" />
-          {mobile && <SettingText current={location.pathname === '/mypage'}>설정</SettingText>}
+        <SettingIcon current={location.pathname === '/mypage'}>
+          <SettingImg
+            isSideMenu={isOpen}
+            src={location.pathname === '/mypage' ? '/asset/Settingblack.svg' : '/asset/Setting.svg'}
+            alt="mypage"
+          />
+          {mobile && <MenuItemText current={location.pathname === '/mypage'}>설정</MenuItemText>}
         </SettingIcon>
       </Nav>
       {isOpen && <SideNavMenu />}

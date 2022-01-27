@@ -48,6 +48,7 @@ const App = () => {
     <>
       <Routes>
         <Route exact path="/" element={<MainPage />} />
+        <Route path="mypage" element={<MyPage />} />
         <Route exact path="auth/*" element={<AuthPage />}>
           <Route index element={<Login />} />
           <Route path="createLog" element={<RegisterDoc />} />
@@ -62,7 +63,6 @@ const App = () => {
             <Route path="auth" element={<ChatAuth />} />
             <Route path="unauth" element={<Unauth />} />
           </Route>
-          <Route path="mypage" element={<MyPage />} />
         </Route>
       </Routes>
     </>
