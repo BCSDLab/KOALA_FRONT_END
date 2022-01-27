@@ -15,14 +15,15 @@ export const HashtagContainer = styled.div`
     if (!props.keyword) {
       return `
                 border:1px solid #222222;
-                border-bottom:none;
             `;
-    } else {
-      if (props.alreadyRegister) {
-        return `
-                    border:1.5px solid #ffd25d;
-                `;
-      }
+    }
+  }}
+
+  ${(props) => {
+    if (props.alreadyRegister) {
+      return `
+              border:1.5px solid #ffd25d; 
+          `;
     }
   }}
 `;

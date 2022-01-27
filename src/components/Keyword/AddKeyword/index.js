@@ -1,11 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import KeywordHeader from '../KeywordHeader';
-import {
-  getSiteRecommendation,
-  patchModifyKeyword,
-  getKeywordRecommendation,
-  createKeyword,
-} from 'store/modifyKeyword';
+import { getSiteRecommendation, getKeywordRecommendation, createKeyword } from 'store/modifyKeyword';
 import { inquiry } from 'store/keyword';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,6 +22,7 @@ const AddKeyword = () => {
   const [isVibrationAlarm, setIsVibrationAlarm] = useState(false);
   const [alarmTerm, setAlarmTerm] = useState(null);
 
+  const userInfo = useSelector((state) => state.auth);
   const { siteRecommendationList, keywordRecommendationList } = useSelector((state) => state.modifyKeyword);
   const { keywords } = useSelector((state) => state.keyword);
   const dispatch = useDispatch();
@@ -52,13 +48,21 @@ const AddKeyword = () => {
   );
 
   const onClickRecommendKeyword = useCallback(
-    (item) => {
-      if (!keywords.includes(item)) {
-        setSelectRecommendKeyword(item);
+    (keyword) => {
+      setAlreadyRegisterKeyword(false);
+
+      if (!keywords.includes(keyword)) {
+        setSelectRecommendKeyword(keyword);
         setRecommendKeywords([]);
       } else {
         setAlreadyRegisterKeyword(true);
       }
+
+      keywords.forEach((item) => {
+        if (item.name === keyword) {
+          setAlreadyRegisterKeyword(true);
+        }
+      });
     },
     [keywords]
   );
@@ -103,24 +107,26 @@ const AddKeyword = () => {
   };
 
   const onClickCreateButton = useCallback(() => {
-    const data = {
-      alarmCycle: changeAlarmTerm(alarmTerm),
-      alarmMode: isNormalAlarm ? 1 : 0,
-      isImportant: isImportantAlarm ? 1 : 0,
-      name: selectRecommendKeyword,
-      siteList: selectRecommendItem.map((item) => changeSiteName(item)),
-    };
+    if (!alreadyRegisterKeyword) {
+      const data = {
+        alarmCycle: changeAlarmTerm(alarmTerm),
+        alarmMode: isNormalAlarm ? 1 : 0,
+        isImportant: isImportantAlarm ? 1 : 0,
+        name: selectRecommendKeyword,
+        siteList: selectRecommendItem.map((item) => changeSiteName(item)),
+      };
 
-    dispatch(createKeyword(data));
+      dispatch(createKeyword(data));
 
-    setIsNormalAlarm(false);
-    setIsImportantAlarm(false);
-    setIsSlientAlarm(false);
-    setIsVibrationAlarm(false);
-    setAlarmTerm(false);
-    setSelectRecommendItem([]);
-    setRecommendKeyword('');
-    setSelectRecommendKeyword('');
+      setIsNormalAlarm(false);
+      setIsImportantAlarm(false);
+      setIsSlientAlarm(false);
+      setIsVibrationAlarm(false);
+      setAlarmTerm(false);
+      setSelectRecommendItem([]);
+      setRecommendKeyword('');
+      setSelectRecommendKeyword('');
+    }
   }, [alarmTerm, isNormalAlarm, isImportantAlarm, selectRecommendItem]);
 
   useEffect(() => {
@@ -152,8 +158,10 @@ const AddKeyword = () => {
   }, [keywordRecommendationList]);
 
   useEffect(() => {
-    dispatch(inquiry());
-  }, []);
+    if (userInfo.isLoggedIn) {
+      dispatch(inquiry());
+    }
+  }, [userInfo.isLoggedIn]);
 
   return (
     <>
@@ -166,7 +174,7 @@ const AddKeyword = () => {
           value={selectRecommendKeyword === '' ? recommendKeyword : selectRecommendKeyword}
         ></S.InputKeyword>
         <S.AlreadyRegisterKeyword alreadyRegister={alreadyRegisterKeyword}>
-          이미 등록한 사이트입니다.
+          이미 등록한 키워드입니다.
         </S.AlreadyRegisterKeyword>
       </S.HashtagContainer>
       <S.RecommendKeywordContainer show={recommendKeyword === ''}>
