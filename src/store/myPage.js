@@ -3,25 +3,24 @@ import createRequestSaga, { createRequestSagaActionTypes } from './createRequest
 import { takeLatest } from '@redux-saga/core/effects';
 import * as API from 'api';
 
-const [CHANGENICKNAME, CHANGENICKNAME_SUCCESS, CHANGENICKNAME_FAILURE] =
-  createRequestSagaActionTypes('myPage/CHANGENICKNAME');
+const [CHANGE_NICKNAME, CHANGE_NICKNAME_SUCCESS, CHANGE_NICKNAME_FAILURE] =
+  createRequestSagaActionTypes('myPage/CHANGE_NICKNAME');
 const [USERINFO, USERINFO_SUCCESS, USERINFO_FAILURE] = createRequestSagaActionTypes('myPage/USERINFO');
 const [CHANGE_PROFILE, CHANGE_PROFILE_SUCCESS, CHANGE_PROFILE_FAILURE] =
   createRequestSagaActionTypes('myPage/CHANGE_PROFILE');
 
-export const changeNickname = createAction(CHANGENICKNAME, ({ nickName }) => ({
-  nickName,
-}));
+export const changingNickname = createAction(CHANGE_NICKNAME, (nickname) => nickname);
 export const getUserInfo = createAction(USERINFO);
 export const changeProfile = createAction(CHANGE_PROFILE, (file) => file);
 
-const changeNicknameSaga = createRequestSaga(CHANGENICKNAME, API.changeNickname);
+const changeNicknameSaga = createRequestSaga(CHANGE_NICKNAME, API.changeNickname);
 export function* changeNameSaga() {
-  yield takeLatest(CHANGENICKNAME, changeNicknameSaga);
+  yield takeLatest(CHANGE_NICKNAME, changeNicknameSaga);
 }
 const getUserInfoSaga = createRequestSaga(USERINFO, API.getUserInfo);
 export function* getUserSaga() {
   yield takeLatest(USERINFO, getUserInfoSaga);
+  yield takeLatest(CHANGE_NICKNAME_SUCCESS, getUserInfoSaga);
 }
 const changeProfileSaga = createRequestSaga(CHANGE_PROFILE, API.changeUserProfile);
 export function* changeImageSaga() {
@@ -38,10 +37,10 @@ const initialState = {
 
 const myPage = handleActions(
   {
-    [CHANGENICKNAME_SUCCESS]: (state) => ({
+    [CHANGE_NICKNAME_SUCCESS]: (state) => ({
       ...state,
     }),
-    [CHANGENICKNAME_FAILURE]: (state) => ({
+    [CHANGE_NICKNAME_FAILURE]: (state) => ({
       ...state,
     }),
     [USERINFO_SUCCESS]: (state, { payload }) => ({

@@ -164,7 +164,6 @@ const SideNavbar = () => {
   const isOpen = useSelector((state) => state.toggle.isOpen);
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log(location);
   const toggleSideMenu = () => {
     dispatch(opened());
   };

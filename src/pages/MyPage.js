@@ -55,17 +55,9 @@ const MyPage = () => {
     location.reload();
   };
 
-  //새로고침 시 유저정보 다시 받아오기
-  useEffect(() => {
-    if (loginInfo.isLoggedIn) {
-      dispatch(getUserInfo());
-    }
-  }, [loginInfo.isLoggedIn]);
-
   return (
     <MyPageContainer>
       <SideNavbar></SideNavbar>
-
       <MyPageContent>
         {!mobile && <LoginButton />}
         <UserInfo isToggle={toggle}>

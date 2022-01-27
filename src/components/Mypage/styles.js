@@ -46,7 +46,7 @@ export const SchoolAuthButton = styled.button`
   }
 `;
 
-export const StyledEditNickname = styled.form`
+export const StyledEditNickname = styled.div`
   display: flex;
   position: relative;
   width: 304px;
