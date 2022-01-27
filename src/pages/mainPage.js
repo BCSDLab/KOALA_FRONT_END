@@ -7,7 +7,7 @@ const Container = styled.div`
   display: flex;
 `;
 
-const mainPage = () => {
+const MainPage = () => {
   return (
     <Container>
       <SideNavbar />
@@ -16,4 +16,4 @@ const mainPage = () => {
   );
 };
 
-export default mainPage;
+export default MainPage;
