@@ -18,7 +18,7 @@ const Nav = styled.div`
   align-items: center;
 
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 360px;
+    width: 100%;
     height: 74px;
     margin: 0 0 0 0;
     padding: 0;
@@ -36,7 +36,7 @@ const NavContainer = styled.div`
   display: flex;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     display: flex;
-    width: 360px;
+    width: 100%;
     height: 74px;
   }
 `;
@@ -143,7 +143,7 @@ const MenuItemText = styled.span`
 
 const Icon = styled.div`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 90px;
+    width: 25%;
     height: 74px;
     display: flex;
     border-top: ${(props) => props.current && `2px solid #222`};

@@ -10,7 +10,7 @@ import LoginButton from 'components/Shared/LoginButton';
 import EditNickname from 'components/Mypage/EditNickname';
 import SchoolAuth from 'components/Mypage/SchoolAuth';
 import AutoLogin from 'components/Mypage/AutoLogin';
-import Dialog from 'components/Mypage/Dialog';
+import Dialog from 'components/Shared/Dialog';
 import styled from 'styled-components';
 
 /* 
@@ -121,7 +121,7 @@ const MyPageContainer = styled.div`
 
 const MyPageContent = styled.div`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 360px;
+    width: 100%;
     hegith: ca1c(100%-300px);
   }
 `;
@@ -133,7 +133,7 @@ const UserInfo = styled.div`
       : `121px 664px 181px 426px;
   `};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 360px;
+    width: 100%;
     margin: 0;
   }
 `;
@@ -147,7 +147,7 @@ const MainText = styled.div`
   text-align: left;
   color: ${(props) => props.theme.colors.darkgray};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 360px;
+    width: 100%;
     height: 61px;
     display: flex;
     box-sizing: border-box;
