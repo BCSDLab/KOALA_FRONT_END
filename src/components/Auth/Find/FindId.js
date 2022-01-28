@@ -1,70 +1,93 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import AuthNumber from 'components/Shared/AuthNumber';
+import React, { useState, useRef, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
+import { LOGIN } from 'constant';
+import AuthNumberForm from '../Shared/AuthNumberForm';
+import { authFindId, setFindAccount, resetAuthState } from 'store/auth';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
-import IdInput from 'components/Auth/Shared/IdInput';
 import styled from 'styled-components';
+import EmailForm from '../Shared/EmailForm';
 
 const IdfForm = styled.div`
   margin-bottom: 120px;
 `;
-
 const NextButton = styled(Button)`
   margin-top: 0;
 `;
+const FindAccountText = styled.div`
+  height: 24px;
+  margin-bottom: 216px;
+`;
 
-/**
- * TODO:
- * - [x] 이메일 형식 검사 스타일
- * - [] 가입 하지 않은 이메일 알림
- * - [] 이메일 전송 후 다음 버튼 활성화
- * @returns
- */
 const FindId = () => {
   const [email, setEmail] = useState('');
-  const [isEmail, setIsEmail] = useState(false);
-  const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
-  const [emailMessage, setEmailMessage] = useState('');
+  const [secret, setSecret] = useState('');
 
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isEmailError, setIsEmailError] = useState(true);
+  const [isAuthNumError, setIsAuthNumError] = useState(true);
 
-  const onChangeEmail = useCallback((e) => {
-    const emailRegex =
-      /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-    const currentEmail = e.target.value;
-    setEmail(currentEmail);
+  const emailRef = useRef();
+  const authRef = useRef();
 
-    if (!emailRegex.test(currentEmail)) {
-      setEmailMessage('이메일 형식이 알맞지 않습니다.');
-      setIsEmail(false);
-    } else {
-      setEmailMessage('');
-      setIsEmail(true);
-    }
-  }, []);
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const onChangeEmail = (validatedData) => {
+    setIsEmailError(validatedData.isError);
+    setEmail(validatedData.value);
+  };
+  const onChangeAuth = (validatedData) => {
+    setIsAuthNumError(validatedData.isError);
+    setSecret(validatedData.value);
+  };
+  const authClick = () => {
+    dispatch(authFindId(email, secret));
+  };
+  const completeClick = () => {
+    navigate(LOGIN);
+  };
 
   useEffect(() => {
-    setIsDisabled(!isEmail);
-  }, [isEmail]);
+    if (auth.authSuccess) {
+      dispatch(setFindAccount(email));
+    }
+  }, [auth.authSuccess]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetAuthState());
+    };
+  }, []);
 
   return (
     <div>
-      <form>
-        <IdfForm>
-          <S.Title>아이디 찾기</S.Title>
-          <IdInput
-            name="email"
-            value={email}
-            onChange={onChangeEmail}
-            placeholder="이메일 입력 (인증번호가 전송됩니다.)"
-            isError={emailMessage !== ''}
-            errorMessage={emailMessage}
-          />
-          <AuthNumber isEmail={isEmail} />
-        </IdfForm>
-
-        <NextButton disabled={isDisabled}>다음</NextButton>
-      </form>
+      <S.Title>아이디 찾기</S.Title>
+      {!auth.authSuccess ? (
+        <>
+          <form>
+            <IdfForm>
+              <EmailForm ref={emailRef} onChange={onChangeEmail} />
+              <AuthNumberForm
+                type="ACCOUNT"
+                ref={authRef}
+                email={email}
+                isEmailError={isEmailError}
+                onChange={onChangeAuth}
+              />
+            </IdfForm>
+          </form>
+          <NextButton onClick={authClick} disabled={isEmailError || isAuthNumError} type="button">
+            다음
+          </NextButton>
+        </>
+      ) : (
+        <>
+          <FindAccountText>아이디는 {auth.blindAccount}입니다.</FindAccountText>
+          <NextButton onClick={completeClick}>완료</NextButton>
+        </>
+      )}
     </div>
   );
 };

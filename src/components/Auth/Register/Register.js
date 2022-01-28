@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import PwdInput from 'components/Auth/Shared/PwdInput';
-import IdInput from 'components/Auth/Shared/IdInput';
+import CommonInput from 'components/Auth/Shared/CommonInput';
 import { ACCOUNT_ERROR, EMAIL_ERROR, NICKNAME_ERROR } from 'constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from 'store/auth';
@@ -128,7 +128,7 @@ const RegisterForm = () => {
   return (
     <form onSubmit={onSubmit}>
       <S.Title>회원가입</S.Title>
-      <IdInput
+      <CommonInput
         name="account"
         value={account}
         onChange={onChangeAccount}
@@ -155,7 +155,7 @@ const RegisterForm = () => {
         isError={passwordConfirmMessage !== ''}
         errorMessage={passwordConfirmMessage}
       />
-      <IdInput
+      <CommonInput
         name="email"
         value={email}
         onChange={onChangeEmail}
@@ -164,7 +164,7 @@ const RegisterForm = () => {
         isError={emailMessage !== ''}
         errorMessage={emailMessage}
       />
-      <IdInput
+      <CommonInput
         name="nickName"
         value={nickName}
         onChange={onChangeNickName}

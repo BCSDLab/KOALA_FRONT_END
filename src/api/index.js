@@ -15,10 +15,24 @@ export const checkEmail = (email) => logined.get(`user/email-check?email=${email
 
 export const changeNickname = (nickName) => logined.patch(`user/nickname?nickname=${nickName}`);
 
+export const sendFindPassword = ({ account, email }) => logined.post('user/email-send/PASSWORD', { account, email });
+
+export const authFindPassword = (account, email, secret) =>
+  logined.post('user/email/certification/PASSWORD', account, email, secret);
+
+export const changePassword = (account, password) => logined.post('/user/password-change', account, password);
+
+export const sendFindAccount = ({ email }) => logined.post('user/email-send/ACCOUNT', { email });
+
+export const authFindAccount = (email, secret) => logined.post('user/email/certification/ACCOUNT', email, secret);
+
+export const findAccount = ({ email }) => logined.get(`/user/account-find?email=${email}`);
+
 export const changeUserProfile = (file) =>
   logined.patch('user/profile', file, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
+
 
 export const deleteUser = () => logined.patch('user/delete');
 
