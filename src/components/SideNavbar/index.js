@@ -176,28 +176,28 @@ const SideNavbar = () => {
         <MenuButton onClick={toggleSideMenu}>
           <MenuImg src="/asset/MenuBtn.svg" alt="Vector" />
         </MenuButton>
-        <KeywordIcon current={location.pathname === '/keyword'}>
+        <KeywordIcon current={location.pathname.includes('/keyword')}>
           <HashTagImg
-            src={location.pathname === '/keyword' ? '/asset/Hashtagblack.svg' : '/asset/Hashtag.svg'}
+            src={location.pathname.includes('/keyword') ? '/asset/Hashtagblack.svg' : '/asset/Hashtag.svg'}
             alt="keyword"
           />
-          {mobile && <MenuItemText current={location.pathname === '/keyword'}>키워드</MenuItemText>}
+          {mobile && <MenuItemText current={location.pathname.includes('/keyword')}>키워드</MenuItemText>}
         </KeywordIcon>
-        <HistoryIcon current={location.pathname === '/history'}>
+        <HistoryIcon current={location.pathname.includes('/history')}>
           <HistoryImg
             isSideMenu={isOpen}
-            src={location.pathname === '/history' ? '/asset/HistoryBlack.svg' : '/asset/History.svg'}
+            src={location.pathname.includes('/history') ? '/asset/HistoryBlack.svg' : '/asset/History.svg'}
             alt="history"
           />
-          {mobile && <MenuItemText current={location.pathname === '/history'}>히스토리</MenuItemText>}
+          {mobile && <MenuItemText current={location.pathname.includes('/history')}>히스토리</MenuItemText>}
         </HistoryIcon>
-        <ChattingIcon current={location.pathname === '/chat'}>
+        <ChattingIcon current={location.pathname.includes('/chat')}>
           <ChatImg
             isSideMenu={isOpen}
-            src={location.pathname === '/chat' ? '/asset/Chatblack.svg' : '/asset/Chat.svg'}
+            src={location.pathname.includes('/chat') ? '/asset/Chatblack.svg' : '/asset/Chat.svg'}
             alt="chat"
           />
-          {mobile && <MenuItemText current={location.pathname === '/chat'}>채팅방</MenuItemText>}
+          {mobile && <MenuItemText current={location.pathname.includes('/chat')}>채팅방</MenuItemText>}
         </ChattingIcon>
         <SettingIcon current={location.pathname === '/mypage'}>
           <SettingImg

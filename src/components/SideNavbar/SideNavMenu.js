@@ -17,8 +17,8 @@ const Extension = () => {
         </S.HistoryLink>
       </S.HistoryList>
       <S.ChatList>
-        <S.ChatLink current={location.pathname === '/chat'} to="/chat">
-          <S.ChatText current={location.pathname === '/chat'}>채팅방</S.ChatText>
+        <S.ChatLink current={location.pathname.includes('/chat')} to="/chat">
+          <S.ChatText current={location.pathname.includes('/chat')}>채팅방</S.ChatText>
         </S.ChatLink>
       </S.ChatList>
 
