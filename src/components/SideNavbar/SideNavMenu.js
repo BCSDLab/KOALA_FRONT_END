@@ -1,8 +1,10 @@
 import React from 'react';
 import * as S from 'components/SideNavbar/styles';
+import { useLocation } from 'react-router-dom';
 import KeywordDropdown from './KeywordDropdown';
 
 const Extension = () => {
+  const location = useLocation();
   return (
     <S.SideMenuBackground>
       <S.Logo src="/asset/KoalaLogo.svg" alt="Logo" />
@@ -21,8 +23,8 @@ const Extension = () => {
       </S.ChatList>
 
       <S.SetList>
-        <S.Set to="#">
-          <S.SetText>설정</S.SetText>
+        <S.Set current={location.pathname === '/mypage'} to="#">
+          <S.SetText current={location.pathname === '/mypage'}>설정</S.SetText>
         </S.Set>
         <S.Contact to="#">
           <S.ContactText>문의하기</S.ContactText>

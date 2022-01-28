@@ -161,15 +161,16 @@ export const SetList = styled.div`
 `;
 
 export const Set = styled(StyledLinkDiv)`
-  padding: 0 0 4px 0;
-  font-size: 14px;
+  display: flex;
+  align-items: center;
+  background-color: ${(props) => props.current && props.theme.colors.darkgray};
 `;
 
 export const SetText = styled.span`
   font-size: 16px;
   font-weight: normal;
-  margin: 6px 208px 14px 32px;
-  color: ${(props) => props.theme.colors.darkgray};
+  margin-left: 32px;
+  color: ${(props) => (props.current ? props.theme.colors.white : props.theme.colors.darkgray)};
 `;
 
 export const Contact = styled(StyledLinkDiv)`

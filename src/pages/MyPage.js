@@ -162,7 +162,7 @@ const MainText = styled.div`
     line-height: normal;
     letter-spacing: normal;
     text-align: center;
-    color: #222;
+    color: ${(props) => props.theme.colors.darkgray};
   }
 `;
 
