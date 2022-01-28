@@ -27,13 +27,6 @@ const ScrapContent = () => {
     const letter = useRef();
     const fixMemoValue = useRef(null);
     const writeMemoValue = useRef();
-    // useEffect(() => {
-    //     if(memoValue.current){
-    //         console.log('asdfsdf')
-    //         console.log(memoValue.current.value)
-    //     }
-    //     console.log(memoValue.current)
-    // },[memoValue.current])
 
     useEffect(() => {
         if(userInfo.isLoggedIn){
@@ -81,7 +74,7 @@ const ScrapContent = () => {
             e.target.innerText = "수정";
             console.log('메모 수정 완료');
             const memoStatement = fixMemoValue.current.value
-            // dispatch(fixMemo({"memo":memoStatement, "user_scrap_id":id}));
+            dispatch(fixMemo({"memo":memoStatement, "user_scrap_id":id}));
         }
     }
     const selectAll = (e) => {
@@ -168,12 +161,12 @@ const ScrapContent = () => {
                                     <S.memoContent >
                                         <S.WriteBlock defaultValue={memoItemList.filter(memo => memo.userScrapId === mail.userScrapId)
                                             .map(memo => {
-                                                return memo.text;
+                                                return memo.memo;
                                             })} onChange={(e) => checkByte(e)} maxLength={100} ref={fixMemoValue}/>
                                         <S.LetterCounter>
                                             <S.LettterLength ref={letter} props={this}>{memoItemList.filter(memo => memo.userScrapId === mail.userScrapId)
                                             .map(memo => {
-                                                return memo.text.length;
+                                                return memo.memo.length;
                                             })}
                                             </S.LettterLength>/100
                                         </S.LetterCounter>
