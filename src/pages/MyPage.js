@@ -1,8 +1,9 @@
-import React, { useCallback, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { resetAuthState } from 'store/auth';
 import { removeCookie } from '../components/Shared/Cookies';
-import { changeProfile } from '../store/myPage';
+import { changeProfile, resetMypageInfo } from '../store/myPage';
 import { LOGIN, REFRESH_TOKEN } from '../constant';
 import useMatchMedia from 'hooks/useMatchMedia';
 import SideNavbar from 'components/SideNavbar';
@@ -44,15 +45,17 @@ const MyPage = () => {
   };
 
   const onConfirm = () => {
-    setDialog(false);
     removeCookie(REFRESH_TOKEN);
-    loginInfo.isLoggedIn = false;
+    setDialog(false);
+    dispatch(resetAuthState());
+    dispatch(resetMypageInfo());
     navigate(LOGIN);
   };
+
   const onCancel = () => {
     setDialog(false);
   };
-  //클릭 시 로그아웃
+
   const logout = () => {
     setDialog(true);
   };

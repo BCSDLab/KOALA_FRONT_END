@@ -8,7 +8,11 @@ const [CHANGE_NICKNAME, CHANGE_NICKNAME_SUCCESS, CHANGE_NICKNAME_FAILURE] =
 const [USERINFO, USERINFO_SUCCESS, USERINFO_FAILURE] = createRequestSagaActionTypes('myPage/USERINFO');
 const [CHANGE_PROFILE, CHANGE_PROFILE_SUCCESS, CHANGE_PROFILE_FAILURE] =
   createRequestSagaActionTypes('myPage/CHANGE_PROFILE');
+const RESET_MYPAGE_STATE = {
+  type: 'RESET_MYPAGE_STATE',
+};
 
+export const resetMypageInfo = createAction(RESET_MYPAGE_STATE);
 export const changingNickname = createAction(CHANGE_NICKNAME, (nickname) => nickname);
 export const getUserInfo = createAction(USERINFO);
 export const changeProfile = createAction(CHANGE_PROFILE, (file) => file);
@@ -38,6 +42,9 @@ const initialState = {
 
 const myPage = handleActions(
   {
+    [RESET_MYPAGE_STATE]: (state) => ({
+      ...(state = initialState),
+    }),
     [CHANGE_NICKNAME_SUCCESS]: (state) => ({
       ...state,
       changeSuccess: true,

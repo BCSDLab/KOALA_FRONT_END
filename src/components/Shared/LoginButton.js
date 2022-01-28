@@ -30,9 +30,10 @@ const LoginButton = () => {
 
   const logoutClick = useCallback(() => {
     removeCookie(REFRESH_TOKEN);
-    loginInfo.isLoggedIn = false;
+    setDialog(false);
+    dispatch(resetAuthState());
+    dispatch(resetMypageInfo());
     navigate(LOGIN);
-    location.reload();
   });
 
   return (
