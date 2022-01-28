@@ -36,21 +36,20 @@ const ScrapContent = () => {
     // },[memoValue.current])
 
     useEffect(() => {
-        // for(let x=0; x<scrapItemList.length; x++){
-        //     console.log(scrapItemList[x].userScrapId)
-        //     dispatch(getMemo(scrapItemList[x].userScrapId))
-        // }
-        dispatch(getMemo(13))
-        // dispatch(getMemo(14))
-        // dispatch(getMemo(17))
-        // dispatch(getMemo(18))
-        // dispatch(getMemo(20))
+        if(userInfo.isLoggedIn){
+            dispatch(getMemo());
+        }
     },[scrapItemList])
     useEffect(() => {
-        setMemo([...memoItemList, memoList])
-
-    },[memoList])
-    console.log("메모리스트", memoItemList)
+        if(getMemoListResponse){
+            setMemo(memoList)
+            setIdList(memoList.map((memo) => {
+                return memo.userScrapId;
+            }));
+            console.log('asdf',memoIdList)
+            console.log(memoItemList)
+        }
+    },[memoList]);
     //상태에 따라 메모/수정/완료 표시
 
     const write = (e, id) => {
@@ -76,7 +75,6 @@ const ScrapContent = () => {
             e.target.innerText = "완료";
             setCurr(id);
             console.log("메모 수정 시작")
-            console.log(fixMemoValue.current)
         }else if (pageState === "FIX"){
             setState("READ");
             setCurr(null);
@@ -86,7 +84,6 @@ const ScrapContent = () => {
             // dispatch(fixMemo({"memo":memoStatement, "user_scrap_id":id}));
         }
     }
-    console.log(pageState)
     const selectAll = (e) => {
         if(e.target.checked){
             setCheckedList(scrapItemList.map(mail => {
@@ -161,7 +158,7 @@ const ScrapContent = () => {
                                 }
                                 <S.DivideLine src="/asset/DivideLine.svg" />
                                 <S.ReceiveDate>{mail.created_at}</S.ReceiveDate>
-                                </S.AlertProp>
+                            </S.AlertProp>
                         </S.AlertContent>
                         <S.MemoWrapper>
                             {memoIdList.includes(mail.userScrapId)?
@@ -169,12 +166,12 @@ const ScrapContent = () => {
                                 {mail.userScrapId === currentMail?null:<S.MemoCircle />}
                                 {mail.userScrapId === currentMail&&(pageState === "FIX" || pageState === "WRITE")?
                                     <S.memoContent >
-                                        <S.WriteBlock defaultValue={memoDummy.filter(memo => memo.userScrapId === mail.userScrapId)
+                                        <S.WriteBlock defaultValue={memoItemList.filter(memo => memo.userScrapId === mail.userScrapId)
                                             .map(memo => {
                                                 return memo.text;
                                             })} onChange={(e) => checkByte(e)} maxLength={100} ref={fixMemoValue}/>
                                         <S.LetterCounter>
-                                            <S.LettterLength ref={letter}>{memoDummy.filter(memo => memo.userScrapId === mail.userScrapId)
+                                            <S.LettterLength ref={letter} props={this}>{memoItemList.filter(memo => memo.userScrapId === mail.userScrapId)
                                             .map(memo => {
                                                 return memo.text.length;
                                             })}
@@ -183,9 +180,9 @@ const ScrapContent = () => {
                                     </S.memoContent>
                                     :
                                     <S.MemoBlock>
-                                        {memoDummy.filter(memo => memo.userScrapId === mail.userScrapId)
+                                        {memoItemList.filter(memo => memo.userScrapId === mail.userScrapId)
                                                     .map(memo => {
-                                                        return memo.text;
+                                                        return memo.memo;
                                                     })}
                                     </S.MemoBlock>
                                 }

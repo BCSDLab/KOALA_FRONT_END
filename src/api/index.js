@@ -1,7 +1,8 @@
 import logined from './logined';
 
-export const login = ({ account, password }) => logined.post('user/login', { account, password });
-
+// export const login = ({ account, password }) => logined.post('user/login', { account, password });
+export const login = ({ device_token, account, password }) =>
+  logined.post(`user/login?device_token=${device_token}`, { account, password });
 export const refresh = () => logined.post('user/refresh');
 
 export const checkNickname = (nickName) => logined.get(`/user/nickname-check?nickname=${nickName}`);
@@ -22,8 +23,8 @@ export const historyAPI = {
 
 export const scrapAPI = {
   getScrapList : () => logined.get(`/scrap`),
-  deleteScrapItem : (noticeIdList) => logined.delete(`/scrap`, noticeIdList),
-  getMemo : (userScrapId) => logined.get(`/memo/{userScrapId}?userScrapId=${userScrapId}`),
-  fixMemo : (memo) => logined.patch(`/memo`, memo),
+  deleteScrapItem : (noticeIdList) => logined.delete(`/scrap`, {data:noticeIdList}),
+  getMemo : () => logined.get(`/memo`),
+  fixMemo : (memo) => logined.patch(`/memo`, {memo:memo.memo, user_scrap_id:memo.user_scrap_id }),
   writeMemo : (memo) => logined.post(`/memo`, memo)
 }

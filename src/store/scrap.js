@@ -11,7 +11,7 @@ const [WRITEMEMO, WRITEMEMO_SUCCESS, WRITEMEMO_FAILURE] = createRequestSagaActio
 
 export const getScrapList = createAction(GETSCRAPLIST);
 export const deleteScrapItem = createAction(DELETESCRAPITEM, (noticeIdList) => (noticeIdList));
-export const getMemo = createAction(GETMEMO, (userScrapId) => (userScrapId));
+export const getMemo = createAction(GETMEMO);
 export const fixMemo = createAction(FIXMEMO, (memo) => (memo));
 export const writeMemo = createAction(WRITEMEMO, (memo) => (memo));
 
@@ -56,38 +56,25 @@ const scrap = handleActions(
             ...state,
             scrapList: scrap.body,
             getScrapListResponse: true,
-            getMemoListResponse: false,
             deleteScrapResponse: false,
+            getMemoListResponse: false,
             fixMemoResponse: false,
             writeMemoResponse: false
         }),
         [GETSCRAPLIST_FAILURE]: (state) => ({
             ...state,
-            historyList: [],
+            scrapList: [],
             getScrapListResponse: false,
-            getMemoListResponse: false,
-            deleteScrapResponse: false,
-            fixMemoResponse: false,
-            writeMemoResponse: false
+            deleteScrapResponse: false
         }),
 
         [GETMEMO_SUCCESS]: (state, {payload:scrap}) => ({
             ...state,
             memoList: scrap.body,
-            getScrapListResponse: false,
             getMemoListResponse: true,
-            deleteScrapResponse: false,
-            fixMemoResponse: false,
-            writeMemoResponse: false
         }),
-        [GETMEMO_FAILURE]: (state) => ({
-            ...state,
-            memoList: [],
-            getScrapListResponse: false,
-            getMemoListResponse: false,
-            deleteScrapResponse: false,
-            fixMemoResponse: false,
-            writeMemoResponse: false
+        [GETMEMO_FAILURE]: () => ({
+            getMemoListResponse: false
         }),
 
         [DELETESCRAPITEM_SUCCESS]: () => ({
