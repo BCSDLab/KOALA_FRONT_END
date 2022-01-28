@@ -24,10 +24,11 @@ const ErrorImg = styled.img`
   right: 0;
 `;
 
-const IdInput = (props) => {
+const CommonInput = (props, ref) => {
   return (
     <StyledId>
       <StyledInput
+        ref={ref}
         autocomplete="account"
         value={props.value}
         onChange={props.onChange}
@@ -41,4 +42,4 @@ const IdInput = (props) => {
   );
 };
 
-export default IdInput;
+export default React.forwardRef(CommonInput);
