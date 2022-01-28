@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useMatchMedia from 'hooks/useMatchMedia';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { opened } from '../../store/toggle';
 import styled from 'styled-components';
 import SideNavMenu from './SideNavMenu';
@@ -141,7 +141,7 @@ const MenuItemText = styled.span`
   display: flex;
 `;
 
-const Icon = styled.div`
+const Icon = styled(Link)`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 25%;
     height: 74px;
@@ -176,22 +176,23 @@ const SideNavbar = () => {
         <MenuButton onClick={toggleSideMenu}>
           <MenuImg src="/asset/MenuBtn.svg" alt="Vector" />
         </MenuButton>
-        <KeywordIcon current={location.pathname.includes('/keyword')}>
+        <KeywordIcon to="#" current={location.pathname.includes('/keyword')}>
           <HashTagImg
             src={location.pathname.includes('/keyword') ? '/asset/Hashtagblack.svg' : '/asset/Hashtag.svg'}
             alt="keyword"
           />
           {mobile && <MenuItemText current={location.pathname.includes('/keyword')}>키워드</MenuItemText>}
         </KeywordIcon>
-        <HistoryIcon current={location.pathname.includes('/history')}>
+        <HistoryIcon to="#" current={location.pathname.includes('/history')}>
           <HistoryImg
             isSideMenu={isOpen}
             src={location.pathname.includes('/history') ? '/asset/HistoryBlack.svg' : '/asset/History.svg'}
+            to="#"
             alt="history"
           />
           {mobile && <MenuItemText current={location.pathname.includes('/history')}>히스토리</MenuItemText>}
         </HistoryIcon>
-        <ChattingIcon current={location.pathname.includes('/chat')}>
+        <ChattingIcon to="#" current={location.pathname.includes('/chat')}>
           <ChatImg
             isSideMenu={isOpen}
             src={location.pathname.includes('/chat') ? '/asset/Chatblack.svg' : '/asset/Chat.svg'}
@@ -199,7 +200,7 @@ const SideNavbar = () => {
           />
           {mobile && <MenuItemText current={location.pathname.includes('/chat')}>채팅방</MenuItemText>}
         </ChattingIcon>
-        <SettingIcon current={location.pathname === '/mypage'}>
+        <SettingIcon to="/mypage" current={location.pathname === '/mypage'}>
           <SettingImg
             isSideMenu={isOpen}
             src={location.pathname === '/mypage' ? '/asset/Settingblack.svg' : '/asset/Setting.svg'}
