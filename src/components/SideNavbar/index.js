@@ -20,7 +20,7 @@ const Nav = styled.div`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 360px;
     height: 74px;
-    margin: 645px 0 0 0;
+    margin: 0 0 0 0;
     padding: 0;
     background-color: #fff;
     display: flex;

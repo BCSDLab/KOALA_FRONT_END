@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { removeCookie } from '../components/Shared/Cookies';
-import { getUserInfo, changeProfile } from '../store/myPage';
+import { changeProfile } from '../store/myPage';
 import { LOGIN, REFRESH_TOKEN } from '../constant';
 import useMatchMedia from 'hooks/useMatchMedia';
 import SideNavbar from 'components/SideNavbar';
@@ -10,6 +10,7 @@ import LoginButton from 'components/Shared/LoginButton';
 import EditNickname from 'components/Mypage/EditNickname';
 import SchoolAuth from 'components/Mypage/SchoolAuth';
 import AutoLogin from 'components/Mypage/AutoLogin';
+import Dialog from 'components/Mypage/Dialog';
 import styled from 'styled-components';
 
 /* 
@@ -23,6 +24,7 @@ const MyPage = () => {
   const loginInfo = useSelector((state) => state.auth);
   const photoInput = useRef();
   const [isShown, setIsShown] = useState(false);
+  const [dialog, setDialog] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [mobile] = useMatchMedia(queries);
@@ -41,12 +43,19 @@ const MyPage = () => {
     photoInput.current.click();
   };
 
-  //클릭 시 로그아웃
-  const logout = useCallback(() => {
+  const onConfirm = () => {
+    setDialog(false);
     removeCookie(REFRESH_TOKEN);
     loginInfo.isLoggedIn = false;
     navigate(LOGIN);
-  });
+  };
+  const onCancel = () => {
+    setDialog(false);
+  };
+  //클릭 시 로그아웃
+  const logout = () => {
+    setDialog(true);
+  };
 
   //클릭 시 계정 삭제
   const resign = () => {
@@ -77,13 +86,23 @@ const MyPage = () => {
           )}
           <UserNickname>{userInfo.userNickname}</UserNickname>
           <NicknameTitle>닉네임</NicknameTitle>
-          <EditNickname userNickname={userInfo.userNickname} />
+          <EditNickname userNickname={userInfo.userNickname} change={userInfo.changeSuccess} />
           <SchoolAuthTitle>학교인증</SchoolAuthTitle>
           <SchoolAuth isAuth={userInfo.isAuth} />
           <EtcTitle>기타</EtcTitle>
           <AutoLogin />
           <Contact>문의하기</Contact>
           <LogOut onClick={logout}>로그아웃</LogOut>
+          <Dialog
+            title="로그아웃"
+            children="로그아웃하시겠습니까? 로그아웃하면 내 디바이스의 코알라데이터가 삭제됩니다."
+            confirmText="확인"
+            cancelText="취소"
+            onConfirm={onConfirm}
+            onCancel={onCancel}
+            type="confirm"
+            visible={dialog}
+          ></Dialog>
           <Resign onClick={resign}>탈퇴하기</Resign>
         </UserInfo>
       </MyPageContent>
@@ -95,11 +114,15 @@ export default MyPage;
 
 const MyPageContainer = styled.div`
   display: flex;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    padding: 0 0 100px 0;
+  }
 `;
 
 const MyPageContent = styled.div`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 360px;
+    hegith: ca1c(100%-300px);
   }
 `;
 
@@ -125,7 +148,7 @@ const MainText = styled.div`
   color: ${(props) => props.theme.colors.darkgray};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 360px;
-    height: 74px;
+    height: 61px;
     display: flex;
     box-sizing: border-box;
     border-bottom: 1px solid #eee;
@@ -288,7 +311,7 @@ const NicknameTitle = styled(Title)`
   width: 39px;
   margin: 0px 76px 24px 80px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    margin: 48px 226px 16px 16px;
+    margin: 26px 226px 16px 16px;
   }
 `;
 
@@ -296,7 +319,7 @@ const SchoolAuthTitle = styled(Title)`
   width: 52px;
   margin: 71.3px 50px 16px 80px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    margin: 26px 226px 16px 16px;
+    margin: 46px 226px 16px 16px;
   }
 `;
 const EtcTitle = styled.div`

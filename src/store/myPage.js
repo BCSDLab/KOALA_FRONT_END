@@ -28,6 +28,7 @@ export function* changeImageSaga() {
 }
 
 const initialState = {
+  changeSuccess: true,
   userImg: null,
   userAccount: null,
   userNickname: null,
@@ -39,9 +40,11 @@ const myPage = handleActions(
   {
     [CHANGE_NICKNAME_SUCCESS]: (state) => ({
       ...state,
+      changeSuccess: true,
     }),
     [CHANGE_NICKNAME_FAILURE]: (state) => ({
       ...state,
+      changeSuccess: false,
     }),
     [USERINFO_SUCCESS]: (state, { payload }) => ({
       ...state,

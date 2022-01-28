@@ -14,7 +14,7 @@ export const SchoolAuthState = styled.div`
   color: ${(props) => props.theme.colors.darkgray};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     height: 21px;
-    margin: 9px 0 0 16px;
+    margin: 9px 0 10px 16px;
     font-family: NotoSansCJKKR;
     font-size: 14px;
     font-weight: normal;
@@ -62,10 +62,11 @@ export const EditNicknameInput = styled.input`
   width: 304px;
   padding-bottom: 7.3px;
   border: 0;
-  border-bottom: 1.5px solid ${(props) => props.theme.colors.silver};
+  border-bottom: 1.5px solid ${(props) => (!props.error ? props.theme.colors.yellow : props.theme.colors.silver)};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 175px;
+    width: 328px;
     border: 0;
+    border-bottom: ${(props) => !props.error && `1px solid ${props.theme.colors.yellow}`};
   }
 `;
 
