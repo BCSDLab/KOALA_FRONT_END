@@ -141,13 +141,24 @@ export const HistoryText = styled(MenuTitle)`
   margin: 27.5px 194px 27.5px 24px;
 `;
 
-export const ChatList = styled(List)``;
+export const ChatList = styled(List)`
+  display: flex;
+  align-items: center;
+`;
 
-export const ChatLink = styled(Link)``;
+export const ChatLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  margin-top: 15.5px;
+  width: 270px;
+  height: 44px;
+  background-color: ${(props) => props.current && props.theme.colors.darkgray};
+`;
 
 export const ChatText = styled(MenuTitle)`
   font-size: 14px;
-  padding: 12px 207px 11px 24px;
+  margin-left: 24px;
+  color: ${(props) => (props.current ? props.theme.colors.white : props.theme.colors.darkgray)};
 `;
 
 export const SetList = styled.div`

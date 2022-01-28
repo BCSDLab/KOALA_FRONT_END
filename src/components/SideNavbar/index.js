@@ -194,7 +194,7 @@ const SideNavbar = () => {
         <ChattingIcon current={location.pathname === '/chat'}>
           <ChatImg
             isSideMenu={isOpen}
-            src={location.pathname === '/history' ? '/asset/Chatblack.svg' : '/asset/Chat.svg'}
+            src={location.pathname === '/chat' ? '/asset/Chatblack.svg' : '/asset/Chat.svg'}
             alt="chat"
           />
           {mobile && <MenuItemText current={location.pathname === '/chat'}>채팅방</MenuItemText>}

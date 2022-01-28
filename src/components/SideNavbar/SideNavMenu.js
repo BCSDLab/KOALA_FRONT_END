@@ -17,13 +17,13 @@ const Extension = () => {
         </S.HistoryLink>
       </S.HistoryList>
       <S.ChatList>
-        <S.ChatLink to="#">
-          <S.ChatText>채팅방</S.ChatText>
+        <S.ChatLink current={location.pathname === '/chat'} to="/chat">
+          <S.ChatText current={location.pathname === '/chat'}>채팅방</S.ChatText>
         </S.ChatLink>
       </S.ChatList>
 
       <S.SetList>
-        <S.Set current={location.pathname === '/mypage'} to="#">
+        <S.Set current={location.pathname === '/mypage'} to="/mypage">
           <S.SetText current={location.pathname === '/mypage'}>설정</S.SetText>
         </S.Set>
         <S.Contact to="#">
