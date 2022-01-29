@@ -17,7 +17,7 @@ const ScrapContent = () => {
     const {scrapList, memoList, getMemoListResponse,deleteScrapResponse, fixMemoResponse, writeMemoResponse} = useSelector((state) => state.scrap);
     const userInfo = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-    const [memoItemList, setMemo] = useState(memoDummy);
+    const [memoItemList, setMemo] = useState([]);
     const [memoIdList, setIdList] = useState([]);
     const [scrapItemList, setScrap] = useState([]);
     const [pageState, setState] = useState("READ");
