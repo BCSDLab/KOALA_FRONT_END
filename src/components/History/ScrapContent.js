@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { memoDummy } from "./memoDummy";
 import * as S from "./Scrap.Style"
 import {KeyWordAlertList,Sender} from "./History.Style"
 import { useDispatch, useSelector } from "react-redux";
