@@ -11,9 +11,11 @@ import RegisterDoc from 'components/Auth/RegisterDoc';
 import Register from 'components/Auth/Register';
 import ChangePw from 'components/Auth/ChangePw';
 import MainPage from 'pages/mainPage';
-import HistoryPage from 'pages/historyPage';
+import HistoryPage from 'pages/HistoryPage';
 import { setTokenOnHeader } from 'api/logined';
 import { getCookie } from 'components/Shared/Cookies';
+import ScrapContent from 'components/History/ScrapContent';
+import HistoryContent from 'components/History/HistoryContent';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -27,8 +29,7 @@ const App = () => {
     <>
       <GlobalStyle />
       <Routes>
-        {/* <Route path="/" element={<MainPage />} exact /> */}
-        <Route path="/" element={<HistoryPage />} exact />
+        <Route path="/" element={<MainPage />} exact />
         <Route path="auth/*" element={<AuthPage />}>
           <Route index element={<Login />} />
           <Route path="createLog" element={<RegisterDoc />} />
@@ -37,6 +38,11 @@ const App = () => {
           <Route path="findPw" element={<FindPw />} />
           <Route path="changePw" element={<ChangePw />} />
         </Route>
+        <Route path='history/*' element={<HistoryPage/>}>
+          <Route indelx element={<HistoryContent/>}/>
+          <Route path='scrap' element={<ScrapContent/>}/>
+        </Route>
+        
       </Routes>
     </>
   );
