@@ -19,7 +19,7 @@ const ScrapContent = () => {
     const userInfo = useSelector((state) => state.auth);
     const dispatch = useDispatch();
     const [memoItemList, setMemo] = useState(memoDummy);
-    const [memoIdList, setIdList] = useState([14]);
+    const [memoIdList, setIdList] = useState([]);
     const [scrapItemList, setScrap] = useState([]);
     const [pageState, setState] = useState("READ");
     const [currentMail, setCurr] = useState(null);
@@ -117,8 +117,8 @@ const ScrapContent = () => {
     },[userInfo.isLoggedIn, deleteScrapResponse,fixMemoResponse]);
     useEffect(() => {
         setScrap(scrapList?.sort((a, b) => {
-            a = stringToDate(a.createdAt);
-            b = stringToDate(b.createdAt);
+            a = stringToDate(a.created_at);
+            b = stringToDate(b.created_at);
             return a > b ? -1 : a < b ? 1 : 0;
         }));
         console.log(scrapList);

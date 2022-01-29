@@ -87,8 +87,8 @@ const HistoryContent = () => {
     },[userInfo.isLoggedIn,deleteHistoryResponse,readHistoryItemResponse]);
     useEffect(() => {
         setList(historyList?.sort((a, b) => {
-            a = stringToDate(a.createdAt);
-            b = stringToDate(b.createdAt);
+            a = stringToDate(a.created_at);
+            b = stringToDate(b.created_at);
             return a > b ? -1 : a < b ? 1 : 0;
         }));
         console.log(historyList);
