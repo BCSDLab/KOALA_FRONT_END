@@ -8,6 +8,10 @@ const [CHANGE_NICKNAME, CHANGE_NICKNAME_SUCCESS, CHANGE_NICKNAME_FAILURE] =
 const [USERINFO, USERINFO_SUCCESS, USERINFO_FAILURE] = createRequestSagaActionTypes('myPage/USERINFO');
 const [CHANGE_PROFILE, CHANGE_PROFILE_SUCCESS, CHANGE_PROFILE_FAILURE] =
   createRequestSagaActionTypes('myPage/CHANGE_PROFILE');
+const [SEND_UNIVERSITY, SEND_UNIVERSITY_SUCCESS, SEND_UNIVERSITY_FAILURE] =
+  createRequestSagaActionTypes('chat/SEND_UNIVERSITY');
+const [AUTH_UNIVERSITY, AUTH_UNIVERSITY_SUCCESS, AUTH_UNIVERSITY_FAILURE] =
+  createRequestSagaActionTypes('myPage/AUTH_UNIVERSITY');
 const RESET_MYPAGE_STATE = {
   type: 'RESET_MYPAGE_STATE',
 };
@@ -16,6 +20,13 @@ export const resetMypageInfo = createAction(RESET_MYPAGE_STATE);
 export const changingNickname = createAction(CHANGE_NICKNAME, (nickname) => nickname);
 export const getUserInfo = createAction(USERINFO);
 export const changeProfile = createAction(CHANGE_PROFILE, (file) => file);
+export const authUniversity = createAction(AUTH_UNIVERSITY, ({ email, secret }) => ({
+  email,
+  secret,
+}));
+export const sendUniversity = createAction(SEND_UNIVERSITY, (email) => ({
+  email,
+}));
 
 const changeNicknameSaga = createRequestSaga(CHANGE_NICKNAME, API.changeNickname);
 export function* changeNameSaga() {
@@ -25,10 +36,19 @@ const getUserInfoSaga = createRequestSaga(USERINFO, API.getUserInfo);
 export function* getUserSaga() {
   yield takeLatest(USERINFO, getUserInfoSaga);
   yield takeLatest(CHANGE_NICKNAME_SUCCESS, getUserInfoSaga);
+  yield takeLatest(AUTH_UNIVERSITY_SUCCESS, getUserInfoSaga);
 }
 const changeProfileSaga = createRequestSaga(CHANGE_PROFILE, API.changeUserProfile);
 export function* changeImageSaga() {
   yield takeLatest(CHANGE_PROFILE, changeProfileSaga);
+}
+const authUniversitySaga = createRequestSaga(AUTH_UNIVERSITY, API.authUniversityEmail);
+export function* authSchoolSaga() {
+  yield takeLatest(AUTH_UNIVERSITY, authUniversitySaga);
+}
+const sendUniversitySaga = createRequestSaga(SEND_UNIVERSITY, API.sendUniversityEmail);
+export function* sendSchoolSaga() {
+  yield takeLatest(SEND_UNIVERSITY, sendUniversitySaga);
 }
 
 const initialState = {
@@ -36,6 +56,8 @@ const initialState = {
   userImg: null,
   userAccount: null,
   userNickname: null,
+  authErrorMessage: '',
+  emailErrorMessage: '',
   userType: '',
   isAuth: '0',
 };
@@ -70,6 +92,22 @@ const myPage = handleActions(
     }),
     [CHANGE_PROFILE_FAILURE]: (state) => ({
       ...state,
+    }),
+    [SEND_UNIVERSITY_SUCCESS]: (state) => ({
+      ...state,
+      emailErrorMessage: '',
+    }),
+    [SEND_UNIVERSITY_FAILURE]: (state, { payload }) => ({
+      ...state,
+      emailErrorMessage: payload.errorMessage,
+    }),
+    [AUTH_UNIVERSITY_SUCCESS]: (state) => ({
+      ...state,
+      authErrorMessage: '',
+    }),
+    [AUTH_UNIVERSITY_FAILURE]: (state, { payload }) => ({
+      ...state,
+      authErrorMessage: payload.errorMessage,
     }),
   },
   initialState
