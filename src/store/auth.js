@@ -25,14 +25,15 @@ const RESET_AUTH_STATE = {
 };
 
 function* setToken(action) {
-  if (localStorage.getItem('isAuto')) {
+  const isAuto = JSON.parse(localStorage.getItem('isAuto'));
+  if (isAuto === null || isAuto === false) {
     setCookie('refresh_token', action.payload.body.refresh_token, {
       path: '/',
-      expires: 15,
     });
   } else {
     setCookie('refresh_token', action.payload.body.refresh_token, {
       path: '/',
+      expires: 15,
     });
   }
   setTokenOnHeader(action.payload.body.access_token);
