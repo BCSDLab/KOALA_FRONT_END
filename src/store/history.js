@@ -48,7 +48,8 @@ const history = handleActions(
             historyList: history.body,
             getHistoryListResponse: true,
             deleteHistoryResponse: false,
-            readHistoryItemResponse: false
+            readHistoryItemResponse: false,
+            moveToScrapResponse: false
         }),
         [GETHISTORYLIST_FAILURE]: (state) => ({
             ...state,
