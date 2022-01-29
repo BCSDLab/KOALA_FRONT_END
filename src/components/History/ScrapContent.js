@@ -52,13 +52,18 @@ const ScrapContent = () => {
             console.log("메모 작성 시작")
             
         }else if(pageState === "WRITE"){
-            setState("READ");
-            setIdList([...memoIdList, id]);
-            setCurr(null);
-            console.log("메모 작성 완료")
-            e.target.innerText = "수정";
             const memoStatement = writeMemoValue.current.value
-            dispatch(writeMemo({"memo":memoStatement, "user_scrap_id":id}));
+            if(memoStatement !== ''){
+                setState("READ");
+                setIdList([...memoIdList, id]);
+                setCurr(null);
+                console.log("메모 작성 완료")
+                e.target.innerText = "수정";
+                dispatch(writeMemo({"memo":memoStatement, "user_scrap_id":id}));
+            }else{
+                alert('내용을 적어주세요');
+            }
+            
         }
     };
     const fix = (e,id) => {
@@ -163,7 +168,7 @@ const ScrapContent = () => {
                                                 return memo.memo;
                                             })} onChange={(e) => checkByte(e)} maxLength={100} ref={fixMemoValue}/>
                                         <S.LetterCounter>
-                                            <S.LettterLength ref={letter} props={this}>{memoItemList.filter(memo => memo.userScrapId === mail.userScrapId)
+                                            <S.LettterLength ref={letter}>{memoItemList.filter(memo => memo.userScrapId === mail.userScrapId)
                                             .map(memo => {
                                                 return memo.memo.length;
                                             })}
