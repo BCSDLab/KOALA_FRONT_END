@@ -55,7 +55,7 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
-  const [autoLogin, setAutoLogin] = useState(false);
+  const [autoLogin, setAutoLogin] = useState(localStorage.getItem('isAuto'));
   const [isPasswordType, setIsPasswordType] = useState({
     type: 'password',
     visible: false,

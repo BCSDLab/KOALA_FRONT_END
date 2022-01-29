@@ -36,8 +36,7 @@ const NavContainer = styled.div`
   display: flex;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     display: flex;
-    width: 100%;
-    height: 74px;
+    width: 0;
   }
 `;
 
@@ -59,6 +58,7 @@ const MenuImg = styled.img`
   height: 20px;
   object-fit: contain;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    display: none;
   }
 `;
 

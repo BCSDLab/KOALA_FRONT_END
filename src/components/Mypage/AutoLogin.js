@@ -2,10 +2,15 @@ import React, { useCallback, useState } from 'react';
 import * as S from './styles';
 
 const AutoLogin = () => {
-  const [isAuto, setIsAuto] = useState(false);
-
+  const [isAuto, setIsAuto] = useState(localStorage.getItem('isAuto'));
   const check = useCallback(() => {
-    setIsAuto((prev) => !prev);
+    if (isAuto === null || isAuto === false) {
+      setIsAuto(true);
+      localStorage.setItem('isAuto', true);
+    } else {
+      setIsAuto(false);
+      localStorage.setItem('isAuto', false);
+    }
   });
 
   return (

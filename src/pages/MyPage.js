@@ -117,7 +117,8 @@ export default MyPage;
 const MyPageContainer = styled.div`
   display: flex;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    padding: 0 0 100px 0;
+    padding: 0 0 0 0;
+    width: 100%;
   }
 `;
 
@@ -203,7 +204,7 @@ const UserImage = styled.img`
     height: 56px;
     margin: 5px 152px 0 152px;
     border-radius: 50%;
-    object-fit: contain;
+    object-fit: cover;
   }
 `;
 const OverLay = styled.div`
@@ -321,7 +322,7 @@ const SchoolAuthTitle = styled(Title)`
   width: 52px;
   margin: 71.3px 50px 16px 80px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    margin: 46px 226px 16px 16px;
+    margin: 46px 226px 7px 16px;
   }
 `;
 const EtcTitle = styled.div`
