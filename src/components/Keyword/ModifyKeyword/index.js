@@ -1,24 +1,33 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import KeywordHeader from '../KeywordHeader';
-import { getRecommendation, patchModifyKeyword } from 'store/modifyKeyword';
+import { getRecommendation } from 'store/modifyKeyword';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { ALARM_TERM } from 'constant';
-import { changeSiteName, changeAlarmTerm } from '../utils';
+import KeywordAlarm from '../KeywordAlarm';
+import { AlarmContext } from 'context/KeywordAlarmContext';
+import { useContext } from 'react';
+import { changeAlarmTerm, changeSiteName } from '../utils';
+import { patchModifyKeyword } from 'store/modifyKeyword';
 
-const AddKeyword = () => {
+const ModifyKeyword = () => {
   const [site, setSite] = useState('');
   const [recommendList, setRecommendList] = useState([]);
   const [selectRecommendItem, setSelectRecommendItem] = useState([]);
   const [alreadyRegisterItem, setAlreadyRegisterItem] = useState(false);
-  const [isNormalAlarm, setIsNormalAlarm] = useState(false);
-  const [isImportantAlarm, setIsImportantAlarm] = useState(false);
-  const [isSlientAlarm, setIsSlientAlarm] = useState(false);
-  const [isVibrationAlarm, setIsVibrationAlarm] = useState(false);
-  const [alarmTerm, setAlarmTerm] = useState(null);
 
   const { recommendationList } = useSelector((state) => state.modifyKeyword);
   const dispatch = useDispatch();
+
+  const {
+    isNormalAlarm,
+    isImportantAlarm,
+    alarmTerm,
+    setIsNormalAlarm,
+    setIsImportantAlarm,
+    setIsSlientAlarm,
+    setIsVibrationAlarm,
+    setAlarmTerm,
+  } = useContext(AlarmContext);
 
   const searchSite = (e) => {
     setSite(e.target.value);
@@ -47,30 +56,6 @@ const AddKeyword = () => {
     },
     [selectRecommendItem]
   );
-
-  const onClickNormalAlarm = () => {
-    setIsNormalAlarm((prev) => !prev);
-    setIsImportantAlarm(false);
-  };
-
-  const onClickImportantAlarm = () => {
-    setIsImportantAlarm((prev) => !prev);
-    setIsNormalAlarm(false);
-  };
-
-  const onClickSlientAlarm = () => {
-    setIsSlientAlarm((prev) => !prev);
-    setIsVibrationAlarm(false);
-  };
-
-  const onClickVibrationAlarm = () => {
-    setIsVibrationAlarm((prev) => !prev);
-    setIsSlientAlarm(false);
-  };
-
-  const onClickAlarmTerm = (id) => {
-    setAlarmTerm(id);
-  };
 
   const onClickModifyButton = useCallback(() => {
     const data = {
@@ -148,43 +133,11 @@ const AddKeyword = () => {
           })}
         </S.SiteList>
       </S.SiteContainer>
-      <S.ImportantContainer onClick={onClickImportantAlarm}>
-        <S.CheckBox isImportantAlarm={isImportantAlarm}></S.CheckBox>
-        <S.CheckBoxTitle>중요 알림</S.CheckBoxTitle>
-        <S.CheckBoxContent>중요알림 기능은 모바일 앱에서만 확인할 수 있습니다.</S.CheckBoxContent>
-      </S.ImportantContainer>
-      <S.NormalContainer onClick={onClickNormalAlarm}>
-        <S.CheckBox isNormalAlarm={isNormalAlarm}></S.CheckBox>
-        <S.CheckBoxTitle>일반 알림</S.CheckBoxTitle>
-      </S.NormalContainer>
-      <S.SettingContainer>
-        <S.ModeContainer>
-          <S.SlientMode onClick={onClickSlientAlarm}>무음모드에도 알림</S.SlientMode>
-          <S.SlientCheckBox onClick={onClickSlientAlarm} isSlientAlarm={isSlientAlarm}></S.SlientCheckBox>
-          <S.SlientMode onClick={onClickVibrationAlarm}>진동 알림</S.SlientMode>
-          <S.VibrationCheckBox
-            onClick={onClickVibrationAlarm}
-            isVibrationAlarm={isVibrationAlarm}
-          ></S.VibrationCheckBox>
-          <S.SettingContent>무음모드에도 알림,진동 알림 기능은 모바일 앱에서만 적용이 가능합니다.</S.SettingContent>
-        </S.ModeContainer>
-        <S.AlarmContainer>
-          <S.AlarmTitle>알람주기</S.AlarmTitle>
-          <S.AlarmType>
-            {ALARM_TERM.map((item) => {
-              return (
-                <S.Type onClick={() => onClickAlarmTerm(item.id)} alarmTerm={alarmTerm} checkId={item.id} key={item.id}>
-                  {item.time}
-                </S.Type>
-              );
-            })}
-          </S.AlarmType>
-        </S.AlarmContainer>
-      </S.SettingContainer>
+      <KeywordAlarm />
       <S.EditButton onClick={onClickModifyButton}>수정</S.EditButton>
       <S.CancelButton>취소</S.CancelButton>
     </>
   );
 };
 
-export default AddKeyword;
+export default ModifyKeyword;
