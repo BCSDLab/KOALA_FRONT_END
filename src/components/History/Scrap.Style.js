@@ -12,6 +12,7 @@ width: 1077px;
 height: 70px;
 border: none;
 resize: none;
+outline: none;
 background-color: #eeeeee;
 font-family: 'NotoSansCJKKR';
 font-size: 12px;
@@ -96,4 +97,22 @@ export const MemoCircle = styled.div`
 `
 export const MemoWrapper = styled.div`
     display: flex;
+`
+export const memoContent = styled.div`
+    display: block;
+    height: 73px;
+`
+
+export const LetterCounter = styled.div`
+    position: relative;
+    text-align: right;
+    left: 1020px;
+    bottom: 30px;
+    width: 52px;
+    height: 20px;
+    font-size: 12px;
+`
+
+export const LettterLength = styled.span`
+    color: ${props => props.children[0]<100? 'black':'yellow'};
 `
