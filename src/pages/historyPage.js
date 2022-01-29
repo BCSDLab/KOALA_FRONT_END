@@ -5,21 +5,30 @@ import HistoryHeader from 'components/History/HistoryHeader';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
+import SideNavbar from 'components/SideNavbar';
 const HistoryPageContent = styled.div`
-  padding: 49px 0 0 0;
-  margin: 0 138px;
+  display: flex;
+  // margin: 0 138px;
   min-width: 1294px;
   max-width: 1294px;
+`
+
+const ContentWrapper = styled.div`
+  padding: 49px 0 0 0;
 `
 
 const HistoryPage = () => {
   return (
       <HistoryPageContent>
-            <HistoryHeader/>
+        <SideNavbar/>
+        <ContentWrapper>
+        <HistoryHeader/>
             <Routes>
             <Route path='/' element={<HistoryContent/>}/>
             <Route path='/scrap' element={<ScrapContent/>}/>
             </Routes>
+        </ContentWrapper>
+            
       </HistoryPageContent>
   
   )
