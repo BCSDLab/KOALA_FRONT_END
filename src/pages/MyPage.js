@@ -22,7 +22,6 @@ const queries = ['(max-width: 375px)'];
 const MyPage = () => {
   const toggle = useSelector((state) => state.toggle.isOpen);
   const userInfo = useSelector((state) => state.myPage);
-  const loginInfo = useSelector((state) => state.auth);
   const photoInput = useRef();
   const [isShown, setIsShown] = useState(false);
   const [dialog, setDialog] = useState(false);
