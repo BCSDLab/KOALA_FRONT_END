@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 const Header = styled.div`
@@ -10,7 +11,12 @@ const FocusLine = styled.div`
   width: 32px;
   height: 2px;
   background-color: #222222;
-
+  margin: ${props => {
+    if(props.location.pathname === '/history'){
+      return '0 0 0 40px'
+    }else if(props.location.pathname === '/history/scrap'){
+      return '0 0 0 190px'
+    };}};
 `
 const HistoryHeaderTab = styled(NavLink)`
   font-size: 18px;
@@ -18,13 +24,14 @@ const HistoryHeaderTab = styled(NavLink)`
   cursor: pointer;
 `
 const HistoryHeader = () => {
+  const location = useLocation();
     return (
     <>
     <Header>
-        <HistoryHeaderTab to='/history'>전체 알림 내역</HistoryHeaderTab>
-        <HistoryHeaderTab to='/history/scrap'>보관함</HistoryHeaderTab>
+        <HistoryHeaderTab activeclassname={'history'} to='/history'>전체 알림 내역</HistoryHeaderTab>
+        <HistoryHeaderTab activeclassname={'scrap'} to='/history/scrap'>보관함</HistoryHeaderTab>
     </Header>
-    <FocusLine/>
+    <FocusLine location={location}/>
     </>
     )
 }
