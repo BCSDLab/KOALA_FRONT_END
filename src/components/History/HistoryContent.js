@@ -41,7 +41,7 @@ const HistoryContent = () => {
         console.log('보관함으로 이동');
         if(checkedList.length > 0){
             checkedList.forEach((id) => {
-               dispatch(moveToScrap({"board_id": id}));
+               dispatch(moveToScrap({"crawling_id": id}));
            })
            setCheckedList([]);
            alert('보관함으로 이동되었습니다');
