@@ -28,8 +28,8 @@ const HistoryHeader = () => {
     return (
     <>
     <Header>
-        <HistoryHeaderTab activeclassname={'history'} to='/history'>전체 알림 내역</HistoryHeaderTab>
-        <HistoryHeaderTab activeclassname={'scrap'} to='/history/scrap'>보관함</HistoryHeaderTab>
+        <HistoryHeaderTab to='/history'>전체 알림 내역</HistoryHeaderTab>
+        <HistoryHeaderTab to='/history/scrap'>보관함</HistoryHeaderTab>
     </Header>
     <FocusLine location={location}/>
     </>
