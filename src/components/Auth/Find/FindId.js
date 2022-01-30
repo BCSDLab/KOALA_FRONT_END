@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { LOGIN } from 'constant';
+import MobileTopBar from 'components/Shared/MobileTopBar';
+import useMatchMedia from 'hooks/useMatchMedia';
 import AuthNumberForm from '../Shared/AuthNumberForm';
 import { authFindId, setFindAccount, resetAuthState } from 'store/auth';
 import Button from 'components/Shared/Button';
@@ -14,12 +16,27 @@ const IdfForm = styled.div`
 `;
 const NextButton = styled(Button)`
   margin-top: 0;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    position: absolute;
+    bottom: 40px;
+  }
 `;
 const FindAccountText = styled.div`
   height: 24px;
   margin-bottom: 216px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    font-family: NotoSansCJKKR;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: left;
+    color: #222;
+  }
 `;
-
+const queries = ['(max-width: 375px)'];
 const FindId = () => {
   const [email, setEmail] = useState('');
   const [secret, setSecret] = useState('');
@@ -33,6 +50,7 @@ const FindId = () => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [mobile] = useMatchMedia(queries);
 
   const onChangeEmail = (validatedData) => {
     setIsEmailError(validatedData.isError);
@@ -62,8 +80,9 @@ const FindId = () => {
   }, []);
 
   return (
-    <div>
-      <S.Title>아이디 찾기</S.Title>
+    <FindAccountForm>
+      {mobile ? <MobileTopBar content="아이디찾기" /> : <S.Title>아이디 찾기</S.Title>}
+
       {!auth.authSuccess ? (
         <>
           <form>
@@ -88,8 +107,15 @@ const FindId = () => {
           <NextButton onClick={completeClick}>완료</NextButton>
         </>
       )}
-    </div>
+    </FindAccountForm>
   );
 };
-
+const FindAccountForm = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 328px;
+    padding-top: 88px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+`;
 export default FindId;

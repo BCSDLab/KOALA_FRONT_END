@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import MobileTopBar from 'components/Shared/MobileTopBar';
+import useMatchMedia from 'hooks/useMatchMedia';
 import { authFindPassword, changingPassword, resetAuthState } from 'store/auth';
 import AccountForm from '../Shared/AccountForm';
 import EmailForm from '../Shared/EmailForm';
@@ -11,6 +13,7 @@ import { LOGIN } from 'constant';
 import * as S from 'components/Auth/styles';
 import styled from 'styled-components';
 import Button from 'components/Shared/Button';
+const queries = ['(max-width: 375px)'];
 
 const FindPw = () => {
   const [account, setAccount] = useState('');
@@ -25,6 +28,7 @@ const FindPw = () => {
   const [isConfirmedPasswordError, setIsConfirmedPasswordError] = useState(true);
 
   const changeComplete = useSelector((state) => state.auth.changeComplete);
+  const [mobile] = useMatchMedia(queries);
 
   const onChangeAccount = (validatedData) => {
     setIsAccountError(validatedData.isError);
@@ -78,8 +82,8 @@ const FindPw = () => {
   return (
     <div>
       {!authSuccess ? (
-        <>
-          <S.Title>비밀번호 찾기</S.Title>
+        <FindPasswordContainer>
+          {mobile ? <MobileTopBar content="비밀번호찾기" /> : <S.Title>비밀번호 찾기</S.Title>}
           <AccountForm ref={accountRef} onChange={onChangeAccount} />
           <EmailForm ref={emailRef} onChange={onChangeEmail} />
           <AuthNumberForm
@@ -91,21 +95,31 @@ const FindPw = () => {
             isEmailError={isEmailError}
             onChange={onChangeAuth}
           ></AuthNumberForm>
-          <Button onClick={nextClick} disabled={isAccountError || isEmailError || isAuthNumError} type="button">
-            다음
-          </Button>
-        </>
+          <AuthButton onClick={nextClick} disabled={isAccountError || isEmailError || isAuthNumError} type="button">
+            인증하기
+          </AuthButton>
+        </FindPasswordContainer>
       ) : (
-        <>
-          <S.Title>비밀번호 변경하기</S.Title>
+        <FindPasswordContainer>
+          {mobile ? <MobileTopBar content="비밀번호찾기" /> : <S.Title>비밀번호 찾기</S.Title>}
+          {mobile && (
+            <ConfigContainer>
+              <ConfigTitle>새 비밀번호 변경</ConfigTitle>{' '}
+              <ConfigContent>비밀번호를 새로운 비밀번호로 변경해주세요!</ConfigContent>
+            </ConfigContainer>
+          )}
           <ChangePasswordForm>
             <PasswordForm ref={passwordRef} onChange={onChangePassword} />
             <ConfiremdPasswordForm ref={confirmedRef} password={password} onChange={onChangeConfirmed} />
           </ChangePasswordForm>
-          <Button onClick={changePasswordClick} disabled={isPasswordError || isConfirmedPasswordError} type="button">
+          <AuthButton
+            onClick={changePasswordClick}
+            disabled={isPasswordError || isConfirmedPasswordError}
+            type="button"
+          >
             완료
-          </Button>
-        </>
+          </AuthButton>
+        </FindPasswordContainer>
       )}
     </div>
   );
@@ -115,4 +129,47 @@ export default FindPw;
 
 const ChangePasswordForm = styled.form`
   margin-bottom: 88px;
+`;
+
+const AuthButton = styled(Button)`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    position: absolute;
+    bottom: 40px;
+  }
+`;
+
+const FindPasswordContainer = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 328px;
+    padding-top: 88px;
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+`;
+const ConfigContainer = styled.div`
+  height: 50px;
+  margin-bottom: 24px;
+`;
+const ConfigTitle = styled.div`
+  margin-bottom: 8px;
+  font-family: NotoSansCJKKR;
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #222;
+`;
+const ConfigContent = styled.div`
+  font-family: NotoSansCJKKR;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #999;
 `;

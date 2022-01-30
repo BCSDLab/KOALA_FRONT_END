@@ -15,6 +15,11 @@ const StyledInput = styled(S.StyledInput)`
   background-position-y: center;
   background-position-x: 300px;
   background-repeat: no-repeat;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 312px;
+    height: 48px;
+    padding: 0 0 0 16px;
+  }
 `;
 
 const PwdSee = styled.span`
