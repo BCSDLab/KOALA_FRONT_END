@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 const CheckBoxLabel = styled.label`
@@ -31,9 +31,19 @@ const CheckBoxBall = styled.i`
 `;
 
 const Switch = ({ autoLogin, setAutoLogin, ...props }) => {
+  const check = useCallback(() => {
+    if (autoLogin === null || autoLogin === false) {
+      setAutoLogin(true);
+      localStorage.setItem('isAuto', true);
+    } else {
+      setAutoLogin(false);
+      localStorage.setItem('isAuto', false);
+    }
+  });
+
   return (
-    <CheckBoxLabel checked={autoLogin}>
-      <CheckBoxInput type="checkbox" isChecked={autoLogin} onClick={() => setAutoLogin(!autoLogin)} />
+    <CheckBoxLabel checked={autoLogin ? 1 : 0}>
+      <CheckBoxInput type="checkbox" isChecked={autoLogin} onClick={check} />
       <CheckBoxBall isChecked={autoLogin} />
     </CheckBoxLabel>
   );

@@ -13,7 +13,7 @@ export const checkAccount = (account) => logined.get(`user/account-check?account
 
 export const checkEmail = (email) => logined.get(`user/email-check?email=${email}`);
 
-export const changeNickname = (nickName) => logined.post('user/nickname', nickName);
+export const changeNickname = (nickName) => logined.patch(`user/nickname?nickname=${nickName}`);
 
 export const sendFindPassword = ({ account, email }) => logined.post('user/email-send/PASSWORD', { account, email });
 

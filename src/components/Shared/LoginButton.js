@@ -1,5 +1,7 @@
-import React, { useSelector } from 'react-redux';
+import React, { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { resetAuthState } from 'store/auth';
+import { resetMypageInfo } from 'store/myPage';
 import { LOGIN, REFRESH_TOKEN } from '../../constant';
 import { getCookie, removeCookie } from 'components/Shared/Cookies';
 import { useNavigate } from 'react-router';
@@ -22,6 +24,7 @@ const LoginButtonStyle = styled.button`
 const LoginButton = () => {
   const loginInfo = useSelector((state) => state.auth);
   const memberCheck = getCookie('device_token');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const loginClick = useCallback(() => {
@@ -30,9 +33,9 @@ const LoginButton = () => {
 
   const logoutClick = useCallback(() => {
     removeCookie(REFRESH_TOKEN);
-    loginInfo.isLoggedIn = false;
+    dispatch(resetAuthState());
+    dispatch(resetMypageInfo());
     navigate(LOGIN);
-    location.reload();
   });
 
   return (
