@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import useMatchMedia from 'hooks/useMatchMedia';
 import styled, { css } from 'styled-components';
 import LoginForm from 'components/Auth/Login/LoginForm';
 import * as S from 'components/Auth/styles';
@@ -11,6 +12,9 @@ const LoginContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    padding: 0 16px;
+  }
 `;
 
 const LoginOptionContainer = styled.div`
@@ -137,7 +141,29 @@ const KakaoLoginButton = styled.button`
     background-size: 18px 17.4px;
   }
 `;
+const MainLogo = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    display: flex;
+    justify-content: center;
+  }
+`;
+const MainLogoImg = styled.img`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 158px;
+    height: 43px;
+    left: 0;
+    margin-bottom: 56px;
+  }
+`;
+const Box = styled.div`
+  width: 368px;
 
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    padding-top: 54px;
+  }
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  }
+`;
 /**
  * TODO:
  * - [] 비회원으로 이용하기 클릭시, keyword리스트 페이지로 이동
@@ -145,11 +171,15 @@ const KakaoLoginButton = styled.button`
  * - [] 네이버 로그인
  * - [] 카카오 로그인
  */
+
+const queries = ['(max-width: 375px)'];
+
 const AuthMainForm = () => {
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.myPage);
   const [isNormalLogin, setIsNormalLogin] = useState(true);
   const dispatch = useDispatch();
+  const [mobile] = useMatchMedia(queries);
 
   /*
    * - guid 함수를 통해 고유값을 device_token과 같이 활용한다.
@@ -175,35 +205,42 @@ const AuthMainForm = () => {
   }, [userInfo.userType]);
 
   return (
-    <LoginContainer>
-      <LoginOptionContainer>
-        <LoginOptionButton onClick={() => setIsNormalLogin(true)} isClicked={isNormalLogin}>
-          일반 로그인
-        </LoginOptionButton>
-        <LoginOptionButton onClick={() => setIsNormalLogin(false)} isClicked={!isNormalLogin}>
-          SNS로 로그인
-        </LoginOptionButton>
-        <LoginOptionMenuBar isNormalLogin={isNormalLogin} />
-      </LoginOptionContainer>
-
-      {isNormalLogin ? (
-        <LoginForm />
-      ) : (
-        <SNSLoginOptionSection>
-          <GoogleLoginButton />
-          <NaverLoginButton />
-          <KakaoLoginButton />
-        </SNSLoginOptionSection>
+    <Box>
+      {mobile && (
+        <MainLogo>
+          <MainLogoImg src="/asset/mainLogo.svg" alt="logo" />
+        </MainLogo>
       )}
+      <LoginContainer>
+        <LoginOptionContainer>
+          <LoginOptionButton onClick={() => setIsNormalLogin(true)} isClicked={isNormalLogin}>
+            일반 로그인
+          </LoginOptionButton>
+          <LoginOptionButton onClick={() => setIsNormalLogin(false)} isClicked={!isNormalLogin}>
+            SNS로 로그인
+          </LoginOptionButton>
+          <LoginOptionMenuBar isNormalLogin={isNormalLogin} />
+        </LoginOptionContainer>
 
-      <S.NoneUserLinkSection isNormalLogin={isNormalLogin}>
-        <S.NoneUserLink isNormalLogin={isNormalLogin} onClick={nonMemberService} to="/">
-          비회원으로 이용하기
-        </S.NoneUserLink>
-      </S.NoneUserLinkSection>
+        {isNormalLogin ? (
+          <LoginForm />
+        ) : (
+          <SNSLoginOptionSection>
+            <GoogleLoginButton />
+            <NaverLoginButton />
+            <KakaoLoginButton />
+          </SNSLoginOptionSection>
+        )}
 
-      <S.CopyRight>COPYRIGHT © {new Date().getFullYear()} BCSD LAB ALL RIGHTS RESERVED.</S.CopyRight>
-    </LoginContainer>
+        <S.NoneUserLinkSection isNormalLogin={isNormalLogin}>
+          <S.NoneUserLink isNormalLogin={isNormalLogin} onClick={nonMemberService} to="/">
+            비회원으로 이용하기
+          </S.NoneUserLink>
+        </S.NoneUserLinkSection>
+
+        <S.CopyRight>COPYRIGHT © {new Date().getFullYear()} BCSD LAB ALL RIGHTS RESERVED.</S.CopyRight>
+      </LoginContainer>
+    </Box>
   );
 };
 

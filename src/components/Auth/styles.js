@@ -26,6 +26,10 @@ export const StyledInput = styled.input`
   & + & {
     margin-top: 1rem;
   }
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 328px;
+    height: 48px;
+  }
 `;
 
 export const StyledLink = styled(Link)`
@@ -223,6 +227,24 @@ export const Title = styled.div`
   margin-bottom: 30px;
   font-size: 16px;
   font-weight: 500;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 100%;
+    height: 61px;
+    display: flex;
+    box-sizing: border-box;
+    border-bottom: 1px solid #eee;
+    justify-content: center;
+    align-items: center;
+    font-family: NotoSansCJKKR;
+    font-size: 18px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    color: ${(props) => props.theme.colors.darkgray};
+  }
 `;
 
 export const Agree = styled.div`
