@@ -25,7 +25,10 @@ const ModifyKeyword = () => {
     (e) => {
       let { innerText: value } = e.target;
 
-      if (!selectRecommendItem.includes(site)) {
+      console.log(site);
+      console.log(selectRecommendItem);
+
+      if (!selectRecommendItem.includes(value)) {
         setSelectRecommendItem([...selectRecommendItem, value]);
         setSite('');
       } else {
