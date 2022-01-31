@@ -221,6 +221,8 @@ export const SettingContainer = styled.div`
   width: 1092px;
   height: 159px;
   position: absolute;
+  border: 1.5px solid #eee;
+  padding-left: 24px;
   left: 588px;
   top: 570px;
   display: flex;
