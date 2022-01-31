@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import KeywordAlarm from '../KeywordAlarm';
 import { AlarmContext } from 'context/KeywordAlarmContext';
 import { useContext } from 'react';
-import { changeAlarmTerm, changeSiteName } from '../utils';
-import { patchModifyKeyword } from 'store/modifyKeyword';
 
 const ModifyKeyword = () => {
   const [site, setSite] = useState('');
@@ -17,17 +15,6 @@ const ModifyKeyword = () => {
 
   const { recommendationList } = useSelector((state) => state.modifyKeyword);
   const dispatch = useDispatch();
-
-  const {
-    isNormalAlarm,
-    isImportantAlarm,
-    alarmTerm,
-    setIsNormalAlarm,
-    setIsImportantAlarm,
-    setIsSlientAlarm,
-    setIsVibrationAlarm,
-    setAlarmTerm,
-  } = useContext(AlarmContext);
 
   const searchSite = (e) => {
     setSite(e.target.value);
@@ -57,25 +44,6 @@ const ModifyKeyword = () => {
     [selectRecommendItem]
   );
 
-  const onClickModifyButton = useCallback(() => {
-    const data = {
-      alarmCycle: changeAlarmTerm(alarmTerm),
-      alarmMode: isNormalAlarm ? 1 : 0,
-      isImportant: isImportantAlarm ? 1 : 0,
-      name: '키워드',
-      siteList: selectRecommendItem.map((item) => changeSiteName(item)),
-    };
-
-    dispatch(patchModifyKeyword(data.name, data));
-
-    setIsNormalAlarm(false);
-    setIsImportantAlarm(false);
-    setIsSlientAlarm(false);
-    setIsVibrationAlarm(false);
-    setAlarmTerm(false);
-    setSelectRecommendItem([]);
-  }, [alarmTerm, isNormalAlarm, isImportantAlarm, selectRecommendItem]);
-
   useEffect(() => {
     if (site !== '') {
       dispatch(getRecommendation(site));
@@ -89,6 +57,8 @@ const ModifyKeyword = () => {
       }
     }
   }, [recommendationList]);
+
+  console.log(useContext(AlarmContext));
 
   return (
     <>
@@ -133,9 +103,7 @@ const ModifyKeyword = () => {
           })}
         </S.SiteList>
       </S.SiteContainer>
-      <KeywordAlarm />
-      <S.EditButton onClick={onClickModifyButton}>수정</S.EditButton>
-      <S.CancelButton>취소</S.CancelButton>
+      <KeywordAlarm selectRecommendItem={selectRecommendItem} setSelectRecommendItem={setSelectRecommendItem} />
     </>
   );
 };

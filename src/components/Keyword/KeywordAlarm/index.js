@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { ALARM_TERM } from 'constant';
 import { AlarmContext } from 'context/KeywordAlarmContext';
+import KeywordSubmit from '../KeywordSubmit';
 import * as S from './styles';
 
-const KeywordAlarm = () => {
+const KeywordAlarm = ({ selectRecommendItem, setSelectRecommendItem }) => {
   const [isNormalAlarm, setIsNormalAlarm] = useState(false);
   const [isImportantAlarm, setIsImportantAlarm] = useState(false);
   const [isSlientAlarm, setIsSlientAlarm] = useState(false);
@@ -37,18 +37,20 @@ const KeywordAlarm = () => {
 
   return (
     <AlarmContext.Provider
-      value={
-        (isNormalAlarm,
+      value={{
+        isNormalAlarm,
         isImportantAlarm,
         isSlientAlarm,
         isVibrationAlarm,
         alarmTerm,
+        selectRecommendItem,
         setIsImportantAlarm,
         setIsNormalAlarm,
         setIsSlientAlarm,
         setIsVibrationAlarm,
-        setAlarmTerm)
-      }
+        setAlarmTerm,
+        setSelectRecommendItem,
+      }}
     >
       <S.ImportantContainer onClick={onClickImportantAlarm}>
         <S.CheckBox isImportantAlarm={isImportantAlarm}></S.CheckBox>
@@ -83,6 +85,7 @@ const KeywordAlarm = () => {
           </S.AlarmType>
         </S.AlarmContainer>
       </S.SettingContainer>
+      <KeywordSubmit />
     </AlarmContext.Provider>
   );
 };

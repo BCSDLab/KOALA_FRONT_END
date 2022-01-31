@@ -6,9 +6,11 @@ export const AlarmContext = createContext({
   isSlientAlarm: false,
   isVibrationAlarm: false,
   alarmTerm: null,
+  selectRecommendItem: [],
   setIsNormalAlarm: () => {},
   setIsImportantAlarm: () => {},
   setIsSlientAlarm: () => {},
   setIsVibrationAlarm: () => {},
   setAlarmTerm: () => {},
+  setSelectRecommendItem: () => {},
 });
