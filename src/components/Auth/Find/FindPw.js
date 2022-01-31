@@ -155,21 +155,12 @@ const ConfigTitle = styled.div`
   font-family: NotoSansCJKKR;
   font-size: 16px;
   font-weight: 500;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
-  color: #222;
+  color: ${(props) => props.theme.colors.darkgray};
 `;
 const ConfigContent = styled.div`
   font-family: NotoSansCJKKR;
   font-size: 12px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
-  color: #999;
+  color: ${(props) => props.theme.colors.gray};
 `;

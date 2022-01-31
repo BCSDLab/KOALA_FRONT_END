@@ -33,7 +33,7 @@ const FindAccountText = styled.div`
     line-height: normal;
     letter-spacing: normal;
     text-align: left;
-    color: #222;
+    color: ${(props) => props.theme.colors.darkgray};
   }
 `;
 const queries = ['(max-width: 375px)'];

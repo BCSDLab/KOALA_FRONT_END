@@ -26,13 +26,6 @@ const StyledInput = styled(S.StyledInput)`
   }
 `;
 
-const ErrorImg = styled.img`
-  position: absolute;
-  top: 30%;
-  left: 90%;
-  right: 0;
-`;
-
 const CommonInput = (props, ref) => {
   return (
     <StyledId>
