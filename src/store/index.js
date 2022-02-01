@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
+import modifyKeyword, { getKeywordRecommendationSaga, patchModifyKeywordSaga } from './modifyKeyword';
 import auth, {
   authSaga,
   refreshLoginSaga,
@@ -22,15 +23,15 @@ import keyword, {
   moveKeywordItemSaga,
   readKeywordItemSaga,
 } from './keyword';
-import chat, { authSchoolSaga, sendSchoolSaga } from './chat';
+import { authSchoolSaga, sendSchoolSaga } from './chat';
 
 const rootReducer = combineReducers({
   auth,
   loading,
-  keyword,
+  modifyKeyword,
   toggle,
+  keyword,
   myPage,
-  chat,
 });
 
 export function* rootSaga() {
@@ -54,6 +55,8 @@ export function* rootSaga() {
     setAccountSaga(),
     changeingPasswordSaga(),
     changeImageSaga(),
+    getKeywordRecommendationSaga(),
+    patchModifyKeywordSaga(),
     nonLoginSaga(),
   ]);
 }
