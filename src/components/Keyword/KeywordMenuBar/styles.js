@@ -25,24 +25,26 @@ export const ItemUnderBar = styled.div`
   top: 216px;
   left: ${(props) => {
     if (props.toggle) {
-      if (props.menu === '전체') {
-        return '488px';
-      } else if (props.menu === '아우누리') {
-        return '568px';
-      } else if (props.menu === '아우미르') {
-        return '670px';
-      } else {
-        return '830px';
+      switch (props.menu) {
+        case '전체':
+          return '488px';
+        case '아우누리':
+          return '568px';
+        case '아우미르':
+          return '670px';
+        default:
+          return '830px';
       }
     } else {
-      if (props.menu === '전체') {
-        return '353px';
-      } else if (props.menu === '아우누리') {
-        return '435px';
-      } else if (props.menu === '아우미르') {
-        return '533px';
-      } else {
-        return '695px';
+      switch (props.menu) {
+        case '전체':
+          return '353px';
+        case '아우누리':
+          return '435px';
+        case '아우미르':
+          return '533px';
+        default:
+          return '695px';
       }
     }
   }};

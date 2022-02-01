@@ -8,6 +8,11 @@ export const REFRESH_TOKEN = 'refresh_token';
 export const EMAIL_ERROR = '125';
 export const NICKNAME_ERROR = '124';
 export const ACCOUNT_ERROR = '123';
+export const NOT_EXIST_ACCOUNT = '128';
+export const NOT_MATCH_EMAIL = '143';
+export const NOT_SEND_EMAIL = '144';
+export const EXPIRE_AUTH_NUMBER = '139';
+export const NOT_MATCH_SECRET = '140';
 
 export const ALARM_TERM = [
   {
@@ -39,6 +44,8 @@ export const ALARM_TERM = [
     time: '4시간',
   },
 ];
+export const EMAIL_REGEXP = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,4}$/i;
+export const PASSWORD_REGEXP = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,18}$/;
 
 // keywordPage 전용 constant
 export const WEEK = [

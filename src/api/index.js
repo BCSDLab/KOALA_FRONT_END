@@ -1,7 +1,9 @@
 import logined from './logined';
 
-export const login = ({ account, password }) =>
-  logined.post('user/login?device_token=aasdfasdf', { account, password });
+export const login = ({ deviceToken, account, password }) =>
+  logined.post(`user/login?device_token=${deviceToken}`, { account, password });
+
+export const nonMember = ({ deviceToken }) => logined.post(`/user/non-member?device_token=${deviceToken}`);
 
 export const refresh = () => logined.post('user/refresh');
 
@@ -12,6 +14,19 @@ export const checkAccount = (account) => logined.get(`user/account-check?account
 export const checkEmail = (email) => logined.get(`user/email-check?email=${email}`);
 
 export const changeNickname = (nickName) => logined.post('user/nickname', nickName);
+
+export const sendFindPassword = ({ account, email }) => logined.post('user/email-send/PASSWORD', { account, email });
+
+export const authFindPassword = (account, email, secret) =>
+  logined.post('user/email/certification/PASSWORD', account, email, secret);
+
+export const changePassword = (account, password) => logined.post('/user/password-change', account, password);
+
+export const sendFindAccount = ({ email }) => logined.post('user/email-send/ACCOUNT', { email });
+
+export const authFindAccount = (email, secret) => logined.post('user/email/certification/ACCOUNT', email, secret);
+
+export const findAccount = ({ email }) => logined.get(`/user/account-find?email=${email}`);
 
 export const changeUserProfile = (file) =>
   logined.patch('user/profile', file, {

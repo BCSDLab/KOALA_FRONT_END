@@ -1,15 +1,21 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
-import auth, { authSaga, refreshLoginSaga, signUpRegisterSaga } from './auth';
-import modifyKeyword, {
-  getKeywordRecommendationSaga,
-  patchModifyKeywordSaga,
-  getSiteRecommendationSaga,
-  createKeywordSaga,
-} from './modifyKeyword';
+import modifyKeyword, { getKeywordRecommendationSaga, patchModifyKeywordSaga } from './modifyKeyword';
+import auth, {
+  authSaga,
+  refreshLoginSaga,
+  signUpRegisterSaga,
+  sendPasswordSaga,
+  authPasswordSaga,
+  sendAccountSaga,
+  authAccountSaga,
+  setAccountSaga,
+  changeingPasswordSaga,
+  nonLoginSaga,
+} from './auth';
+import loading from './loading';
 import toggle from './toggle';
 import myPage, { changeNameSaga, getUserSaga, changeImageSaga } from './myPage';
-import loading from './loading';
 import keyword, {
   inquiryKeywordSaga,
   getKeywordListSaga,
@@ -17,7 +23,7 @@ import keyword, {
   moveKeywordItemSaga,
   readKeywordItemSaga,
 } from './keyword';
-import chat, { authSchoolSaga, sendSchoolSaga } from './chat';
+import { authSchoolSaga, sendSchoolSaga } from './chat';
 
 const rootReducer = combineReducers({
   auth,
@@ -26,7 +32,6 @@ const rootReducer = combineReducers({
   toggle,
   keyword,
   myPage,
-  chat,
 });
 
 export function* rootSaga() {
@@ -43,6 +48,12 @@ export function* rootSaga() {
     getUserSaga(),
     authSchoolSaga(),
     sendSchoolSaga(),
+    sendPasswordSaga(),
+    authPasswordSaga(),
+    sendAccountSaga(),
+    authAccountSaga(),
+    setAccountSaga(),
+    changeingPasswordSaga(),
     changeImageSaga(),
     getSiteRecommendationSaga(),
     patchModifyKeywordSaga(),

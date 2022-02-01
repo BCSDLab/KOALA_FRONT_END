@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import * as S from './styles';
 import { MENU_ITEM } from 'constant';
 
