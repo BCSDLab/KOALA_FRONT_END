@@ -1,11 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import KeywordHeader from '../KeywordHeader';
-import { getRecommendation } from 'store/modifyKeyword';
+import { getSiteRecommendation } from 'store/modifyKeyword';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import KeywordAlarm from '../KeywordAlarm';
-import { AlarmContext } from 'context/KeywordAlarmContext';
-import { useContext } from 'react';
 
 const ModifyKeyword = () => {
   const [site, setSite] = useState('');
@@ -13,7 +11,7 @@ const ModifyKeyword = () => {
   const [selectRecommendItem, setSelectRecommendItem] = useState([]);
   const [alreadyRegisterItem, setAlreadyRegisterItem] = useState(false);
 
-  const { recommendationList } = useSelector((state) => state.modifyKeyword);
+  const { siteRecommendationList } = useSelector((state) => state.modifyKeyword);
   const dispatch = useDispatch();
 
   const searchSite = (e) => {
@@ -24,9 +22,6 @@ const ModifyKeyword = () => {
   const onClickRecommendItem = useCallback(
     (e) => {
       let { innerText: value } = e.target;
-
-      console.log(site);
-      console.log(selectRecommendItem);
 
       if (!selectRecommendItem.includes(value)) {
         setSelectRecommendItem([...selectRecommendItem, value]);
@@ -49,19 +44,17 @@ const ModifyKeyword = () => {
 
   useEffect(() => {
     if (site !== '') {
-      dispatch(getRecommendation(site));
+      dispatch(getSiteRecommendation(site));
     }
   }, [site]);
 
   useEffect(() => {
-    if (recommendationList.length !== 0) {
-      if (JSON.stringify(recommendList) !== JSON.stringify(recommendationList)) {
-        setRecommendList([...recommendationList]);
+    if (siteRecommendationList && siteRecommendationList.length !== 0) {
+      if (JSON.stringify(recommendList) !== JSON.stringify(siteRecommendationList)) {
+        setRecommendList([...siteRecommendationList]);
       }
     }
-  }, [recommendationList]);
-
-  console.log(useContext(AlarmContext));
+  }, [siteRecommendationList]);
 
   return (
     <>
