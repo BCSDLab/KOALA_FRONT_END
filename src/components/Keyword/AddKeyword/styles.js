@@ -1,29 +1,29 @@
 import styled from 'styled-components';
 
 export const HashtagContainer = styled.div`
+  position: absolute;
+  left: 588px;
+  top: 212px;
   width: 1092px;
   height: 48px;
   border: 1px solid #eee;
   display: flex;
   align-items: center;
+  border: 1px solid #eee;
   padding-left: 24px;
-  position: absolute;
-  left: 588px;
-  top: 212px;
-
-  ${(props) => {
-    if (!props.keyword) {
-      return `
-                border:1px solid #222222;
-            `;
-    }
-  }}
 
   ${(props) => {
     if (props.alreadyRegister) {
       return `
-              border:1.5px solid #ffd25d; 
-          `;
+        border:1.5px solid #ffd25d; 
+      `;
+    }
+
+    if (!props.keyword) {
+      return `
+                border:1px solid #222;
+                border-bottom:none;
+            `;
     }
   }}
 `;
@@ -77,24 +77,24 @@ export const RecommendItem = styled.li`
 `;
 
 export const RecommendSiteContainer = styled.ul`
+  display: ${(props) => {
+    return props.show ? 'none' : 'block';
+  }};
   padding-left: none;
   width: 1116px;
-  border: 1px solid #222222;
+  border: 1px solid #222;
   border-top: none;
   position: absolute;
   background-color: white;
   left: 588px;
   top: 325px;
   z-index: 1;
-  display: ${(props) => {
-    return props.show ? 'none' : 'block';
-  }};
 `;
 
 export const RecommendKeywordContainer = styled.ul`
   padding-left: none;
   width: 1116px;
-  border: 1px solid #222222;
+  border: 1px solid #222;
   border-top: none;
   position: absolute;
   background-color: white;

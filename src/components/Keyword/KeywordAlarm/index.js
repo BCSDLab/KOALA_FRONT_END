@@ -1,15 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { changeAlarmTerm, changeSiteName } from '../utils';
 import { ALARM_TERM } from 'constant';
-import { AlarmContext } from 'context/KeywordAlarmContext';
-import KeywordSubmit from '../KeywordSubmit';
+import { patchModifyKeyword, createKeyword } from 'store/modifyKeyword';
+import { useDispatch } from 'react-redux';
 import * as S from './styles';
 
-const KeywordAlarm = ({ selectRecommendItem, setSelectRecommendItem }) => {
+const KeywordAlarm = ({
+  selectRecommendItem,
+  setSelectRecommendItem,
+  setRecommendKeyword,
+  setSelectRecommendKeyword,
+  buttonText,
+}) => {
   const [isNormalAlarm, setIsNormalAlarm] = useState(false);
   const [isImportantAlarm, setIsImportantAlarm] = useState(false);
   const [isSlientAlarm, setIsSlientAlarm] = useState(false);
   const [isVibrationAlarm, setIsVibrationAlarm] = useState(false);
   const [alarmTerm, setAlarmTerm] = useState(null);
+
+  const dispatch = useDispatch();
 
   const onClickImportantAlarm = () => {
     setIsImportantAlarm((prev) => !prev);
@@ -35,23 +44,35 @@ const KeywordAlarm = ({ selectRecommendItem, setSelectRecommendItem }) => {
     setAlarmTerm(id);
   };
 
+  const onClickModifyButton = useCallback(() => {
+    setIsNormalAlarm(false);
+    setIsImportantAlarm(false);
+    setIsSlientAlarm(false);
+    setIsVibrationAlarm(false);
+    setAlarmTerm(false);
+    setSelectRecommendItem([]);
+    if (buttonText == '등록') {
+      setRecommendKeyword(undefined);
+      setSelectRecommendKeyword(undefined);
+    }
+
+    const data = {
+      alarmCycle: changeAlarmTerm(alarmTerm),
+      alarmMode: isNormalAlarm ? 1 : 0,
+      isImportant: isImportantAlarm ? 1 : 0,
+      name: '키워드',
+      siteList: selectRecommendItem.map((item) => changeSiteName(item)),
+    };
+
+    if (buttonText === '수정') {
+      dispatch(patchModifyKeyword(data.name, data));
+    } else {
+      dispatch(createKeyword(data));
+    }
+  }, [alarmTerm, isNormalAlarm, isImportantAlarm, selectRecommendItem]);
+
   return (
-    <AlarmContext.Provider
-      value={{
-        isNormalAlarm,
-        isImportantAlarm,
-        isSlientAlarm,
-        isVibrationAlarm,
-        alarmTerm,
-        selectRecommendItem,
-        setIsImportantAlarm,
-        setIsNormalAlarm,
-        setIsSlientAlarm,
-        setIsVibrationAlarm,
-        setAlarmTerm,
-        setSelectRecommendItem,
-      }}
-    >
+    <>
       <S.ImportantContainer onClick={onClickImportantAlarm}>
         <S.CheckBox isImportantAlarm={isImportantAlarm}></S.CheckBox>
         <S.CheckBoxTitle>중요 알림</S.CheckBoxTitle>
@@ -85,8 +106,9 @@ const KeywordAlarm = ({ selectRecommendItem, setSelectRecommendItem }) => {
           </S.AlarmType>
         </S.AlarmContainer>
       </S.SettingContainer>
-      <KeywordSubmit />
-    </AlarmContext.Provider>
+      <S.EditButton onClick={onClickModifyButton}>{buttonText}</S.EditButton>
+      <S.CancelButton>취소</S.CancelButton>
+    </>
   );
 };
 

@@ -99,7 +99,11 @@ const ModifyKeyword = () => {
           })}
         </S.SiteList>
       </S.SiteContainer>
-      <KeywordAlarm selectRecommendItem={selectRecommendItem} setSelectRecommendItem={setSelectRecommendItem} />
+      <KeywordAlarm
+        buttonText={'수정'}
+        selectRecommendItem={selectRecommendItem}
+        setSelectRecommendItem={setSelectRecommendItem}
+      />
     </>
   );
 };

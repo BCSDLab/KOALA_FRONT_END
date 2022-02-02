@@ -1,8 +1,9 @@
 import React from 'react';
+import KeywordCreatePage from './KeywordCreatePage';
 import KeywordModifyPage from './KeywordModifyPage';
 
 const MainPage = () => {
-  return <KeywordModifyPage />;
+  return <KeywordCreatePage />;
 };
 
 export default MainPage;
