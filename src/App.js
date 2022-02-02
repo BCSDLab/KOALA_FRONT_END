@@ -17,6 +17,9 @@ import MyPage from 'pages/MyPage';
 import ChatPage from 'pages/ChatPage';
 import ChatAuth from 'components/Chat/ChatAuth';
 import Unauth from 'components/Chat/Unauth';
+import KeywordListPage from 'pages/KeywordListPage';
+import KeywordCreatePage from 'pages/KeywordCreatePage';
+import KeywordModifyPage from 'pages/KeywordModifyPage';
 
 const AuthorizedRoute = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -54,6 +57,10 @@ const App = () => {
           <Route path="findId" element={<FindId />} />
           <Route path="findPw" element={<FindPw />} />
         </Route>
+
+        <Route path="keyword" element={<KeywordListPage />} />
+        <Route path="keyword/create" element={<KeywordCreatePage />} />
+        <Route path="keyword/modify" element={<KeywordModifyPage />} />
 
         <Route element={<AuthorizedRoute />}>
           <Route exact path="chat/*" element={<ChatPage />}>

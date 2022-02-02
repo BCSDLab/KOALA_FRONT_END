@@ -97,9 +97,7 @@ export const KeywordSection = styled.li`
   padding: 11px 17px 12px 32px;
   cursor: pointer;
   font-size: 14px;
-  &:hover {
-    background-color: black;
-  }
+  background-color: ${(props) => (props.selectItemId ? '#222' : '#f6f7f8')};
 `;
 
 export const KeywordName = styled.span`

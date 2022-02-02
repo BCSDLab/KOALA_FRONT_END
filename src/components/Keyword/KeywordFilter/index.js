@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import * as S from './styles';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router';
 import { getKeywordList, deleteKeywordList, moveKeywordItem } from 'store/keyword';
 import { makeDeleteQuery } from '../utils';
 import KeywordList from '../KeywordList';
 import KeywordMenuBar from '../KeywordMenuBar';
 import KeywordSearch from '../KeywordSearch';
+import KeywordHeader from '../KeywordHeader';
 
 const KeywordFilterBar = ({ isToggle }) => {
   const userInfo = useSelector((state) => state.auth);
@@ -13,6 +15,9 @@ const KeywordFilterBar = ({ isToggle }) => {
     (state) => state.keyword
   );
   const dispatch = useDispatch();
+  const { state: keywordName } = useLocation();
+
+  console.log(keywordName);
 
   const [list, setList] = useState([]);
   const [checkAll, setCheckAll] = useState(false);
@@ -162,7 +167,7 @@ const KeywordFilterBar = ({ isToggle }) => {
 
   useEffect(() => {
     if (userInfo.isLoggedIn || deleteKeywordListResponse || readKeywordItemResponse || getKeywordListResponse) {
-      dispatch(getKeywordList('키워드테스트'));
+      dispatch(getKeywordList(keywordName));
 
       if (keywordList === '받은 알림이 없습니다.') {
         setList([]);
@@ -170,7 +175,7 @@ const KeywordFilterBar = ({ isToggle }) => {
         setList(keywordList);
       }
     }
-  }, [userInfo.isLoggedIn, deleteKeywordListResponse, readKeywordItemResponse, getKeywordListResponse]);
+  }, [userInfo.isLoggedIn, deleteKeywordListResponse, readKeywordItemResponse, getKeywordListResponse, keywordName]);
 
   useEffect(() => {
     if (menu === '전체') {
@@ -207,6 +212,7 @@ const KeywordFilterBar = ({ isToggle }) => {
 
   return (
     <>
+      <KeywordHeader></KeywordHeader>
       <KeywordMenuBar isToggle={isToggle} menu={menu} list={list} setList={setList} onClickMenu={onClickMenu} />
       <S.FilterList toggle={isToggle}>
         <S.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className="checkBox"></S.CheckBox>

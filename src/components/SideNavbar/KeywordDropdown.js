@@ -1,21 +1,25 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from 'components/SideNavbar/styles';
 import { inquiry } from 'store/keyword';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 const KeywordDropdown = () => {
   const { keywords } = useSelector((state) => state.keyword);
   const [dropdownToggle, setDropdownToggle] = useState(false);
   const [selectItemId, setSelectItemId] = useState(null);
   const userInfo = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onClickDropdownButton = () => {
     setDropdownToggle((prev) => !prev);
   };
 
-  const onMouseOverItem = (id) => {
+  const onMouseOverItem = (id, name) => {
     setSelectItemId(id);
+    navigate('/keyword', { state: name });
   };
 
   const onMouseOutItem = () => {
@@ -39,7 +43,8 @@ const KeywordDropdown = () => {
             <S.KeywordSection
               key={keyword.id}
               onMouseOut={onMouseOutItem}
-              onMouseOver={() => onMouseOverItem(keyword.id)}
+              selectItemId={selectItemId === keyword.id}
+              onMouseOver={() => onMouseOverItem(keyword.id, keyword.name)}
             >
               <S.KeywordName selectItemId={selectItemId === keyword.id}>{keyword.name}</S.KeywordName>
               <S.KeywordCount selectItemId={selectItemId === keyword.id}>{keyword.noticeNum}</S.KeywordCount>
