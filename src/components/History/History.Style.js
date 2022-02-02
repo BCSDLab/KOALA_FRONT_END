@@ -1,6 +1,6 @@
 import styled from "styled-components"
 export const SelectAll = styled.div`
-    margin-right: 25px;
+    margin: 0 25px 6px 0;
 `
 export const KeyWordAlert = styled.li`
     display: flex;
@@ -64,4 +64,6 @@ export const MenuName = styled.div`
 
 export const PageWrapper = styled.div`
     display: block;
+    width: 1284px;
+    font-size: 12px;
 `

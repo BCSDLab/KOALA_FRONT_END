@@ -24,7 +24,7 @@ const HistoryHeaderTab = styled(NavLink)`
   cursor: pointer;
 `
 const HistoryHeader = () => {
-  const location = useLocation();
+  // const location = useLocation();
     return (
     <>
     <Header>

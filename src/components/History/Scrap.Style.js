@@ -23,7 +23,7 @@ align-items: center;
 `
 export const MenuList = styled.div`
 display: flex;
-margin-bottom: 32px;
+margin: 31px 0 32px 0;
 `
 export const Menu = styled.div`
 display: flex;
@@ -37,15 +37,18 @@ cursor: pointer;
 export const MenuLogo = styled.img`
 width: 16px;
 height: 16px;
-margin-right: 8px;
+margin: 0 8px 0 0px;
 `
 export const MenuName = styled.div`
-display: flex;
-text-align: center;
-align-items: center;
+width: 25px;
 `
 export const Wrapper = styled.div`
 display: block;
+font-size: 12px;
+`
+export const SelectAll = styled.div`
+width: 45px;
+margin-top: 6px;
 `
 export const MemoOption = styled.div`
 font-size: 12px;
@@ -68,7 +71,8 @@ export const StorageAlert = styled.li`
 display: flex;
 justify-content: space-between;
 color: #222222;
-padding: 15px 0 15px 0;
+padding: 0 0 15px 0;
+margin: 15px 0 0 0;
 border-bottom: 1px solid #eeeeee;
 `
 export const MemoAlertWrapper = styled.div`

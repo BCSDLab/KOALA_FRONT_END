@@ -125,7 +125,7 @@ const HistoryContent = () => {
             {alertList?.map((mail,id) => (
                 <S.KeyWordAlert isRead = {mail.isRead} key ={id}>
                     <HistoryCheckBox onClick={(e) => selectMail(e, mail.id)} checked={checkedList.includes(mail.id)?true:false} readOnly/>
-                    <S.Sender>{siteList[mail.site - 1]}</S.Sender>
+                    <S.Sender>{mail.site}</S.Sender>
                     <S.AlertTitle href={mail.url} isRead = {mail.isRead} onClick={() => clickMail(mail.id)}>{mail.title}</S.AlertTitle>
                     <S.MailBrowse>{mail.isRead?'읽음':'읽지않음'}</S.MailBrowse>
                     <S.ReceiveDate>{mail.createdAt}</S.ReceiveDate>

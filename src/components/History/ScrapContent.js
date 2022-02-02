@@ -133,7 +133,7 @@ const ScrapContent = () => {
             <S.CheckBox>
                 <HistoryCheckBox onClick={(e) => selectAll(e)}/>
             </S.CheckBox>
-            <S.MenuName>전체선택</S.MenuName>
+            <S.SelectAll>전체선택</S.SelectAll>
             <S.Menu onClick={deleteAlert}>
                 <S.MenuLogo src="/asset/Delete.svg"/>
                 <S.MenuName>삭제</S.MenuName>
