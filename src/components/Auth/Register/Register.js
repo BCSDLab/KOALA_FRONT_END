@@ -2,17 +2,10 @@ import React, { useState, useCallback, useEffect } from 'react';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import PwdInput from 'components/Auth/Shared/PwdInput';
-import IdInput from 'components/Auth/Shared/IdInput';
-import styled from 'styled-components';
+import CommonInput from 'components/Auth/Shared/CommonInput';
 import { ACCOUNT_ERROR, EMAIL_ERROR, NICKNAME_ERROR } from 'constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from 'store/auth';
-
-const ErrorAlert = styled.span`
-  font-size: 11px;
-  color: #ffd25d;
-  display: inline;
-`;
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -112,8 +105,6 @@ const RegisterForm = () => {
     }
   }, []);
 
-  const errorStyle = { border: '1px solid #ffd25d' };
-
   useEffect(() => {
     if (isAccount && isPassword && isPasswordConfirm && isEmail && isNickName) {
       setIsDisabled(false);
@@ -137,11 +128,10 @@ const RegisterForm = () => {
   return (
     <form onSubmit={onSubmit}>
       <S.Title>회원가입</S.Title>
-      <IdInput
+      <CommonInput
         name="account"
         value={account}
         onChange={onChangeAccount}
-        style={accountMessage ? errorStyle : null}
         placeholder="아이디"
         error={accountMessage}
         isError={accountMessage !== ''}
@@ -151,7 +141,6 @@ const RegisterForm = () => {
         name="password"
         value={password}
         onChange={onChangePassword}
-        style={passwordMessage ? errorStyle : null}
         placeholder="비밀번호 입력"
         error={passwordMessage}
         isError={passwordMessage !== ''}
@@ -161,27 +150,24 @@ const RegisterForm = () => {
         name="passwordConfirm"
         value={passwordConfirm}
         onChange={onChangePasswordConfirm}
-        style={passwordConfirmMessage ? errorStyle : null}
         placeholder="비밀번호 확인"
         error={passwordConfirmMessage}
         isError={passwordConfirmMessage !== ''}
         errorMessage={passwordConfirmMessage}
       />
-      <IdInput
+      <CommonInput
         name="email"
         value={email}
         onChange={onChangeEmail}
-        style={emailMessage ? errorStyle : null}
         placeholder="이메일"
         error={emailMessage}
         isError={emailMessage !== ''}
         errorMessage={emailMessage}
       />
-      <IdInput
+      <CommonInput
         name="nickName"
         value={nickName}
         onChange={onChangeNickName}
-        style={nickNameMessage ? errorStyle : null}
         placeholder="닉네임"
         error={nickNameMessage}
         isError={nickNameMessage !== ''}

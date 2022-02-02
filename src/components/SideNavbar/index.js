@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { opened } from '../../store/toggle';
 import styled from 'styled-components';
 import SideNavMenu from './SideNavMenu';
 
@@ -8,7 +10,7 @@ const Nav = styled.div`
   margin-right: ${({ isSideMenu }) => !isSideMenu && '696px'};
   padding: ${({ isSideMenu }) => (isSideMenu ? ` 40px 17px 0px;` : `40px 17px 91px;`)};
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
-  background-color: #fff;
+  background-color: ${(props) => props.theme.colors.white};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,7 +29,7 @@ const MenuButton = styled.button`
   padding: 3px 0;
   cursor: pointer;
   border: 0;
-  background-color: #fff;
+  background-color: ${(props) => props.theme.colors.white};
 `;
 
 const MenuImg = styled.img`
@@ -75,28 +77,29 @@ const SettingImg = styled.img`
 `;
 
 const SideNavbar = () => {
-  const [isSideMenu, setIsSideMenu] = useState(false);
+  const isOpen = useSelector((state) => state.toggle.isOpen);
+  const dispatch = useDispatch();
 
   const toggleSideMenu = () => {
-    setIsSideMenu((prev) => !prev);
+    dispatch(opened());
   };
 
   return (
     <NavContainer>
-      <Nav isSideMenu={isSideMenu}>
+      <Nav isSideMenu={isOpen}>
         <MenuButton onClick={toggleSideMenu}>
           <MenuImg src="/asset/MenuBtn.svg" alt="Vector" />
         </MenuButton>
 
         <HashTagImg src="/asset/Hashtag.svg" alt="keyword" />
 
-        <HistoryImg isSideMenu={isSideMenu} src="/asset/History.svg" alt="history" />
+        <HistoryImg isSideMenu={isOpen} src="/asset/History.svg" alt="history" />
 
-        <ChatImg isSideMenu={isSideMenu} src="/asset/Chat.svg" alt="chat" />
+        <ChatImg isSideMenu={isOpen} src="/asset/Chat.svg" alt="chat" />
 
-        <SettingImg isSideMenu={isSideMenu} src="/asset/Setting.svg" alt="mypage" />
+        <SettingImg isSideMenu={isOpen} src="/asset/Setting.svg" alt="mypage" />
       </Nav>
-      {isSideMenu && <SideNavMenu />}
+      {isOpen && <SideNavMenu />}
     </NavContainer>
   );
 };

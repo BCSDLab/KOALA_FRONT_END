@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
-  background: #222;
+  background: ${(props) => props.theme.colors.darkgray};
   width: 368px;
   height: 48px;
   border: 0;
@@ -12,17 +12,22 @@ const StyledButton = styled.button`
   ouline: none;
   flex-grow: 0;
   color: white;
-
   cursor: pointer;
 
   &:hover {
-    background: #c4c4c4;
+    background: ${(props) => props.theme.colors.silver};
   }
 
   :disabled,
   [disabled] {
-    background: #c4c4c4;
+    background: ${(props) => props.theme.colors.silver};
     cursor: default;
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    width: 328px;
+    font-size: 14px;
+    font-weight: 500;
   }
 `;
 

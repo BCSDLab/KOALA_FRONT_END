@@ -9,7 +9,7 @@ const StyledId = styled.div`
 `;
 
 const StyledInput = styled(S.StyledInput)`
-  border: solid 1px ${({ isError }) => (isError ? '#ffd25d' : '#c4c4c4')};
+  border: solid 1px ${({ isError, ...props }) => (isError ? props.theme.colors.yellow : props.theme.colors.silver)};
   margin: 0;
   background-image: ${({ isError }) => (isError ? `url('/asset/inputError.svg')` : 'none')};
   background-position-y: center;
@@ -24,10 +24,11 @@ const ErrorImg = styled.img`
   right: 0;
 `;
 
-const IdInput = (props) => {
+const CommonInput = (props, ref) => {
   return (
     <StyledId>
       <StyledInput
+        ref={ref}
         autocomplete="account"
         value={props.value}
         onChange={props.onChange}
@@ -41,4 +42,4 @@ const IdInput = (props) => {
   );
 };
 
-export default IdInput;
+export default React.forwardRef(CommonInput);

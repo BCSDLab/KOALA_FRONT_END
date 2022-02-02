@@ -1,41 +1,41 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const SwitchLabel = styled.label`
+const CheckBoxLabel = styled.label`
   display: inline-block;
   position: relative;
   width: 22px;
   height: 12px;
   border-radius: 50px;
-  background-color: #eee;
+  color: ${(props) => props.theme.colors.gray};
+  background-color: ${({ checked, ...props }) => (checked ? props.theme.colors.yellow : props.theme.colors.lightgray)};
+  font-size: 12px;
   cursor: pointer;
+
   vertical-align: middle;
   align-items: center;
 `;
-
-const SwitchCheckBox = styled.input`
+const CheckBoxInput = styled.input`
   display: none;
 `;
-const Ball = styled.div`
-  position: absolute;
-  height: 10px;
-  width: 10px;
+const CheckBoxBall = styled.i`
   border-radius: 50%;
-  top: 1px;
-  left: 1px;
-  transition: transform 0.2s linear;
-  background-color: #ffd25d;
-  ${SwitchCheckBox}:checked +& {
-    transform: translateX(10px);
-  }
+  width: 10px;
+  height: 10px;
+  background-color: ${({ isChecked, ...props }) => props.theme.colors[isChecked ? 'lightgray' : 'yellow']};
+  margin: 1px;
+  position: absolute;
+
+  transition: transform 0.2s;
+  transform: ${({ isChecked }) => (isChecked ? 'translateX(10px)' : 'none')};
 `;
 
-const Switch = ({ checked, ...props }) => {
+const Switch = ({ autoLogin, setAutoLogin, ...props }) => {
   return (
-    <SwitchLabel checked={checked}>
-      <SwitchCheckBox type="checkbox" checked={checked} {...props} />
-      <Ball />
-    </SwitchLabel>
+    <CheckBoxLabel checked={autoLogin}>
+      <CheckBoxInput type="checkbox" isChecked={autoLogin} onClick={() => setAutoLogin(!autoLogin)} />
+      <CheckBoxBall isChecked={autoLogin} />
+    </CheckBoxLabel>
   );
 };
 

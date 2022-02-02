@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   display: block;
   margin: 90px 0 0 20px;
 `
-const mainPage = () => {
+const MainPage = () => {
   return (
     <Container>
       {/* <SideNavbar/> */}
@@ -23,4 +23,4 @@ const mainPage = () => {
   )
 };
 
-export default mainPage;
+export default MainPage;
