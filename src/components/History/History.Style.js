@@ -9,7 +9,10 @@ export const KeyWordAlert = styled.li`
     padding: 15px 0 15px 0;
     border-bottom: 1px solid #eeeeee;
 `
-export const KeyWordAlertList = styled.ol``
+export const KeyWordAlertList = styled.ol`
+    height: 700px;
+    overflow-y: scroll;
+`
 export const Sender = styled.div`
     font-size: 12px;
     margin-right: 119px;
