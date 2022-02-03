@@ -93,6 +93,8 @@ const AddKeyword = () => {
       if (JSON.stringify(recommendList) !== JSON.stringify(siteRecommendationList)) {
         setRecommendList([...siteRecommendationList]);
       }
+    } else {
+      setRecommendList([]);
     }
   }, [siteRecommendationList]);
 
@@ -101,6 +103,8 @@ const AddKeyword = () => {
       if (JSON.stringify(recommendKeywords) !== JSON.stringify(keywordRecommendationList)) {
         setRecommendKeywords([...keywordRecommendationList]);
       }
+    } else {
+      setRecommendKeywords([]);
     }
   }, [keywordRecommendationList]);
 

@@ -53,6 +53,8 @@ const ModifyKeyword = () => {
       if (JSON.stringify(recommendList) !== JSON.stringify(siteRecommendationList)) {
         setRecommendList([...siteRecommendationList]);
       }
+    } else {
+      setRecommendList([]);
     }
   }, [siteRecommendationList]);
 
