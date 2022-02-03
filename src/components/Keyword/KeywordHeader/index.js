@@ -9,7 +9,8 @@ const KeywordHeader = ({ title, toggle }) => {
   return (
     <>
       <S.UserContainer toggle={toggle}>
-        <LoginButton />{' '}
+        {user.isLoggedIn && <S.Username>test</S.Username>}
+        <S.LoginButton>{user.isLoggedIn ? '로그아웃' : '로그인'}</S.LoginButton>
       </S.UserContainer>
       <S.Title toggle={toggle}>{title}</S.Title>
     </>

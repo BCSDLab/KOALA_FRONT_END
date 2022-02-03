@@ -53,4 +53,6 @@ export const keywordAPI = {
   deleteKeywordItem: (id) => logined.patch(`/keyword/list/notice?notice-id=${id}`),
   addScrap: (data) => logined.post(`/scrap`, { board_id: data }),
   readKeywordItem: (id) => logined.patch(`/keyword/list/notice/reading-check?notice-id=${id}`),
+  getRecommendation: (site) => logined.get(`keyword/site/search?site=${site}`),
+  modifyKeyword: ({ keywordName, object }) => logined.put(`keyword?keyword-name=${keywordName}`, object),
 };

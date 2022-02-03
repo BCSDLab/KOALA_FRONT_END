@@ -14,6 +14,36 @@ export const NOT_SEND_EMAIL = '144';
 export const EXPIRE_AUTH_NUMBER = '139';
 export const NOT_MATCH_SECRET = '140';
 
+export const ALARM_TERM = [
+  {
+    id: 0,
+    time: '5분',
+  },
+  {
+    id: 1,
+    time: '10분',
+  },
+  {
+    id: 2,
+    time: '15분',
+  },
+  {
+    id: 3,
+    time: '30분',
+  },
+  {
+    id: 4,
+    time: '1시간',
+  },
+  {
+    id: 5,
+    time: '2시간',
+  },
+  {
+    id: 6,
+    time: '4시간',
+  },
+];
 export const EMAIL_REGEXP = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,4}$/i;
 export const PASSWORD_REGEXP = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,18}$/;
 
