@@ -119,8 +119,12 @@ export const KeywordCount = styled.span`
 
 export const AddKeywordSection = styled.div`
   display: flex;
+  align-items: center;
+  height: 44px;
   margin: 11px 0 15.5px 0;
   padding: 0 17px 0 32px;
+  background-color: ${(props) => (props.selectAddKeyword ? '#222' : '#f6f7f8')};
+  cursor: pointer;
 `;
 
 export const AddImg = styled.img`
@@ -128,15 +132,15 @@ export const AddImg = styled.img`
   height: 24px;
 `;
 
-export const AddText = styled(Link)`
+export const AddText = styled.div`
   margin-left: 8px;
   position: relative;
   top: 1px;
   font-size: 14px;
   font-weight: normal;
-  line-height: normal;
+  line-height: 43px;
   letter-spacing: normal;
-  color: ${(props) => props.theme.colors.darkgray};
+  color: ${(props) => (props.selectAddKeyword ? '#fff' : '#222')};
 `;
 
 export const HistoryList = styled(List)`

@@ -77,8 +77,9 @@ const SettingImg = styled.img`
 `;
 
 const SideNavbar = () => {
-  const isOpen = useSelector((state) => state.toggle.isOpen);
   const dispatch = useDispatch();
+
+  const isOpen = useSelector((state) => state.toggle.isOpen);
 
   const toggleSideMenu = () => {
     dispatch(opened());

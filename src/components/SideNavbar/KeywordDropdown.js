@@ -1,36 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import * as S from 'components/SideNavbar/styles';
-import { inquiry } from 'store/keyword';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { inquiry } from 'store/keyword';
+import * as S from 'components/SideNavbar/styles';
 import { useNavigate } from 'react-router';
 
 const KeywordDropdown = () => {
-  const { keywords } = useSelector((state) => state.keyword);
   const [dropdownToggle, setDropdownToggle] = useState(false);
-  const [selectItemId, setSelectItemId] = useState(null);
-  const userInfo = useSelector((state) => state.auth);
+  const [selectItemId, setSelectItemId] = useState(false);
+  const [selectAddKeyword, setSelectAddKeyword] = useState(false);
 
+  const { keywords } = useSelector((state) => state.keyword);
   const dispatch = useDispatch();
+
   const navigate = useNavigate();
 
   const onClickDropdownButton = () => {
     setDropdownToggle((prev) => !prev);
   };
 
-  const onMouseOverItem = (id, name) => {
+  const onClickItem = (id, name) => {
     setSelectItemId(id);
-    navigate('/keyword', { state: name });
+    navigate(`/keyword`, { state: name });
   };
 
-  const onMouseOutItem = () => {
-    setSelectItemId(null);
+  const onClickAddKeyword = () => {
+    setSelectAddKeyword(true);
+    navigate('/keyword/create');
   };
 
-  useEffect(() => {
-    if (userInfo.isLoggedIn) {
-      dispatch(inquiry());
-    }
-  }, [userInfo]);
+  if (keywords === undefined) {
+    console.log('keywords undefined임!');
+    dispatch(inquiry());
+  }
 
   return (
     <S.KeywordDropdown>
@@ -42,18 +43,23 @@ const KeywordDropdown = () => {
           keywords.map((keyword) => (
             <S.KeywordSection
               key={keyword.id}
-              onMouseOut={onMouseOutItem}
               selectItemId={selectItemId === keyword.id}
-              onMouseOver={() => onMouseOverItem(keyword.id, keyword.name)}
+              onClick={() => onClickItem(keyword.id, keyword.name)}
             >
               <S.KeywordName selectItemId={selectItemId === keyword.id}>{keyword.name}</S.KeywordName>
               <S.KeywordCount selectItemId={selectItemId === keyword.id}>{keyword.noticeNum}</S.KeywordCount>
             </S.KeywordSection>
           ))}
       </S.KeywordList>
-      <S.AddKeywordSection>
-        <S.AddImg src="/asset/Plus.svg" alt="add keyword" />
-        <S.AddText to="/">키워드 추가하기</S.AddText>
+      <S.AddKeywordSection selectAddKeyword={selectAddKeyword} onClick={onClickAddKeyword} onClick={onClickAddKeyword}>
+        <S.AddImg
+          selectAddKeyword={selectAddKeyword}
+          src={selectAddKeyword ? '/asset/plus_white.svg' : '/asset/Plus.svg'}
+          alt="add keyword"
+        />
+        <S.AddText selectAddKeyword={selectAddKeyword} to="/keyword/create">
+          키워드 추가하기
+        </S.AddText>
       </S.AddKeywordSection>
     </S.KeywordDropdown>
   );

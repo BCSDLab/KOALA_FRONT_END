@@ -17,8 +17,6 @@ const KeywordFilterBar = ({ isToggle }) => {
   const dispatch = useDispatch();
   const { state: keywordName } = useLocation();
 
-  console.log(keywordName);
-
   const [list, setList] = useState([]);
   const [checkAll, setCheckAll] = useState(false);
   const [keywordSearch, setKeywordSearch] = useState('');
@@ -72,26 +70,6 @@ const KeywordFilterBar = ({ isToggle }) => {
       return;
     }
 
-    if (notReadNotification) {
-      const filterList = keywordList.filter((item) => {
-        return item.isRead === false;
-      });
-      setList(filterList);
-    } else if (readNotification) {
-      const filterList = keywordList.filter((item) => {
-        return item.isRead === true;
-      });
-      setList(filterList);
-    } else {
-      setList(keywordList);
-    }
-  }, [notReadNotification, readNotification]);
-
-  useEffect(() => {
-    if (list.length === 0) {
-      return;
-    }
-
     if (goStore) {
       if (checkAll) {
         alert('모든 목록 보관');
@@ -116,6 +94,7 @@ const KeywordFilterBar = ({ isToggle }) => {
           dispatch(moveKeywordItem(id));
         });
 
+        setCheckListId([]);
         setGoStore(false);
       } else {
         alert('알림을 선택해 주세요');
@@ -166,38 +145,27 @@ const KeywordFilterBar = ({ isToggle }) => {
   }, [deleteList]);
 
   useEffect(() => {
-    if (userInfo.isLoggedIn || deleteKeywordListResponse || readKeywordItemResponse || getKeywordListResponse) {
-      dispatch(getKeywordList(keywordName));
+    if (userInfo.isLoggedIn) {
+      if (deleteKeywordListResponse || readKeywordItemResponse || getKeywordListResponse || !deleteList || goStore) {
+        dispatch(getKeywordList(keywordName));
+        console.log('키워드 디스패치!');
 
-      if (keywordList === '받은 알림이 없습니다.') {
-        setList([]);
-      } else {
-        setList(keywordList);
+        if (keywordList === '받은 알림이 없습니다.') {
+          setList([]);
+        } else {
+          setList(keywordList);
+        }
       }
     }
-  }, [userInfo.isLoggedIn, deleteKeywordListResponse, readKeywordItemResponse, getKeywordListResponse, keywordName]);
-
-  useEffect(() => {
-    if (menu === '전체') {
-      setList(keywordList);
-    } else if (menu === '아우누리') {
-      const filterList = keywordList.filter((item) => {
-        if (item.site === 'PORTAL') {
-          return item;
-        }
-      });
-      setList(filterList);
-    } else if (menu === '아우미르') {
-      const filterList = keywordList.filter((item) => {
-        if (item.site === 'DORM') {
-          return item;
-        }
-      });
-      setList(filterList);
-    } else {
-      setList([]);
-    }
-  }, [menu]);
+  }, [
+    userInfo,
+    deleteKeywordListResponse,
+    readKeywordItemResponse,
+    getKeywordListResponse,
+    keywordName,
+    deleteList,
+    goStore,
+  ]);
 
   useEffect(() => {
     const filterList = list.filter((item) => {
@@ -212,23 +180,28 @@ const KeywordFilterBar = ({ isToggle }) => {
 
   return (
     <>
-      <KeywordHeader></KeywordHeader>
-      <KeywordMenuBar isToggle={isToggle} menu={menu} list={list} setList={setList} onClickMenu={onClickMenu} />
+      <KeywordHeader title={'키워드 알림'} toggle={false} />
+      <KeywordMenuBar isToggle={isToggle} menu={menu} setList={setList} onClickMenu={onClickMenu} />
       <S.FilterList toggle={isToggle}>
         <S.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className="checkBox"></S.CheckBox>
         <S.CheckBoxTitle onClick={onClickAllSelect} className="checkTitle">
           전체 선택
         </S.CheckBoxTitle>
-        <S.FilterItem onClick={onClickReadNotification} readNotification={readNotification} className="read">
+        <S.FilterReadNotification
+          onClick={onClickReadNotification}
+          readNotification={readNotification}
+          className="read"
+        >
           읽은 알림
-        </S.FilterItem>
-        <S.FilterItem
+        </S.FilterReadNotification>
+        <S.FilterNotReadNotification
           onClick={onClickNotReadNotification}
           notReadNotification={notReadNotification}
+          readNotification={readNotification}
           className="notread"
         >
           읽지 않은 알림
-        </S.FilterItem>
+        </S.FilterNotReadNotification>
         <S.FilterItem onClick={onClickGoStore} goStore={goStore} className="goStore">
           <S.FilterItemImage src="/asset/inbox-in.svg" alt="inbox-in" />
           <span>보관함으로 이동</span>
@@ -250,7 +223,10 @@ const KeywordFilterBar = ({ isToggle }) => {
         checkListId={checkListId}
         setCheckListId={setCheckListId}
         checkAll={checkAll}
+        readNotification={readNotification}
+        notReadNotification={notReadNotification}
         isToggle={isToggle}
+        menu={menu}
       />
     </>
   );

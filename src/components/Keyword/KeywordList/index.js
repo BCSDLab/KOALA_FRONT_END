@@ -1,11 +1,21 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import * as S from './styles';
 import { getTitle } from '../utils';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { readKeywordItem } from 'store/keyword';
 
-const KeywordList = ({ list, checkListId, checkAll, setCheckListId, isToggle }) => {
+const KeywordList = ({
+  checkListId,
+  checkAll,
+  setCheckListId,
+  isToggle,
+  readNotification,
+  notReadNotification,
+  menu,
+}) => {
   const dispatch = useDispatch();
+  const { keywordList } = useSelector((state) => state.keyword);
+  const [list, setList] = useState();
 
   const onClickCheckSome = useCallback(
     (id) => {
@@ -32,6 +42,53 @@ const KeywordList = ({ list, checkListId, checkAll, setCheckListId, isToggle }) 
       dispatch(readKeywordItem(id));
     }
   };
+
+  useEffect(() => {
+    if (list && list.length === 0) {
+      setList(keywordList);
+    }
+
+    if (notReadNotification) {
+      const filterList = keywordList.filter((item) => {
+        return item.isRead === false;
+      });
+      setList(filterList);
+    } else if (readNotification) {
+      const filterList = keywordList.filter((item) => {
+        return item.isRead === true;
+      });
+      setList(filterList);
+    } else {
+      console.log(keywordList);
+      setList(keywordList);
+    }
+  }, [readNotification, notReadNotification]);
+
+  useEffect(() => {
+    setList(keywordList);
+  }, [keywordList]);
+
+  useEffect(() => {
+    if (menu === '전체') {
+      setList(keywordList);
+    } else if (menu === '아우누리') {
+      const filterList = keywordList.filter((item) => {
+        if (item.site === 'PORTAL') {
+          return item;
+        }
+      });
+      setList(filterList);
+    } else if (menu === '아우미르') {
+      const filterList = keywordList.filter((item) => {
+        if (item.site === 'DORM') {
+          return item;
+        }
+      });
+      setList(filterList);
+    } else {
+      setList([]);
+    }
+  }, [menu]);
 
   return (
     <S.MainList toggle={isToggle}>
