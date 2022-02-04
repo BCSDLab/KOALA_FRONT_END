@@ -8,7 +8,7 @@ font-family: 'NotoSansCJKKR';
 font-size: 12px;
 `
 export const WriteBlock = styled.textarea`
-width: 1053px;
+width: 1058px;
 height: 70px;
 border: none;
 resize: none;
