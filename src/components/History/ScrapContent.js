@@ -4,6 +4,7 @@ import {KeyWordAlertList,Sender} from "./History.Style"
 import { useDispatch, useSelector } from "react-redux";
 import HistoryCheckBox from "./HisoryCheckBox";
 import { getMemo, getScrapList, deleteScrapItem, fixMemo, writeMemo } from "store/scrap";
+import { MENU_ITEM } from "constant";
 const memoState = ["READ", "WRITE", 'FIX'];
 const stringToDate = (date) => {
     var yyyyMMdd = String(date);
@@ -151,7 +152,7 @@ const ScrapContent = () => {
             {scrapItemList?.map((mail) => (
                 <S.StorageAlert key ={mail.id}>
                     <HistoryCheckBox onClick = {(e) => selectMail(e, mail.id)} checked={checkedList.includes(mail.id)?true:false} readOnly/>
-                    <Sender>{mail.site}</Sender>
+                    <Sender>{MENU_ITEM[MENU_ITEM.findIndex(site => site.id===mail.site)].title}</Sender>
                     <S.MemoAlertWrapper>
                         <S.AlertContent>
                             <S.AlertTitle href={mail.url}>{mail.title}</S.AlertTitle>

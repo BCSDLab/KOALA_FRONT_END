@@ -5,6 +5,7 @@ import * as S from './History.Style';
 import { getHistoryList, deleteHistoryList, readHistoryItem, moveToScrap} from "store/history";
 import { useDispatch, useSelector } from "react-redux";
 import PopUp from "./HistoryPopup";
+import { MENU_ITEM } from "constant";
 const siteList = ['아우누리'];
 const stringToDate = (date) => {
     var yyyyMMdd = String(date);
@@ -177,7 +178,7 @@ const HistoryContent = () => {
                 showList[showList.length-1].id === mail.id?(
                     <S.KeyWordAlert isRead = {mail.isRead} key ={id} ref={refAlert}>
                     <HistoryCheckBox onClick={(e) => selectMail(e, mail.id)} checked={checkedList.includes(mail.id)?true:false} readOnly/>
-                    <S.Sender>{mail.site}</S.Sender>
+                    <S.Sender>{MENU_ITEM[MENU_ITEM.findIndex(site => site.id===mail.site)].title}</S.Sender>
                     <S.AlertTitle href={mail.url} isRead = {mail.isRead} onClick={() => clickMail(mail.id)}>{mail.title}</S.AlertTitle>
                     <S.MailBrowse>{mail.isRead?'읽음':'읽지않음'}</S.MailBrowse>
                     <S.ReceiveDate>{mail.createdAt}</S.ReceiveDate>
@@ -185,7 +186,7 @@ const HistoryContent = () => {
                 ):(
                     <S.KeyWordAlert isRead = {mail.isRead} key ={id}>
                     <HistoryCheckBox onClick={(e) => selectMail(e, mail.id)} checked={checkedList.includes(mail.id)?true:false} readOnly/>
-                    <S.Sender>{mail.site}</S.Sender>
+                    <S.Sender>{MENU_ITEM[MENU_ITEM.findIndex(site => site.id===mail.site)].title}</S.Sender>
                     <S.AlertTitle href={mail.url} isRead = {mail.isRead} onClick={() => clickMail(mail.id)}>{mail.title}</S.AlertTitle>
                     <S.MailBrowse>{mail.isRead?'읽음':'읽지않음'}</S.MailBrowse>
                     <S.ReceiveDate>{mail.createdAt}</S.ReceiveDate>

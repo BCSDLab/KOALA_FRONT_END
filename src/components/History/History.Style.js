@@ -15,6 +15,7 @@ export const KeyWordAlertList = styled.ol`
 `
 export const Sender = styled.div`
     font-size: 12px;
+    width: 45px;
     margin-right: 119px;
 `
 export const AlertTitle = styled.a`
