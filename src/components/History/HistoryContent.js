@@ -147,7 +147,7 @@ const HistoryContent = () => {
     <PopUp isOpen={isPopOpen} closePopUp={closePopUp}/>
     <S.Content isOpen={isPopOpen}>
     <S.MenuList>
-        <HistoryCheckBox onClick={(e) => selectAllMail(e)} readOnly/>
+        <HistoryCheckBox onClick={(e) => selectAllMail(e)} checked={(checkedList.length<=0 || checkedList.length !== showList.length)?false:true} readOnly/>
         <S.SelectAll>전체선택</S.SelectAll>
         <S.Menues onClick={() => showRead()} isClicked={command==='read'?true:false}>
             <S.MenuName>

@@ -140,7 +140,7 @@ const ScrapContent = () => {
     <S.Wrapper>
         <S.MenuList>
             <S.CheckBox>
-                <HistoryCheckBox onClick={(e) => selectAll(e)} checked={checkedList.length<=0?false:true} readOnly/>
+                <HistoryCheckBox onClick={(e) => selectAll(e)} checked={(checkedList.length<=0 || checkedList.length !== scrapItemList.length)?false:true} readOnly/>
             </S.CheckBox>
             <S.SelectAll>전체선택</S.SelectAll>
             <S.Menu onClick={deleteAlert}>
