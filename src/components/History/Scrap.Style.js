@@ -8,7 +8,7 @@ font-family: 'NotoSansCJKKR';
 font-size: 12px;
 `
 export const WriteBlock = styled.textarea`
-width: 1077px;
+width: 1037px;
 height: 70px;
 border: none;
 resize: none;
@@ -111,7 +111,7 @@ export const memoContent = styled.div`
 export const LetterCounter = styled.div`
     position: relative;
     text-align: right;
-    left: 1020px;
+    left: 980px;
     bottom: 30px;
     width: 52px;
     height: 20px;
