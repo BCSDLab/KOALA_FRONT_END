@@ -13,6 +13,16 @@ const stringToDate = (date) => {
     var sDate = yyyyMMdd.substring(8,10);
     return new Date(Number(sYear), Number(sMonth)-1, Number(sDate));
 }
+const makeStringToNewLine = (text) => {
+    const fixedText = text.split('').map(char => {
+        if(char == '\n'){
+            return <br/>
+        }else{
+            return char;
+        }
+    })
+    return fixedText;
+}
 const ScrapContent = () => {
     const {scrapList, memoList, getMemoListResponse,deleteScrapResponse, fixMemoResponse, writeMemoResponse} = useSelector((state) => state.scrap);
     const userInfo = useSelector((state) => state.auth);
@@ -178,7 +188,7 @@ const ScrapContent = () => {
                                     <S.MemoBlock>
                                         {memoItemList.filter(memo => memo.userScrapId === mail.userScrapId)
                                                     .map(memo => {
-                                                        return memo.memo;
+                                                        return makeStringToNewLine(memo.memo);
                                                     })}
                                     </S.MemoBlock>
                                 }
