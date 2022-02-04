@@ -23,7 +23,7 @@ align-items: center;
 `
 export const MenuList = styled.div`
 display: flex;
-margin: 31px 0 32px 0;
+margin: 31px 0 17px 0;
 `
 export const Menu = styled.div`
 display: flex;
@@ -52,11 +52,14 @@ margin-top: 6px;
 `
 export const MemoOption = styled.div`
 font-size: 12px;
+width: 23px;
 color: #999999;
 cursor: pointer;
+
 `
 export const ReceiveDate = styled.div`
 font-size: 12px;
+width: 67px;
 color: #999999;
 `
 export const DivideLine = styled.img`
@@ -65,11 +68,9 @@ height: 16px;
 `
 export const AlertProp = styled.div`
 display: flex;
-margin-left: 43px;
 `
 export const StorageAlert = styled.li`
 display: flex;
-justify-content: space-between;
 color: #222222;
 padding: 0 0 15px 0;
 margin: 15px 0 0 0;
@@ -119,4 +120,9 @@ export const LetterCounter = styled.div`
 
 export const LettterLength = styled.span`
     color: ${props => props.children[0]<100? 'black':'yellow'};
+`
+
+export const KeyWordAlertList = styled.ol`
+    height: 600px;
+    overflow-y: ${props => props.scrollOption?'scroll':'none'};
 `

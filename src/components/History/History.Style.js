@@ -10,7 +10,7 @@ export const KeyWordAlert = styled.li`
     border-bottom: 1px solid #eeeeee;
 `
 export const KeyWordAlertList = styled.ol`
-    height: 700px;
+    height: 600px;
     overflow-y: scroll;
 `
 export const Sender = styled.div`

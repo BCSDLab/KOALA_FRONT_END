@@ -140,7 +140,6 @@ const HistoryContent = () => {
             setPageNum(pageNum+1);
         }
     },[inView, showList])
-
     return (
     <>
     <S.PageWrapper>

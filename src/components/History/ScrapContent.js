@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import * as S from "./Scrap.Style"
 import {KeyWordAlertList,Sender} from "./History.Style"
 import { useDispatch, useSelector } from "react-redux";
@@ -26,7 +26,6 @@ const ScrapContent = () => {
     const letter = useRef();
     const fixMemoValue = useRef(null);
     const writeMemoValue = useRef();
-
     useEffect(() => {
         if(userInfo.isLoggedIn){
             dispatch(getMemo());
@@ -114,7 +113,7 @@ const ScrapContent = () => {
         return letter.length;
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if(userInfo.isLoggedIn||getMemoListResponse||deleteScrapResponse||fixMemoResponse){
             dispatch(getScrapList())
         }
@@ -131,7 +130,7 @@ const ScrapContent = () => {
     <S.Wrapper>
         <S.MenuList>
             <S.CheckBox>
-                <HistoryCheckBox onClick={(e) => selectAll(e)}/>
+                <HistoryCheckBox onClick={(e) => selectAll(e)} checked={checkedList.length<=0?false:true} readOnly/>
             </S.CheckBox>
             <S.SelectAll>전체선택</S.SelectAll>
             <S.Menu onClick={deleteAlert}>
@@ -139,7 +138,7 @@ const ScrapContent = () => {
                 <S.MenuName>삭제</S.MenuName>
             </S.Menu>
         </S.MenuList>
-        <KeyWordAlertList>
+        <S.KeyWordAlertList scrollOption={scrapItemList?.length>=12?true:false}>
             {scrapItemList?.map((mail) => (
                 <S.StorageAlert key ={mail.id}>
                     <HistoryCheckBox onClick = {(e) => selectMail(e, mail.id)} checked={checkedList.includes(mail.id)?true:false} readOnly/>
@@ -195,7 +194,7 @@ const ScrapContent = () => {
                     </S.MemoAlertWrapper>
                 </S.StorageAlert>
             ))}
-    </KeyWordAlertList>
+    </S.KeyWordAlertList>
     </S.Wrapper>
     )
 }
