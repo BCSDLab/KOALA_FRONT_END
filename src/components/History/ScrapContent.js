@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import HistoryCheckBox from "./HisoryCheckBox";
 import { getMemo, getScrapList, deleteScrapItem, fixMemo, writeMemo } from "store/scrap";
 const memoState = ["READ", "WRITE", 'FIX'];
-const siteList = ['아우누리'];
 const stringToDate = (date) => {
     var yyyyMMdd = String(date);
     var sYear = yyyyMMdd.substring(0,4);
