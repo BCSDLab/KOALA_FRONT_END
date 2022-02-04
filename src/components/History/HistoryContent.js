@@ -56,6 +56,8 @@ const HistoryContent = () => {
           dispatch(moveToScrap({ crawling_id: id }));
         });
         setCheckedList([]);
+        setPageNum(1);
+        setList([]);
         setOpen(true);
       } catch (e) {
         console.log(e);
@@ -109,7 +111,7 @@ const HistoryContent = () => {
       dispatch(getHistoryList(pageNum));
     }
     setLoading(false);
-  }, [userInfo.isLoggedIn, deleteHistoryResponse, readHistoryItemResponse, pageNum]);
+  }, [userInfo.isLoggedIn, deleteHistoryResponse, readHistoryItemResponse, moveToScrapResponse, pageNum]);
 
   useLayoutEffect(() => {
     console.log(historyList);
