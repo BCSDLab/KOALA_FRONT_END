@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { defaultFallbackInView, useInView } from "react-intersection-observer";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { useInView } from "react-intersection-observer";
 import HistoryCheckBox from "./HisoryCheckBox";
 import * as S from './History.Style';
 import { getHistoryList, deleteHistoryList, readHistoryItem, moveToScrap} from "store/history";
 import { useDispatch, useSelector } from "react-redux";
+import PopUp from "./HistoryPopup";
 const siteList = ['아우누리'];
 const stringToDate = (date) => {
     var yyyyMMdd = String(date);
@@ -22,6 +23,7 @@ const HistoryContent = () => {
     const [checkedList, setCheckedList] = useState([]);
     const [pageNum, setPageNum] = useState(1);
     const [isLoading, setLoading] = useState(false);
+    const [isPopOpen, setOpen] = useState(false);
     const [refAlert, inView] = useInView({
         threshold: 0.0,
         triggerOnce: false,
@@ -46,11 +48,15 @@ const HistoryContent = () => {
     const moveToStorage = () => {
         console.log('보관함으로 이동');
         if(checkedList.length > 0){
-            checkedList.forEach((id) => {
-               dispatch(moveToScrap({"crawling_id": id}));
-           })
-           setCheckedList([]);
-           alert('보관함으로 이동되었습니다');
+            try{
+                checkedList.forEach((id) => {
+                    dispatch(moveToScrap({"crawling_id": id}));
+                })
+                setCheckedList([]);
+                setOpen(true);
+            }catch(e){
+                console.log(e);
+            }
         }else{
             alert('이동할 메일을 선택해 주세요');
         }
@@ -63,6 +69,8 @@ const HistoryContent = () => {
             });
             dispatch(deleteHistoryList(deleteMailQuery));
             setCheckedList([]);
+            setPageNum(1);
+            setList([]);
         }else{
             alert("삭제할 메일을 선택해 주세요");
         }
@@ -86,6 +94,9 @@ const HistoryContent = () => {
     const clickMail = (id) =>{
         dispatch(readHistoryItem(id));
     }
+    const closePopUp = () => {
+        setOpen(false);
+    }
 
     useEffect(() => {
         if(userInfo.isLoggedIn||deleteHistoryResponse||readHistoryItemResponse||moveToScrapResponse){
@@ -95,8 +106,10 @@ const HistoryContent = () => {
         setLoading(false);
     },[userInfo.isLoggedIn,deleteHistoryResponse,readHistoryItemResponse, pageNum]);
 
-    useEffect(() => {
-        if(historyList.length <= 0){
+    useLayoutEffect(() => {
+        console.log(historyList)
+        console.log(showList)
+        if(!historyList || historyList.length <= 0){
             return
         }else{
             let sortedHistoryList = historyList?.sort((a, b) => {
@@ -129,7 +142,10 @@ const HistoryContent = () => {
     },[inView, showList])
 
     return (
+    <>
     <S.PageWrapper>
+    <PopUp isOpen={isPopOpen} closePopUp={closePopUp}/>
+    <S.Content isOpen={isPopOpen}>
     <S.MenuList>
         <HistoryCheckBox onClick={(e) => selectAllMail(e)} readOnly/>
         <S.SelectAll>전체선택</S.SelectAll>
@@ -157,6 +173,7 @@ const HistoryContent = () => {
         </S.Menues>
     </S.MenuList>
     <S.KeyWordAlertList>
+        {console.log(inView)}
             {showList?.map((mail,id) => (
                 showList[showList.length-1].id === mail.id?(
                     <S.KeyWordAlert isRead = {mail.isRead} key ={id} ref={refAlert}>
@@ -177,7 +194,10 @@ const HistoryContent = () => {
                 )
             ))}
     </S.KeyWordAlertList>
+    </S.Content>
+   
     </S.PageWrapper>
+        </>
     )
 }
 

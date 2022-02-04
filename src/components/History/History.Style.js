@@ -42,6 +42,7 @@ export const ReceiveDate = styled.div`
 `
 export const MenuList = styled.div`
     display: flex;
+    position: relative;
     align-items: center;
     margin: 31px 0 17px 0;
     &: last-child{
@@ -69,4 +70,9 @@ export const PageWrapper = styled.div`
     display: block;
     width: 1284px;
     font-size: 12px;
+    position: absolute;
+`
+export const Content = styled.div`
+    position: relative;
+    top: ${props => props.isOpen?'-147px':'0px'};
 `
