@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect, useMemo } from 'react';
 import * as S from './Scrap.Style';
 import { KeyWordAlertList, Sender } from './History.Style';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,6 +22,11 @@ const makeStringToNewLine = (text) => {
     }
   });
   return fixedText;
+};
+const findMemoInAlert = (memoList, alert) => {
+  return memoList.filter((memo) => memo.userScrapId === alert.userScrapId).map((memo) => {
+    return memo.memo;
+  })
 };
 const ScrapContent = () => {
   const { scrapList, memoList, getMemoListResponse, deleteScrapResponse, fixMemoResponse, writeMemoResponse } =
@@ -186,33 +191,21 @@ const ScrapContent = () => {
                     {mail.userScrapId === currentMail && (pageState === 'FIX' || pageState === 'WRITE') ? (
                       <S.memoContent>
                         <S.WriteBlock
-                          defaultValue={memoItemList
-                            .filter((memo) => memo.userScrapId === mail.userScrapId)
-                            .map((memo) => {
-                              return memo.memo;
-                            })}
+                          defaultValue={findMemoInAlert(memoItemList, mail)}
                           onChange={(e) => checkByte(e)}
                           maxLength={100}
                           ref={fixMemoValue}
                         />
                         <S.LetterCounter>
-                          <S.LettterLength ref={letter}>
-                            {memoItemList
-                              .filter((memo) => memo.userScrapId === mail.userScrapId)
-                              .map((memo) => {
-                                return memo.memo.length;
-                              })}
+                          <S.LettterLength ref={letter} style={{color:findMemoInAlert(memoItemList, mail)[0].length>=100?'#ffd25d':'black'}}>
+                            {findMemoInAlert(memoItemList, mail)[0].length}
                           </S.LettterLength>
                           /100
                         </S.LetterCounter>
                       </S.memoContent>
                     ) : (
                       <S.MemoBlock>
-                        {memoItemList
-                          .filter((memo) => memo.userScrapId === mail.userScrapId)
-                          .map((memo) => {
-                            return makeStringToNewLine(memo.memo);
-                          })}
+                        {makeStringToNewLine(findMemoInAlert(memoItemList, mail)[0])}
                       </S.MemoBlock>
                     )}
                   </>
