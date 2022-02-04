@@ -1,14 +1,14 @@
 import styled from "styled-components"
 
 export const MemoBlock = styled.div`
-width: 1053px;
+width: 1033px;
 border: none;
 resize: none;
 font-family: 'NotoSansCJKKR';
 font-size: 12px;
 `
 export const WriteBlock = styled.textarea`
-width: 1037px;
+width: 1053px;
 height: 70px;
 border: none;
 resize: none;
@@ -65,12 +65,14 @@ color: #999999;
 export const DivideLine = styled.img`
 width: 16px;
 height: 16px;
+margin: 0 9px;
 `
 export const AlertProp = styled.div`
 display: flex;
 `
 export const StorageAlert = styled.li`
 display: flex;
+width: 1267px;
 color: #222222;
 padding: 0 0 15px 0;
 margin: 15px 0 0 0;
@@ -86,7 +88,7 @@ export const AlertTitle = styled.a`
     width: 899px;
     max-width: 899px;
     max-height: 18px;
-    margin-right: 40px;
+    margin-right: 45px;
     font-size: 12px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -111,7 +113,7 @@ export const memoContent = styled.div`
 export const LetterCounter = styled.div`
     position: relative;
     text-align: right;
-    left: 980px;
+    left: 990px;
     bottom: 30px;
     width: 52px;
     height: 20px;
