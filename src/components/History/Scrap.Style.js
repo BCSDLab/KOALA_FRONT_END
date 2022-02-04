@@ -120,7 +120,6 @@ export const LetterCounter = styled.div`
 `;
 
 export const LettterLength = styled.span`
-  color: ${(props) => (props.children[0] < 100 ? 'black' : 'yellow')};
 `;
 
 export const KeyWordAlertList = styled.ol`
