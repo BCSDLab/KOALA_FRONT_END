@@ -3,7 +3,7 @@ import HistoryContent from 'components/History/HistoryContent';
 import ScrapContent from 'components/History/ScrapContent';
 import HistoryHeader from 'components/History/HistoryHeader';
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import SideNavbar from 'components/SideNavbar';
 const HistoryPageContent = styled.div`
@@ -18,11 +18,12 @@ const ContentWrapper = styled.div`
 `
 
 const HistoryPage = () => {
+  const location = useLocation();
   return (
       <HistoryPageContent>
         <SideNavbar/>
         <ContentWrapper>
-        <HistoryHeader/>
+        <HistoryHeader location={location}/>
             <Routes>
             <Route path='/' element={<HistoryContent/>}/>
             <Route path='/scrap' element={<ScrapContent/>}/>
