@@ -65,11 +65,10 @@ const App = () => {
           </Route>
           <Route path="mypage" element={<MyPage />} />
         </Route>
-        <Route path='history/*' element={<HistoryPage/>}>
-          <Route indelx element={<HistoryContent/>}/>
-          <Route path='scrap' element={<ScrapContent/>}/>
+        <Route path="history/*" element={<HistoryPage />}>
+          <Route index element={<HistoryContent />} />
+          <Route path="scrap" element={<ScrapContent />} />
         </Route>
-        
       </Routes>
     </>
   );

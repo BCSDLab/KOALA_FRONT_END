@@ -33,7 +33,6 @@ export const changeUserProfile = (file) =>
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 
-
 export const deleteUser = () => logined.patch('user/delete');
 
 export const getUserInfo = () => logined.get('user/my');
@@ -47,19 +46,19 @@ export const signUp = ({ account, password, find_email, nickname }) =>
   logined.post('/user/sing-in', { account, password, find_email, nickname });
 
 export const historyAPI = {
-  getHistoryList : (pageNum) => logined.get(`/history?pageNum=${pageNum}`),
-  deleteHistoryList : (historyList) => logined.patch(`history?${historyList}`),
-  readHistoryItem : (noticeId) => logined.put(`/history?notice-id=${noticeId}`),
-  moveToScrap : (idList) => logined.post(`/scrap`, idList)
-}
+  getHistoryList: (pageNum) => logined.get(`/history?pageNum=${pageNum}`),
+  deleteHistoryList: (historyList) => logined.patch(`history?${historyList}`),
+  readHistoryItem: (noticeId) => logined.put(`/history?notice-id=${noticeId}`),
+  moveToScrap: (idList) => logined.post(`/scrap`, idList),
+};
 
 export const scrapAPI = {
-  getScrapList : () => logined.get(`/scrap`),
-  deleteScrapItem : (noticeIdList) => logined.delete(`/scrap`, {data:noticeIdList}),
-  getMemo : () => logined.get(`/memo`),
-  fixMemo : (memo) => logined.patch(`/memo`, {memo:memo.memo, user_scrap_id:memo.user_scrap_id }),
-  writeMemo : (memo) => logined.post(`/memo`, memo)
-}
+  getScrapList: () => logined.get(`/scrap`),
+  deleteScrapItem: (noticeIdList) => logined.delete(`/scrap`, { data: noticeIdList }),
+  getMemo: () => logined.get(`/memo`),
+  fixMemo: (memo) => logined.patch(`/memo`, { memo: memo.memo, user_scrap_id: memo.user_scrap_id }),
+  writeMemo: (memo) => logined.post(`/memo`, memo),
+};
 export const keywordAPI = {
   getKeyword: () => logined.get(`/keyword`),
   getKeywordList: (keywordName) => logined.get(`/keyword/list?keyword-name=${keywordName}`),

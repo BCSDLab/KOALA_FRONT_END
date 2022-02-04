@@ -146,7 +146,7 @@ const KakaoLoginButton = styled.button`
  * - [] 카카오 로그인
  */
 const AuthMainForm = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const userInfo = useSelector((state) => state.myPage);
   const [isNormalLogin, setIsNormalLogin] = useState(true);
   const dispatch = useDispatch();

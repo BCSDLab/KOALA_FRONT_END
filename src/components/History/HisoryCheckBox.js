@@ -23,7 +23,7 @@ const CustomCheckDot = styled.div`
   margin-right: 20px;
   border: solid 1px #c4c4c4;
   ${CheckDot}:checked + & {
-    background: url("/asset/Check.svg");
+    background: url('/asset/Check.svg');
     background-position: center;
   }
 `;

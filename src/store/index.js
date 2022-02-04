@@ -1,17 +1,12 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
-import history,{
+import history, {
   getHistoryListSaga,
   deleteHistoryListSaga,
   readHistoryItemSaga,
-  moveToScrapItemSaga} from './history';
-import scrap,{
-  getScrapListSaga,
-  getMemoSaga,
-  deleteScrapItemSaga,
-  fixMemoSaga,
-  writeMemoSaga
-} from './scrap';
+  moveToScrapItemSaga,
+} from './history';
+import scrap, { getScrapListSaga, getMemoSaga, deleteScrapItemSaga, fixMemoSaga, writeMemoSaga } from './scrap';
 import modifyKeyword, { getKeywordRecommendationSaga, patchModifyKeywordSaga } from './modifyKeyword';
 import auth, {
   authSaga,
@@ -80,7 +75,7 @@ export function* rootSaga() {
     changeImageSaga(),
     getKeywordRecommendationSaga(),
     patchModifyKeywordSaga(),
-    nonLoginSaga()
+    nonLoginSaga(),
   ]);
 }
 

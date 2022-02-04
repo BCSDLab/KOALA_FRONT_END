@@ -1,9 +1,6 @@
 {
-    "compilerOptions": {
-        "baseUrl": "src"
-    },
-    "include": [
-        "src", 
-        "public/asset/fonts" 
-   ]
+  "compilerOptions": {
+    "baseUrl": "src"
+  },
+  "include": ["src", "public/asset/fonts"]
 }

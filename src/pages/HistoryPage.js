@@ -1,4 +1,3 @@
-
 import HistoryContent from 'components/History/HistoryContent';
 import ScrapContent from 'components/History/ScrapContent';
 import HistoryHeader from 'components/History/HistoryHeader';
@@ -11,29 +10,26 @@ const HistoryPageContent = styled.div`
   // margin: 0 138px;
   min-width: 1294px;
   max-width: 1294px;
-`
+`;
 
 const ContentWrapper = styled.div`
   padding: 49px 0 0 0;
-`
+`;
 
 const HistoryPage = () => {
   const location = useLocation();
   return (
-      <HistoryPageContent>
-        <SideNavbar/>
-        <ContentWrapper>
-        <HistoryHeader location={location}/>
-            <Routes>
-            <Route path='/' element={<HistoryContent/>}/>
-            <Route path='/scrap' element={<ScrapContent/>}/>
-            </Routes>
-        </ContentWrapper>
-            
-      </HistoryPageContent>
-  
-  )
+    <HistoryPageContent>
+      <SideNavbar />
+      <ContentWrapper>
+        <HistoryHeader location={location} />
+        <Routes>
+          <Route path="/" element={<HistoryContent />} />
+          <Route path="/scrap" element={<ScrapContent />} />
+        </Routes>
+      </ContentWrapper>
+    </HistoryPageContent>
+  );
 };
-
 
 export default HistoryPage;

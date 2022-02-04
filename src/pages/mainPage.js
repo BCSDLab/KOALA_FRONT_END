@@ -6,21 +6,21 @@ import LogoutButton from 'components/History/LogouButton';
 
 const Container = styled.div`
   display: flex;
-`
+`;
 const Wrapper = styled.div`
   display: block;
   margin: 90px 0 0 20px;
-`
+`;
 const MainPage = () => {
   return (
     <Container>
       {/* <SideNavbar/> */}
-      <LogoutButton/>
+      <LogoutButton />
       <Wrapper>
-      <HistoryPage/>
+        <HistoryPage />
       </Wrapper>
     </Container>
-  )
+  );
 };
 
 export default MainPage;
