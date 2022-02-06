@@ -39,11 +39,6 @@ const ErrorText = styled.div`
   margin: 4px 5px 16px 16px;
   font-family: NotoSansCJKKR;
   font-size: 12px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
-  color: #ffd25d;
+  color: ${(props) => props.theme.colors.yellow};
 `;
