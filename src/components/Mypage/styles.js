@@ -92,7 +92,7 @@ export const AutoLoginContent = styled.div`
   margin: 0px 0px 32px 80px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     margin: 0;
-    width: 360px;
+    width: 100%;
     margin: 0px 0px 16px 0px;
   }
 `;
