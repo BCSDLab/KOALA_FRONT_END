@@ -27,11 +27,11 @@ const LoginButton = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const loginClick = useCallback(() => {
+  const clickLogin = useCallback(() => {
     navigate(LOGIN);
   });
 
-  const logoutClick = useCallback(() => {
+  const clickLogout = useCallback(() => {
     removeCookie(REFRESH_TOKEN);
     dispatch(resetAuthState());
     dispatch(resetMypageInfo());
@@ -41,9 +41,9 @@ const LoginButton = () => {
   return (
     <div>
       {memberCheck == undefined ? (
-        <LoginButtonStyle onClick={logoutClick}>로그아웃</LoginButtonStyle>
+        <LoginButtonStyle onClick={clickLogout}>로그아웃</LoginButtonStyle>
       ) : (
-        <LoginButtonStyle onClick={loginClick}>로그인</LoginButtonStyle>
+        <LoginButtonStyle onClick={clickLogin}>로그인</LoginButtonStyle>
       )}
     </div>
   );
