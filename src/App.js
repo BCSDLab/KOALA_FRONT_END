@@ -10,7 +10,7 @@ import FindId from 'components/Auth/Find/FindId';
 import FindPw from 'components/Auth/Find/FindPw';
 import RegisterDoc from 'components/Auth/Register/RegisterDoc';
 import Register from 'components/Auth/Register/Register';
-import MainPage from 'pages/mainPage';
+import MainPage from 'pages/MainPage';
 import { setTokenOnHeader } from 'api/logined';
 import { getCookie } from 'components/Shared/Cookies';
 import MyPage from 'pages/MyPage';
