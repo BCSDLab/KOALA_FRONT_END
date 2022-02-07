@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from 'components/SideNavbar/styles';
 import KeywordDropdown from './KeywordDropdown';
 
@@ -20,7 +20,7 @@ const Extension = () => {
         </S.ChatLink>
       </S.ChatList>
       <S.SetList>
-        <S.Set to="#">
+        <S.Set to="setting">
           <S.SetText>설정</S.SetText>
         </S.Set>
         <S.Contact to="#">

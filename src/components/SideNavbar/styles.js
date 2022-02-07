@@ -65,6 +65,7 @@ export const KeywordSetting = styled(Link)`
   letter-spacing: normal;
   text-align: right;
   color: ${(props) => props.theme.colors.gray};
+  cursor: pointer;
 `;
 
 export const KeywordDropdownButton = styled.img`
@@ -179,6 +180,7 @@ export const SetList = styled.div`
 export const Set = styled(StyledLinkDiv)`
   padding: 0 0 4px 0;
   font-size: 14px;
+  background-color: ${(props) => (props.setting ? '#222' : '#f6f7f8')};
 `;
 
 export const SetText = styled.span`

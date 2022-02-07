@@ -48,6 +48,11 @@ const KeywordDropdown = () => {
     setShowModal(false);
   };
 
+  const onClickSetting = () => {
+    setSelectAddKeyword(false);
+    setSelectItemId(null);
+  };
+
   const onMouseOverModal = (check) => {
     setShowModal(check);
   };
@@ -69,7 +74,9 @@ const KeywordDropdown = () => {
         />
         <S.KeywordMain>키워드</S.KeywordMain>
         <S.KeywordDropdownButton src="/asset/KeywordDropDown.svg" alt="drop" onClick={onClickDropdownButton} />
-        <S.KeywordSetting to="">설정</S.KeywordSetting>
+        <S.KeywordSetting to="setting" onClick={onClickSetting}>
+          설정
+        </S.KeywordSetting>
         <S.KeywordList dropdownToggle={dropdownToggle}>
           {keywords &&
             keywords.map((keyword) => (

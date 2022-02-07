@@ -4,6 +4,7 @@ import SideNavbar from 'components/SideNavbar';
 import KeywordFilterBar from 'components/Keyword/KeywordFilter';
 import styled from 'styled-components';
 import ModifyKeyword from 'components/Keyword/ModifyKeyword';
+import SettingKeyword from 'components/Keyword/SettingKeyword';
 import { Route, Routes } from 'react-router';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -32,6 +33,7 @@ const KeywordPage = () => {
           <Route index element={<KeywordFilterBar />}></Route>
           <Route path="create" element={<AddKeyword />}></Route>
           <Route path="modify" element={<ModifyKeyword />}></Route>
+          <Route path="setting" element={<SettingKeyword />}></Route>
         </Routes>
       </Container>
     </>
