@@ -27,6 +27,7 @@ const HistoryContent = () => {
   const [pageNum, setPageNum] = useState(1);
   const [isLoading, setLoading] = useState(false);
   const [isPopOpen, setOpen] = useState(false);
+  const [test, setTest] = useState(1);
   const [refAlert, inView] = useInView({
     threshold: 0.0,
     triggerOnce: false,
@@ -108,14 +109,15 @@ const HistoryContent = () => {
   useEffect(() => {
     if (userInfo.isLoggedIn || deleteHistoryResponse || readHistoryItemResponse || moveToScrapResponse) {
       setLoading(true);
+      if(pageNum === 1){
+        setList([]);
+      }
       dispatch(getHistoryList(pageNum));
     }
     setLoading(false);
   }, [userInfo.isLoggedIn, deleteHistoryResponse, readHistoryItemResponse, moveToScrapResponse, pageNum]);
 
   useLayoutEffect(() => {
-    console.log(historyList);
-    console.log(showList);
     if (!historyList || historyList.length <= 0) {
       return;
     } else {
@@ -145,6 +147,8 @@ const HistoryContent = () => {
   useEffect(() => {
     if (inView && !isLoading) {
       setPageNum(pageNum + 1);
+      setTest(test+1)
+      console.log(test)
     }
   }, [inView, showList]);
   return (
