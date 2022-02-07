@@ -26,8 +26,11 @@ export const CheckBoxTitle = styled.span`
 
 export const MainList = styled.div`
   position: absolute;
+  max-height: 600px;
+  overflow-y: scroll;
   left: ${(props) => (props.toggle ? '501px' : '366px')};
   top: 320px;
+  padding-right: 10px;
 `;
 
 export const MainItem = styled.div`

@@ -11,6 +11,10 @@ const KeywordList = ({
   isToggle,
   readNotification,
   notReadNotification,
+  keywordSearch,
+  searchButton,
+  setKeywordSearch,
+  setSearchButton,
   menu,
 }) => {
   const dispatch = useDispatch();
@@ -88,6 +92,19 @@ const KeywordList = ({
       setList([]);
     }
   }, [menu]);
+
+  useEffect(() => {
+    const filterList =
+      list &&
+      list.filter((item) => {
+        if (`${item.title}`.includes(`${keywordSearch}`)) {
+          return item;
+        }
+      });
+    setList(filterList);
+    setKeywordSearch('');
+    setSearchButton(false);
+  }, [searchButton]);
 
   return (
     <S.MainList toggle={isToggle}>

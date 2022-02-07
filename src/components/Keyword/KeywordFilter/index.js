@@ -16,7 +16,6 @@ const KeywordFilterBar = ({ isToggle }) => {
   );
   const dispatch = useDispatch();
   const { state: keywordName } = useLocation();
-
   const [list, setList] = useState([]);
   const [checkAll, setCheckAll] = useState(false);
   const [keywordSearch, setKeywordSearch] = useState('');
@@ -166,17 +165,6 @@ const KeywordFilterBar = ({ isToggle }) => {
     goStore,
   ]);
 
-  useEffect(() => {
-    const filterList = list.filter((item) => {
-      if (`${item.title}`.includes(`${keywordSearch}`)) {
-        return item;
-      }
-    });
-    setList(filterList);
-    setKeywordSearch('');
-    setSearchButton(false);
-  }, [searchButton]);
-
   return (
     <>
       <KeywordHeader title={'키워드 알림'} toggle={false} />
@@ -221,10 +209,14 @@ const KeywordFilterBar = ({ isToggle }) => {
         list={list}
         checkListId={checkListId}
         setCheckListId={setCheckListId}
+        setKeywordSearch={setKeywordSearch}
         checkAll={checkAll}
         readNotification={readNotification}
         notReadNotification={notReadNotification}
         isToggle={isToggle}
+        keywordSearch={keywordSearch}
+        setSearchButton={setSearchButton}
+        searchButton={searchButton}
         menu={menu}
       />
     </>
