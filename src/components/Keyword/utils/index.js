@@ -74,3 +74,15 @@ export const getKeywordName = (keywords, selectItemId) => {
 
   return keywordName;
 };
+
+export const getKeywordPosition = (keywords, selectItemId) => {
+  let modalPosition = 0;
+
+  keywords.forEach((keyword, index) => {
+    if (selectItemId === keyword.id) {
+      modalPosition = index;
+    }
+  });
+
+  return modalPosition;
+};

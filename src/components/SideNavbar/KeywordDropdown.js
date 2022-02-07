@@ -5,7 +5,7 @@ import * as S from 'components/SideNavbar/styles';
 import { useNavigate } from 'react-router';
 import KeywordModal from 'components/Keyword/KeywordModal';
 import styled from 'styled-components';
-import { getKeywordName } from 'components/Keyword/utils';
+import { getKeywordName, getKeywordPosition } from 'components/Keyword/utils';
 
 const Background = styled.div`
   width: 100vw;
@@ -65,6 +65,7 @@ const KeywordDropdown = () => {
           showModal={showModal}
           setShowModal={setShowModal}
           keywordName={getKeywordName(keywords, selectItemId)}
+          modalPosition={getKeywordPosition(keywords, selectItemId)}
         />
         <S.KeywordMain>키워드</S.KeywordMain>
         <S.KeywordDropdownButton src="/asset/KeywordDropDown.svg" alt="drop" onClick={onClickDropdownButton} />

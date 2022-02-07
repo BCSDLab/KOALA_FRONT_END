@@ -12,7 +12,7 @@ const ModalContainer = styled.div`
   justify-content: center;
   position: absolute;
   left: 205px;
-  top: 75px;
+  top: ${(props) => 75 + props.modalPosition * 43}px;
   background-color: #fff;
   border: 1px solid #eee;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
@@ -43,7 +43,7 @@ const KeywordEditContainer = styled.div`
   cursor: pointer;
 `;
 
-const KeywordModal = ({ showModal, selectItemId, setShowModal, keywordName }) => {
+const KeywordModal = ({ showModal, selectItemId, setShowModal, keywordName, modalPosition }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -69,7 +69,7 @@ const KeywordModal = ({ showModal, selectItemId, setShowModal, keywordName }) =>
   return (
     <>
       {selectItemId && showModal ? (
-        <ModalContainer onClick={onMouseOutModal}>
+        <ModalContainer onClick={onMouseOutModal} modalPosition={modalPosition}>
           <KeywordDeleteContainer onClick={onClickDelete}>
             <DeleteTitle>삭제</DeleteTitle>
             <Icon src="/asset/trash.svg" />
