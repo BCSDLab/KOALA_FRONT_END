@@ -169,7 +169,7 @@ export const ChatText = styled(MenuTitle)`
 export const SetList = styled.div`
   width: 270px;
   height: 92px;
-  padding: 370.5px 0 0 0;
+  padding: 190px 0 0 0;
   display: flex;
   flex-direction: column;
   font-size: 14px;

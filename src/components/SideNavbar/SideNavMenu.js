@@ -19,7 +19,6 @@ const Extension = () => {
           <S.ChatText>채팅방</S.ChatText>
         </S.ChatLink>
       </S.ChatList>
-
       <S.SetList>
         <S.Set to="#">
           <S.SetText>설정</S.SetText>
