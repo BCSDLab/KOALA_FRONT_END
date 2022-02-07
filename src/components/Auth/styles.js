@@ -1,6 +1,27 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+export const MainLogo = styled.div`
+  margin-bottom: 48px;
+  display: flex;
+  justify-content: center;
+`;
+
+export const MainLogoImg = styled.i`
+  width: 125px;
+  height: 34px;
+
+  background: no-repeat url(/asset/mainLogo.svg);
+  background-size: 125px 34px;
+  position: relative;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 158px;
+    height: 43px;
+    background-size: 158px 43px;
+  }
+`;
+
 export const StyledInput = styled.input`
   width: 348px;
   height: 44px;
@@ -223,23 +244,44 @@ export const Title = styled.div`
   margin-bottom: 30px;
   font-size: 16px;
   font-weight: 500;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
+    width: 100%;
+    padding: 24px 0 14px 0;
+    color: ${(props) => props.theme.colors.darkgray};
+    left: 0;
+    top: 0;
+    font-size: 16px;
+    font-weight: normal;
+    text-align: center;
+    position: fixed;
+
+    div & + & {
+      display: none;
+    }
+  }
 `;
 
 export const Agree = styled.div`
-  font-size: 14px;
+  display: flex;
   padding-left: 20px;
   padding-bottom: 24px;
-  display: flex;
-  text-align: left;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    padding: 12px 0;
+    text-align: left;
+  }
 `;
 
 export const AllAgree = styled.div`
-  margin-bottom: 24px;
+  margin: 3.5px 0;
   border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
 `;
 
-export const AgreeText = styled.div`
-  width: 350px;
+export const AgreeText = styled.label`
+  font-size: 14px;
+  color: ${(props) => props.theme.colors.darkgray};
 `;
 
 export const InputErrorText = styled.span`
@@ -256,13 +298,20 @@ export const InputErrorText = styled.span`
 export const Drop = styled.img`
   width: 20px;
   height: 20px;
+  position: absolute;
+  right: 0;
 `;
 
-export const AuthDoc = styled.div`
+export const AuthDoc = styled.section`
   font-size: 12px;
   height: 166px;
   border: 1px solid ${(props) => props.theme.colors.silver};
+  margin: 18px 0;
   padding: 16px;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    border: 1px solid ${(props) => props.theme.colors.lightgray};
+  }
 `;
 
 export const CheckDotLabel = styled.label`

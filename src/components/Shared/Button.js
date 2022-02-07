@@ -9,8 +9,7 @@ const StyledButton = styled.button`
   margin-top: 32px;
   font-size: 16px;
   font-weight: 500;
-  ouline: none;
-  flex-grow: 0;
+  outline: none;
   color: white;
   cursor: pointer;
 
