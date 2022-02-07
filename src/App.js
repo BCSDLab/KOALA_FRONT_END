@@ -10,7 +10,6 @@ import FindId from 'components/Auth/Find/FindId';
 import FindPw from 'components/Auth/Find/FindPw';
 import RegisterDoc from 'components/Auth/Register/RegisterDoc';
 import Register from 'components/Auth/Register/Register';
-import MainPage from 'pages/MainPage';
 import { setTokenOnHeader } from 'api/logined';
 import { getCookie } from 'components/Shared/Cookies';
 import MyPage from 'pages/MyPage';
@@ -47,7 +46,7 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<MainPage />} />
+        <Route exact path="/" />
         <Route path="mypage" element={<MyPage />} />
         <Route exact path="auth/*" element={<AuthPage />}>
           <Route index element={<Login />} />
