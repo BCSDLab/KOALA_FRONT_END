@@ -109,7 +109,7 @@ const HistoryContent = () => {
   useEffect(() => {
     if (userInfo.isLoggedIn || deleteHistoryResponse || readHistoryItemResponse || moveToScrapResponse) {
       setLoading(true);
-      if(pageNum === 1){
+      if (pageNum === 1) {
         setList([]);
       }
       dispatch(getHistoryList(pageNum));
@@ -147,8 +147,8 @@ const HistoryContent = () => {
   useEffect(() => {
     if (inView && !isLoading) {
       setPageNum(pageNum + 1);
-      setTest(test+1)
-      console.log(test)
+      setTest(test + 1);
+      console.log(test);
     }
   }, [inView, showList]);
   return (

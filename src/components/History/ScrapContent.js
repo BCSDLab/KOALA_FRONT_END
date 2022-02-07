@@ -24,9 +24,11 @@ const makeStringToNewLine = (text) => {
   return fixedText;
 };
 const findMemoInAlert = (memoList, alert) => {
-  return memoList.filter((memo) => memo.userScrapId === alert.userScrapId).map((memo) => {
-    return memo.memo;
-  })
+  return memoList
+    .filter((memo) => memo.userScrapId === alert.userScrapId)
+    .map((memo) => {
+      return memo.memo;
+    });
 };
 const ScrapContent = () => {
   const { scrapList, memoList, getMemoListResponse, deleteScrapResponse, fixMemoResponse, writeMemoResponse } =
@@ -197,16 +199,19 @@ const ScrapContent = () => {
                           ref={fixMemoValue}
                         />
                         <S.LetterCounter>
-                          <S.LettterLength ref={letter} style={{color:findMemoInAlert(memoItemList, mail)[0].length>=100?'#ffd25d':'black'}}>
+                          <S.LettterLength
+                            ref={letter}
+                            style={{
+                              color: findMemoInAlert(memoItemList, mail)[0].length >= 100 ? '#ffd25d' : 'black',
+                            }}
+                          >
                             {findMemoInAlert(memoItemList, mail)[0].length}
                           </S.LettterLength>
                           /100
                         </S.LetterCounter>
                       </S.memoContent>
                     ) : (
-                      <S.MemoBlock>
-                        {makeStringToNewLine(findMemoInAlert(memoItemList, mail)[0])}
-                      </S.MemoBlock>
+                      <S.MemoBlock>{makeStringToNewLine(findMemoInAlert(memoItemList, mail)[0])}</S.MemoBlock>
                     )}
                   </>
                 ) : mail.userScrapId === currentMail && (pageState === 'FIX' || pageState === 'WRITE') ? (

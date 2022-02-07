@@ -119,8 +119,7 @@ export const LetterCounter = styled.div`
   font-size: 12px;
 `;
 
-export const LettterLength = styled.span`
-`;
+export const LettterLength = styled.span``;
 
 export const KeyWordAlertList = styled.ol`
   height: 600px;
