@@ -52,3 +52,25 @@ export const makeDeleteQuery = (startId, endId) => {
   }
   return str;
 };
+
+export const getModalPosition = (keywords, selectItemId) => {
+  const indexNumber = keywords.forEach((keyword, index) => {
+    if (keyword.id === selectItemId) {
+      return index;
+    }
+  });
+
+  return indexNumber;
+};
+
+export const getKeywordName = (keywords, selectItemId) => {
+  let keywordName = '';
+
+  keywords.forEach((keyword) => {
+    if (selectItemId === keyword.id) {
+      keywordName = keyword.name;
+    }
+  });
+
+  return keywordName;
+};

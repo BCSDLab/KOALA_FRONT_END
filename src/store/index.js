@@ -26,6 +26,7 @@ import keyword, {
   deleteKeywordListSaga,
   moveKeywordItemSaga,
   readKeywordItemSaga,
+  deleteKeywordSaga,
 } from './keyword';
 import { authSchoolSaga, sendSchoolSaga } from './chat';
 
@@ -63,6 +64,7 @@ export function* rootSaga() {
     patchModifyKeywordSaga(),
     getKeywordRecommendationSaga(),
     createKeywordSaga(),
+    deleteKeywordSaga(),
   ]);
 }
 

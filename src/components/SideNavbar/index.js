@@ -86,22 +86,24 @@ const SideNavbar = () => {
   };
 
   return (
-    <NavContainer>
-      <Nav isSideMenu={isOpen}>
-        <MenuButton onClick={toggleSideMenu}>
-          <MenuImg src="/asset/MenuBtn.svg" alt="Vector" />
-        </MenuButton>
+    <>
+      <NavContainer>
+        <Nav isSideMenu={isOpen}>
+          <MenuButton onClick={toggleSideMenu}>
+            <MenuImg src="/asset/MenuBtn.svg" alt="Vector" />
+          </MenuButton>
 
-        <HashTagImg src="/asset/Hashtag.svg" alt="keyword" />
+          <HashTagImg src="/asset/Hashtag.svg" alt="keyword" />
 
-        <HistoryImg isSideMenu={isOpen} src="/asset/History.svg" alt="history" />
+          <HistoryImg isSideMenu={isOpen} src="/asset/History.svg" alt="history" />
 
-        <ChatImg isSideMenu={isOpen} src="/asset/Chat.svg" alt="chat" />
+          <ChatImg isSideMenu={isOpen} src="/asset/Chat.svg" alt="chat" />
 
-        <SettingImg isSideMenu={isOpen} src="/asset/Setting.svg" alt="mypage" />
-      </Nav>
-      {isOpen && <SideNavMenu />}
-    </NavContainer>
+          <SettingImg isSideMenu={isOpen} src="/asset/Setting.svg" alt="mypage" />
+        </Nav>
+        {isOpen && <SideNavMenu />}
+      </NavContainer>
+    </>
   );
 };
 

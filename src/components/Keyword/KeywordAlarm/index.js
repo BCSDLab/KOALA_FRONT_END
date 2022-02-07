@@ -11,6 +11,7 @@ const KeywordAlarm = ({
   setRecommendKeyword,
   setSelectRecommendKeyword,
   buttonText,
+  keywordName,
 }) => {
   const [isNormalAlarm, setIsNormalAlarm] = useState(false);
   const [isImportantAlarm, setIsImportantAlarm] = useState(false);
@@ -60,7 +61,7 @@ const KeywordAlarm = ({
       alarmCycle: changeAlarmTerm(alarmTerm),
       alarmMode: isNormalAlarm ? 1 : 0,
       isImportant: isImportantAlarm ? 1 : 0,
-      name: '키워드',
+      name: keywordName,
       siteList: selectRecommendItem.map((item) => changeSiteName(item)),
     };
 

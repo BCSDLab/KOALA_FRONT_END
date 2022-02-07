@@ -3,6 +3,7 @@ import KeywordHeader from '../KeywordHeader';
 import { getSiteRecommendation } from 'store/modifyKeyword';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 import KeywordAlarm from '../KeywordAlarm';
 
 const ModifyKeyword = () => {
@@ -13,6 +14,8 @@ const ModifyKeyword = () => {
 
   const { siteRecommendationList } = useSelector((state) => state.modifyKeyword);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const keywordName = location.state;
 
   const searchSite = (e) => {
     setSite(e.target.value);
@@ -63,7 +66,7 @@ const ModifyKeyword = () => {
       <KeywordHeader title={'키워드 수정하기'} />
       <S.HashtagContainer>
         <S.HashtageImage src="/asset/hashtagblack.svg" alt="hashtage_image" />
-        <S.InputKeyword>키워드 테스트</S.InputKeyword>
+        <S.InputKeyword>{keywordName}</S.InputKeyword>
       </S.HashtagContainer>
       <S.SearchContainer show={site === ''} alreadyRegister={alreadyRegisterItem}>
         <S.SearchImage src="/asset/searchblack.svg" alt="search_image" />
@@ -105,6 +108,7 @@ const ModifyKeyword = () => {
         buttonText={'수정'}
         selectRecommendItem={selectRecommendItem}
         setSelectRecommendItem={setSelectRecommendItem}
+        keywordName={keywordName}
       />
     </>
   );

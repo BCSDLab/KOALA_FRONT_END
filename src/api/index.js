@@ -46,14 +46,15 @@ export const signUp = ({ account, password, find_email, nickname }) =>
   logined.post('/user/sing-in', { account, password, find_email, nickname });
 
 export const keywordAPI = {
-  getKeyword: () => logined.get(`/keyword`),
-  getKeywordList: (keywordName) => logined.get(`/keyword/list?keyword-name=${keywordName}`),
-  deleteKeywordList: (query) => logined.patch(`/keyword/list/notice?${query}`),
-  deleteKeywordItem: (id) => logined.patch(`/keyword/list/notice?notice-id=${id}`),
-  addScrap: (data) => logined.post(`/scrap`, { crawling_id: data }),
-  readKeywordItem: (id) => logined.patch(`/keyword/list/notice/reading-check?notice-id=${id}`),
+  getKeyword: () => logined.get(`keyword`),
+  getKeywordList: (keywordName) => logined.get(`keyword/list?keyword-name=${keywordName}`),
+  deleteKeywordList: (query) => logined.patch(`keyword/list/notice?${query}`),
+  deleteKeywordItem: (id) => logined.patch(`keyword/list/notice?notice-id=${id}`),
+  addScrap: (data) => logined.post(`scrap`, { crawling_id: data }),
+  readKeywordItem: (id) => logined.patch(`keyword/list/notice/reading-check?notice-id=${id}`),
   getSiteRecommendation: (site) => logined.get(`keyword/site/search?site=${site}`),
   modifyKeyword: ({ keywordName, object }) => logined.put(`keyword?keyword-name=${keywordName}`, object),
   getKeywordRecommendation: (keyword) => logined.get(`keyword/search?keyword=${keyword}`),
-  createKeyword: (object) => logined.post(`/keyword`, object),
+  createKeyword: (object) => logined.post(`keyword`, object),
+  deleteKeyword: (keyword) => logined.patch(`keyword?keyword-name=${keyword}`),
 };

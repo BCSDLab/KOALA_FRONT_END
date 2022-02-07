@@ -148,7 +148,6 @@ const KeywordFilterBar = ({ isToggle }) => {
     if (userInfo.isLoggedIn) {
       if (deleteKeywordListResponse || readKeywordItemResponse || getKeywordListResponse || !deleteList || goStore) {
         dispatch(getKeywordList(keywordName));
-        console.log('키워드 디스패치!');
 
         if (keywordList === '받은 알림이 없습니다.') {
           setList([]);

@@ -59,7 +59,6 @@ const KeywordList = ({
       });
       setList(filterList);
     } else {
-      console.log(keywordList);
       setList(keywordList);
     }
   }, [readNotification, notReadNotification]);
