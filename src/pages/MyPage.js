@@ -13,6 +13,7 @@ import SchoolAuth from 'components/Mypage/SchoolAuth';
 import AutoLogin from 'components/Mypage/AutoLogin';
 import Dialog from 'components/Shared/Dialog';
 import styled from 'styled-components';
+import * as API from 'api';
 
 /* 
   마이페이지에 현재 user/my에서 유저 이미지에 대한 설계가 아직 진행되지 않았습니다. 
