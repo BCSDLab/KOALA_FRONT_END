@@ -280,8 +280,9 @@ export const AllAgree = styled.div`
 `;
 
 export const AgreeText = styled.label`
-  font-size: 14px;
   color: ${(props) => props.theme.colors.darkgray};
+  font-size: 14px;
+  line-height: 1.2;
 `;
 
 export const InputErrorText = styled.span`
@@ -340,5 +341,11 @@ export const CustomCheckDot = styled.div`
   ${CheckDot}:checked + & {
     border: solid 1px ${(props) => props.theme.colors.yellow};
     background-color: ${(props) => props.theme.colors.yellow};
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 16px;
+    height: 16px;
+    margin-right: 16px;
   }
 `;

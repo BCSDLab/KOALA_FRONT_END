@@ -94,8 +94,8 @@ const RegisterDoc = ({ checked }) => {
   const navigate = useNavigate();
   const [checkedList, setCheckedLists] = useState([]);
   const dataLists = [
-    { id: 1, text: '개인정보 이용약관(필수)' },
-    { id: 2, text: 'koala 이용약관(필수)' },
+    { id: 1, text: '개인정보 이용약관 (필수)' },
+    { id: 2, text: 'koala 이용약관 (필수)' },
   ];
 
   const onCheckedAll = (checked) => {
