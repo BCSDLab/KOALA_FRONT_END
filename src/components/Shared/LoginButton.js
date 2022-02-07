@@ -1,5 +1,7 @@
-import React, { useSelector } from 'react-redux';
+import React, { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { resetAuthState } from 'store/auth';
+import { resetMypageInfo } from 'store/myPage';
 import { LOGIN, REFRESH_TOKEN } from '../../constant';
 import { getCookie, removeCookie } from 'components/Shared/Cookies';
 import { useNavigate } from 'react-router';
@@ -22,25 +24,26 @@ const LoginButtonStyle = styled.button`
 const LoginButton = () => {
   const loginInfo = useSelector((state) => state.auth);
   const memberCheck = getCookie('device_token');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const loginClick = useCallback(() => {
+  const clickLogin = useCallback(() => {
     navigate(LOGIN);
   });
 
-  const logoutClick = useCallback(() => {
+  const clickLogout = useCallback(() => {
     removeCookie(REFRESH_TOKEN);
-    loginInfo.isLoggedIn = false;
+    dispatch(resetAuthState());
+    dispatch(resetMypageInfo());
     navigate(LOGIN);
-    location.reload();
   });
 
   return (
     <div>
       {memberCheck == undefined ? (
-        <LoginButtonStyle onClick={logoutClick}>로그아웃</LoginButtonStyle>
+        <LoginButtonStyle onClick={clickLogout}>로그아웃</LoginButtonStyle>
       ) : (
-        <LoginButtonStyle onClick={loginClick}>로그인</LoginButtonStyle>
+        <LoginButtonStyle onClick={clickLogin}>로그인</LoginButtonStyle>
       )}
     </div>
   );
