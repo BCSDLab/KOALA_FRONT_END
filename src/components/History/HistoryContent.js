@@ -6,14 +6,6 @@ import { getHistoryList, deleteHistoryList, readHistoryItem, moveToScrap, clearH
 import { useDispatch, useSelector } from 'react-redux';
 import PopUp from './HistoryPopup';
 import { MENU_ITEM } from 'constant';
-const siteList = ['아우누리'];
-const stringToDate = (date) => {
-  var yyyyMMdd = String(date);
-  var sYear = yyyyMMdd.substring(0, 4);
-  var sMonth = yyyyMMdd.substring(5, 7);
-  var sDate = yyyyMMdd.substring(8, 10);
-  return new Date(Number(sYear), Number(sMonth) - 1, Number(sDate));
-};
 const HistoryContent = () => {
   const { historyList, deleteHistoryResponse, readHistoryItemResponse, moveToScrapResponse } = useSelector(
     (state) => state.history
@@ -27,7 +19,6 @@ const HistoryContent = () => {
   const [pageNum, setPageNum] = useState(1);
   const [isLoading, setLoading] = useState(false);
   const [isPopOpen, setOpen] = useState(false);
-  const [test, setTest] = useState(1);
   const [refAlert, inView] = useInView({
     threshold: 0.0,
     triggerOnce: false,
@@ -48,7 +39,6 @@ const HistoryContent = () => {
     }
   };
   const moveToStorage = () => {
-    console.log('보관함으로 이동');
     if (checkedList.length > 0) {
       try {
         checkedList.forEach((id) => {
@@ -116,14 +106,7 @@ const HistoryContent = () => {
     if (!historyList || historyList.length <= 0) {
       return;
     } else {
-      let sortedHistoryList = historyList?.sort((a, b) => {
-        a = stringToDate(a.created_at);
-        b = stringToDate(b.created_at);
-        return a > b ? -1 : a < b ? 1 : 0;
-      });
-      setList(alertList.concat(sortedHistoryList));
       setList(historyList)
-      setTest([...testArray, pageNum, historyList]);
     }
   }, [historyList]);
 
@@ -144,8 +127,6 @@ const HistoryContent = () => {
   useEffect(() => {
     if (inView && !isLoading) {
       setPageNum(pageNum + 1);
-      setTest(test + 1);
-      console.log(test);
     }
   }, [inView, showList]);
   return (
