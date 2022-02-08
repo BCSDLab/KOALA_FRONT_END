@@ -8,7 +8,7 @@ import PopUp from './HistoryPopup';
 import { MENU_ITEM } from 'constant';
 import { useMediaQuery } from 'react-responsive';
 import theme from '../../theme';
-import MobileModal from './MobileModal';
+import MobileModal from './MobileMenuModal';
 const formatingDate = (date) => {
   const newDate = new Date(date);
   const month = newDate.getMonth() + 1;
