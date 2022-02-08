@@ -172,6 +172,8 @@ const HistoryContent = () => {
             <S.Menues onClick={() => showNotRead()} isClicked={command === 'notRead' ? true : false}>
               <S.MenuName>읽지 않은 알림</S.MenuName>
             </S.Menues>
+            </>}
+            
             <S.Menues onClick={() => moveToStorage()}>
               <S.MenuLogo src="/asset/Storage.svg" />
               <S.MenuName>{!isMobile?'보관함으로이동':'보관'}</S.MenuName>
