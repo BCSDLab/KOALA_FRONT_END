@@ -34,7 +34,8 @@ const FindAccountText = styled.div`
     color: ${(props) => props.theme.colors.darkgray};
   }
 `;
-const queries = ['(max-width: 450px;)'];
+const queries = ['(max-width: 400px)', '(min-width: 800px)'];
+
 const FindId = () => {
   const [email, setEmail] = useState('');
   const [secret, setSecret] = useState('');
@@ -48,7 +49,8 @@ const FindId = () => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [mobile] = useMatchMedia(queries);
+
+  const [mobile, desktop] = useMatchMedia(queries);
 
   const onChangeEmail = (validatedData) => {
     setIsEmailError(validatedData.isError);
@@ -79,8 +81,8 @@ const FindId = () => {
 
   return (
     <FindAccountForm>
-      {!mobile ? <MobileTopBar content="아이디찾기" /> : <S.Title>아이디 찾기</S.Title>}
-      {!mobile && <MobileConfig title="이메일로 아이디 찾기" content="회원가입시 등록했던 이메일을 입력해주세요." />}
+      {!desktop ? <MobileTopBar content="아이디찾기" /> : <S.Title>아이디 찾기</S.Title>}
+      {!desktop && <MobileConfig title="이메일로 아이디 찾기" content="회원가입시 등록했던 이메일을 입력해주세요." />}
       {!auth.authSuccess ? (
         <FindAccountContainer>
           <SubmitAccountForm>

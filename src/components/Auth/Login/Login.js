@@ -142,7 +142,8 @@ const MainLogoImg = styled.img`
     left: 0;
   }
 `;
-const queries = ['max-width:450px;'];
+const queries = ['(max-width: 400px)', '(min-width: 800px)'];
+
 /**
  * TODO:
  * - [] 비회원으로 이용하기 클릭시, keyword리스트 페이지로 이동
@@ -155,7 +156,7 @@ const AuthMainForm = () => {
   const userInfo = useSelector((state) => state.myPage);
   const [isNormalLogin, setIsNormalLogin] = useState(true);
   const dispatch = useDispatch();
-  const [mobile] = useMatchMedia(queries);
+  const [mobile, desktop] = useMatchMedia(queries);
 
   /*
    * - guid 함수를 통해 고유값을 device_token과 같이 활용한다.
@@ -182,7 +183,7 @@ const AuthMainForm = () => {
 
   return (
     <>
-      {!mobile && (
+      {!desktop && (
         <MainLogo>
           <MainLogoImg src="/asset/mainLogo.svg" alt="logo" />
         </MainLogo>

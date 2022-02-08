@@ -14,7 +14,8 @@ import { LOGIN } from 'constant';
 import * as S from 'components/Auth/styles';
 import styled from 'styled-components';
 import Button from 'components/Shared/Button';
-const queries = ['(max-width: 450px)'];
+
+const queries = ['(max-width: 400px)', '(min-width: 800px)'];
 
 const FindPw = () => {
   const [account, setAccount] = useState('');
@@ -29,7 +30,7 @@ const FindPw = () => {
   const [isConfirmedPasswordError, setIsConfirmedPasswordError] = useState(true);
 
   const changeComplete = useSelector((state) => state.auth.changeComplete);
-  const [mobile] = useMatchMedia(queries);
+  const [mobile, desktop] = useMatchMedia(queries);
 
   const onChangeAccount = (validatedData) => {
     setIsAccountError(validatedData.isError);
@@ -84,7 +85,7 @@ const FindPw = () => {
     <FindPasswordContainer>
       {!authSuccess ? (
         <>
-          {mobile ? <MobileTopBar content="비밀번호찾기" /> : <S.Title>비밀번호 찾기</S.Title>}
+          {!desktop ? <MobileTopBar content="비밀번호찾기" /> : <S.Title>비밀번호 찾기</S.Title>}
 
           <AccountForm ref={accountRef} onChange={onChangeAccount} />
           <EmailForm ref={emailRef} onChange={onChangeEmail} />
@@ -103,8 +104,8 @@ const FindPw = () => {
         </>
       ) : (
         <>
-          {mobile ? <MobileTopBar content="비밀번호찾기" /> : <S.Title>비밀번호 찾기</S.Title>}
-          {mobile && <MobileConfig title="새 비밀번호 변경" content="비밀번호를 새로운 비밀번호로 변경해주세요!" />}
+          {!desktop ? <MobileTopBar content="비밀번호찾기" /> : <S.Title>비밀번호 찾기</S.Title>}
+          {!desktop && <MobileConfig title="새 비밀번호 변경" content="비밀번호를 새로운 비밀번호로 변경해주세요!" />}
           <ChangePasswordForm>
             <PasswordForm ref={passwordRef} onChange={onChangePassword} />
             <ConfiremdPasswordForm ref={confirmedRef} password={password} onChange={onChangeConfirmed} />

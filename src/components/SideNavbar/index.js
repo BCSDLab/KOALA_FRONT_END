@@ -8,7 +8,7 @@ import SideNavMenu from './SideNavMenu';
 
 const Nav = styled.div`
   width: 80px;
-  height: 1110px;
+  height: 100%;
   margin-right: ${({ isSideMenu }) => !isSideMenu && '696px'};
   padding: ${({ isSideMenu }) => (isSideMenu ? ` 40px 17px 0px;` : `40px 17px 91px;`)};
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
