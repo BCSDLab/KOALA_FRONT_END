@@ -1,7 +1,9 @@
 import React from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { useLocation } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
+import theme from '../../theme';
 const Header = styled.div`
   display: flex;
   width: 1284px;
@@ -26,13 +28,17 @@ const HistoryHeaderTab = styled(NavLink)`
   cursor: pointer;
 `;
 const HistoryHeader = ({ location }) => {
+  const isMobile = useMediaQuery({query: `(max-width:${theme.deviceSizes.mobileL}`});
+  const totlaAlertHistory = isMobile?'전체알림':'전체 알림 내역'
   return (
     <>
       <Header>
-        <HistoryHeaderTab to="/history">전체 알림 내역</HistoryHeaderTab>
-        <HistoryHeaderTab to="/history/scrap">보관함</HistoryHeaderTab>
-      </Header>
-      <FocusLine location={location} />
+        <>
+        <HistoryHeaderTab to="/history" inlink={location.pathname === '/history'?1:0}>{totlaAlertHistory}</HistoryHeaderTab>
+        <HistoryHeaderTab to="/history/scrap" inlink={location.pathname === '/history/scrap'?1:0}>보관함</HistoryHeaderTab>
+        </>
+        </Header>
+      {!isMobile && <FocusLine location={location} />}
     </>
   );
 };
