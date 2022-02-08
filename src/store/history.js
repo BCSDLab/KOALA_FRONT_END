@@ -10,11 +10,13 @@ const [DELETEHISTORYLIST, DELETEHISTORYLIST_SUCCESS, DELETEHISTORYLIST_FAILURE] 
 const [READHISTRORYITEM, READHISTRORYITEM_SUCCESS, READHISTRORYITEM_FAILURE] =
   createRequestSagaActionTypes('history/READHISTORYITEM');
 const [MOVETOSCRAP, MOVETOSCRAP_SUCCESS, MOVETOSCRAP_FAILURE] = createRequestSagaActionTypes('history/MOVETOSCRAP');
+const [CLEARHISTORYlIST, CLEARHISTORYLIST_SUCCESS, CLEARHISTORYlIST_FAILURE] = createRequestSagaActionTypes('history/CLEARHISTORYLIST');
 
 export const getHistoryList = createAction(GETHISTORYLIST, (pageNum) => pageNum);
 export const deleteHistoryList = createAction(DELETEHISTORYLIST, (historyList) => historyList);
 export const readHistoryItem = createAction(READHISTRORYITEM, (noticeId) => noticeId);
 export const moveToScrap = createAction(MOVETOSCRAP, (idList) => idList);
+export const clearHistoryList = createAction(CLEARHISTORYlIST);
 
 const getHistorySaga = createRequestSaga(GETHISTORYLIST, historyAPI.getHistoryList);
 export function* getHistoryListSaga() {
@@ -36,6 +38,7 @@ export function* moveToScrapItemSaga() {
   yield takeLatest(MOVETOSCRAP, moveToScrapSaga);
 }
 
+
 const initialState = {
   historyList: [],
   getHistoryListResponse: false,
@@ -48,7 +51,7 @@ const history = handleActions(
   {
     [GETHISTORYLIST_SUCCESS]: (state, { payload: history }) => ({
       ...state,
-      historyList: history.body,
+      historyList: [...state.historyList, ...history.body],
       getHistoryListResponse: true,
       deleteHistoryResponse: false,
       readHistoryItemResponse: false,
@@ -82,6 +85,11 @@ const history = handleActions(
     [MOVETOSCRAP_FAILURE]: () => ({
       moveToScrapResponse: false,
     }),
+
+    [CLEARHISTORYlIST]: (state) => ({
+      ...state,
+      historyList: []
+    })
   },
   initialState
 );

@@ -5,6 +5,7 @@ import history, {
   deleteHistoryListSaga,
   readHistoryItemSaga,
   moveToScrapItemSaga,
+  clearHistoryList
 } from './history';
 import scrap, { getScrapListSaga, getMemoSaga, deleteScrapItemSaga, fixMemoSaga, writeMemoSaga } from './scrap';
 import modifyKeyword, { getKeywordRecommendationSaga, patchModifyKeywordSaga } from './modifyKeyword';
