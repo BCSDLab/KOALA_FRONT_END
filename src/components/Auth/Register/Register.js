@@ -1,11 +1,22 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import PwdInput from 'components/Auth/Shared/PwdInput';
 import CommonInput from 'components/Auth/Shared/CommonInput';
 import { ACCOUNT_ERROR, EMAIL_ERROR, NICKNAME_ERROR } from 'constant';
-import { useDispatch, useSelector } from 'react-redux';
+
 import { signUp } from 'store/auth';
+import TitleSection from 'components/Shared/TitleSection';
+
+const ContentDescSection = styled(S.ContentDescSection)`
+  margin-bottom: 24px;
+`;
+
+const NextButton = styled(Button)`
+  margin-top: 0;
+`;
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -82,6 +93,7 @@ const RegisterForm = () => {
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
       /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+
     const currentEmail = e.target.value;
     setEmail(currentEmail);
 
@@ -125,59 +137,76 @@ const RegisterForm = () => {
       setIsEmail(false);
     }
   }, [errorCode]);
-  return (
-    <form onSubmit={onSubmit}>
-      <S.Title>회원가입</S.Title>
-      <CommonInput
-        name="account"
-        value={account}
-        onChange={onChangeAccount}
-        placeholder="아이디"
-        error={accountMessage}
-        isError={accountMessage !== ''}
-        errorMessage={accountMessage}
-      />
-      <PwdInput
-        name="password"
-        value={password}
-        onChange={onChangePassword}
-        placeholder="비밀번호 입력"
-        error={passwordMessage}
-        isError={passwordMessage !== ''}
-        errorMessage={passwordMessage}
-      />
-      <PwdInput
-        name="passwordConfirm"
-        value={passwordConfirm}
-        onChange={onChangePasswordConfirm}
-        placeholder="비밀번호 확인"
-        error={passwordConfirmMessage}
-        isError={passwordConfirmMessage !== ''}
-        errorMessage={passwordConfirmMessage}
-      />
-      <CommonInput
-        name="email"
-        value={email}
-        onChange={onChangeEmail}
-        placeholder="이메일"
-        error={emailMessage}
-        isError={emailMessage !== ''}
-        errorMessage={emailMessage}
-      />
-      <CommonInput
-        name="nickName"
-        value={nickName}
-        onChange={onChangeNickName}
-        placeholder="닉네임"
-        error={nickNameMessage}
-        isError={nickNameMessage !== ''}
-        errorMessage={nickNameMessage}
-      />
 
-      <Button disabled={isDisabled} type={isDisabled ? 'button' : 'submit'}>
-        다음
-      </Button>
-    </form>
+  return (
+    <S.ContentWrapper>
+      <TitleSection />
+      <S.ContentSection>
+        <ContentDescSection>
+          <S.DescTitle>회원정보 입력</S.DescTitle>
+          <S.DescText>사용할 회원 정보를 입력해주세요.</S.DescText>
+        </ContentDescSection>
+
+        <form onSubmit={onSubmit}>
+          <CommonInput
+            name="account"
+            value={account}
+            onChange={onChangeAccount}
+            placeholder="아이디"
+            error={accountMessage}
+            isError={accountMessage !== ''}
+            errorMessage={accountMessage}
+          />
+          <PwdInput
+            name="password"
+            value={password}
+            onChange={onChangePassword}
+            placeholder="비밀번호 입력"
+            error={passwordMessage}
+            isError={passwordMessage !== ''}
+            errorMessage={passwordMessage}
+          />
+          <PwdInput
+            name="passwordConfirm"
+            value={passwordConfirm}
+            onChange={onChangePasswordConfirm}
+            placeholder="비밀번호 확인"
+            error={passwordConfirmMessage}
+            isError={passwordConfirmMessage !== ''}
+            errorMessage={passwordConfirmMessage}
+          />
+          <CommonInput
+            name="email"
+            value={email}
+            onChange={onChangeEmail}
+            placeholder="이메일"
+            error={emailMessage}
+            isError={emailMessage !== ''}
+            errorMessage={emailMessage}
+          />
+          <CommonInput
+            name="nickName"
+            value={nickName}
+            onChange={onChangeNickName}
+            placeholder="닉네임"
+            error={nickNameMessage}
+            isError={nickNameMessage !== ''}
+            errorMessage={nickNameMessage}
+          />
+
+          <S.BottomProgressBar>
+            <S.ProgressBarSection>
+              <S.ProgressCircle />
+              <S.ProgressCircle isOnProgress={true} />
+            </S.ProgressBarSection>
+
+            <NextButton disabled={isDisabled} type={isDisabled ? 'button' : 'submit'}>
+              다음
+            </NextButton>
+          </S.BottomProgressBar>
+        </form>
+      </S.ContentSection>
+    </S.ContentWrapper>
   );
 };
 

@@ -395,9 +395,13 @@ export const BottomProgressBar = styled.div`
 `;
 
 export const ProgressBarSection = styled.div`
-  display: flex;
+  display: none;
   padding: 16px 0;
   justify-content: center;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    display: flex;
+  }
 `;
 
 export const ProgressCircle = styled.div`
