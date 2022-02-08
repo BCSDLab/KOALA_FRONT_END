@@ -185,7 +185,7 @@ const HistoryContent = () => {
               {isMobile && (
                 <>
                   <S.MobileMenu src="/asset/MobileMenuDots.svg" onClick={openMobileMenu} />
-                  <MobileModal isOpen={isMobileMenuOpen} showRead={showRead} showNotRead={showNotRead} />
+                  <MobileModal isOpen={isMobileMenuOpen} showRead={showRead} showNotRead={showNotRead} command={command} />
                 </>
               )}
             </S.MenuWrapper>
