@@ -6,6 +6,15 @@ import { getHistoryList, deleteHistoryList, readHistoryItem, moveToScrap, clearH
 import { useDispatch, useSelector } from 'react-redux';
 import PopUp from './HistoryPopup';
 import { MENU_ITEM } from 'constant';
+const formatingDate = (date) => {
+  const newDate = new Date(date);
+  const month = newDate.getMonth()+1;
+  const day = newDate.getDate()<10?('0'+newDate.getDate()):newDate.getDate();
+  const hour = newDate.getHours();
+  const minute = newDate.getMinutes();
+  return `${month+'/'+day} - ${(hour===0?'00':hour)+':'+minute}`;
+  
+}
 const HistoryContent = () => {
   const { historyList, deleteHistoryResponse, readHistoryItemResponse, moveToScrapResponse } = useSelector(
     (state) => state.history
