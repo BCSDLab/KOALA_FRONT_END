@@ -10,7 +10,8 @@ const [DELETEHISTORYLIST, DELETEHISTORYLIST_SUCCESS, DELETEHISTORYLIST_FAILURE] 
 const [READHISTRORYITEM, READHISTRORYITEM_SUCCESS, READHISTRORYITEM_FAILURE] =
   createRequestSagaActionTypes('history/READHISTORYITEM');
 const [MOVETOSCRAP, MOVETOSCRAP_SUCCESS, MOVETOSCRAP_FAILURE] = createRequestSagaActionTypes('history/MOVETOSCRAP');
-const [CLEARHISTORYlIST, CLEARHISTORYLIST_SUCCESS, CLEARHISTORYlIST_FAILURE] = createRequestSagaActionTypes('history/CLEARHISTORYLIST');
+const [CLEARHISTORYlIST, CLEARHISTORYLIST_SUCCESS, CLEARHISTORYlIST_FAILURE] =
+  createRequestSagaActionTypes('history/CLEARHISTORYLIST');
 
 export const getHistoryList = createAction(GETHISTORYLIST, (pageNum) => pageNum);
 export const deleteHistoryList = createAction(DELETEHISTORYLIST, (historyList) => historyList);
@@ -37,7 +38,6 @@ const moveToScrapSaga = createRequestSaga(MOVETOSCRAP, historyAPI.moveToScrap);
 export function* moveToScrapItemSaga() {
   yield takeLatest(MOVETOSCRAP, moveToScrapSaga);
 }
-
 
 const initialState = {
   historyList: [],
@@ -88,8 +88,8 @@ const history = handleActions(
 
     [CLEARHISTORYlIST]: (state) => ({
       ...state,
-      historyList: []
-    })
+      historyList: [],
+    }),
   },
   initialState
 );

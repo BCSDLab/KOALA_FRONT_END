@@ -10,7 +10,7 @@ const HistoryPageContent = styled.div`
   display: flex;
   min-width: 1294px;
   max-width: 1294px;
-  @media screen and (max-width: ${theme.deviceSizes.mobileL}){
+  @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
     width: 100vw;
     max-width: ${theme.deviceSizes.mobileL};
     min-width: ${theme.deviceSizes.mobileS};

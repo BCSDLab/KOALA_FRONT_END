@@ -29,10 +29,9 @@ const CustomCheckDot = styled.div`
     background: url('/asset/Check.svg');
     background-position: center;
   }
-  @media screen and (max-width:${mobileL}){
+  @media screen and (max-width: ${mobileL}) {
     margin-right: 8px;
   }
-  
 `;
 
 const HistoryCheckBox = ({ checked, ...props }) => (
