@@ -13,39 +13,36 @@ const MobileTopBar = (props) => {
     </TopBarContainer>
   );
 };
-
+const TopBarContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 61px;
+  margin-bottom: 24px;
+`;
 const TopBar = styled.div`
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 100%;
     height: 61px;
     display: flex;
     box-sizing: border-box;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
     justify-content: center;
     align-items: center;
     font-family: NotoSansCJKKR;
     font-size: 16px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: center;
     color: ${(props) => props.theme.colors.darkgray};
   }
 `;
 const BackButton = styled.button``;
+
 const BackImage = styled.img`
   position: absolute;
   left: 8px;
   top: 20px;
   background-color: ${(props) => props.theme.colors.white};
-`;
-const TopBarContainer = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 360px;
 `;
 
 export default MobileTopBar;
