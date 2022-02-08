@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import HistoryCheckBox from './HisoryCheckBox';
 import * as S from './History.Style';
-import { getHistoryList, deleteHistoryList, readHistoryItem, moveToScrap } from 'store/history';
+import { getHistoryList, deleteHistoryList, readHistoryItem, moveToScrap, clearHistoryList } from 'store/history';
 import { useDispatch, useSelector } from 'react-redux';
 import PopUp from './HistoryPopup';
 import { MENU_ITEM } from 'constant';
@@ -36,7 +36,6 @@ const HistoryContent = () => {
   const showRead = () => {
     if (command === 'read') {
       setCommand(null);
-      setShowList(alertList);
     } else {
       setCommand('read');
     }
@@ -44,7 +43,6 @@ const HistoryContent = () => {
   const showNotRead = () => {
     if (command === 'notRead') {
       setCommand(null);
-      setShowList(alertList);
     } else {
       setCommand('notRead');
     }
@@ -58,7 +56,6 @@ const HistoryContent = () => {
         });
         setCheckedList([]);
         setPageNum(1);
-        setList([]);
         setOpen(true);
       } catch (e) {
         console.log(e);
@@ -76,7 +73,6 @@ const HistoryContent = () => {
       dispatch(deleteHistoryList(deleteMailQuery));
       setCheckedList([]);
       setPageNum(1);
-      setList([]);
     } else {
       alert('삭제할 메일을 선택해 주세요');
     }
@@ -108,14 +104,13 @@ const HistoryContent = () => {
 
   useEffect(() => {
     if (userInfo.isLoggedIn || deleteHistoryResponse || readHistoryItemResponse || moveToScrapResponse) {
-      setLoading(true);
-      if (pageNum === 1) {
-        setList([]);
+      if(pageNum === 1){
+        dispatch(clearHistoryList());
       }
+      setLoading(true);
       dispatch(getHistoryList(pageNum));
     }
     setLoading(false);
-  }, [userInfo.isLoggedIn, deleteHistoryResponse, readHistoryItemResponse, moveToScrapResponse, pageNum]);
 
   useLayoutEffect(() => {
     if (!historyList || historyList.length <= 0) {
@@ -127,6 +122,8 @@ const HistoryContent = () => {
         return a > b ? -1 : a < b ? 1 : 0;
       });
       setList(alertList.concat(sortedHistoryList));
+      setList(historyList)
+      setTest([...testArray, pageNum, historyList]);
     }
   }, [historyList]);
 
