@@ -192,7 +192,6 @@ const HistoryContent = () => {
             
           </S.MenuList>
           <S.KeyWordAlertList>
-            {console.log(inView)}
             {showList?.map((mail, id) =>
               showList[showList.length - 1].id === mail.id ? (
                 <S.KeyWordAlert isRead={mail.isRead} key={id} ref={refAlert}>
