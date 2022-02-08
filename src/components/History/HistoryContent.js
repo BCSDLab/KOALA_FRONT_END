@@ -33,6 +33,7 @@ const HistoryContent = () => {
     triggerOnce: false,
   });
 
+  const isMobile = useMediaQuery({query: `(max-width:${theme.deviceSizes.mobileL}`});
   const showRead = () => {
     if (command === 'read') {
       setCommand(null);
@@ -100,6 +101,12 @@ const HistoryContent = () => {
   const closePopUp = () => {
     setOpen(false);
   };
+  const openMobileMenu = () => {
+    setMobileMenu(!isMobileMenuOpen)
+  }
+  const closeModal = () => {
+    setMobileMenu(false);
+  }
 
   useEffect(() => {
     if (userInfo.isLoggedIn || deleteHistoryResponse || readHistoryItemResponse || moveToScrapResponse) {
@@ -142,15 +149,21 @@ const HistoryContent = () => {
     <>
       <S.PageWrapper>
         <PopUp isOpen={isPopOpen} closePopUp={closePopUp} />
+      <S.PageWrapper onClick={isMobile?closeModal:null}>
+        {!isMobile&&<PopUp isOpen={isPopOpen} closePopUp={closePopUp} />}
         <S.Content isOpen={isPopOpen}>
           <S.MenuList>
-            <HistoryCheckBox
+            <S.SelectAll>
+              <HistoryCheckBox
               onClick={(e) => selectAllMail(e)}
               checked={checkedList.length <= 0 || checkedList.length !== showList.length ? false : true}
               readOnly
             />
-            <S.SelectAll>전체선택</S.SelectAll>
-            <S.Menues onClick={() => showRead()} isClicked={command === 'read' ? true : false}>
+            전체선택</S.SelectAll>
+            <S.MenuWrapper onClick={e => e.stopPropagation()}>
+            {!isMobile&&
+            <>
+              <S.Menues onClick={() => showRead()} isClicked={command === 'read' ? true : false}>
               <S.MenuName>읽은 알림</S.MenuName>
             </S.Menues>
             <S.Menues onClick={() => showNotRead()} isClicked={command === 'notRead' ? true : false}>
@@ -158,12 +171,20 @@ const HistoryContent = () => {
             </S.Menues>
             <S.Menues onClick={() => moveToStorage()}>
               <S.MenuLogo src="/asset/Storage.svg" />
-              <S.MenuName>보관함으로 이동</S.MenuName>
+              <S.MenuName>{!isMobile?'보관함으로이동':'보관'}</S.MenuName>
             </S.Menues>
             <S.Menues onClick={() => deleteMail()}>
               <S.MenuLogo src="/asset/Delete.svg" />
               <S.MenuName>삭제</S.MenuName>
             </S.Menues>
+            {isMobile&&
+            <>
+            <S.MobileMenu src="/asset/MobileMenuDots.svg" onClick={openMobileMenu}/>
+            <MobileModal isOpen={isMobileMenuOpen} showRead={showRead} showNotRead={showNotRead}/>
+            </>
+            }
+            </S.MenuWrapper>
+            
           </S.MenuList>
           <S.KeyWordAlertList>
             {console.log(inView)}
