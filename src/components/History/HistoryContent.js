@@ -6,6 +6,9 @@ import { getHistoryList, deleteHistoryList, readHistoryItem, moveToScrap, clearH
 import { useDispatch, useSelector } from 'react-redux';
 import PopUp from './HistoryPopup';
 import { MENU_ITEM } from 'constant';
+import { useMediaQuery } from 'react-responsive';
+import theme from '../../theme';
+import MobileModal from './MobileModal';
 const formatingDate = (date) => {
   const newDate = new Date(date);
   const month = newDate.getMonth()+1;
@@ -28,6 +31,7 @@ const HistoryContent = () => {
   const [pageNum, setPageNum] = useState(1);
   const [isLoading, setLoading] = useState(false);
   const [isPopOpen, setOpen] = useState(false);
+  const [isMobileMenuOpen, setMobileMenu] = useState(false);
   const [refAlert, inView] = useInView({
     threshold: 0.0,
     triggerOnce: false,
@@ -147,8 +151,6 @@ const HistoryContent = () => {
   }, [inView, showList]);
   return (
     <>
-      <S.PageWrapper>
-        <PopUp isOpen={isPopOpen} closePopUp={closePopUp} />
       <S.PageWrapper onClick={isMobile?closeModal:null}>
         {!isMobile&&<PopUp isOpen={isPopOpen} closePopUp={closePopUp} />}
         <S.Content isOpen={isPopOpen}>
@@ -196,27 +198,47 @@ const HistoryContent = () => {
                     checked={checkedList.includes(mail.id) ? true : false}
                     readOnly
                   />
-                  <S.Sender>{MENU_ITEM[MENU_ITEM.findIndex((site) => site.id === mail.site)].title}</S.Sender>
-                  <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={() => clickMail(mail.id)}>
-                    {mail.title}
-                  </S.AlertTitle>
-                  <S.MailBrowse>{mail.isRead ? '읽음' : '읽지않음'}</S.MailBrowse>
-                  <S.ReceiveDate>{mail.createdAt}</S.ReceiveDate>
+                  <S.AlertContent>
+                    <S.AlertDetail>
+                    <S.Sender>{MENU_ITEM[MENU_ITEM.findIndex((site) => site.id === mail.site)].title}</S.Sender>
+                    {isMobile && <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>}
+                    </S.AlertDetail>
+                    <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={() => clickMail(mail.id)}>
+                      {mail.title}
+                    </S.AlertTitle>
+                  </S.AlertContent>
+                  {!isMobile &&
+                  <>
+                    <S.MailBrowse>{mail.isRead ? '읽음' : '읽지않음'}</S.MailBrowse>
+                    <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>
+                  </>}
+                  
                 </S.KeyWordAlert>
               ) : (
+                <>
                 <S.KeyWordAlert isRead={mail.isRead} key={id}>
                   <HistoryCheckBox
                     onClick={(e) => selectMail(e, mail.id)}
                     checked={checkedList.includes(mail.id) ? true : false}
                     readOnly
                   />
-                  <S.Sender>{MENU_ITEM[MENU_ITEM.findIndex((site) => site.id === mail.site)].title}</S.Sender>
+                  <S.AlertContent>
+                    <S.AlertDetail>
+                    <S.Sender>{MENU_ITEM[MENU_ITEM.findIndex((site) => site.id === mail.site)].title}</S.Sender>
+                  {isMobile && <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>}
+                    </S.AlertDetail>
                   <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={() => clickMail(mail.id)}>
                     {mail.title}
                   </S.AlertTitle>
-                  <S.MailBrowse>{mail.isRead ? '읽음' : '읽지않음'}</S.MailBrowse>
-                  <S.ReceiveDate>{mail.createdAt}</S.ReceiveDate>
-                </S.KeyWordAlert>
+                  </S.AlertContent>
+                  {!isMobile &&
+                  <>
+                    <S.MailBrowse>{mail.isRead ? '읽음' : '읽지않음'}</S.MailBrowse>
+                    <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>
+                  </>}
+                  </S.KeyWordAlert>
+                  {isMobile && <S.AlertBorderBox/>}
+                  </>
               )
             )}
           </S.KeyWordAlertList>
