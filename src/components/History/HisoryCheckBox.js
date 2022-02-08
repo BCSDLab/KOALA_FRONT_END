@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import theme from '../../theme';
+const mobileL = theme.deviceSizes.mobileL;
+const mibileS = theme.deviceSizes.mobileS;
 const CheckDotLabel = styled.label`
   display: inline-block;
   vertical-align: middle;
@@ -17,8 +20,8 @@ const CheckDot = styled.input.attrs({ type: 'checkbox' })`
 
 const CustomCheckDot = styled.div`
   display: inline-block;
-  width: 13px;
-  height: 13px;
+  width: 16px;
+  height: 16px;
   border-radius: 3px;
   margin-right: 20px;
   border: solid 1px #c4c4c4;
@@ -26,6 +29,10 @@ const CustomCheckDot = styled.div`
     background: url('/asset/Check.svg');
     background-position: center;
   }
+  @media screen and (max-width:${mobileL}){
+    margin-right: 8px;
+  }
+  
 `;
 
 const HistoryCheckBox = ({ checked, ...props }) => (
