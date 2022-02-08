@@ -12,16 +12,12 @@ const LoginContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    padding: 0 16px;
-  }
 `;
 
 const LoginOptionContainer = styled.div`
   width: 343px;
   border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
   margin-bottom: 40px;
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 328px;
     margin-bottom: 32px;
@@ -37,7 +33,6 @@ const LoginOptionButton = styled.button`
   font-size: 16px;
   font-weight: ${({ isClicked }) => (isClicked ? 'bold' : 'normal')};
   text-align: center;
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     min-width: 164px;
     max-width: 164px;
@@ -53,7 +48,6 @@ const LoginOptionMenuBar = styled.div`
   background-color: ${(props) => props.theme.colors.darkgray};
   transition: transform 0.2s ease;
   transform: translateX(${({ isNormalLogin }) => (isNormalLogin ? 0 : 167)}px);
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 164px;
     transform: translateX(${({ isNormalLogin }) => (isNormalLogin ? 0 : 164)}px);
@@ -75,15 +69,12 @@ const LoginButtonAttributes = css`
   height: 44px;
   margin-bottom: 16px;
   padding: 0 10px;
-
   font-size: 16px;
   font-weight: normal;
   text-align: center;
-
   :after {
     content: '로그인';
   }
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 328px;
     height: 48px;
@@ -95,14 +86,11 @@ const GoogleLoginButton = styled.button`
   ${LoginButtonAttributes}
   border: solid 1px ${(props) => props.theme.colors.lightgray};
   color: ${(props) => props.theme.colors.black};
-
   background: 12px center no-repeat ${(props) => props.theme.colors.white} url('/asset/google-logo.svg');
   background-size: 18px;
-
   :after {
     content: '구글 로그인';
   }
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     background: 13px center no-repeat ${(props) => props.theme.colors.white} url('/asset/google-logo.svg');
     background-size: 18px 18.8px;
@@ -112,14 +100,11 @@ const GoogleLoginButton = styled.button`
 const NaverLoginButton = styled.button`
   ${LoginButtonAttributes}
   color: ${(props) => props.theme.colors.white};
-
   background: 14px center no-repeat #03c75a url('/asset/naver-logo.svg');
   background-size: 12.1px 12px;
-
   :after {
     content: '네이버 로그인';
   }
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     background: 15px center no-repeat #03c75a url('/asset/naver-logo.svg');
     background-size: 14.1px 14.6px;
@@ -129,41 +114,35 @@ const NaverLoginButton = styled.button`
 const KakaoLoginButton = styled.button`
   ${LoginButtonAttributes}
   color: ${(props) => props.theme.colors.black};
-
   background: 14px center no-repeat #fee500 url('/asset/kakao-logo.svg');
   background-size: 18px 16.6px;
-
   :after {
     content: '카카오 로그인';
   }
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     background-size: 18px 17.4px;
   }
 `;
 const MainLogo = styled.div`
+  margin-bottom: 48px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     display: flex;
     justify-content: center;
   }
 `;
+
 const MainLogoImg = styled.img`
+  width: 125px;
+  height: 34px;
+  left: 125.2px;
+  position: relative;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 158px;
     height: 43px;
     left: 0;
-    margin-bottom: 56px;
   }
 `;
-const Box = styled.div`
-  width: 368px;
-
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
-    padding-top: 54px;
-  }
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-  }
-`;
+const queries = ['max-width:450px;'];
 /**
  * TODO:
  * - [] 비회원으로 이용하기 클릭시, keyword리스트 페이지로 이동
@@ -171,9 +150,6 @@ const Box = styled.div`
  * - [] 네이버 로그인
  * - [] 카카오 로그인
  */
-
-const queries = ['(max-width: 375px)'];
-
 const AuthMainForm = () => {
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.myPage);
@@ -205,8 +181,8 @@ const AuthMainForm = () => {
   }, [userInfo.userType]);
 
   return (
-    <Box>
-      {mobile && (
+    <>
+      {!mobile && (
         <MainLogo>
           <MainLogoImg src="/asset/mainLogo.svg" alt="logo" />
         </MainLogo>
@@ -240,7 +216,7 @@ const AuthMainForm = () => {
 
         <S.CopyRight>COPYRIGHT © {new Date().getFullYear()} BCSD LAB ALL RIGHTS RESERVED.</S.CopyRight>
       </LoginContainer>
-    </Box>
+    </>
   );
 };
 
