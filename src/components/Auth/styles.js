@@ -262,18 +262,25 @@ export const Title = styled.div`
 
 export const Agree = styled.div`
   display: flex;
+  width: calc(100% - 20px);
   padding-left: 20px;
-  padding-bottom: 24px;
+  padding-bottom: 23.5px;
+  position: relative;
 
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     padding: 12px 0;
     text-align: left;
+    width: 100%;
   }
 `;
 
 export const AllAgree = styled.div`
-  margin: 3.5px 0;
+  margin: 23.5px 0;
   border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
+
+  @media only screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    margin: 3.5px 0;
+  }
 `;
 
 export const AgreeText = styled.label`
@@ -302,13 +309,18 @@ export const Drop = styled.img`
 
 export const AuthDoc = styled.section`
   font-size: 12px;
-  height: 166px;
+  width: 312px;
+  height: 122px;
   border: 1px solid ${(props) => props.theme.colors.silver};
   margin: 18px 0;
   padding: 16px;
+  left: 11px;
+  position: relative;
 
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     border: 1px solid ${(props) => props.theme.colors.lightgray};
+    left: 0;
+    width: calc(100% - 32px);
   }
 `;
 
@@ -390,8 +402,11 @@ export const DescText = styled.p`
 `;
 
 export const BottomProgressBar = styled.div`
-  position: fixed;
-  bottom: 40px;
+  margin-top: 66px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    position: fixed;
+    bottom: 40px;
+  }
 `;
 
 export const ProgressBarSection = styled.div`
