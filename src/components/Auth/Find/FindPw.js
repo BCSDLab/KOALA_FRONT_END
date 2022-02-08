@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import MobileTopBar from 'components/Shared/MobileTopBar';
+import MobileConfig from 'components/Shared/MobileConfig';
 import useMatchMedia from 'hooks/useMatchMedia';
 import { authFindPassword, changingPassword, resetAuthState } from 'store/auth';
 import AccountForm from '../Shared/AccountForm';
@@ -13,7 +14,7 @@ import { LOGIN } from 'constant';
 import * as S from 'components/Auth/styles';
 import styled from 'styled-components';
 import Button from 'components/Shared/Button';
-const queries = ['(max-width: 375px)'];
+const queries = ['(max-width: 450px)'];
 
 const FindPw = () => {
   const [account, setAccount] = useState('');
@@ -80,10 +81,11 @@ const FindPw = () => {
   }, []);
 
   return (
-    <div>
+    <FindPasswordContainer>
       {!authSuccess ? (
-        <FindPasswordContainer>
+        <>
           {mobile ? <MobileTopBar content="비밀번호찾기" /> : <S.Title>비밀번호 찾기</S.Title>}
+
           <AccountForm ref={accountRef} onChange={onChangeAccount} />
           <EmailForm ref={emailRef} onChange={onChangeEmail} />
           <AuthNumberForm
@@ -98,16 +100,11 @@ const FindPw = () => {
           <AuthButton onClick={nextClick} disabled={isAccountError || isEmailError || isAuthNumError} type="button">
             인증하기
           </AuthButton>
-        </FindPasswordContainer>
+        </>
       ) : (
-        <FindPasswordContainer>
+        <>
           {mobile ? <MobileTopBar content="비밀번호찾기" /> : <S.Title>비밀번호 찾기</S.Title>}
-          {mobile && (
-            <ConfigContainer>
-              <ConfigTitle>새 비밀번호 변경</ConfigTitle>{' '}
-              <ConfigContent>비밀번호를 새로운 비밀번호로 변경해주세요!</ConfigContent>
-            </ConfigContainer>
-          )}
+          {mobile && <MobileConfig title="새 비밀번호 변경" content="비밀번호를 새로운 비밀번호로 변경해주세요!" />}
           <ChangePasswordForm>
             <PasswordForm ref={passwordRef} onChange={onChangePassword} />
             <ConfiremdPasswordForm ref={confirmedRef} password={password} onChange={onChangeConfirmed} />
@@ -119,9 +116,9 @@ const FindPw = () => {
           >
             완료
           </AuthButton>
-        </FindPasswordContainer>
+        </>
       )}
-    </div>
+    </FindPasswordContainer>
   );
 };
 
@@ -132,35 +129,15 @@ const ChangePasswordForm = styled.form`
 `;
 
 const AuthButton = styled(Button)`
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     position: absolute;
     bottom: 40px;
   }
 `;
 
 const FindPasswordContainer = styled.div`
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 328px;
-    padding-top: 88px;
-    margin-left: 16px;
-    margin-right: 16px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 100%;
+    padding-top: 31px;
   }
-`;
-const ConfigContainer = styled.div`
-  height: 50px;
-  margin-bottom: 24px;
-`;
-const ConfigTitle = styled.div`
-  margin-bottom: 8px;
-  font-family: NotoSansCJKKR;
-  font-size: 16px;
-  font-weight: 500;
-  text-align: left;
-  color: ${(props) => props.theme.colors.darkgray};
-`;
-const ConfigContent = styled.div`
-  font-family: NotoSansCJKKR;
-  font-size: 12px;
-  text-align: left;
-  color: ${(props) => props.theme.colors.gray};
 `;

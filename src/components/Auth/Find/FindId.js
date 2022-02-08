@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { LOGIN } from 'constant';
 import MobileTopBar from 'components/Shared/MobileTopBar';
+import MobileConfig from 'components/Shared/MobileConfig';
 import useMatchMedia from 'hooks/useMatchMedia';
 import AuthNumberForm from '../Shared/AuthNumberForm';
 import { authFindId, setFindAccount, resetAuthState } from 'store/auth';
@@ -16,7 +17,8 @@ const IdfForm = styled.div`
 `;
 const NextButton = styled(Button)`
   margin-top: 0;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 328px;
     position: absolute;
     bottom: 40px;
   }
@@ -24,19 +26,15 @@ const NextButton = styled(Button)`
 const FindAccountText = styled.div`
   height: 24px;
   margin-bottom: 216px;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     font-family: NotoSansCJKKR;
     font-size: 16px;
     font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: left;
     color: ${(props) => props.theme.colors.darkgray};
   }
 `;
-const queries = ['(max-width: 375px)'];
+const queries = ['(max-width: 450px;)'];
 const FindId = () => {
   const [email, setEmail] = useState('');
   const [secret, setSecret] = useState('');
@@ -81,11 +79,11 @@ const FindId = () => {
 
   return (
     <FindAccountForm>
-      {mobile ? <MobileTopBar content="아이디찾기" /> : <S.Title>아이디 찾기</S.Title>}
-
+      {!mobile ? <MobileTopBar content="아이디찾기" /> : <S.Title>아이디 찾기</S.Title>}
+      {!mobile && <MobileConfig title="이메일로 아이디 찾기" content="회원가입시 등록했던 이메일을 입력해주세요." />}
       {!auth.authSuccess ? (
-        <>
-          <form>
+        <FindAccountContainer>
+          <SubmitAccountForm>
             <IdfForm>
               <EmailForm ref={emailRef} onChange={onChangeEmail} />
               <AuthNumberForm
@@ -96,11 +94,11 @@ const FindId = () => {
                 onChange={onChangeAuth}
               />
             </IdfForm>
-          </form>
+          </SubmitAccountForm>
           <NextButton onClick={authClick} disabled={isEmailError || isAuthNumError} type="button">
             다음
           </NextButton>
-        </>
+        </FindAccountContainer>
       ) : (
         <>
           <FindAccountText>아이디는 {auth.blindAccount}입니다.</FindAccountText>
@@ -110,12 +108,30 @@ const FindId = () => {
     </FindAccountForm>
   );
 };
+
+export default FindId;
 const FindAccountForm = styled.div`
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 328px;
-    padding-top: 88px;
-    margin-left: 16px;
-    margin-right: 16px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `;
-export default FindId;
+const FindAccountContainer = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 328px;
+    height: 100%;
+    display: flex;
+  }
+`;
+const SubmitAccountForm = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 328px;
+    height: 100%;
+
+    display: flex;
+  }
+`;
