@@ -256,10 +256,7 @@ export const Title = styled.div`
     font-weight: normal;
     text-align: center;
     position: fixed;
-
-    div & + & {
-      display: none;
-    }
+    line-height: 1.5;
   }
 `;
 
@@ -347,5 +344,72 @@ export const CustomCheckDot = styled.div`
     width: 16px;
     height: 16px;
     margin-right: 16px;
+  }
+`;
+
+export const ContentWrapper = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    background-color: ${(props) => props.theme.colors.white};
+    width: inherit;
+    top: 0;
+    position: absolute;
+  }
+`;
+
+export const ContentSection = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    top: 62px;
+    position: relative;
+  }
+`;
+
+export const ContentDescSection = styled.section`
+  display: none;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    display: block;
+    margin-top: 24px;
+    margin-bottom: 9px;
+    position: relative;
+  }
+`;
+
+export const DescTitle = styled.p`
+  margin-bottom: 8px;
+  color: ${(props) => props.theme.colors.darkgray};
+  font-size: 16px;
+  font-weight: 500;
+  line-height: normal;
+`;
+
+export const DescText = styled.p`
+  font-size: 12px;
+  font-weight: normal;
+  line-height: normal;
+  color: ${(props) => props.theme.colors.gray}; ;
+`;
+
+export const BottomProgressBar = styled.div`
+  position: fixed;
+  bottom: 40px;
+`;
+
+export const ProgressBarSection = styled.div`
+  display: flex;
+  padding: 16px 0;
+  justify-content: center;
+`;
+
+export const ProgressCircle = styled.div`
+  background-color: ${({ isOnProgress, ...props }) =>
+    isOnProgress ? props.theme.colors.yellow : props.theme.colors.silver};
+  width: 8px;
+  height: 8px;
+  flex-grow: 0;
+  margin: 0 16px 0 0;
+  border-radius: 100%;
+
+  :last-child {
+    margin: 0;
   }
 `;

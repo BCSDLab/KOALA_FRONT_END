@@ -182,7 +182,7 @@ const MainText = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
+    font-weight: normal;
     border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
     font-family: NotoSansCJKKR;
     font-size: 18px;
