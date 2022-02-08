@@ -121,8 +121,9 @@ const HistoryContent = () => {
       dispatch(getHistoryList(pageNum));
     }
     setLoading(false);
+  }, [userInfo.isLoggedIn, deleteHistoryResponse, readHistoryItemResponse, pageNum]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!historyList || historyList.length <= 0) {
       return;
     } else {
