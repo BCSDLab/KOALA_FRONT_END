@@ -31,6 +31,8 @@ const HistoryContent = () => {
   const [isLoading, setLoading] = useState(false);
   const [isPopOpen, setOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenu] = useState(false);
+  const [isMobileDeleteOpen, setMobileDeleteModal] = useState(false);
+  const [undoList, setUndoList] = useState([]);
   const [refAlert, inView] = useInView({
     threshold: 0.0,
     triggerOnce: false,
@@ -56,9 +58,9 @@ const HistoryContent = () => {
         checkedList.forEach((id) => {
           dispatch(moveToScrap({ crawling_id: id }));
         });
+        setUndoList(checkedList);
         setCheckedList([]);
         setPageNum(1);
-        setOpen(true);
       } catch (e) {
         console.log(e);
       }
@@ -68,13 +70,21 @@ const HistoryContent = () => {
   };
   const deleteMail = () => {
     if (checkedList.length > 0) {
-      var deleteMailQuery = '';
-      checkedList.forEach((id) => {
-        deleteMailQuery += `notice-id=${id}&`;
-      });
-      dispatch(deleteHistoryList(deleteMailQuery));
-      setCheckedList([]);
-      setPageNum(1);
+      try{
+        var deleteMailQuery = '';
+        checkedList.forEach((id) => {
+          deleteMailQuery += `notice-id=${id}&`;
+        });
+        dispatch(deleteHistoryList(deleteMailQuery));
+        setCheckedList([]);
+        setPageNum(1);
+      }catch(e){
+        console.log(e)
+      }finally{
+        if(isMobile){
+          setMobileDeleteModal(true);
+        }
+      }
     } else {
       alert('삭제할 메일을 선택해 주세요');
     }
@@ -119,7 +129,7 @@ const HistoryContent = () => {
       dispatch(getHistoryList(pageNum));
     }
     setLoading(false);
-  }, [userInfo.isLoggedIn, deleteHistoryResponse, readHistoryItemResponse, pageNum]);
+  }, [userInfo.isLoggedIn, deleteHistoryResponse, readHistoryItemResponse, pageNum, undoHistoryListResponse]);
 
   useEffect(() => {
     if (!historyList || historyList.length <= 0) {
@@ -148,9 +158,16 @@ const HistoryContent = () => {
       setPageNum(pageNum + 1);
     }
   }, [inView, showList]);
+  useEffect(() => {
+    if(isMobileDeleteOpen){
+      setTimeout(() => {
+        setMobileDeleteModal(false);
+        setUndoList([]);
+      }, 4000);
+  },[isMobileDeleteOpen, isMobileScrapOpen]);
   return (
     <>
-      <S.PageWrapper onClick={isMobile ? closeModal : null}>
+      <S.PageWrapper onClick={isMobile ? closeMobileMenu : null}>
         {!isMobile && <PopUp isOpen={isPopOpen} closePopUp={closePopUp} />}
         <S.Content isOpen={isPopOpen}>
           <S.MenuList>
@@ -181,6 +198,9 @@ const HistoryContent = () => {
               <S.Menues onClick={() => deleteMail()}>
                 <S.MenuLogo src="/asset/Delete.svg" />
                 <S.MenuName>삭제</S.MenuName>
+                <div onClick={(e) => e.stopPropagation()}>
+                {(isMobile && isMobileDeleteOpen)&&<MobileDeleteModal undo={undoDelete} />}
+                </div>
               </S.Menues>
               {isMobile && (
                 <>
