@@ -148,7 +148,7 @@ const KeywordFilterBar = () => {
       const listId = keywordList.map((keyword) => keyword.id);
       setCheckListId(listId);
     } else {
-      if (checkListId.length === 0) {
+      if (checkListId.length === keywordList.length) {
         setCheckListId([]);
       }
     }
