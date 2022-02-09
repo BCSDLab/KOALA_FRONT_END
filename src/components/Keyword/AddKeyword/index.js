@@ -71,7 +71,7 @@ const AddKeyword = () => {
 
   const onChangeRecommendKeyword = (e) => {
     const { value } = e.target;
-    setAlreadyRegisterKeyword(false);
+    setIsRegisterKeyword(false);
     setRecommendKeyword(value);
     setSelectRecommendKeyword('');
   };
