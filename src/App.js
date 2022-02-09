@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import { LOGIN } from './constant';
 import { refresh } from 'store/auth';
 import { getUserInfo } from 'store/myPage';
@@ -60,12 +60,15 @@ const App = () => {
           <Route path="findPw" element={<FindPw />} />
         </Route>
 
-        <Route path="keyword/*" element={<KeywordPage />}>
-          <Route index element={<KeywordFilterBar />}></Route>
-          <Route path="create" element={<AddKeyword />}></Route>
-          <Route path="modify" element={<ModifyKeyword />}></Route>
-          <Route path="setting" element={<SettingKeyword />}></Route>
+        <Route element={<AuthorizedRoute />}>
+          <Route path="keyword/*" element={<KeywordPage />}>
+            <Route index element={<KeywordFilterBar />}></Route>
+            <Route path="create" element={<AddKeyword />}></Route>
+            <Route path="modify" element={<ModifyKeyword />}></Route>
+            <Route path="setting" element={<SettingKeyword />}></Route>
+          </Route>
         </Route>
+
         <Route element={<AuthorizedRoute />}>
           <Route exact path="chat/*" element={<ChatPage />}>
             <Route path="auth" element={<ChatAuth />} />
