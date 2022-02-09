@@ -19,7 +19,7 @@ import auth, {
 } from './auth';
 import loading from './loading';
 import toggle from './toggle';
-import myPage, { changeNameSaga, getUserSaga, changeImageSaga } from './myPage';
+import myPage, { changeNameSaga, getUserSaga, changeImageSaga, sendSchoolSaga, authSchoolSaga } from './myPage';
 import keyword, {
   inquiryKeywordSaga,
   getKeywordListSaga,
@@ -28,7 +28,7 @@ import keyword, {
   readKeywordItemSaga,
   deleteKeywordSaga,
 } from './keyword';
-import { authSchoolSaga, sendSchoolSaga } from './chat';
+
 
 const rootReducer = combineReducers({
   auth,

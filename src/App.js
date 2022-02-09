@@ -10,7 +10,6 @@ import FindId from 'components/Auth/Find/FindId';
 import FindPw from 'components/Auth/Find/FindPw';
 import RegisterDoc from 'components/Auth/Register/RegisterDoc';
 import Register from 'components/Auth/Register/Register';
-import MainPage from 'pages/mainPage';
 import { setTokenOnHeader } from 'api/logined';
 import { getCookie } from 'components/Shared/Cookies';
 import MyPage from 'pages/MyPage';
@@ -22,6 +21,7 @@ import KeywordFilterBar from 'components/Keyword/KeywordFilter';
 import AddKeyword from 'components/Keyword/AddKeyword';
 import ModifyKeyword from 'components/Keyword/ModifyKeyword';
 import SettingKeyword from 'components/Keyword/SettingKeyword';
+import ChatRoom from 'components/Chat/ChatRoom';
 
 const AuthorizedRoute = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -35,7 +35,7 @@ const AuthorizedRoute = () => {
 const App = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-
+  const isSchoolAuth = useSelector((state) => state.myPage.isAuth);
   useEffect(() => {
     const token = getCookie('refresh_token');
     setTokenOnHeader(token);
@@ -51,7 +51,8 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<MainPage />} />
+        <Route exact path="/" />
+        <Route path="mypage" element={<MyPage />} />
         <Route exact path="auth/*" element={<AuthPage />}>
           <Route index element={<Login />} />
           <Route path="createLog" element={<RegisterDoc />} />
@@ -72,9 +73,8 @@ const App = () => {
         <Route element={<AuthorizedRoute />}>
           <Route exact path="chat/*" element={<ChatPage />}>
             <Route path="auth" element={<ChatAuth />} />
-            <Route path="unauth" element={<Unauth />} />
+            <Route path="room" element={isSchoolAuth ? <ChatRoom /> : <Unauth />} />
           </Route>
-          <Route path="mypage" element={<MyPage />} />
         </Route>
       </Routes>
     </>
