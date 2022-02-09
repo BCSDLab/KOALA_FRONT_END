@@ -30,3 +30,12 @@ export const MobileDeleteModal = ({undo}) => {
         </Modal>
     )
 }
+
+export const MobileMoveScrapModal = ({numberAlert, undo}) => {
+    return (
+        <Modal>
+            <ModalText>{numberAlert}개의 알람을 이동하였습니다.</ModalText>
+            <UndoButton onClick={undo}>실행취소</UndoButton>
+        </Modal>
+    )
+}

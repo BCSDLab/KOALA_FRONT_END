@@ -3,6 +3,7 @@ import { useInView } from 'react-intersection-observer';
 import HistoryCheckBox from './HisoryCheckBox';
 import * as S from './History.Style';
 import { getHistoryList, deleteHistoryList, readHistoryItem, moveToScrap, clearHistoryList, undoHistoryList } from 'store/history';
+import { deleteScrapItem } from 'store/scrap';
 import { useDispatch, useSelector } from 'react-redux';
 import PopUp from './HistoryPopup';
 import { MENU_ITEM } from 'constant';
@@ -18,7 +19,7 @@ const formatingDate = (date) => {
   return `${month + '/' + day} - ${(hour === 0 ? '00' : hour) + ':' + minute}`;
 };
 const HistoryContent = () => {
-  const { historyList, deleteHistoryResponse, readHistoryItemResponse, moveToScrapResponse } = useSelector(
+  const { historyList, deleteHistoryResponse, readHistoryItemResponse, moveToScrapResponse, undoHistoryListResponse } = useSelector(
     (state) => state.history
   );
   const userInfo = useSelector((state) => state.auth);
@@ -32,6 +33,7 @@ const HistoryContent = () => {
   const [isPopOpen, setOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenu] = useState(false);
   const [isMobileDeleteOpen, setMobileDeleteModal] = useState(false);
+  const [isMobileScrapOpen, setMobileScrapModal] = useState(false);
   const [undoList, setUndoList] = useState([]);
   const [refAlert, inView] = useInView({
     threshold: 0.0,
@@ -63,6 +65,12 @@ const HistoryContent = () => {
         setPageNum(1);
       } catch (e) {
         console.log(e);
+      }finally{
+        if(isMobile){
+          setMobileScrapModal(true);
+        }else{
+          setOpen(true);
+        }
       }
     } else {
       alert('이동할 메일을 선택해 주세요');
@@ -119,7 +127,20 @@ const HistoryContent = () => {
   const closeModal = () => {
     setMobileMenu(false);
   };
-
+  const undoDelete = () => {
+    var undoMailQuery = '';
+    undoList.forEach((id) => {
+      undoMailQuery += `notice-id=${id}&`;
+    });
+    dispatch(undoHistoryList(undoMailQuery));
+    setUndoList([]);
+    setPageNum(1);
+  }
+  const undoMoveScrap = () => {
+    console.log('work', undoList);
+    // dispatch(deleteScrapItem(undoList));
+    // setUndoList([]);
+  }
   useEffect(() => {
     if (userInfo.isLoggedIn || deleteHistoryResponse || readHistoryItemResponse || moveToScrapResponse) {
       if (pageNum === 1) {
@@ -164,6 +185,12 @@ const HistoryContent = () => {
         setMobileDeleteModal(false);
         setUndoList([]);
       }, 4000);
+    }else if(isMobileScrapOpen){
+      setTimeout(() => {
+        setMobileScrapModal(false);
+        setUndoList([]);
+      }, 4000);
+    }
   },[isMobileDeleteOpen, isMobileScrapOpen]);
   return (
     <>
@@ -194,6 +221,10 @@ const HistoryContent = () => {
               <S.Menues onClick={() => moveToStorage()}>
                 <S.MenuLogo src="/asset/Storage.svg" />
                 <S.MenuName>{!isMobile ? '보관함으로이동' : '보관'}</S.MenuName>
+                <div onClick={(e) => e.stopPropagation()}>
+                {(isMobile && isMobileScrapOpen)&&<MobileMoveScrapModal numberAlert={undoList.length} undo={undoMoveScrap}/>}
+                </div>
+               
               </S.Menues>
               <S.Menues onClick={() => deleteMail()}>
                 <S.MenuLogo src="/asset/Delete.svg" />
