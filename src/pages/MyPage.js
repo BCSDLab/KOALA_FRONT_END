@@ -13,12 +13,13 @@ import SchoolAuth from 'components/Mypage/SchoolAuth';
 import AutoLogin from 'components/Mypage/AutoLogin';
 import Dialog from 'components/Shared/Dialog';
 import styled from 'styled-components';
+import * as API from 'api';
 
 /* 
   마이페이지에 현재 user/my에서 유저 이미지에 대한 설계가 아직 진행되지 않았습니다. 
   서버 설계가 완료되면 아래 작성해둔 함수를 활용해주세요
 */
-const queries = ['(max-width: 375px)'];
+const queries = ['(max-width: 450px)'];
 const MyPage = () => {
   const toggle = useSelector((state) => state.toggle.isOpen);
   const userInfo = useSelector((state) => state.myPage);
@@ -73,39 +74,45 @@ const MyPage = () => {
       <MyPageContent>
         <UserInfo isToggle={toggle}>
           <MainText>설정</MainText>
-          <MyInfo>내 정보</MyInfo>
-          <UserImage
-            onMouseEnter={() => setIsShown(true)}
-            onMouseLeave={() => setIsShown(false)}
-            src={userInfo.userImg}
-            alt="userImage"
-          ></UserImage>
-          {isShown && (
-            <OverLay onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)}>
-              <PatchText onClick={photoPatch}>편집</PatchText>
-              <PatchImg ref={photoInput} type="file" accept="image/*" onChange={(e) => setFile(e)} />
-            </OverLay>
-          )}
-          <UserNickname>{userInfo.userNickname}</UserNickname>
-          <NicknameTitle>닉네임</NicknameTitle>
-          <EditNickname userNickname={userInfo.userNickname} change={userInfo.changeSuccess} />
-          <SchoolAuthTitle>학교인증</SchoolAuthTitle>
-          <SchoolAuth isAuth={userInfo.isAuth} />
-          <EtcTitle>기타</EtcTitle>
-          <AutoLogin />
-          <Contact>문의하기</Contact>
-          <LogOut onClick={logout}>로그아웃</LogOut>
-          <Dialog
-            title="로그아웃"
-            children="로그아웃하시겠습니까? 로그아웃하면 내 디바이스의 코알라데이터가 삭제됩니다."
-            confirmText="확인"
-            cancelText="취소"
-            onConfirm={onConfirm}
-            onCancel={onCancel}
-            type="confirm"
-            visible={dialog}
-          ></Dialog>
-          <Resign onClick={resign}>탈퇴하기</Resign>
+          <UserInfoContainer>
+            <UserInfoContent>
+              <MyInfo>내 정보</MyInfo>
+              <UserInfoHeader>
+                <UserImage
+                  onMouseEnter={() => setIsShown(true)}
+                  onMouseLeave={() => setIsShown(false)}
+                  src={userInfo.userImg}
+                  alt="userImage"
+                ></UserImage>
+                {isShown && (
+                  <OverLay onMouseEnter={() => setIsShown(true)} onMouseLeave={() => setIsShown(false)}>
+                    <PatchText onClick={photoPatch}>편집</PatchText>
+                    <PatchImg ref={photoInput} type="file" accept="image/*" onChange={(e) => setFile(e)} />
+                  </OverLay>
+                )}
+                <UserNickname>{userInfo.userNickname}</UserNickname>
+              </UserInfoHeader>
+              <NicknameTitle>닉네임</NicknameTitle>
+              <EditNickname userNickname={userInfo.userNickname} change={userInfo.changeSuccess} />
+              <SchoolAuthTitle>학교인증</SchoolAuthTitle>
+              <SchoolAuth isAuth={userInfo.isAuth} />
+              <EtcTitle>기타</EtcTitle>
+              <AutoLogin />
+              <Contact>문의하기</Contact>
+              <LogOut onClick={logout}>로그아웃</LogOut>
+              <Dialog
+                type="confirm"
+                title="로그아웃"
+                children="로그아웃하시겠습니까? 로그아웃하면 내 디바이스의 코알라데이터가 삭제됩니다."
+                confirmText="확인"
+                cancelText="취소"
+                onConfirm={onConfirm}
+                onCancel={onCancel}
+                visible={dialog}
+              ></Dialog>
+              <Resign onClick={resign}>탈퇴하기</Resign>
+            </UserInfoContent>
+          </UserInfoContainer>
         </UserInfo>
       </MyPageContent>
     </MyPageContainer>
@@ -118,26 +125,47 @@ const MyPageContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    padding: 0 0 0 0;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    padding: 0;
     width: 100%;
+    display: flex;
+    justify-content: center;
   }
 `;
 
 const MyPageContent = styled.div`
-  width: calc(100% - 80px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 100%;
-    hegith: ca1c(100%-300px);
+    height: auto;
+  }
+`;
+
+const UserInfoContainer = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+  }
+`;
+const UserInfoContent = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 328px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 `;
 
 const UserInfo = styled.div`
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  margin: ${({ isToggle }) =>
+    isToggle
+      ? `121px 664px 181px 522px;`
+      : `121px 664px 181px 426px;
+  `};
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 100%;
+    height: calc(100% + 100px);
     margin: 0;
   }
 `;
@@ -150,21 +178,16 @@ const MainText = styled.div`
   font-weight: 500;
   text-align: left;
   color: ${(props) => props.theme.colors.darkgray};
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 100%;
     height: 61px;
     display: flex;
-    box-sizing: border-box;
-    border-bottom: 1px solid #eee;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
+    border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
     font-family: NotoSansCJKKR;
     font-size: 18px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: center;
     color: ${(props) => props.theme.colors.darkgray};
   }
@@ -179,31 +202,36 @@ const MyInfo = styled.div`
   font-weight: 500;
   text-align: center;
   color: ${(props) => props.theme.colors.darkgray};
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 118px;
     height: 21px;
-    margin: 24px 0 0 16px;
+    margin: 24px 0 0 0;
     font-family: NotoSansCJKKR;
     font-size: 14px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: left;
-    color: #222;
+    color: ${(props) => props.theme.colors.darkgray};
   }
 `;
-
+const UserInfoHeader = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 328px;
+    height: 102px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+`;
 const UserImage = styled.img`
   width: 72px;
   height: 72px;
   margin: 0px 98px 16px 195px;
   border-radius: 50%;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  object-fit: cover;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 56px;
     height: 56px;
-    margin: 5px 152px 0 152px;
+    margin: 5px 0 0 0;
     border-radius: 50%;
     object-fit: cover;
   }
@@ -220,14 +248,15 @@ const OverLay = styled.div`
   text-align: left;
   color: ${(props) => props.theme.colors.white};
   background-color: rgba(34, 34, 34, 0.3);
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     position: absolute;
     width: 56px;
     height: 56px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: -56px 152px 0 152px;
+    margin: 0;
+    top: 110px;
     font-family: NotoSansCJKKR;
     font-size: 14px;
     font-weight: 500;
@@ -240,25 +269,21 @@ const OverLay = styled.div`
 const PatchText = styled.div`
   padding: 26px 23px 25px;
   cursor: pointer;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 26px;
     height: 21px;
     padding: 0;
     font-family: NotoSansCJKKR;
     font-size: 14px;
     font-weight: 500;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: left;
-    color: #fff;
+    color: ${(props) => props.theme.colors.white};
   }
 `;
 
 const PatchImg = styled.input`
   display: none;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
   }
 `;
 
@@ -271,7 +296,7 @@ const UserNickname = styled.div`
   font-weight: bold;
   text-align: center;
   color: ${(props) => props.theme.colors.darkgray};
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 360px;
     height: 27px;
     display: flex;
@@ -280,12 +305,8 @@ const UserNickname = styled.div`
     font-family: NotoSansCJKKR;
     font-size: 18px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: center;
-    color: #222;
+    color: ${(props) => props.theme.colors.gray};
   }
 `;
 
@@ -296,34 +317,29 @@ const Title = styled.div`
   font-weight: 500;
   text-align: center;
   color: ${(props) => props.theme.colors.gray};
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 118px;
     height: 21px;
     font-family: NotoSansCJKKR;
     font-size: 14px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: left;
-    color: #999;
+    color: ${(props) => props.theme.colors.gray};
   }
 `;
 
 const NicknameTitle = styled(Title)`
   width: 39px;
   margin: 0px 76px 24px 80px;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    margin: 26px 226px 16px 16px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    margin: 26px 226px 16px 0px;
   }
 `;
 
 const SchoolAuthTitle = styled(Title)`
   width: 52px;
   margin: 71.3px 50px 16px 80px;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    margin: 46px 226px 7px 16px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    margin: 46px 226px 7px 0px;
   }
 `;
 const EtcTitle = styled.div`
@@ -335,19 +351,14 @@ const EtcTitle = styled.div`
   font-weight: 500;
   text-align: center;
   color: ${(props) => props.theme.colors.darkgray};
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 118px;
     height: 21px;
-    margin: 38px 3px 16px 16px;
+    margin: 38px 3px 16px 0px;
     font-family: NotoSansCJKKR;
     font-size: 14px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: left;
-    color: #999;
+    color: ${(props) => props.theme.colors.gray};
   }
 `;
 
@@ -361,19 +372,14 @@ const Element = styled.div`
   font-weight: 500;
   text-align: center;
   color: ${(props) => props.theme.colors.gray};
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 68px;
     height: 21px;
-    margin: 16px 53px 16px 16px;
+    margin: 0 53px 16px 0;
     font-family: NotoSansCJKKR;
     font-size: 14px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-align: left;
-    color: #222;
+    color: ${(props) => props.theme.colors.darkgray};
   }
 `;
 
