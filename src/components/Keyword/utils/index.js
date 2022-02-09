@@ -66,11 +66,12 @@ export const getModalPosition = (keywords, selectItemId) => {
 export const getKeywordName = (keywords, selectItemId) => {
   let keywordName = '';
 
-  keywords.forEach((keyword) => {
-    if (selectItemId === keyword.id) {
-      keywordName = keyword.name;
-    }
-  });
+  keywords &&
+    keywords.forEach((keyword) => {
+      if (selectItemId === keyword.id) {
+        keywordName = keyword.name;
+      }
+    });
 
   return keywordName;
 };
