@@ -60,30 +60,36 @@ const FindId = () => {
   return (
     <FindAccountForm>
       {!desktop ? <MobileTopBar content="아이디찾기" /> : <S.Title>아이디 찾기</S.Title>}
-      {!desktop && <MobileConfig title="이메일로 아이디 찾기" content="회원가입시 등록했던 이메일을 입력해주세요." />}
+
       {!auth.authSuccess ? (
-        <FindAccountContainer>
-          <SubmitAccountForm>
-            <IdfForm>
-              <EmailForm ref={emailRef} onChange={onChangeEmail} />
-              <AuthNumberForm
-                type="ACCOUNT"
-                ref={authRef}
-                email={email}
-                isEmailError={isEmailError}
-                onChange={onChangeAuth}
-              />
-            </IdfForm>
-          </SubmitAccountForm>
-          <NextButton onClick={authClick} disabled={isEmailError || isAuthNumError} type="button">
-            다음
-          </NextButton>
-        </FindAccountContainer>
-      ) : (
         <>
+          {' '}
+          {!desktop && (
+            <MobileConfig title="이메일로 아이디 찾기" content="회원가입시 등록했던 이메일을 입력해주세요." />
+          )}
+          <FindAccountContainer>
+            <SubmitAccountForm>
+              <IdfForm>
+                <EmailForm ref={emailRef} onChange={onChangeEmail} />
+                <AuthNumberForm
+                  type="ACCOUNT"
+                  ref={authRef}
+                  email={email}
+                  isEmailError={isEmailError}
+                  onChange={onChangeAuth}
+                />
+              </IdfForm>
+            </SubmitAccountForm>
+            <NextButton onClick={authClick} disabled={isEmailError || isAuthNumError} type="button">
+              다음
+            </NextButton>
+          </FindAccountContainer>
+        </>
+      ) : (
+        <FindAccountContainer>
           <FindAccountText>아이디는 {auth.blindAccount}입니다.</FindAccountText>
           <NextButton onClick={completeClick}>완료</NextButton>
-        </>
+        </FindAccountContainer>
       )}
     </FindAccountForm>
   );

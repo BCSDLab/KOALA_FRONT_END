@@ -83,7 +83,7 @@ const FindPw = () => {
 
   return (
     <FindPasswordContainer>
-      {!authSuccess ? (
+      {authSuccess ? (
         <>
           {!desktop ? <MobileTopBar content="비밀번호찾기" /> : <S.Title>비밀번호 찾기</S.Title>}
 
@@ -127,6 +127,9 @@ export default FindPw;
 
 const ChangePasswordForm = styled.form`
   margin-bottom: 88px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    padding-top: 24px;
+  }
 `;
 
 const AuthButton = styled(Button)`
