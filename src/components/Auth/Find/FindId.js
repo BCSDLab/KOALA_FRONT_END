@@ -12,28 +12,6 @@ import * as S from 'components/Auth/styles';
 import styled from 'styled-components';
 import EmailForm from '../Shared/EmailForm';
 
-const IdfForm = styled.div`
-  margin-bottom: 120px;
-`;
-const NextButton = styled(Button)`
-  margin-top: 0;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
-    width: 328px;
-    position: absolute;
-    bottom: 40px;
-  }
-`;
-const FindAccountText = styled.div`
-  height: 24px;
-  margin-bottom: 216px;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
-    font-family: NotoSansCJKKR;
-    font-size: 16px;
-    font-weight: 500;
-    text-align: left;
-    color: ${(props) => props.theme.colors.darkgray};
-  }
-`;
 const queries = ['(max-width: 400px)', '(min-width: 800px)'];
 
 const FindId = () => {
@@ -116,6 +94,7 @@ const FindAccountForm = styled.div`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 100%;
     height: 100%;
+    padding-top: 24px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -126,6 +105,7 @@ const FindAccountContainer = styled.div`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 328px;
     height: 100%;
+    padding-top: 24px;
     display: flex;
   }
 `;
@@ -135,5 +115,29 @@ const SubmitAccountForm = styled.div`
     height: 100%;
 
     display: flex;
+  }
+`;
+const IdfForm = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 328px;
+  }
+`;
+const NextButton = styled(Button)`
+  margin-top: 0;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 328px;
+    position: absolute;
+    bottom: 40px;
+  }
+`;
+const FindAccountText = styled.div`
+  height: 24px;
+  margin-bottom: 216px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    font-family: NotoSansCJKKR;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    color: ${(props) => props.theme.colors.darkgray};
   }
 `;

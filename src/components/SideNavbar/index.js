@@ -59,7 +59,7 @@ const MenuImg = styled.img`
   width: 26px;
   height: 20px;
   object-fit: contain;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     display: none;
   }
 `;
