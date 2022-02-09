@@ -9,11 +9,12 @@ import KeywordMenuBar from '../KeywordMenuBar';
 import KeywordSearch from '../KeywordSearch';
 import KeywordHeader from '../KeywordHeader';
 
-const KeywordFilterBar = ({ isToggle }) => {
+const KeywordFilterBar = () => {
   const userInfo = useSelector((state) => state.auth);
   const { keywordList, deleteKeywordListResponse, readKeywordItemResponse, getKeywordListResponse } = useSelector(
     (state) => state.keyword
   );
+  const { isOpen } = useSelector((state) => state.toggle);
   const dispatch = useDispatch();
   const { state: keywordName } = useLocation();
   const [list, setList] = useState([]);
@@ -144,6 +145,15 @@ const KeywordFilterBar = ({ isToggle }) => {
   }, [deleteList]);
 
   useEffect(() => {
+    if (checkAll) {
+      const listId = keywordList.map((keyword) => keyword.id);
+      setCheckListId(listId);
+    } else {
+      setCheckListId([]);
+    }
+  }, [checkAll]);
+
+  useEffect(() => {
     if (userInfo.isLoggedIn) {
       if (deleteKeywordListResponse || readKeywordItemResponse || getKeywordListResponse || !deleteList || goStore) {
         dispatch(getKeywordList(keywordName));
@@ -168,8 +178,8 @@ const KeywordFilterBar = ({ isToggle }) => {
   return (
     <>
       <KeywordHeader title={'키워드 알림'} toggle={false} />
-      <KeywordMenuBar isToggle={isToggle} menu={menu} setList={setList} onClickMenu={onClickMenu} />
-      <S.FilterList toggle={isToggle}>
+      <KeywordMenuBar isToggle={isOpen} menu={menu} setList={setList} onClickMenu={onClickMenu} />
+      <S.FilterList toggle={isOpen}>
         <S.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className="checkBox"></S.CheckBox>
         <S.CheckBoxTitle onClick={onClickAllSelect} className="checkTitle">
           전체 선택
@@ -213,7 +223,6 @@ const KeywordFilterBar = ({ isToggle }) => {
         checkAll={checkAll}
         readNotification={readNotification}
         notReadNotification={notReadNotification}
-        isToggle={isToggle}
         keywordSearch={keywordSearch}
         setSearchButton={setSearchButton}
         searchButton={searchButton}

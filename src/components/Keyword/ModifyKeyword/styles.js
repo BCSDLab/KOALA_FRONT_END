@@ -8,7 +8,7 @@ export const HashtagContainer = styled.div`
   align-items: center;
   padding-left: 24px;
   position: absolute;
-  left: 588px;
+  left: ${(props) => (props.toggle ? '588px' : '453px')};
   top: 212px;
 `;
 
@@ -56,7 +56,7 @@ export const RecommendContainer = styled.ul`
   border-top: none;
   position: absolute;
   background-color: white;
-  left: 588px;
+  left: ${(props) => (props.toggle ? '588px' : '453px')};
   top: 325px;
   z-index: 1;
   display: ${(props) => {

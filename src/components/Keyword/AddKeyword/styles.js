@@ -3,7 +3,7 @@ import theme from 'theme';
 
 export const HashtagContainer = styled.div`
   position: absolute;
-  left: 588px;
+  left: ${(props) => (props.toggle ? '588px' : '453px')};
   top: 212px;
   width: 1092px;
   height: 48px;
@@ -44,7 +44,7 @@ export const SearchContainer = styled.div`
   width: 1092px;
   height: 48px;
   top: 276px;
-  left: 588px;
+  left: ${(props) => (props.toggle ? '588px' : '453px')};
   padding-left: 24px;
   align-items: center;
   border: 1px solid ${theme.colors.lightgray};
@@ -86,7 +86,7 @@ export const RecommendSiteContainer = styled.ul`
   border-top: none;
   position: absolute;
   background-color: white;
-  left: 588px;
+  left: ${(props) => (props.toggle ? '588px' : '453px')};
   top: 325px;
   z-index: 1;
 `;
@@ -98,7 +98,7 @@ export const RecommendKeywordContainer = styled.ul`
   border-top: none;
   position: absolute;
   background-color: white;
-  left: 588px;
+  left: ${(props) => (props.toggle ? '588px' : '453px')};
   top: 261px;
   z-index: 1;
   display: ${(props) => (props.show ? 'none' : 'block')};
@@ -132,7 +132,7 @@ export const InputSite = styled.input`
 export const SiteContainer = styled.div`
   position: absolute;
   top: 335px;
-  left: 588px;
+  left: ${(props) => (props.toggle ? '588px' : '453px')};
   width: 1092px;
   height: 117px;
   background-color: #eee;

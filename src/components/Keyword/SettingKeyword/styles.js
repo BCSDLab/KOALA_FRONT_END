@@ -4,7 +4,7 @@ export const NotifyContainer = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  left: 596px;
+  left: ${(props) => (props.toggle ? '596px' : '461px')};
   top: 232px;
 `;
 
@@ -30,7 +30,7 @@ export const NotifyCheckBoxTitle = styled.span`
 
 export const MinusImage = styled.img`
   position: absolute;
-  left: 796px;
+  left: ${(props) => (props.toggle ? '796px' : '661px')};
   top: 482px;
 `;
 
@@ -47,7 +47,7 @@ export const VibrationCheckBoxTitle = styled(NotifyCheckBoxTitle)``;
 export const DisturbTitle = styled.span`
   min-width: 113px;
   position: absolute;
-  left: 596px;
+  left: ${(props) => (props.toggle ? '596px' : '461px')};
   top: 350px;
 `;
 
@@ -56,7 +56,7 @@ export const DisturbContainer = styled.ul`
   height: 68px;
   border: 1.5px solid #eee;
   position: absolute;
-  left: 596px;
+  left: ${(props) => (props.toggle ? '596px' : '461px')};
   top: 386px;
   display: flex;
   align-items: center;
@@ -73,7 +73,7 @@ export const DisturbCheckBox = styled.div`
 
 export const DisturbTimeStart = styled.input`
   position: absolute;
-  left: 596px;
+  left: ${(props) => (props.toggle ? '596px' : '461px')};
   top: 470px;
   min-width: 180px;
   height: 48px;
@@ -89,13 +89,13 @@ export const DisturbTimeStart = styled.input`
 `;
 
 export const DisturbTimeEnd = styled(DisturbTimeStart)`
-  left: 840px;
+  left: ${(props) => (props.toggle ? '840px' : '705px')};
 `;
 
 export const SelectTitle = styled.span`
   width: 68px;
   position: absolute;
-  left: 596px;
+  left: ${(props) => (props.toggle ? '596px' : '461px')};
   top: 590px;
 `;
 
@@ -104,7 +104,7 @@ export const SelectBox = styled.div`
   height: 48px;
   border: 1.5px solid #eee;
   position: absolute;
-  left: 596px;
+  left: ${(props) => (props.toggle ? '596px' : '461px')};
   top: 627px;
   display: flex;
   align-items: center;
@@ -122,7 +122,7 @@ export const ChevronDownImage = styled.img`
 export const BrowserTitle = styled(NotifyCheckBoxTitle)`
   position: absolute;
   top: 747px;
-  left: 596px;
+  left: ${(props) => (props.toggle ? '596px' : '461px')};
   color: #222222;
 `;
 
@@ -130,7 +130,7 @@ export const BrowserCheckContainer = styled.div`
   display: flex;
   align-items: center;
   position: absolute;
-  left: 596px;
+  left: ${(props) => (props.toggle ? '596px' : '461px')};
   top: 792px;
 `;
 
@@ -153,12 +153,12 @@ export const SaveButton = styled.button`
   color: #fff;
   position: absolute;
   top: 1014px;
-  left: 1018px;
+  left: ${(props) => (props.toggle ? '1018px' : '883px')};
   font-size: 14px;
   font-weight: 500;
   text-align: center;
 `;
 
 export const CancelButton = styled(SaveButton)`
-  left: 1142px;
+  left: ${(props) => (props.toggle ? '1142px' : '1007px')};
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import * as S from 'components/SideNavbar/styles';
 import { useLocation } from 'react-router-dom';
 import KeywordDropdown from './KeywordDropdown';

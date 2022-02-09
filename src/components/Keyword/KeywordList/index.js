@@ -8,7 +8,6 @@ const KeywordList = ({
   checkListId,
   checkAll,
   setCheckListId,
-  isToggle,
   readNotification,
   notReadNotification,
   keywordSearch,
@@ -20,11 +19,11 @@ const KeywordList = ({
   const dispatch = useDispatch();
   const { keywordList } = useSelector((state) => state.keyword);
   const [list, setList] = useState();
+  const { isOpen } = useSelector((state) => state.toggle);
 
   const onClickCheckSome = useCallback(
     (id) => {
       let newCheckListId = [...checkListId];
-
       if (checkListId.includes(id)) {
         newCheckListId = checkListId.filter((item) => {
           if (item !== id) {
@@ -107,7 +106,7 @@ const KeywordList = ({
   }, [searchButton]);
 
   return (
-    <S.MainList toggle={isToggle}>
+    <S.MainList toggle={isOpen}>
       {list &&
         list.map((item) => {
           return (

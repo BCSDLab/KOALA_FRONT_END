@@ -3,6 +3,7 @@ import { changeAlarmTerm, changeSiteName } from '../utils';
 import { ALARM_TERM } from 'constant';
 import { patchModifyKeyword, createKeyword } from 'store/modifyKeyword';
 import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import * as S from './styles';
 
 const KeywordAlarm = ({
@@ -18,6 +19,8 @@ const KeywordAlarm = ({
   const [isSlientAlarm, setIsSlientAlarm] = useState(false);
   const [isVibrationAlarm, setIsVibrationAlarm] = useState(false);
   const [alarmTerm, setAlarmTerm] = useState(null);
+
+  const { isOpen } = useSelector((state) => state.toggle);
 
   const dispatch = useDispatch();
 
@@ -74,16 +77,16 @@ const KeywordAlarm = ({
 
   return (
     <>
-      <S.ImportantContainer onClick={onClickImportantAlarm}>
+      <S.ImportantContainer toggle={isOpen} onClick={onClickImportantAlarm}>
         <S.CheckBox isImportantAlarm={isImportantAlarm}></S.CheckBox>
         <S.CheckBoxTitle>중요 알림</S.CheckBoxTitle>
         <S.CheckBoxContent>중요알림 기능은 모바일 앱에서만 확인할 수 있습니다.</S.CheckBoxContent>
       </S.ImportantContainer>
-      <S.NormalContainer onClick={onClickNormalAlarm}>
+      <S.NormalContainer toggle={isOpen} onClick={onClickNormalAlarm}>
         <S.CheckBox isNormalAlarm={isNormalAlarm}></S.CheckBox>
         <S.CheckBoxTitle>일반 알림</S.CheckBoxTitle>
       </S.NormalContainer>
-      <S.SettingContainer>
+      <S.SettingContainer toggle={isOpen}>
         <S.ModeContainer>
           <S.SlientMode onClick={onClickSlientAlarm}>무음모드에도 알림</S.SlientMode>
           <S.SlientCheckBox onClick={onClickSlientAlarm} isSlientAlarm={isSlientAlarm}></S.SlientCheckBox>
@@ -107,8 +110,10 @@ const KeywordAlarm = ({
           </S.AlarmType>
         </S.AlarmContainer>
       </S.SettingContainer>
-      <S.EditButton onClick={onClickModifyButton}>{buttonText}</S.EditButton>
-      <S.CancelButton>취소</S.CancelButton>
+      <S.EditButton toggle={isOpen} onClick={onClickModifyButton}>
+        {buttonText}
+      </S.EditButton>
+      <S.CancelButton toggle={isOpen}>취소</S.CancelButton>
     </>
   );
 };
