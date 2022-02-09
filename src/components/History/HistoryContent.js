@@ -9,7 +9,8 @@ import PopUp from './HistoryPopup';
 import { MENU_ITEM } from 'constant';
 import { useMediaQuery } from 'react-responsive';
 import theme from '../../theme';
-import MobileModal from './MobileMenuModal';
+import MobileMenuModal from './MobileMenuModal';
+import {MobileDeleteModal, MobileMoveScrapModal} from './MobilePopUpModal';
 const formatingDate = (date) => {
   const newDate = new Date(date);
   const month = newDate.getMonth() + 1;
@@ -124,7 +125,7 @@ const HistoryContent = () => {
   const openMobileMenu = () => {
     setMobileMenu(!isMobileMenuOpen);
   };
-  const closeModal = () => {
+  const closeMobileMenu = () => {
     setMobileMenu(false);
   };
   const undoDelete = () => {
@@ -176,9 +177,13 @@ const HistoryContent = () => {
 
   useEffect(() => {
     if (inView && !isLoading) {
+      if(pageNum >= 5){
+        return;
+      }
       setPageNum(pageNum + 1);
     }
   }, [inView, showList]);
+
   useEffect(() => {
     if(isMobileDeleteOpen){
       setTimeout(() => {
@@ -236,7 +241,7 @@ const HistoryContent = () => {
               {isMobile && (
                 <>
                   <S.MobileMenu src="/asset/MobileMenuDots.svg" onClick={openMobileMenu} />
-                  <MobileModal isOpen={isMobileMenuOpen} showRead={showRead} showNotRead={showNotRead} command={command} />
+                  <MobileMenuModal isOpen={isMobileMenuOpen} showRead={showRead} showNotRead={showNotRead} command={command} />
                 </>
               )}
             </S.MenuWrapper>

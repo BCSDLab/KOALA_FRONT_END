@@ -52,7 +52,7 @@ const ReadMail = () => {
     </svg>
   )
 }
-const MobileModal = ({ isOpen, showRead, showNotRead, command }) => {
+const MobileMenuModal = ({ isOpen, showRead, showNotRead, command }) => {
   return (
     <>
       {isOpen ? (
@@ -71,4 +71,4 @@ const MobileModal = ({ isOpen, showRead, showNotRead, command }) => {
   );
 };
 
-export default MobileModal;
+export default MobileMenuModal;
