@@ -33,11 +33,11 @@ const SettingKeyword = () => {
       <s.SelectTitle>알림음 선택</s.SelectTitle>
       <s.SelectBox>
         <s.SelectMenu>기본음</s.SelectMenu>
-        <s.ChevronDownImage src="asset/chevron-down.svg" />
+        <s.ChevronDownImage src="/asset/chevron-down.svg" />
       </s.SelectBox>
       <s.BrowserTitle>Web 브라우저 알림</s.BrowserTitle>
       <s.BrowserCheckContainer>
-        <s.ChromeImage src="asset/chrome.png" />
+        <s.ChromeImage src="/asset/chrome.png" />
         <s.ChromeName>Chrome</s.ChromeName>
         <s.ChromeCheckBox></s.ChromeCheckBox>
       </s.BrowserCheckContainer>
