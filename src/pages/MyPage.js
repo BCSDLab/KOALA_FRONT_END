@@ -69,8 +69,8 @@ const MyPage = () => {
   return (
     <MyPageContainer>
       <SideNavbar></SideNavbar>
+      {!mobile && <LoginButton />}
       <MyPageContent>
-        {!mobile && <LoginButton />}
         <UserInfo isToggle={toggle}>
           <MainText>설정</MainText>
           <MyInfo>내 정보</MyInfo>
@@ -115,6 +115,8 @@ const MyPage = () => {
 export default MyPage;
 
 const MyPageContainer = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     padding: 0 0 0 0;
@@ -123,6 +125,10 @@ const MyPageContainer = styled.div`
 `;
 
 const MyPageContent = styled.div`
+  width: calc(100% - 80px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 100%;
     hegith: ca1c(100%-300px);
@@ -130,11 +136,6 @@ const MyPageContent = styled.div`
 `;
 
 const UserInfo = styled.div`
-  margin: ${({ isToggle }) =>
-    isToggle
-      ? `121px 664px 181px 522px;`
-      : `121px 664px 181px 426px;
-  `};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 100%;
     margin: 0;

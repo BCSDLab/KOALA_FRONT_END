@@ -9,8 +9,7 @@ import SideNavMenu from './SideNavMenu';
 const Nav = styled.div`
   width: 80px;
   height: 100%;
-  margin-right: ${({ isSideMenu }) => !isSideMenu && '696px'};
-  padding: ${({ isSideMenu }) => (isSideMenu ? ` 40px 17px 0px;` : `40px 17px 91px;`)};
+  padding: 40px 17px 0px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
   background-color: ${(props) => props.theme.colors.white};
   display: flex;
@@ -31,8 +30,9 @@ const Nav = styled.div`
 `;
 
 const NavContainer = styled.div`
-  width: 350px;
-  height: 1110px;
+  width: 80px;
+  width: ${({ isSideMenu }) => (isSideMenu ? `80px;` : `0;`)};
+  height: 100vh;
   display: flex;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     display: flex;
@@ -109,12 +109,15 @@ const ChatImg = styled.img`
 const SettingImg = styled.img`
   width: 32px;
   height: 32px;
-  margin: ${({ isSideMenu }) =>
-    isSideMenu
-      ? `397px 0 0;`
-      : `40px 0;
-`};
   object-fit: contain;
+  position: absolute;
+  left: 24px;
+  ${({ isSideMenu }) =>
+    isSideMenu
+      ? `bottom: 85px;`
+      : `top: 356px;
+`};
+
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 23px;
     height: 23.3px;
@@ -171,7 +174,7 @@ const SideNavbar = () => {
   const [mobile] = useMatchMedia(queries);
 
   return (
-    <NavContainer>
+    <NavContainer isSideMenu={isOpen}>
       <Nav isSideMenu={isOpen}>
         <MenuButton onClick={toggleSideMenu}>
           <MenuImg src="/asset/MenuBtn.svg" alt="Vector" />
