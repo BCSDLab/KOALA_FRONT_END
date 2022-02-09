@@ -86,14 +86,15 @@ export const CheckBox = styled.div`
   border: 1px solid #c4c4c4;
   cursor: pointer;
 
-  ${(props) =>
-    props.checkAll &&
-    `
-  background-image:url('/asset/check.svg');
-  background-position:center;
-  `}
+  ${(props) => {
+    if (props.checkAll) {
+      return `
+        background-image:url('/asset/check.svg');
+        background-position:center;
+        `;
+    }
+  }};
 `;
-
 export const CheckBoxTitle = styled.span`
   font-size: 12px;
   margin-right: 40px;

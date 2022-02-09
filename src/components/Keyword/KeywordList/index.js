@@ -14,6 +14,7 @@ const KeywordList = ({
   searchButton,
   setKeywordSearch,
   setSearchButton,
+  setCheckAll,
   menu,
 }) => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const KeywordList = ({
 
   const onClickCheckSome = useCallback(
     (id) => {
+      setCheckAll(false);
       let newCheckListId = [...checkListId];
       if (checkListId.includes(id)) {
         newCheckListId = checkListId.filter((item) => {
@@ -37,7 +39,7 @@ const KeywordList = ({
         setCheckListId(newCheckListId);
       }
     },
-    [checkListId]
+    [checkListId, checkAll]
   );
 
   const onClickReadItem = (id, isRead) => {
@@ -114,7 +116,6 @@ const KeywordList = ({
               <S.MainCheckBox
                 onClick={() => onClickCheckSome(item.id)}
                 checkSome={checkListId.includes(item.id)}
-                checkAll={checkAll}
               ></S.MainCheckBox>
               <S.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.site)}</S.MainCheckBoxTitle>
               <a href={`${item.url}`} target="_blank">

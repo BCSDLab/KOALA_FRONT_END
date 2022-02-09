@@ -114,7 +114,6 @@ const KeywordFilterBar = () => {
 
         const startId = keywordList[0].id;
         const endId = keywordList[keywordList.length - 1].id;
-
         const query = makeDeleteQuery(startId, endId);
 
         dispatch(deleteKeywordList(query));
@@ -149,7 +148,9 @@ const KeywordFilterBar = () => {
       const listId = keywordList.map((keyword) => keyword.id);
       setCheckListId(listId);
     } else {
-      setCheckListId([]);
+      if (checkListId.length === 0) {
+        setCheckListId([]);
+      }
     }
   }, [checkAll]);
 
@@ -221,6 +222,8 @@ const KeywordFilterBar = () => {
         setCheckListId={setCheckListId}
         setKeywordSearch={setKeywordSearch}
         checkAll={checkAll}
+        setCheckAll={setCheckAll}
+        setCheckAll={setCheckAll}
         readNotification={readNotification}
         notReadNotification={notReadNotification}
         keywordSearch={keywordSearch}
