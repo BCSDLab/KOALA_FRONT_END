@@ -158,11 +158,6 @@ const UserInfoContent = styled.div`
 `;
 
 const UserInfo = styled.div`
-  margin: ${({ isToggle }) =>
-    isToggle
-      ? `121px 664px 181px 522px;`
-      : `121px 664px 181px 426px;
-  `};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 100%;
     height: calc(100% + 100px);
