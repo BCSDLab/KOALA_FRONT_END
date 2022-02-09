@@ -33,7 +33,7 @@ const KeywordPage = () => {
           <Route index element={<KeywordFilterBar />}></Route>
           <Route path="create" element={<AddKeyword />}></Route>
           <Route path="modify" element={<ModifyKeyword />}></Route>
-          <Route path="setting" element={<SettingKeyword />}></Route>
+          <Route path="mypage" element={<SettingKeyword />}></Route>
         </Routes>
       </Container>
     </>

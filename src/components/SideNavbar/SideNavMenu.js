@@ -20,7 +20,7 @@ const Extension = () => {
         </S.ChatLink>
       </S.ChatList>
       <S.SetList>
-        <S.Set to="setting">
+        <S.Set to="mypage">
           <S.SetText>설정</S.SetText>
         </S.Set>
         <S.Contact to="#">
