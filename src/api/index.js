@@ -50,6 +50,7 @@ export const historyAPI = {
   deleteHistoryList: (historyList) => logined.patch(`history?${historyList}`),
   readHistoryItem: (noticeId) => logined.put(`/history?notice-id=${noticeId}`),
   moveToScrap: (idList) => logined.post(`/scrap`, idList),
+  undoHistoryList: (idList) => logined.patch(`history/undo?${idList}`)
 };
 
 export const scrapAPI = {

@@ -2,7 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import HistoryCheckBox from './HisoryCheckBox';
 import * as S from './History.Style';
-import { getHistoryList, deleteHistoryList, readHistoryItem, moveToScrap, clearHistoryList } from 'store/history';
+import { getHistoryList, deleteHistoryList, readHistoryItem, moveToScrap, clearHistoryList, undoHistoryList } from 'store/history';
 import { useDispatch, useSelector } from 'react-redux';
 import PopUp from './HistoryPopup';
 import { MENU_ITEM } from 'constant';

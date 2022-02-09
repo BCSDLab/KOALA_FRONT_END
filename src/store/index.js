@@ -5,7 +5,7 @@ import history, {
   deleteHistoryListSaga,
   readHistoryItemSaga,
   moveToScrapItemSaga,
-  clearHistoryList,
+  undoHistoryListSaga
 } from './history';
 import scrap, { getScrapListSaga, getMemoSaga, deleteScrapItemSaga, fixMemoSaga, writeMemoSaga } from './scrap';
 import modifyKeyword, { getKeywordRecommendationSaga, patchModifyKeywordSaga } from './modifyKeyword';
@@ -52,6 +52,7 @@ export function* rootSaga() {
     getHistoryListSaga(),
     deleteHistoryListSaga(),
     readHistoryItemSaga(),
+    undoHistoryListSaga(),
     moveToScrapItemSaga(),
     getScrapListSaga(),
     getMemoSaga(),
