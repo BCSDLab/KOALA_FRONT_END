@@ -19,7 +19,7 @@ export const deleteHistoryList = createAction(DELETEHISTORYLIST, (historyList) =
 export const readHistoryItem = createAction(READHISTRORYITEM, (noticeId) => noticeId);
 export const moveToScrap = createAction(MOVETOSCRAP, (idList) => idList);
 export const clearHistoryList = createAction(CLEARHISTORYlIST);
-export const undoHistoryList = createAction(UNDOHISTORYLIST);
+export const undoHistoryList = createAction(UNDOHISTORYLIST,(idList) => idList);
 
 const getHistorySaga = createRequestSaga(GETHISTORYLIST, historyAPI.getHistoryList);
 export function* getHistoryListSaga() {
@@ -52,6 +52,7 @@ const initialState = {
   deleteHistoryResponse: false,
   readHistoryItemResponse: false,
   moveToScrapResponse: false,
+  undoHistoryListResponse: false
 };
 
 const history = handleActions(
@@ -62,7 +63,6 @@ const history = handleActions(
       getHistoryListResponse: true,
       deleteHistoryResponse: false,
       readHistoryItemResponse: false,
-      moveToScrapResponse: false,
       undoHistoryListResponse: false
     }),
     [GETHISTORYLIST_FAILURE]: (state) => ({
@@ -71,26 +71,34 @@ const history = handleActions(
       getHistoryListResponse: false,
       deleteHistoryResponse: false,
       readHistoryItemResponse: false,
+      undoHistoryListResponse: false
     }),
 
-    [DELETEHISTORYLIST_SUCCESS]: () => ({
+    [DELETEHISTORYLIST_SUCCESS]: (state) => ({
+      ...state,
+      historyList:[],
       deleteHistoryResponse: true,
     }),
-    [DELETEHISTORYLIST_FAILURE]: () => ({
+    [DELETEHISTORYLIST_FAILURE]: (state) => ({
+      ...state,
       deleteHistoryResponse: false,
     }),
 
-    [READHISTRORYITEM_SUCCESS]: () => ({
+    [READHISTRORYITEM_SUCCESS]: (state) => ({
+      ...state,
       readHistoryItemResponse: true,
     }),
-    [READHISTRORYITEM_FAILURE]: () => ({
+    [READHISTRORYITEM_FAILURE]: (state) => ({
+      ...state,
       readHistoryItemResponse: false,
     }),
 
-    [MOVETOSCRAP_SUCCESS]: () => ({
+    [MOVETOSCRAP_SUCCESS]: (state) => ({
+      ...state,
       moveToScrapResponse: true,
     }),
-    [MOVETOSCRAP_FAILURE]: () => ({
+    [MOVETOSCRAP_FAILURE]: (state) => ({
+      ...state,
       moveToScrapResponse: false,
     }),
 
@@ -99,10 +107,13 @@ const history = handleActions(
       historyList: [],
     }),
 
-    [UNDOHISTORYLIST_SUCCESS]: () => ({
+    [UNDOHISTORYLIST_SUCCESS]: (state) => ({
+      ...state,
+      historyList:[],
       undoHistoryListResponse: true
     }),
-    [UNDOHISTORYLIST_FAILURE]: () =>({
+    [UNDOHISTORYLIST_FAILURE]: (state) =>({
+      ...state,
       undoHistoryListResponse: false
     })
   },

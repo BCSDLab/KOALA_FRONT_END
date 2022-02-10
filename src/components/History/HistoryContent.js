@@ -29,7 +29,7 @@ const HistoryContent = () => {
   const [showList, setShowList] = useState([]);
   const [command, setCommand] = useState(null);
   const [checkedList, setCheckedList] = useState([]);
-  const [pageNum, setPageNum] = useState(1);
+  const [pageNum, setPageNum] = useState([1]);
   const [isLoading, setLoading] = useState(false);
   const [isPopOpen, setOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenu] = useState(false);
@@ -63,7 +63,6 @@ const HistoryContent = () => {
         });
         setUndoList(checkedList);
         setCheckedList([]);
-        setPageNum(1);
       } catch (e) {
         console.log(e);
       }finally{
@@ -85,8 +84,8 @@ const HistoryContent = () => {
           deleteMailQuery += `notice-id=${id}&`;
         });
         dispatch(deleteHistoryList(deleteMailQuery));
+        setUndoList([checkedList]);
         setCheckedList([]);
-        setPageNum(1);
       }catch(e){
         console.log(e)
       }finally{
@@ -130,28 +129,31 @@ const HistoryContent = () => {
   };
   const undoDelete = () => {
     var undoMailQuery = '';
-    undoList.forEach((id) => {
-      undoMailQuery += `notice-id=${id}&`;
-    });
-    dispatch(undoHistoryList(undoMailQuery));
-    setUndoList([]);
-    setPageNum(1);
+    try{
+      undoList.forEach((id) => {
+        undoMailQuery += `notice-id=${id}&`;
+      });
+      console.log(undoMailQuery)
+      dispatch(undoHistoryList(undoMailQuery));
+
+    }catch(e){
+      console.log(e)
+    }finally{
+      setUndoList([]);
+      setList([]);
+      setMobileDeleteModal(false);
+    }
   }
   const undoMoveScrap = () => {
     console.log('work', undoList);
-    // dispatch(deleteScrapItem(undoList));
-    // setUndoList([]);
+    dispatch(deleteScrapItem(undoList));
+    setUndoList([]);
   }
   useEffect(() => {
     if (userInfo.isLoggedIn || deleteHistoryResponse || readHistoryItemResponse || moveToScrapResponse) {
-      if (pageNum === 1) {
-        dispatch(clearHistoryList());
-      }
-      setLoading(true);
-      dispatch(getHistoryList(pageNum));
+      dispatch(getHistoryList(pageNum[0]));
     }
-    setLoading(false);
-  }, [userInfo.isLoggedIn, deleteHistoryResponse, readHistoryItemResponse, pageNum, undoHistoryListResponse]);
+  }, [userInfo.isLoggedIn, pageNum]);
 
   useEffect(() => {
     if (!historyList || historyList.length <= 0) {
@@ -176,13 +178,13 @@ const HistoryContent = () => {
   }, [alertList, command]);
 
   useEffect(() => {
-    if (inView && !isLoading) {
-      if(pageNum >= 5){
-        return;
-      }
-      setPageNum(pageNum + 1);
+    if(historyList.length === 0){
+      setPageNum([1])
     }
-  }, [inView, showList]);
+    if (inView) {
+      setPageNum([pageNum[0] + 1]);
+    }
+  }, [inView, readHistoryItemResponse, deleteHistoryResponse, undoHistoryListResponse, historyList]);
 
   useEffect(() => {
     if(isMobileDeleteOpen){
@@ -260,7 +262,7 @@ const HistoryContent = () => {
                       <S.Sender>{MENU_ITEM[MENU_ITEM.findIndex((site) => site.id === mail.site)].title}</S.Sender>
                       {isMobile && <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>}
                     </S.AlertDetail>
-                    <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={() => clickMail(mail.id)}>
+                    <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={(e) => clickMail(mail.id)}>
                       {mail.title}
                     </S.AlertTitle>
                   </S.AlertContent>
@@ -284,7 +286,7 @@ const HistoryContent = () => {
                         <S.Sender>{MENU_ITEM[MENU_ITEM.findIndex((site) => site.id === mail.site)].title}</S.Sender>
                         {isMobile && <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>}
                       </S.AlertDetail>
-                      <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={() => clickMail(mail.id)}>
+                      <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={(e) => clickMail(mail.id)}>
                         {mail.title}
                       </S.AlertTitle>
                     </S.AlertContent>
