@@ -83,7 +83,7 @@ const FindPw = () => {
 
   return (
     <FindPasswordContainer>
-      {authSuccess ? (
+      {!authSuccess ? (
         <>
           {!desktop ? <MobileTopBar content="비밀번호찾기" /> : <S.Title>비밀번호 찾기</S.Title>}
 
