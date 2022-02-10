@@ -6,7 +6,7 @@ import * as S from 'components/Auth/styles';
 import PwdInput from 'components/Auth/Shared/PwdInput';
 import CommonInput from 'components/Auth/Shared/CommonInput';
 import { ACCOUNT_ERROR, EMAIL_ERROR, NICKNAME_ERROR } from 'constant';
-import { signUp, signUpRegisterSaga } from 'store/auth';
+import { signUp } from 'store/auth';
 import TitleSection from 'components/Shared/TitleSection';
 import useMatchMedia from 'hooks/useMatchMedia';
 import theme from 'theme';
@@ -20,12 +20,9 @@ const NextButton = styled(Button)`
 `;
 
 const queries = ['(max-width: ' + theme.deviceSizes.mobileL + ')'];
-
 const RegisterForm = () => {
   const dispatch = useDispatch();
-  // const errorCode = useSelector((state) => state.auth.errorCode);
-
-  const { authError, errorCode } = useSelector((state) => state.auth);
+  const { errorCode } = useSelector((state) => state.auth);
 
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
@@ -54,7 +51,9 @@ const RegisterForm = () => {
     const find_email = email;
     dispatch(signUp({ account, password, find_email, nickName }));
 
-    console.log(errorCode);
+    if (errorCode == 'undefined') {
+      alert('완료');
+    }
   };
 
   const onChangeAccount = (e) => {
@@ -69,6 +68,7 @@ const RegisterForm = () => {
       setIsAccount(true);
     }
   };
+
   const onChangePassword = useCallback((e) => {
     const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,18}$/;
     const passwordCurrent = e.target.value;

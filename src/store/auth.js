@@ -169,12 +169,10 @@ const auth = handleActions(
       ...payload,
       errorCode: '',
     }),
-    [SIGNUP_FALIURE]: (state, { payload }) => {
-      console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>', payload);
+    [SIGNUP_FALIURE]: (state, { payload: error }) => {
       return {
         ...state,
-        authError: payload.error,
-        errorCode: payload.error.code,
+        errorCode: error.response.data.code,
       };
     },
     [SEND_FIND_PASSWORD_SUCCESS]: (state, { payload }) => ({
