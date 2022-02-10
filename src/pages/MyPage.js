@@ -69,7 +69,7 @@ const MyPage = () => {
 
   return (
     <MyPageContainer>
-      <SideNavbar></SideNavbar>
+      <SideNavbar />
       <MyPageContent>
         {!mobile && <LoginButton />}
         <UserInfo isToggle={toggle}>
@@ -294,6 +294,7 @@ const UserNickname = styled.div`
   font-weight: bold;
   text-align: center;
   color: ${(props) => props.theme.colors.darkgray};
+
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 360px;
     height: 27px;
@@ -304,7 +305,6 @@ const UserNickname = styled.div`
     font-size: 18px;
     font-weight: bold;
     text-align: center;
-    color: ${(props) => props.theme.colors.gray};
   }
 `;
 
