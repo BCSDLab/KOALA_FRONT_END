@@ -133,7 +133,6 @@ const HistoryContent = () => {
       undoList.forEach((id) => {
         undoMailQuery += `notice-id=${id}&`;
       });
-      console.log(undoMailQuery)
       dispatch(undoHistoryList(undoMailQuery));
 
     }catch(e){
@@ -145,7 +144,6 @@ const HistoryContent = () => {
     }
   }
   const undoMoveScrap = () => {
-    console.log('work', undoList);
     dispatch(deleteScrapItem(undoList));
     setUndoList([]);
   }
