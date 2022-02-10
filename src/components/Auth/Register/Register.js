@@ -1,15 +1,17 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import Button from 'components/Shared/Button';
 import * as S from 'components/Auth/styles';
 import PwdInput from 'components/Auth/Shared/PwdInput';
 import CommonInput from 'components/Auth/Shared/CommonInput';
-import { ACCOUNT_ERROR, EMAIL_ERROR, NICKNAME_ERROR } from 'constant';
+import { ACCOUNT_ERROR, EMAIL_ERROR, NICKNAME_ERROR, LOGIN } from 'constant';
 import { signUp } from 'store/auth';
 import TitleSection from 'components/Shared/TitleSection';
 import useMatchMedia from 'hooks/useMatchMedia';
 import theme from 'theme';
+import AlertModal from 'components/Shared/AlertModal';
 
 const ContentDescSection = styled(S.ContentDescSection)`
   margin-bottom: 24px;
@@ -22,6 +24,7 @@ const NextButton = styled(Button)`
 const queries = ['(max-width: ' + theme.deviceSizes.mobileL + ')'];
 const RegisterForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { errorCode } = useSelector((state) => state.auth);
 
   const [account, setAccount] = useState('');
@@ -43,17 +46,20 @@ const RegisterForm = () => {
   const [isNickName, setIsNickName] = useState(false);
 
   const [isDisabled, setIsDisabled] = useState(true);
-
+  const [visible, setVisible] = useState(false);
   const [mobile] = useMatchMedia(queries);
 
   const onSubmit = (e) => {
     e.preventDefault();
     const find_email = email;
     dispatch(signUp({ account, password, find_email, nickName }));
-
-    if (errorCode == 'undefined') {
-      alert('완료');
+    if (errorCode === '' && isAccount && isPassword && isPasswordConfirm && isEmail && isNickName) {
+      setVisible(true);
     }
+  };
+
+  const onConfirm = () => {
+    navigate('/auth');
   };
 
   const onChangeAccount = (e) => {
@@ -148,74 +154,85 @@ const RegisterForm = () => {
   }, [errorCode]);
 
   return (
-    <S.ContentWrapper>
-      <TitleSection title="회원가입" />
-      <S.ContentSection>
-        <ContentDescSection>
-          <S.DescTitle>회원정보 입력</S.DescTitle>
-          <S.DescText>사용할 회원 정보를 입력해주세요.</S.DescText>
-        </ContentDescSection>
+    <>
+      <S.ContentWrapper>
+        <TitleSection title="회원가입" />
+        <S.ContentSection>
+          <ContentDescSection>
+            <S.DescTitle>회원정보 입력</S.DescTitle>
+            <S.DescText>사용할 회원 정보를 입력해주세요.</S.DescText>
+          </ContentDescSection>
 
-        <form onSubmit={onSubmit}>
-          <CommonInput
-            name="account"
-            value={account}
-            onChange={onChangeAccount}
-            placeholder="아이디"
-            error={accountMessage}
-            isError={accountMessage !== ''}
-            errorMessage={accountMessage}
-          />
-          <PwdInput
-            name="password"
-            value={password}
-            onChange={onChangePassword}
-            placeholder={mobile ? '비밀번호 (영문, 숫자, 특수기호 포함 8자~15자)' : '비밀번호 입력'}
-            error={passwordMessage}
-            isError={passwordMessage !== ''}
-            errorMessage={passwordMessage}
-          />
-          <PwdInput
-            name="passwordConfirm"
-            value={passwordConfirm}
-            onChange={onChangePasswordConfirm}
-            placeholder="비밀번호 확인"
-            error={passwordConfirmMessage}
-            isError={passwordConfirmMessage !== ''}
-            errorMessage={passwordConfirmMessage}
-          />
-          <CommonInput
-            name="email"
-            value={email}
-            onChange={onChangeEmail}
-            placeholder="이메일"
-            error={emailMessage}
-            isError={emailMessage !== ''}
-            errorMessage={emailMessage}
-          />
-          <CommonInput
-            name="nickName"
-            value={nickName}
-            onChange={onChangeNickName}
-            placeholder="닉네임"
-            error={nickNameMessage}
-            isError={nickNameMessage !== ''}
-            errorMessage={nickNameMessage}
-          />
+          <form onSubmit={onSubmit}>
+            <CommonInput
+              name="account"
+              value={account}
+              onChange={onChangeAccount}
+              placeholder="아이디"
+              error={accountMessage}
+              isError={accountMessage !== ''}
+              errorMessage={accountMessage}
+            />
+            <PwdInput
+              name="password"
+              value={password}
+              onChange={onChangePassword}
+              placeholder={mobile ? '비밀번호 (영문, 숫자, 특수기호 포함 8자~15자)' : '비밀번호 입력'}
+              error={passwordMessage}
+              isError={passwordMessage !== ''}
+              errorMessage={passwordMessage}
+            />
+            <PwdInput
+              name="passwordConfirm"
+              value={passwordConfirm}
+              onChange={onChangePasswordConfirm}
+              placeholder="비밀번호 확인"
+              error={passwordConfirmMessage}
+              isError={passwordConfirmMessage !== ''}
+              errorMessage={passwordConfirmMessage}
+            />
+            <CommonInput
+              name="email"
+              value={email}
+              onChange={onChangeEmail}
+              placeholder="이메일"
+              error={emailMessage}
+              isError={emailMessage !== ''}
+              errorMessage={emailMessage}
+            />
+            <CommonInput
+              name="nickName"
+              value={nickName}
+              onChange={onChangeNickName}
+              placeholder="닉네임"
+              error={nickNameMessage}
+              isError={nickNameMessage !== ''}
+              errorMessage={nickNameMessage}
+            />
 
-          <S.BottomProgressBar>
-            <S.ProgressBarSection>
-              <S.ProgressCircle />
-              <S.ProgressCircle isOnProgress={true} />
-            </S.ProgressBarSection>
+            <S.BottomProgressBar>
+              <S.ProgressBarSection>
+                <S.ProgressCircle />
+                <S.ProgressCircle isOnProgress={true} />
+              </S.ProgressBarSection>
 
-            <NextButton disabled={isDisabled} type={isDisabled ? 'button' : 'submit'}>
-              다음
-            </NextButton>
-          </S.BottomProgressBar>
-        </form>
-      </S.ContentSection>
-    </S.ContentWrapper>
+              <NextButton disabled={isDisabled} type={isDisabled ? 'button' : 'submit'}>
+                다음
+              </NextButton>
+            </S.BottomProgressBar>
+          </form>
+        </S.ContentSection>
+      </S.ContentWrapper>
+      <AlertModal
+        type="confirm"
+        title="회원가입이 되었습니다."
+        desc="환영합니다.
+              지금 바로 Koala를 이용해 볼까요?"
+        confirmText="로그인하러 가기"
+        onConfirm={onConfirm}
+        visible={visible}
+      />
+    </>
   );
 };
 

@@ -109,7 +109,7 @@ const MyPage = () => {
                 onConfirm={onConfirm}
                 onCancel={onCancel}
                 visible={dialog}
-              ></Dialog>
+              />
               <Resign onClick={resign}>탈퇴하기</Resign>
             </UserInfoContent>
           </UserInfoContainer>
