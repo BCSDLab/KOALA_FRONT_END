@@ -14,14 +14,16 @@ const stringToDate = (date) => {
   return new Date(Number(sYear), Number(sMonth) - 1, Number(sDate));
 };
 const makeStringToNewLine = (text) => {
-  const fixedText = text.split('').map((char) => {
-    if (char == '\n') {
-      return <br />;
-    } else {
-      return char;
-    }
-  });
-  return fixedText;
+  if(text){
+    const fixedText = text.split('').map((char) => {
+      if (char == '\n') {
+        return <br />;
+      } else {
+        return char;
+      }
+    });
+    return fixedText;
+  }
 };
 const findMemoInAlert = (memoList, alert) => {
   return memoList
