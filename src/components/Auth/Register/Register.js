@@ -25,7 +25,7 @@ const queries = ['(max-width: ' + theme.deviceSizes.mobileL + ')'];
 const RegisterForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { errorCode } = useSelector((state) => state.auth);
+  const { errorCode, authError } = useSelector((state) => state.auth);
 
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
@@ -53,9 +53,7 @@ const RegisterForm = () => {
     e.preventDefault();
     const find_email = email;
     dispatch(signUp({ account, password, find_email, nickName }));
-    if (errorCode === '' && isAccount && isPassword && isPasswordConfirm && isEmail && isNickName) {
-      setVisible(true);
-    }
+    console.dir(errorCode, authError);
   };
 
   const onConfirm = () => {
@@ -150,6 +148,9 @@ const RegisterForm = () => {
     } else if (errorCode == EMAIL_ERROR) {
       setEmailMessage('이미 존재하는 이메일 입니다.');
       setIsEmail(false);
+    }
+    if (errorCode === '' && isAccount && isPassword && isPasswordConfirm && isEmail && isNickName) {
+      setVisible(true);
     }
   }, [errorCode]);
 
