@@ -6,9 +6,10 @@ import * as S from 'components/Auth/styles';
 import PwdInput from 'components/Auth/Shared/PwdInput';
 import CommonInput from 'components/Auth/Shared/CommonInput';
 import { ACCOUNT_ERROR, EMAIL_ERROR, NICKNAME_ERROR } from 'constant';
-
 import { signUp } from 'store/auth';
 import TitleSection from 'components/Shared/TitleSection';
+import useMatchMedia from 'hooks/useMatchMedia';
+import theme from 'theme';
 
 const ContentDescSection = styled(S.ContentDescSection)`
   margin-bottom: 24px;
@@ -17,6 +18,8 @@ const ContentDescSection = styled(S.ContentDescSection)`
 const NextButton = styled(Button)`
   margin-top: 0;
 `;
+
+const queries = ['(max-width: ' + theme.deviceSizes.mobileL + ')'];
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -41,6 +44,8 @@ const RegisterForm = () => {
   const [isNickName, setIsNickName] = useState(false);
 
   const [isDisabled, setIsDisabled] = useState(true);
+
+  const [mobile] = useMatchMedia(queries);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -161,7 +166,7 @@ const RegisterForm = () => {
             name="password"
             value={password}
             onChange={onChangePassword}
-            placeholder="비밀번호 입력"
+            placeholder={mobile ? '비밀번호 (영문, 숫자, 특수기호 포함 8자~15자)' : '비밀번호 입력'}
             error={passwordMessage}
             isError={passwordMessage !== ''}
             errorMessage={passwordMessage}
