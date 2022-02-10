@@ -43,7 +43,7 @@ const RegisterDoc = ({ checked }) => {
 
   return (
     <S.ContentWrapper>
-      <TitleSection />
+      <TitleSection title="회원가입" />
 
       <S.ContentSection>
         <S.ContentDescSection>

@@ -17,22 +17,7 @@ const BackButton = styled.button`
   }
 `;
 
-const getTitle = () => {
-  const path = window.location.pathname;
-  const CREATE_REGEXP = /^([/]auth[/]create)(.*[a-zA-Z])$/;
-
-  if (CREATE_REGEXP.test(path)) return '회원가입';
-
-  switch (path) {
-    case '/auth/findId':
-      return '아이디 찾기';
-    case '/auth/findPwd':
-      return '비밀번호 찾기';
-    default:
-  }
-};
-
-const TitleSection = () => {
+const TitleSection = ({ title }) => {
   const navigate = useNavigate();
 
   const shiftBack = () => {
@@ -42,7 +27,7 @@ const TitleSection = () => {
   return (
     <S.Title>
       <BackButton onClick={shiftBack} />
-      {getTitle()}
+      {title}
     </S.Title>
   );
 };

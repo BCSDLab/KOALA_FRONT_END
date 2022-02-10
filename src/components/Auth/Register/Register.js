@@ -140,7 +140,7 @@ const RegisterForm = () => {
 
   return (
     <S.ContentWrapper>
-      <TitleSection />
+      <TitleSection title="회원가입" />
       <S.ContentSection>
         <ContentDescSection>
           <S.DescTitle>회원정보 입력</S.DescTitle>
