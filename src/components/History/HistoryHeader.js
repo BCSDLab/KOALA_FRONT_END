@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import theme from '../../theme';
 const Header = styled.div`
   display: flex;
-  width: 1284px;
+  width: 1294px;
   padding-bottom: 31px;
   border-bottom: 1px solid #eee;
   @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
