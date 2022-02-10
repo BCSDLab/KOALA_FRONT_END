@@ -6,7 +6,7 @@ import * as S from 'components/Auth/styles';
 import PwdInput from 'components/Auth/Shared/PwdInput';
 import CommonInput from 'components/Auth/Shared/CommonInput';
 import { ACCOUNT_ERROR, EMAIL_ERROR, NICKNAME_ERROR } from 'constant';
-import { signUp } from 'store/auth';
+import { signUp, signUpRegisterSaga } from 'store/auth';
 import TitleSection from 'components/Shared/TitleSection';
 import useMatchMedia from 'hooks/useMatchMedia';
 import theme from 'theme';
@@ -23,7 +23,9 @@ const queries = ['(max-width: ' + theme.deviceSizes.mobileL + ')'];
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
-  const errorCode = useSelector((state) => state.auth.errorCode);
+  // const errorCode = useSelector((state) => state.auth.errorCode);
+
+  const { authError, errorCode } = useSelector((state) => state.auth);
 
   const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
@@ -51,6 +53,8 @@ const RegisterForm = () => {
     e.preventDefault();
     const find_email = email;
     dispatch(signUp({ account, password, find_email, nickName }));
+
+    console.log(errorCode);
   };
 
   const onChangeAccount = (e) => {
