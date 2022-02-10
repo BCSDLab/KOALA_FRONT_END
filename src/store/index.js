@@ -18,7 +18,7 @@ import history, {
   deleteHistoryListSaga,
   readHistoryItemSaga,
   moveToScrapItemSaga,
-  undoHistoryListSaga
+  undoHistoryListSaga,
 } from './history';
 import scrap, { getScrapListSaga, getMemoSaga, deleteScrapItemSaga, fixMemoSaga, writeMemoSaga } from './scrap';
 import loading from './loading';
@@ -31,7 +31,6 @@ import keyword, {
   moveKeywordItemSaga,
   readKeywordItemSaga,
 } from './keyword';
-
 
 const rootReducer = combineReducers({
   auth,

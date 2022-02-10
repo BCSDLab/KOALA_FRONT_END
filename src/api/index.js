@@ -33,7 +33,6 @@ export const changeUserProfile = (file) =>
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 
-
 export const deleteUser = () => logined.patch('user/delete');
 
 export const getUserInfo = () => logined.get('user/my');
@@ -45,13 +44,13 @@ export const authUniversityEmail = ({ email, secret }) =>
 
 export const signUp = ({ account, password, find_email, nickname }) =>
   logined.post('/user/sing-in', { account, password, find_email, nickname });
-  
+
 export const historyAPI = {
   getHistoryList: (pageNum) => logined.get(`/history?pageNum=${pageNum}`),
   deleteHistoryList: (historyList) => logined.patch(`history?${historyList}`),
   readHistoryItem: (noticeId) => logined.put(`/history?notice-id=${noticeId}`),
   moveToScrap: (idList) => logined.post(`/scrap`, idList),
-  undoHistoryList: (idList) => logined.patch(`history/undo?${idList}`)
+  undoHistoryList: (idList) => logined.patch(`history/undo?${idList}`),
 };
 
 export const scrapAPI = {

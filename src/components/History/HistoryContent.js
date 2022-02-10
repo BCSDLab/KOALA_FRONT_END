@@ -2,7 +2,14 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import HistoryCheckBox from './HisoryCheckBox';
 import * as S from './History.Style';
-import { getHistoryList, deleteHistoryList, readHistoryItem, moveToScrap, clearHistoryList, undoHistoryList } from 'store/history';
+import {
+  getHistoryList,
+  deleteHistoryList,
+  readHistoryItem,
+  moveToScrap,
+  clearHistoryList,
+  undoHistoryList,
+} from 'store/history';
 import { deleteScrapItem } from 'store/scrap';
 import { useDispatch, useSelector } from 'react-redux';
 import PopUp from './HistoryPopup';
@@ -10,7 +17,7 @@ import { MENU_ITEM } from 'constant';
 import { useMediaQuery } from 'react-responsive';
 import theme from '../../theme';
 import MobileMenuModal from './MobileMenuModal';
-import {MobileDeleteModal, MobileMoveScrapModal} from './MobilePopUpModal';
+import { MobileDeleteModal, MobileMoveScrapModal } from './MobilePopUpModal';
 const formatingDate = (date) => {
   const newDate = new Date(date);
   const month = newDate.getMonth() + 1;
@@ -20,9 +27,8 @@ const formatingDate = (date) => {
   return `${month + '/' + day} - ${(hour === 0 ? '00' : hour) + ':' + minute}`;
 };
 const HistoryContent = () => {
-  const { historyList, deleteHistoryResponse, readHistoryItemResponse, moveToScrapResponse, undoHistoryListResponse } = useSelector(
-    (state) => state.history
-  );
+  const { historyList, deleteHistoryResponse, readHistoryItemResponse, moveToScrapResponse, undoHistoryListResponse } =
+    useSelector((state) => state.history);
   const userInfo = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [alertList, setList] = useState([]);
@@ -65,10 +71,10 @@ const HistoryContent = () => {
         setCheckedList([]);
       } catch (e) {
         console.log(e);
-      }finally{
-        if(isMobile){
+      } finally {
+        if (isMobile) {
           setMobileScrapModal(true);
-        }else{
+        } else {
           setOpen(true);
         }
       }
@@ -78,7 +84,7 @@ const HistoryContent = () => {
   };
   const deleteMail = () => {
     if (checkedList.length > 0) {
-      try{
+      try {
         var deleteMailQuery = '';
         checkedList.forEach((id) => {
           deleteMailQuery += `notice-id=${id}&`;
@@ -86,10 +92,10 @@ const HistoryContent = () => {
         dispatch(deleteHistoryList(deleteMailQuery));
         setUndoList([checkedList]);
         setCheckedList([]);
-      }catch(e){
-        console.log(e)
-      }finally{
-        if(isMobile){
+      } catch (e) {
+        console.log(e);
+      } finally {
+        if (isMobile) {
           setMobileDeleteModal(true);
         }
       }
@@ -129,24 +135,23 @@ const HistoryContent = () => {
   };
   const undoDelete = () => {
     var undoMailQuery = '';
-    try{
+    try {
       undoList.forEach((id) => {
         undoMailQuery += `notice-id=${id}&`;
       });
       dispatch(undoHistoryList(undoMailQuery));
-
-    }catch(e){
-      console.log(e)
-    }finally{
+    } catch (e) {
+      console.log(e);
+    } finally {
       setUndoList([]);
       setList([]);
       setMobileDeleteModal(false);
     }
-  }
+  };
   const undoMoveScrap = () => {
     dispatch(deleteScrapItem(undoList));
     setUndoList([]);
-  }
+  };
   useEffect(() => {
     if (userInfo.isLoggedIn || deleteHistoryResponse || readHistoryItemResponse || moveToScrapResponse) {
       dispatch(getHistoryList(pageNum[0]));
@@ -176,8 +181,8 @@ const HistoryContent = () => {
   }, [alertList, command]);
 
   useEffect(() => {
-    if(historyList.length === 0){
-      setPageNum([1])
+    if (historyList.length === 0) {
+      setPageNum([1]);
     }
     if (inView) {
       setPageNum([pageNum[0] + 1]);
@@ -185,18 +190,18 @@ const HistoryContent = () => {
   }, [inView, readHistoryItemResponse, deleteHistoryResponse, undoHistoryListResponse, historyList]);
 
   useEffect(() => {
-    if(isMobileDeleteOpen){
+    if (isMobileDeleteOpen) {
       setTimeout(() => {
         setMobileDeleteModal(false);
         setUndoList([]);
       }, 4000);
-    }else if(isMobileScrapOpen){
+    } else if (isMobileScrapOpen) {
       setTimeout(() => {
         setMobileScrapModal(false);
         setUndoList([]);
       }, 4000);
     }
-  },[isMobileDeleteOpen, isMobileScrapOpen]);
+  }, [isMobileDeleteOpen, isMobileScrapOpen]);
   return (
     <>
       <S.PageWrapper onClick={isMobile ? closeMobileMenu : null}>
@@ -227,21 +232,27 @@ const HistoryContent = () => {
                 <S.MenuLogo src="/asset/Storage.svg" />
                 <S.MenuName>{!isMobile ? '보관함으로이동' : '보관'}</S.MenuName>
                 <div onClick={(e) => e.stopPropagation()}>
-                {(isMobile && isMobileScrapOpen)&&<MobileMoveScrapModal numberAlert={undoList.length} undo={undoMoveScrap}/>}
+                  {isMobile && isMobileScrapOpen && (
+                    <MobileMoveScrapModal numberAlert={undoList.length} undo={undoMoveScrap} />
+                  )}
                 </div>
-               
               </S.Menues>
               <S.Menues onClick={() => deleteMail()}>
                 <S.MenuLogo src="/asset/Delete.svg" />
                 <S.MenuName>삭제</S.MenuName>
                 <div onClick={(e) => e.stopPropagation()}>
-                {(isMobile && isMobileDeleteOpen)&&<MobileDeleteModal undo={undoDelete} />}
+                  {isMobile && isMobileDeleteOpen && <MobileDeleteModal undo={undoDelete} />}
                 </div>
               </S.Menues>
               {isMobile && (
                 <>
                   <S.MobileMenu src="/asset/MobileMenuDots.svg" onClick={openMobileMenu} />
-                  <MobileMenuModal isOpen={isMobileMenuOpen} showRead={showRead} showNotRead={showNotRead} command={command} />
+                  <MobileMenuModal
+                    isOpen={isMobileMenuOpen}
+                    showRead={showRead}
+                    showNotRead={showNotRead}
+                    command={command}
+                  />
                 </>
               )}
             </S.MenuWrapper>
