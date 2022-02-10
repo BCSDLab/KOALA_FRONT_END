@@ -25,14 +25,14 @@ const slideUp = keyframes`
         transition: all .3s ease-out;
     }
     to {
-        transform: translateY(70px);
+        transform: translateY(-75px);
         transition: all .3s ease-out;
     }
 `;
 
 const slideDown = keyframes`
     from {
-        transform: translateY(70px);
+        transform: translateY(-75px);
         transition: all .3s ease-out;
     }
     to {
@@ -41,9 +41,20 @@ const slideDown = keyframes`
     }
 `;
 
+const AlertModalWrapper = styled.div`
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 const AlertModalBlock = styled.div`
   width: calc(100% - 8px);
-  max-width: 376px;
+  max-width: 368px;
   height: auto;
   min-height: 148px;
   padding: 24px 24px 16px;
@@ -56,7 +67,6 @@ const AlertModalBlock = styled.div`
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   position: relative;
-  left: 4px;
   z-index: 200;
   ${(props) =>
     props.disappear &&
@@ -130,16 +140,18 @@ const AlertModal = ({ title, desc, confirmText, onConfirm, onCancel, visible, ty
 
   if (!localVisible && !animate) return null;
   return (
-    <AlertModalBlock disappear={!visible} length={length} onKeyPress={handleKeyPress} ref={alertModalRef}>
-      <Title>{title}</Title>
-      <Description>{desc}</Description>
+    <AlertModalWrapper>
+      <AlertModalBlock disappear={!visible} length={length} onKeyPress={handleKeyPress} ref={alertModalRef}>
+        <Title>{title}</Title>
+        <Description>{desc}</Description>
 
-      <ButtonGroup>
-        <ConfirmButton type={type} onClick={onConfirm}>
-          {confirmText}
-        </ConfirmButton>
-      </ButtonGroup>
-    </AlertModalBlock>
+        <ButtonGroup>
+          <ConfirmButton type={type} onClick={onConfirm}>
+            {confirmText}
+          </ConfirmButton>
+        </ButtonGroup>
+      </AlertModalBlock>
+    </AlertModalWrapper>
   );
 };
 
