@@ -141,13 +141,24 @@ export const HistoryText = styled(MenuTitle)`
   margin: 27.5px 194px 27.5px 24px;
 `;
 
-export const ChatList = styled(List)``;
+export const ChatList = styled(List)`
+  display: flex;
+  align-items: center;
+`;
 
-export const ChatLink = styled(Link)``;
+export const ChatLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  margin-top: 15.5px;
+  width: 270px;
+  height: 44px;
+  background-color: ${(props) => props.current && props.theme.colors.darkgray};
+`;
 
 export const ChatText = styled(MenuTitle)`
   font-size: 14px;
-  padding: 12px 207px 11px 24px;
+  margin-left: 24px;
+  color: ${(props) => (props.current ? props.theme.colors.white : props.theme.colors.darkgray)};
 `;
 
 export const SetList = styled.div`
@@ -161,15 +172,16 @@ export const SetList = styled.div`
 `;
 
 export const Set = styled(StyledLinkDiv)`
-  padding: 0 0 4px 0;
-  font-size: 14px;
+  display: flex;
+  align-items: center;
+  background-color: ${(props) => props.current && props.theme.colors.darkgray};
 `;
 
 export const SetText = styled.span`
   font-size: 16px;
   font-weight: normal;
-  margin: 6px 208px 14px 32px;
-  color: ${(props) => props.theme.colors.darkgray};
+  margin-left: 32px;
+  color: ${(props) => (props.current ? props.theme.colors.white : props.theme.colors.darkgray)};
 `;
 
 export const Contact = styled(StyledLinkDiv)`

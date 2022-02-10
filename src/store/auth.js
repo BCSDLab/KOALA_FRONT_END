@@ -21,13 +21,21 @@ const [FIND_ACCOUNT, FIND_ACCOUNT_SUCCESS, FIND_ACCOUNT_FAILURE] = createRequest
 const [CHANGE_PASSWORD, CHANGE_PASSWORD_SUCCESS, CHANGE_PASSWORD_FAILURE] =
   createRequestSagaActionTypes('auth/CHANGE_PASSWORD');
 const RESET_AUTH_STATE = {
-  type: 'RESET_STATE',
+  type: 'RESET_AUTH_STATE',
 };
 
 function* setToken(action) {
-  setCookie('refresh_token', action.payload.body.refresh_token, {
-    path: '/',
-  });
+  const isAuto = JSON.parse(localStorage.getItem('isAuto'));
+  if (isAuto === null || isAuto === false) {
+    setCookie('refresh_token', action.payload.body.refresh_token, {
+      path: '/',
+    });
+  } else {
+    setCookie('refresh_token', action.payload.body.refresh_token, {
+      path: '/',
+      expires: 15,
+    });
+  }
   setTokenOnHeader(action.payload.body.access_token);
 }
 

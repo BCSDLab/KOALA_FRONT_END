@@ -1,13 +1,5 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
-import history, {
-  getHistoryListSaga,
-  deleteHistoryListSaga,
-  readHistoryItemSaga,
-  moveToScrapItemSaga,
-  undoHistoryListSaga
-} from './history';
-import scrap, { getScrapListSaga, getMemoSaga, deleteScrapItemSaga, fixMemoSaga, writeMemoSaga } from './scrap';
 import modifyKeyword, { getKeywordRecommendationSaga, patchModifyKeywordSaga } from './modifyKeyword';
 import auth, {
   authSaga,
@@ -21,9 +13,17 @@ import auth, {
   changeingPasswordSaga,
   nonLoginSaga,
 } from './auth';
+import history, {
+  getHistoryListSaga,
+  deleteHistoryListSaga,
+  readHistoryItemSaga,
+  moveToScrapItemSaga,
+  undoHistoryListSaga
+} from './history';
+import scrap, { getScrapListSaga, getMemoSaga, deleteScrapItemSaga, fixMemoSaga, writeMemoSaga } from './scrap';
 import loading from './loading';
 import toggle from './toggle';
-import myPage, { changeNameSaga, getUserSaga, changeImageSaga } from './myPage';
+import myPage, { changeNameSaga, getUserSaga, changeImageSaga, sendSchoolSaga, authSchoolSaga } from './myPage';
 import keyword, {
   inquiryKeywordSaga,
   getKeywordListSaga,
@@ -31,17 +31,17 @@ import keyword, {
   moveKeywordItemSaga,
   readKeywordItemSaga,
 } from './keyword';
-import { authSchoolSaga, sendSchoolSaga } from './chat';
+
 
 const rootReducer = combineReducers({
   auth,
   loading,
-  history,
-  scrap,
   modifyKeyword,
   toggle,
   keyword,
   myPage,
+  history,
+  scrap,
 });
 
 export function* rootSaga() {
@@ -49,16 +49,6 @@ export function* rootSaga() {
     authSaga(),
     refreshLoginSaga(),
     signUpRegisterSaga(),
-    deleteHistoryListSaga(),
-    readHistoryItemSaga(),
-    undoHistoryListSaga(),
-    moveToScrapItemSaga(),
-    getHistoryListSaga(),
-    getScrapListSaga(),
-    getMemoSaga(),
-    deleteScrapItemSaga(),
-    fixMemoSaga(),
-    writeMemoSaga(),
     inquiryKeywordSaga(),
     getKeywordListSaga(),
     deleteKeywordListSaga(),
@@ -78,6 +68,16 @@ export function* rootSaga() {
     getKeywordRecommendationSaga(),
     patchModifyKeywordSaga(),
     nonLoginSaga(),
+    deleteHistoryListSaga(),
+    readHistoryItemSaga(),
+    undoHistoryListSaga(),
+    moveToScrapItemSaga(),
+    getHistoryListSaga(),
+    getScrapListSaga(),
+    getMemoSaga(),
+    deleteScrapItemSaga(),
+    fixMemoSaga(),
+    writeMemoSaga(),
   ]);
 }
 

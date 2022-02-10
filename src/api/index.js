@@ -13,7 +13,7 @@ export const checkAccount = (account) => logined.get(`user/account-check?account
 
 export const checkEmail = (email) => logined.get(`user/email-check?email=${email}`);
 
-export const changeNickname = (nickName) => logined.post('user/nickname', nickName);
+export const changeNickname = (nickName) => logined.patch(`user/nickname?nickname=${nickName}`);
 
 export const sendFindPassword = ({ account, email }) => logined.post('user/email-send/PASSWORD', { account, email });
 
@@ -33,6 +33,7 @@ export const changeUserProfile = (file) =>
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 
+
 export const deleteUser = () => logined.patch('user/delete');
 
 export const getUserInfo = () => logined.get('user/my');
@@ -44,7 +45,7 @@ export const authUniversityEmail = ({ email, secret }) =>
 
 export const signUp = ({ account, password, find_email, nickname }) =>
   logined.post('/user/sing-in', { account, password, find_email, nickname });
-
+  
 export const historyAPI = {
   getHistoryList: (pageNum) => logined.get(`/history?pageNum=${pageNum}`),
   deleteHistoryList: (historyList) => logined.patch(`history?${historyList}`),

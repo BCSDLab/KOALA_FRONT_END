@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import Button from '../Shared/Button';
-import { authUniversity } from '../../store/chat';
+import { sendUniversity, authUniversity } from 'store/myPage';
 import { useDispatch, useSelector } from 'react-redux';
-import { sendUniversity } from '../../store/chat';
 import styled from 'styled-components';
 
 const UniversityAuth = ({ ...props }) => {
@@ -19,8 +19,9 @@ const UniversityAuth = ({ ...props }) => {
     seconds: parseInt('00'),
   });
 
-  const chat = useSelector((state) => state.chat);
+  const chat = useSelector((state) => state.myPage);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const sendEmail = () => {
     if (!props.isEmail) return props.setEmailError('이메일을 입력해주세요');
@@ -89,6 +90,9 @@ const UniversityAuth = ({ ...props }) => {
   useEffect(() => {
     setIsDisabled(!props.isEmail || !isAuthNumeber);
   }, [props.isEmail, isAuthNumeber]);
+  useEffect(() => {
+    if (chat.isAuth == true) return navigate('/chat/room');
+  }, [chat.isAuth]);
 
   return (
     <>
