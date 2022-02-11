@@ -19,7 +19,7 @@ import * as API from 'api';
   마이페이지에 현재 user/my에서 유저 이미지에 대한 설계가 아직 진행되지 않았습니다. 
   서버 설계가 완료되면 아래 작성해둔 함수를 활용해주세요
 */
-const queries = ['(max-width: 450px)'];
+const queries = ['(max-width: 400px)', '(min-width: 800px)'];
 const MyPage = () => {
   const toggle = useSelector((state) => state.toggle.isOpen);
   const userInfo = useSelector((state) => state.myPage);
@@ -28,7 +28,7 @@ const MyPage = () => {
   const [dialog, setDialog] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [mobile] = useMatchMedia(queries);
+  const [mobile, desktop] = useMatchMedia(queries);
 
   //이미지 파일 업로드 기능 함수
   const setFile = (e) => {
@@ -70,8 +70,8 @@ const MyPage = () => {
   return (
     <MyPageContainer>
       <SideNavbar></SideNavbar>
-      {!mobile && <LoginButton />}
-      <MyPageContent>
+      {desktop && <LoginButton />}
+      <MyPageContent isToggle={toggle}>
         <UserInfo isToggle={toggle}>
           <MainText>설정</MainText>
           <UserInfoContainer>
@@ -134,8 +134,14 @@ const MyPageContainer = styled.div`
 `;
 
 const MyPageContent = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 100%;
+    display: block;
     height: auto;
   }
 `;
@@ -301,7 +307,7 @@ const UserNickname = styled.div`
     font-size: 18px;
     font-weight: bold;
     text-align: center;
-    color: ${(props) => props.theme.colors.gray};
+    color: ${(props) => props.theme.colors.darkgray};
   }
 `;
 

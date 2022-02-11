@@ -8,7 +8,7 @@ import SideNavMenu from './SideNavMenu';
 
 const Nav = styled.div`
   width: 80px;
-  height: 100%;
+  height: 100vh;
   padding: 40px 17px 0px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
   background-color: ${(props) => props.theme.colors.white};
@@ -31,8 +31,7 @@ const Nav = styled.div`
 `;
 
 const NavContainer = styled.div`
-  width: 80px;
-  width: ${({ isSideMenu }) => (isSideMenu ? `80px;` : `0;`)};
+  width: ${({ isSideMenu }) => (isSideMenu ? `350px;` : `80px;`)};
   height: 100vh;
   display: flex;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
@@ -124,6 +123,7 @@ const SettingImg = styled.img`
     width: 23px;
     height: 23.3px;
     margin: 0;
+    position: static;
     object-fit: contain;
   }
 `;
@@ -137,11 +137,6 @@ const MenuItemText = styled.span`
   justify-content: center;
   align-items: center;
   font-size: 12px;
-  font-weight: normal;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
   display: flex;
 `;
