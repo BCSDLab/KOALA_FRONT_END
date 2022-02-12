@@ -240,11 +240,13 @@ export const CopyRight = styled.p`
 `;
 
 export const Title = styled.div`
+  background: ${(props) => props.theme.colors.white};
   height: 24px;
   margin-bottom: 30px;
   font-size: 16px;
   font-weight: 500;
 
+  z-index: 1;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
     width: 100%;
