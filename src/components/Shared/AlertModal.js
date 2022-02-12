@@ -19,28 +19,6 @@ const fadeOut = keyframes`
     }
 `;
 
-const slideUp = keyframes`
-    from {
-        transform: translateY(100px);
-        transition: all .3s ease-out;
-    }
-    to {
-        transform: translateY(-75px);
-        transition: all .3s ease-out;
-    }
-`;
-
-const slideDown = keyframes`
-    from {
-        transform: translateY(-75px);
-        transition: all .3s ease-out;
-    }
-    to {
-        transform: translateY(100px);
-        transition: all .3s ease-out;
-    }
-`;
-
 const AlertModalWrapper = styled.div`
   position: fixed;
   left: 0;
@@ -60,18 +38,19 @@ const AlertModalBlock = styled.div`
   padding: 24px 24px 16px;
   background: white;
   border-radius: 8px;
-  animation-duration: 0.25s;
-  animation-timing-function: ease-out;
-  animation-name: ${slideUp};
-  animation-fill-mode: forwards;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   position: relative;
   z-index: 200;
+
+  animation-duration: 0.15s;
+  animation-timing-function: ease-out;
+  animation-name: ${fadeIn};
+  animation-fill-mode: forwards;
   ${(props) =>
     props.disappear &&
     css`
-      animation-name: ${slideDown};
+      animation-name: ${fadeOut};
     `}
 `;
 
