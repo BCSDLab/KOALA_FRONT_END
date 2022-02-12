@@ -53,7 +53,6 @@ const RegisterForm = () => {
     e.preventDefault();
     const find_email = email;
     dispatch(signUp({ account, password, find_email, nickName }));
-    console.dir(errorCode, authError);
   };
 
   const onConfirm = () => {
