@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import { LOGIN } from './constant';
@@ -31,13 +31,13 @@ const App = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const isSchoolAuth = useSelector((state) => state.myPage.isAuth);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const token = getCookie('refresh_token');
     setTokenOnHeader(token);
     dispatch(refresh());
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isLoggedIn) {
       dispatch(getUserInfo());
     }
