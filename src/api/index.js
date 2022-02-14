@@ -33,6 +33,9 @@ export const changeUserProfile = (file) =>
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 
+export const getWebsocketToken = () => logined.get('user/socket-token');
+
+export const getChatList = () => logined.get('chat?cursor=0&limit=10000');
 
 export const deleteUser = () => logined.patch('user/delete');
 

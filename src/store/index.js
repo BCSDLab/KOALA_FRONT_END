@@ -23,7 +23,7 @@ import keyword, {
   moveKeywordItemSaga,
   readKeywordItemSaga,
 } from './keyword';
-
+import socket, { getWebTokenSaga, getChatListSaga } from './socket';
 
 const rootReducer = combineReducers({
   auth,
@@ -32,6 +32,7 @@ const rootReducer = combineReducers({
   toggle,
   keyword,
   myPage,
+  socket,
 });
 
 export function* rootSaga() {
@@ -58,6 +59,8 @@ export function* rootSaga() {
     getKeywordRecommendationSaga(),
     patchModifyKeywordSaga(),
     nonLoginSaga(),
+    getWebTokenSaga(),
+    getChatListSaga(),
   ]);
 }
 

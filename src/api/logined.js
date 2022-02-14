@@ -1,11 +1,14 @@
 import axios from 'axios';
+import { setCookie } from 'components/Shared/Cookies';
 
 const logined = axios.create({});
+export let headers = null;
 
 logined.defaults.baseURL = process.env.REACT_APP_BASE_URL;
 
 export const setTokenOnHeader = (token) => {
   logined.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  headers = { Authorization: `Bearer ${token}` };
 };
 
 export const uuid = () => {
