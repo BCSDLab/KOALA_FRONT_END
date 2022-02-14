@@ -1,10 +1,15 @@
 import React, { useState, useEffect, useRef, useLayoutEffect, useMemo } from 'react';
 import * as S from './Scrap.Style';
+import * as HistoryStyle from './History.Style';
 import { KeyWordAlertList, Sender } from './History.Style';
 import { useDispatch, useSelector } from 'react-redux';
 import HistoryCheckBox from './HisoryCheckBox';
 import { getMemo, getScrapList, deleteScrapItem, fixMemo, writeMemo } from 'store/scrap';
 import { MENU_ITEM } from 'constant';
+import { formatingDate } from './HistoryContent';
+import theme from '../../theme';
+import { useMediaQuery } from 'react-responsive';
+import MobileScrapAlert from './MobileScrapAlert';
 const memoState = ['READ', 'WRITE', 'FIX'];
 const stringToDate = (date) => {
   var yyyyMMdd = String(date);
@@ -46,6 +51,7 @@ const ScrapContent = () => {
   const letter = useRef();
   const fixMemoValue = useRef(null);
   const writeMemoValue = useRef();
+  const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.mobileL}` });
   useEffect(() => {
     if (userInfo.isLoggedIn) {
       dispatch(getMemo());
@@ -159,8 +165,8 @@ const ScrapContent = () => {
             checked={checkedList.length <= 0 || checkedList.length !== scrapItemList.length ? false : true}
             readOnly
           />
+           <S.SelectAll>전체선택</S.SelectAll>
         </S.CheckBox>
-        <S.SelectAll>전체선택</S.SelectAll>
         <S.Menu onClick={deleteAlert}>
           <S.MenuLogo src="/asset/Delete.svg" />
           <S.MenuName>삭제</S.MenuName>
@@ -168,6 +174,8 @@ const ScrapContent = () => {
       </S.MenuList>
       <S.KeyWordAlertList scrollOption={scrapItemList?.length >= 12 ? true : false}>
         {scrapItemList?.map((mail) => (
+          isMobile? <MobileScrapAlert mail={mail} selectMail={selectMail} list={checkedList}/>
+          :
           <S.StorageAlert key={mail.id}>
             <HistoryCheckBox
               onClick={(e) => selectMail(e, mail.id)}
@@ -185,7 +193,7 @@ const ScrapContent = () => {
                     <S.MemoOption onClick={(e) => write(e, mail.userScrapId)}>메모</S.MemoOption>
                   )}
                   <S.DivideLine src="/asset/DivideLine.svg" />
-                  <S.ReceiveDate>{mail.created_at}</S.ReceiveDate>
+                  <S.ReceiveDate>{formatingDate(mail.created_at)}</S.ReceiveDate>
                 </S.AlertProp>
               </S.AlertContent>
               <S.MemoWrapper>
