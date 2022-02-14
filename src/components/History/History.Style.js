@@ -139,7 +139,7 @@ export const MenuName = styled.div``;
 
 export const PageWrapper = styled.div`
   display: block;
-  width: 1284px;
+  width: 1314px;
   font-size: 12px;
   position: absolute;
   @media screen and (max-width: ${mobileL}) {
