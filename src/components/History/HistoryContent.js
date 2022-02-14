@@ -18,13 +18,13 @@ import { useMediaQuery } from 'react-responsive';
 import theme from '../../theme';
 import MobileMenuModal from './MobileMenuModal';
 import { MobileDeleteModal, MobileMoveScrapModal } from './MobilePopUpModal';
-const formatingDate = (date) => {
+export const formatingDate = (date) => {
   const newDate = new Date(date);
   const month = newDate.getMonth() + 1;
   const day = newDate.getDate() < 10 ? '0' + newDate.getDate() : newDate.getDate();
-  const hour = newDate.getHours();
-  const minute = newDate.getMinutes();
-  return `${month + '/' + day} - ${(hour === 0 ? '00' : hour) + ':' + minute}`;
+  const hour = newDate.getHours() < 10 ? '0' + newDate.getHours() : newDate.getHours();
+  const minute = newDate.getMinutes() < 10 ? '0' + newDate.getMinutes() : newDate.getMinutes();
+  return `${month + '/' + day} - ${(hour === 0 ? '00' : hour) + ':' + (minute===0?'00':minute)}`;
 };
 const HistoryContent = () => {
   const { historyList, deleteHistoryResponse, readHistoryItemResponse, moveToScrapResponse, undoHistoryListResponse } =
@@ -36,7 +36,6 @@ const HistoryContent = () => {
   const [command, setCommand] = useState(null);
   const [checkedList, setCheckedList] = useState([]);
   const [pageNum, setPageNum] = useState([1]);
-  const [isLoading, setLoading] = useState(false);
   const [isPopOpen, setOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenu] = useState(false);
   const [isMobileDeleteOpen, setMobileDeleteModal] = useState(false);
