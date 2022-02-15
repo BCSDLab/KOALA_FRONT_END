@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PopUp from './HistoryPopup';
 import { MENU_ITEM } from 'constant';
 import { useMediaQuery } from 'react-responsive';
-import theme from '../../theme';
+import theme from '../../../theme';
 import MobileMenuModal from './MobileMenuModal';
 import { MobileDeleteModal, MobileMoveScrapModal } from './MobilePopUpModal';
 export const formatingDate = (date) => {

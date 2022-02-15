@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef, useLayoutEffect, useMemo } from 'react';
 import * as S from './Scrap.Style';
-import * as HistoryStyle from './History.Style';
-import { KeyWordAlertList, Sender } from './History.Style';
+import { KeyWordAlertList, Sender } from '../History/History.Style';
 import { useDispatch, useSelector } from 'react-redux';
-import HistoryCheckBox from './HisoryCheckBox';
+import HistoryCheckBox from '../History/HisoryCheckBox';
 import { getMemo, getScrapList, deleteScrapItem, fixMemo, writeMemo } from 'store/scrap';
 import { MENU_ITEM } from 'constant';
-import { formatingDate } from './HistoryContent';
-import theme from '../../theme';
+import { formatingDate } from '../History/HistoryContent';
+import theme from '../../../theme';
 import { useMediaQuery } from 'react-responsive';
 import MobileScrapAlert from './MobileScrapAlert';
 const memoState = ['READ', 'WRITE', 'FIX'];
@@ -174,7 +173,7 @@ const ScrapContent = () => {
       </S.MenuList>
       <S.KeyWordAlertList scrollOption={scrapItemList?.length >= 12 ? true : false}>
         {scrapItemList?.map((mail) => (
-          isMobile? <MobileScrapAlert mail={mail} selectMail={selectMail} list={checkedList}/>
+          isMobile? <MobileScrapAlert mail={mail} selectMail={selectMail} list={checkedList} memo={findMemoInAlert(memoItemList, mail)}/>
           :
           <S.StorageAlert key={mail.id}>
             <HistoryCheckBox

@@ -1,6 +1,6 @@
-import HistoryContent from 'components/History/HistoryContent';
-import ScrapContent from 'components/History/ScrapContent';
-import HistoryHeader from 'components/History/HistoryHeader';
+import HistoryContent from 'components/History/History/HistoryContent';
+import ScrapContent from 'components/History/Scrap/ScrapContent';
+import HistoryHeader from 'components/History/History/HistoryHeader';
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import styled from 'styled-components';

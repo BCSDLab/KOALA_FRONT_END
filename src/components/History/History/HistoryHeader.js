@@ -3,7 +3,7 @@ import { useMediaQuery } from 'react-responsive';
 import { useLocation } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import theme from '../../theme';
+import theme from '../../../theme';
 const Header = styled.div`
   display: flex;
   width: 1294px;

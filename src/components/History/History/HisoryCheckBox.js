@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import theme from '../../theme';
+import theme from '../../../theme';
 const mobileL = theme.deviceSizes.mobileL;
 const mibileS = theme.deviceSizes.mobileS;
 const CheckDotLabel = styled.label`

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import theme from '../../theme';
+import theme from '../../../theme';
 const mobileL = theme.deviceSizes.mobileL;
 
 export const MemoBlock = styled.div`
