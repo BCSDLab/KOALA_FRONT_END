@@ -4,7 +4,7 @@ const mobileL = theme.deviceSizes.mobileL;
 
 export const SwipeWrapper = styled.div`
     width: 95%;
-    overflow: scroll;
+    overflow: hidden;
     display: flex;
 `
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useLayoutEffect, useMemo } from 'react';
 import * as S from './Scrap.Style';
-import { KeyWordAlertList, Sender } from '../History/History.Style';
+import {  Sender } from '../History/History.Style';
 import { useDispatch, useSelector } from 'react-redux';
 import HistoryCheckBox from '../History/HisoryCheckBox';
 import { getMemo, getScrapList, deleteScrapItem, fixMemo, writeMemo } from 'store/scrap';
@@ -102,7 +102,7 @@ const ScrapContent = () => {
       e.target.innerText = '수정';
       console.log('메모 수정 완료');
       const memoStatement = fixMemoValue.current.value;
-      dispatch(fixMemo({ memo: memoStatement, user_scrap_id: id }));
+      dispatch(fixMemo({ memo: memoStatement, id: id }));
     }
   };
   const selectAll = (e) => {
@@ -135,6 +135,11 @@ const ScrapContent = () => {
   const checkByte = (obj) => {
     const len = countLetter(obj.target.value);
     letter.current.innerText = len;
+    if(len >= 100){
+      letter.current.style.color = '#ffd25d';
+    }else{
+      letter.current.style.color = '#999';
+    }
   };
   const countLetter = (letter) => {
     return letter.length;
@@ -173,7 +178,14 @@ const ScrapContent = () => {
       </S.MenuList>
       <S.KeyWordAlertList scrollOption={scrapItemList?.length >= 12 ? true : false}>
         {scrapItemList?.map((mail) => (
-          isMobile? <MobileScrapAlert mail={mail} selectMail={selectMail} list={checkedList} memo={findMemoInAlert(memoItemList, mail)}/>
+          isMobile? <MobileScrapAlert
+                      mail={mail}
+                      selectMail={selectMail}
+                      list={checkedList}
+                      memo={findMemoInAlert(memoItemList, mail)}
+                      writeId={currentMail}
+                      setCurr={setCurr}
+                      />
           :
           <S.StorageAlert key={mail.id}>
             <HistoryCheckBox
@@ -210,9 +222,6 @@ const ScrapContent = () => {
                         <S.LetterCounter>
                           <S.LettterLength
                             ref={letter}
-                            style={{
-                              color: findMemoInAlert(memoItemList, mail)[0].length >= 100 ? '#ffd25d' : 'black',
-                            }}
                           >
                             {findMemoInAlert(memoItemList, mail)[0].length}
                           </S.LettterLength>
