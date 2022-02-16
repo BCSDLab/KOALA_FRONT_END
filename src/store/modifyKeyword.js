@@ -3,21 +3,34 @@ import createRequestSaga, { createRequestSagaActionTypes } from './createRequest
 import { takeLatest } from '@redux-saga/core/effects';
 import { keywordAPI } from 'api';
 
-const [GET_RECOMMENDATION, GET_RECOMMENDATION_SUCCESS, GET_RECOMMENDATION_FAILURE] = createRequestSagaActionTypes(
-  'modifyKeyword/GET_RECOMMENDATION'
-);
+const [GET_SITE_RECOMMENDATION, GET_SITE_RECOMMENDATION_SUCCESS, GET_SITE_RECOMMENDATION_FAILURE] =
+  createRequestSagaActionTypes('modifyKeyword/GET_SITE_RECOMMENDATION');
 const [MODIFY_KEYWORD, MODIFY_KEYWORD_SUCCESS, MODIFY_KEYWORD_FAILURE] =
   createRequestSagaActionTypes('modifyKeyword/MODIFY_KEYWORD');
+const [GET_KEYWORD_RECOMMENDATION, GET_KEYWORD_RECOMMENDATION_SUCCESS, GET_KEYWORD_RECOMMENDATION_FAILURE] =
+  createRequestSagaActionTypes('modifyKeyword/GET_KEYWORD_RECOMMENDATION_FAILURE');
+const [CREATE_KEYWORD, CREATE_KEYWORD_SUCCESS, CREATE_KEYWORD_FAILURE] =
+  createRequestSagaActionTypes('createKeyword/CREATE_KEYWORD');
 
-export const getRecommendation = createAction(GET_RECOMMENDATION, (keyword) => keyword);
+export const getSiteRecommendation = createAction(GET_SITE_RECOMMENDATION, (keyword) => keyword);
+
+export const getKeywordRecommendation = createAction(GET_KEYWORD_RECOMMENDATION, (keyword) => keyword);
+
 export const patchModifyKeyword = createAction(MODIFY_KEYWORD, (keywordName, object) => ({
   keywordName,
   object,
 }));
 
-const getRecommendationSaga = createRequestSaga(GET_RECOMMENDATION, keywordAPI.getRecommendation);
+export const createKeyword = createAction(CREATE_KEYWORD, (object) => object);
+
+const getKeywordSaga = createRequestSaga(GET_KEYWORD_RECOMMENDATION, keywordAPI.getKeywordRecommendation);
 export function* getKeywordRecommendationSaga() {
-  yield takeLatest(GET_RECOMMENDATION, getRecommendationSaga);
+  yield takeLatest(GET_KEYWORD_RECOMMENDATION, getKeywordSaga);
+}
+
+const getRecommendationSaga = createRequestSaga(GET_SITE_RECOMMENDATION, keywordAPI.getSiteRecommendation);
+export function* getSiteRecommendationSaga() {
+  yield takeLatest(GET_SITE_RECOMMENDATION, getRecommendationSaga);
 }
 
 const patchModifySaga = createRequestSaga(MODIFY_KEYWORD, keywordAPI.modifyKeyword);
@@ -25,23 +38,31 @@ export function* patchModifyKeywordSaga() {
   yield takeLatest(MODIFY_KEYWORD, patchModifySaga);
 }
 
+const createSaga = createRequestSaga(CREATE_KEYWORD, keywordAPI.createKeyword);
+export function* createKeywordSaga() {
+  yield takeLatest(CREATE_KEYWORD, createSaga);
+}
+
 const initialState = {
-  recommendationList: [],
-  getRecommendationResponse: false,
+  siteRecommendationList: [],
+  keywordRecommendationList: [],
+  getSiteRecommendationResponse: false,
+  getKeywordRecommendationResponse: false,
   patchRecommendationResponse: false,
+  createKeywordResponse: false,
 };
 
 const modifyKeyword = handleActions(
   {
-    [GET_RECOMMENDATION_SUCCESS]: (state, { payload: keyword }) => ({
+    [GET_SITE_RECOMMENDATION_SUCCESS]: (state, { payload: keyword }) => ({
       ...state,
-      recommendationList: keyword.body,
-      getRecommendationResponse: true,
+      siteRecommendationList: keyword.body,
+      getSiteRecommendationResponse: true,
     }),
 
-    [GET_RECOMMENDATION_FAILURE]: (state) => ({
+    [GET_SITE_RECOMMENDATION_FAILURE]: (state) => ({
       ...state,
-      getRecommendationResponse: false,
+      getSiteRecommendationResponse: false,
     }),
 
     [MODIFY_KEYWORD_SUCCESS]: (state) => ({
@@ -51,6 +72,23 @@ const modifyKeyword = handleActions(
     [MODIFY_KEYWORD_FAILURE]: (state) => ({
       ...state,
       patchRecommendationResponse: false,
+    }),
+    [GET_KEYWORD_RECOMMENDATION_SUCCESS]: (state, { payload: keyword }) => ({
+      ...state,
+      keywordRecommendationList: keyword.body,
+      getKeywordRecommendationResponse: true,
+    }),
+    [GET_KEYWORD_RECOMMENDATION_FAILURE]: (state) => ({
+      ...state,
+      getKeywordRecommendationResponse: false,
+    }),
+    [CREATE_KEYWORD_SUCCESS]: (state) => ({
+      ...state,
+      createKeywordResponse: true,
+    }),
+    [CREATE_KEYWORD_FAILURE]: (state) => ({
+      ...state,
+      createKeywordResponse: false,
     }),
   },
   initialState

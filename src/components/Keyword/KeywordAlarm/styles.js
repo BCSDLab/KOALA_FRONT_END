@@ -16,7 +16,7 @@ export const ImportantContainer = styled.div`
   height: 16px;
   display: flex;
   position: absolute;
-  left: 590px;
+  left: ${(props) => (props.toggle ? '590px' : '455px')};
   top: 501px;
   align-items: center;
   cursor: pointer;
@@ -65,7 +65,7 @@ export const CheckBoxContent = styled.span`
 
 export const SettingContainer = styled(HashtagContainer)`
   height: 159px;
-  left: 588px;
+  left: ${(props) => (props.toggle ? '590px' : '455px')};
   top: 570px;
   display: flex;
   flex-direction: column;
@@ -125,12 +125,12 @@ export const EditButton = styled.button`
   color: #fff;
   position: absolute;
   top: 834px;
-  left: 1018px;
+  left: ${(props) => (props.toggle ? '1018px' : '883px')};
   font-size: 14px;
   font-weight: 500;
   text-align: center;
 `;
 
 export const CancelButton = styled(EditButton)`
-  left: 1142px;
+  left: ${(props) => (props.toggle ? '1142px' : '1007px')};
 `;

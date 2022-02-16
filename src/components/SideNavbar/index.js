@@ -163,8 +163,10 @@ const SettingIcon = styled(Icon)``;
 
 const queries = ['(max-width: 450px)'];
 const SideNavbar = () => {
-  const isOpen = useSelector((state) => state.toggle.isOpen);
   const dispatch = useDispatch();
+
+  const isOpen = useSelector((state) => state.toggle.isOpen);
+
   const location = useLocation();
   const toggleSideMenu = () => {
     dispatch(opened());
