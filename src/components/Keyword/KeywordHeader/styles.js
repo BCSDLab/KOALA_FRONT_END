@@ -2,12 +2,16 @@ import styled from 'styled-components';
 
 export const UserContainer = styled.div`
   position: absolute;
+  display: flex;
   min-width: 173px;
   left: 1664px;
   top: 40px;
 `;
 
 export const Username = styled.span`
+  position: absolute;
+  right: 176px;
+  top: 40px;
   line-height: 32px;
   margin-right: 16px;
 `;

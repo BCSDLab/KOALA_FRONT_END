@@ -1,15 +1,31 @@
 import styled from 'styled-components';
+import theme from 'theme';
 
 export const HashtagContainer = styled.div`
-  width: 1092px;
-  height: 48px;
-  border: 1px solid #eee;
-  display: flex;
-  align-items: center;
-  padding-left: 24px;
   position: absolute;
   left: ${(props) => (props.toggle ? '588px' : '453px')};
   top: 212px;
+  width: 1092px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  border: 1px solid ${theme.colors.lightgray};
+  padding-left: 24px;
+
+  ${(props) => {
+    if (props.alreadyRegister) {
+      return `
+        border:1.5px solid #ffd25d; 
+      `;
+    }
+
+    if (!props.keyword) {
+      return `
+                border:1px solid ${theme.colors.darkgray};
+                border-bottom:none;
+            `;
+    }
+  }}
 `;
 
 export const HashtageImage = styled.img`
@@ -18,23 +34,34 @@ export const HashtageImage = styled.img`
   margin-right: 8px;
 `;
 
-export const InputKeyword = styled.div`
+export const InputKeyword = styled.input`
   width: 1040px;
   border: none;
 `;
 
-export const SearchContainer = styled(HashtagContainer)`
+export const SearchContainer = styled.div`
+  position: absolute;
   width: 1092px;
+  height: 48px;
   top: 276px;
+  left: ${(props) => (props.toggle ? '588px' : '453px')};
+  padding-left: 24px;
+  align-items: center;
+  border: 1px solid ${theme.colors.lightgray};
+  display: flex;
 
   ${(props) => {
     if (!props.show) {
       return `
-                border:1px solid #222222;
+                border:1px solid ${theme.colors.darkgray};
                 border-bottom:none;
             `;
     } else {
-      props.alreadyRegister && `border:1.5px solid #ffd25d;`;
+      if (props.alreadyRegister) {
+        return `
+                    border:1.5px solid #ffd25d;
+                `;
+      }
     }
   }}
 `;
@@ -45,26 +72,48 @@ export const RecommendItem = styled.li`
   padding-left: 37px;
   line-height: 37px;
   &:hover {
-    background-color: #eeeeee;
+    background-color: ${theme.colors.lightgray};
   }
 `;
 
-export const RecommendContainer = styled.ul`
+export const RecommendSiteContainer = styled.ul`
+  display: ${(props) => {
+    return props.show ? 'none' : 'block';
+  }};
   padding-left: none;
   width: 1116px;
-  border: 1px solid #222222;
+  border: 1px solid ${theme.colors.darkgray};
   border-top: none;
   position: absolute;
   background-color: white;
   left: ${(props) => (props.toggle ? '588px' : '453px')};
   top: 325px;
   z-index: 1;
-  display: ${(props) => {
-    return props.show ? 'none' : 'block';
-  }};
+`;
+
+export const RecommendKeywordContainer = styled.ul`
+  padding-left: none;
+  width: 1116px;
+  border: 1px solid ${theme.colors.darkgray};
+  border-top: none;
+  position: absolute;
+  background-color: white;
+  left: ${(props) => (props.toggle ? '588px' : '453px')};
+  top: 261px;
+  z-index: 1;
+  display: ${(props) => (props.show ? 'none' : 'block')};
 `;
 
 export const AlreadyRegisterMessage = styled.span`
+  color: #ffd25d;
+  height: 15px;
+  font-size: 11px;
+  position: absolute;
+  left: 200px;
+  display: ${(props) => (props.alreadyRegister ? 'block' : 'none')};
+`;
+
+export const AlreadyRegisterKeyword = styled.span`
   color: #ffd25d;
   height: 15px;
   font-size: 11px;
@@ -80,8 +129,11 @@ export const InputSite = styled.input`
   border: none;
 `;
 
-export const SiteContainer = styled(HashtagContainer)`
+export const SiteContainer = styled.div`
+  position: absolute;
   top: 335px;
+  left: ${(props) => (props.toggle ? '588px' : '453px')};
+  width: 1092px;
   height: 117px;
   background-color: #eee;
   padding: 10px 12px;
@@ -132,7 +184,7 @@ export const CheckBox = styled.div`
   height: 14px;
   margin-right: 8px;
   border-radius: 3px;
-  border: 1px solid #c4c4c4;
+  border: 1px solid ${theme.colors.sliver};
   cursor: pointer;
 
   ${(props) => {
@@ -163,8 +215,12 @@ export const CheckBoxContent = styled.span`
   color: #999999;
 `;
 
-export const SettingContainer = styled(HashtagContainer)`
+export const SettingContainer = styled.div`
+  width: 1092px;
   height: 159px;
+  position: absolute;
+  border: 1.5px solid #eee;
+  padding-left: 24px;
   left: 588px;
   top: 570px;
   display: flex;
@@ -211,9 +267,9 @@ export const Type = styled.li`
   margin-right: 48px;
   color: ${(props) => {
     if (props.checkId === props.alarmTerm) {
-      return `#222222`;
+      return `${theme.colors.darkgray}`;
     } else {
-      return `#c4c4c4`;
+      return `${theme.colors.silver}`;
     }
   }};
 `;
@@ -221,7 +277,7 @@ export const Type = styled.li`
 export const EditButton = styled.button`
   width: 80px;
   height: 32px;
-  background: #222;
+  background: ${theme.colors.darkgray};
   color: #fff;
   position: absolute;
   top: 834px;

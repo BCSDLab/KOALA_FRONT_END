@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import KeywordHeader from '../KeywordHeader';
-import { getRecommendation } from 'store/modifyKeyword';
+import { getSiteRecommendation } from 'store/modifyKeyword';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router';
 import KeywordAlarm from '../KeywordAlarm';
-import { AlarmContext } from 'context/KeywordAlarmContext';
-import { useContext } from 'react';
 
 const ModifyKeyword = () => {
   const [site, setSite] = useState('');
@@ -13,8 +12,11 @@ const ModifyKeyword = () => {
   const [selectRecommendItem, setSelectRecommendItem] = useState([]);
   const [alreadyRegisterItem, setAlreadyRegisterItem] = useState(false);
 
-  const { recommendationList } = useSelector((state) => state.modifyKeyword);
+  const { siteRecommendationList } = useSelector((state) => state.modifyKeyword);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const keywordName = location.state;
+  const { isOpen } = useSelector((state) => state.toggle);
 
   const searchSite = (e) => {
     setSite(e.target.value);
@@ -24,9 +26,6 @@ const ModifyKeyword = () => {
   const onClickRecommendItem = useCallback(
     (e) => {
       let { innerText: value } = e.target;
-
-      console.log(site);
-      console.log(selectRecommendItem);
 
       if (!selectRecommendItem.includes(value)) {
         setSelectRecommendItem([...selectRecommendItem, value]);
@@ -49,28 +48,28 @@ const ModifyKeyword = () => {
 
   useEffect(() => {
     if (site !== '') {
-      dispatch(getRecommendation(site));
+      dispatch(getSiteRecommendation(site));
     }
   }, [site]);
 
   useEffect(() => {
-    if (recommendationList.length !== 0) {
-      if (JSON.stringify(recommendList) !== JSON.stringify(recommendationList)) {
-        setRecommendList([...recommendationList]);
+    if (siteRecommendationList && siteRecommendationList.length !== 0) {
+      if (JSON.stringify(recommendList) !== JSON.stringify(siteRecommendationList)) {
+        setRecommendList([...siteRecommendationList]);
       }
+    } else {
+      setRecommendList([]);
     }
-  }, [recommendationList]);
-
-  console.log(useContext(AlarmContext));
+  }, [siteRecommendationList]);
 
   return (
     <>
       <KeywordHeader title={'키워드 수정하기'} />
-      <S.HashtagContainer>
+      <S.HashtagContainer toggle={isOpen}>
         <S.HashtageImage src="/asset/hashtagblack.svg" alt="hashtage_image" />
-        <S.InputKeyword>키워드 테스트</S.InputKeyword>
+        <S.InputKeyword>{keywordName}</S.InputKeyword>
       </S.HashtagContainer>
-      <S.SearchContainer show={site === ''} alreadyRegister={alreadyRegisterItem}>
+      <S.SearchContainer toggle={isOpen} show={site === ''} alreadyRegister={alreadyRegisterItem}>
         <S.SearchImage src="/asset/searchblack.svg" alt="search_image" />
         <S.InputSite
           placeholder="알림받을 사이트 검색"
@@ -82,7 +81,7 @@ const ModifyKeyword = () => {
           이미 등록한 사이트입니다.
         </S.AlreadyRegisterMessage>
       </S.SearchContainer>
-      <S.RecommendContainer show={site === ''} alreadyRegister={alreadyRegisterItem}>
+      <S.RecommendContainer toggle={isOpen} show={site === ''} alreadyRegister={alreadyRegisterItem}>
         {recommendList.length !== 0 &&
           recommendList.map((item, index) => {
             return (
@@ -92,7 +91,7 @@ const ModifyKeyword = () => {
             );
           })}
       </S.RecommendContainer>
-      <S.SiteContainer>
+      <S.SiteContainer toggle={isOpen}>
         <S.SiteList>
           {selectRecommendItem.map((item, index) => {
             return (
@@ -106,7 +105,12 @@ const ModifyKeyword = () => {
           })}
         </S.SiteList>
       </S.SiteContainer>
-      <KeywordAlarm selectRecommendItem={selectRecommendItem} setSelectRecommendItem={setSelectRecommendItem} />
+      <KeywordAlarm
+        buttonText={'수정'}
+        selectRecommendItem={selectRecommendItem}
+        setSelectRecommendItem={setSelectRecommendItem}
+        keywordName={keywordName}
+      />
     </>
   );
 };

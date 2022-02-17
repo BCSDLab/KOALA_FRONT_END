@@ -58,6 +58,7 @@ export const KeywordSetting = styled(Link)`
   font-size: 14px;
   text-align: right;
   color: ${(props) => props.theme.colors.gray};
+  cursor: pointer;
 `;
 
 export const KeywordDropdownButton = styled.img`
@@ -71,6 +72,17 @@ export const KeywordList = styled.ul`
   width: 270px;
   padding: 0 0;
   margin: 16px 0 0 0;
+  ${(props) => {
+    if (props.dropdownToggle) {
+      return `
+        display:none;
+      `;
+    } else {
+      return `
+        display:block;
+      `;
+    }
+  }};
 `;
 
 export const KeywordSection = styled.li`
@@ -79,29 +91,34 @@ export const KeywordSection = styled.li`
   padding: 11px 17px 12px 32px;
   cursor: pointer;
   font-size: 14px;
+  background-color: ${(props) => (props.selectItemId ? '#222' : '#f6f7f8')};
 `;
 
 export const KeywordName = styled.span`
   font-size: 14px;
-  color: ${(props) => props.theme.colors.darkgray};
+  color: ${(props) => (props.selectItemId ? '#fff' : '#222')};
   font-weight: normal;
 `;
 
 export const KeywordCount = styled.span`
   width: 24px;
   height: 18px;
-  background: ${(props) => props.theme.colors.yellow};
+  background-color: ${(props) => (props.selectItemId ? '#222' : '#ffd25d')};
   position: absolute;
   right: 24px;
   font-size: 12px;
   text-align: center;
-  color: ${(props) => props.theme.colors.white};
+  color: ${(props) => (props.selectItemId ? '#ffd25d' : '#fff')};
 `;
 
 export const AddKeywordSection = styled.div`
   display: flex;
+  align-items: center;
+  height: 44px;
   margin: 11px 0 15.5px 0;
   padding: 0 17px 0 32px;
+  background-color: ${(props) => (props.selectAddKeyword ? '#222' : '#f6f7f8')};
+  cursor: pointer;
 `;
 
 export const AddImg = styled.img`
@@ -109,12 +126,13 @@ export const AddImg = styled.img`
   height: 24px;
 `;
 
-export const AddText = styled(Link)`
+export const AddText = styled.div`
   margin-left: 8px;
   position: relative;
   top: 1px;
   font-size: 14px;
-  color: ${(props) => props.theme.colors.darkgray};
+  line-height: 43px;
+  color: ${(props) => (props.selectAddKeyword ? props.theme.colors.white : props.theme.colors.darkgray)};
 `;
 
 export const HistoryList = styled(List)`
