@@ -77,3 +77,5 @@ export const MENU_ITEM = [
     title: '대신 전해드립니다-koreatech',
   },
 ];
+
+export const queries = ['(min-width:450px)'];

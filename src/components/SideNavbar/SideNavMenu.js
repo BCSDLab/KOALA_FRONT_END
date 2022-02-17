@@ -2,6 +2,7 @@ import React from 'react';
 import * as S from 'components/SideNavbar/styles';
 import { useLocation } from 'react-router-dom';
 import KeywordDropdown from './KeywordDropdown';
+import useMatchMedia from 'hooks/useMatchMedia';
 
 const Extension = () => {
   const location = useLocation();

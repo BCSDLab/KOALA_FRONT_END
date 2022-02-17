@@ -213,7 +213,7 @@ const SideNavbar = () => {
           {mobile && <MenuItemText current={location.pathname === '/mypage' ? 1 : 0}>설정</MenuItemText>}
         </SettingIcon>
       </Nav>
-      {isOpen && <SideNavMenu />}
+      {isOpen && !mobile && <SideNavMenu />}
     </NavContainer>
   );
 };

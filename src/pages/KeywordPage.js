@@ -5,11 +5,13 @@ import KeywordFilterBar from 'components/Keyword/KeywordFilter';
 import styled from 'styled-components';
 import ModifyKeyword from 'components/Keyword/ModifyKeyword';
 import SettingKeyword from 'components/Keyword/SettingKeyword';
-import { Route, Routes } from 'react-router';
+import { Route, Routes, useMatch } from 'react-router';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { inquiry } from 'store/keyword';
+import useMatchMedia from 'hooks/useMatchMedia';
+import { queries } from 'constant';
 
 const Container = styled.div`
   display: flex;
@@ -18,6 +20,7 @@ const Container = styled.div`
 const KeywordPage = () => {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.auth);
+  const [desktop] = useMatchMedia(queries);
 
   useEffect(() => {
     if (userInfo.isLoggedIn) {

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { inquiry } from 'store/keyword';
 import * as S from 'components/SideNavbar/styles';
-import { useNavigate } from 'react-router';
+import { useMatch, useNavigate } from 'react-router';
 import KeywordModal from 'components/Keyword/KeywordModal';
 import styled from 'styled-components';
 import { getKeywordName, getKeywordPosition } from 'components/Keyword/utils';
