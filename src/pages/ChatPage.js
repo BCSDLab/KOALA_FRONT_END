@@ -4,53 +4,21 @@ import SideNavbar from 'components/SideNavbar';
 import LoginButton from 'components/Shared/LoginButton';
 import Header from 'components/Chat/Header';
 import { Outlet } from 'react-router';
-import { getChatList } from 'store/socket';
-import styled from 'styled-components';
-import Stomp from 'stompjs';
-import SockJS from 'sockjs-client';
-import { headers } from 'api/logined';
-import useDidMountEffect from 'hooks/useDidMountEffect';
-const ChatPage = () => {
-  const dispatch = useDispatch();
-  const toggle = useSelector((state) => state.toggle.isOpen);
-  const [member, setMember] = useState('');
-  const chat = useSelector((state) => state.socket);
-  let sockJS = null;
-  let stompClient = null;
 
-  useDidMountEffect(() => {
-    sockJS = new SockJS(`https://api.stage.koala.im/ws?token=${chat.webToken}`);
-    stompClient = Stomp.over(sockJS);
-    stompClient.connect(headers, function (tick) {
-      console.log('connect');
-      console.log(tick);
-      stompClient.subscribe(`/sub/room`, (tick) => {
-        console.log(tick);
-        if (tick.body.type == 'ACCESS') {
-          setMember(tick.body.message);
-        } else {
-          dispatch(getChatList());
-        }
-      });
-      stompClient.send(
-        `/pub/chat/member`,
-        headers,
-        JSON.stringify({
-          message: 'test',
-          type: 'ACCESS',
-        })
-      );
-    });
-  }, [chat.webToken]);
+import styled from 'styled-components';
+
+const ChatPage = () => {
+  const toggle = useSelector((state) => state.toggle.isOpen);
+
   return (
     <ChatPageContainer>
       <SideNavbar></SideNavbar>
       <LoginButton />
       <ChatMainPageContainer isToggle={toggle}>
         <ChatHeader>
-          <Header member={member} />
+          <Header />
         </ChatHeader>
-        <ChatContent stompClient={stompClient} />
+        <ChatContent />
       </ChatMainPageContainer>
     </ChatPageContainer>
   );

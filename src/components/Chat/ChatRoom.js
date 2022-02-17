@@ -1,23 +1,32 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getWebToken } from 'store/socket';
+import Stomp from 'stompjs';
+import SockJS from 'sockjs-client';
+import { getChatList, getChatMember } from 'store/socket';
 import { headers } from 'api/logined';
+import useDidMountEffect from 'hooks/useDidMountEffect';
 import styled from 'styled-components';
 
-export const ChatRoom = (stompClient) => {
+export const ChatRoom = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth);
   const messages = useSelector((state) => state.socket.messages);
   const [message, setMessage] = useState('');
   const messageInput = useRef();
-
+  const chat = useSelector((state) => state.socket);
+  const sockJS = useRef(null);
+  const stompClient = useRef(null);
+  let messageObject = null;
   const onChangeMessage = (e) => {
     const value = e.target.value;
     setMessage(value);
   };
+
   const sendMessage = (e) => {
     e.preventDefault();
-    stompClient.send(
+
+    stompClient.current.send(
       '/pub/chat/message',
       headers,
       JSON.stringify({
@@ -27,10 +36,36 @@ export const ChatRoom = (stompClient) => {
     );
     setMessage('');
   };
+
   useEffect(() => {
     dispatch(getWebToken());
   }, [user.isLoggedIn]);
 
+  useDidMountEffect(() => {
+    sockJS.current = new SockJS(`https://api.stage.koala.im/ws?token=${chat.webToken}`);
+    stompClient.current = Stomp.over(sockJS.current);
+    stompClient.current.connect(headers, function (tick) {
+      console.log('connect');
+      console.log(tick);
+      stompClient.current.subscribe(`/sub/room`, (tick) => {
+        messageObject = JSON.parse(tick.body);
+        if (messageObject.type === 'ACCESS') {
+          dispatch(getChatMember(messageObject.message));
+        } else {
+          dispatch(getChatList());
+        }
+        dispatch(getChatList());
+      });
+      stompClient.current.send(
+        `/pub/chat/member`,
+        headers,
+        JSON.stringify({
+          message: 'test',
+          type: 'ACCESS',
+        })
+      );
+    });
+  }, [chat.webToken]);
   return (
     <ChatSection>
       <Conversation>
