@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 
 export const SideMenuBackground = styled.div`
   width: 270px;
-  height: 1110px;
+  height: 100%;
   flex-grow: 0;
-  margin-right: 96px;
   padding: 40px 0 0;
   background-color: #f6f7f8;
 `;
@@ -45,9 +44,6 @@ export const KeywordDropdown = styled.div`
 const MenuTitle = styled.span`
   font-size: 14px;
   font-weight: 500;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
   color: ${(props) => props.theme.colors.darkgray};
 `;
@@ -60,9 +56,6 @@ export const KeywordSetting = styled(Link)`
   right: 17px;
   position: absolute;
   font-size: 14px;
-  font-weight: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: right;
   color: ${(props) => props.theme.colors.gray};
   cursor: pointer;
@@ -138,10 +131,8 @@ export const AddText = styled.div`
   position: relative;
   top: 1px;
   font-size: 14px;
-  font-weight: normal;
   line-height: 43px;
-  letter-spacing: normal;
-  color: ${(props) => (props.selectAddKeyword ? '#fff' : '#222')};
+  color: ${(props) => (props.selectAddKeyword ? props.theme.colors.white : props.theme.colors.darkgray)};
 `;
 
 export const HistoryList = styled(List)`
@@ -181,11 +172,12 @@ export const ChatText = styled(MenuTitle)`
 export const SetList = styled.div`
   width: 270px;
   height: 92px;
-  padding: 190px 0 0 0;
   display: flex;
   flex-direction: column;
   font-size: 14px;
   text-align: left;
+  position: absolute;
+  bottom: 41px;
 `;
 
 export const Set = styled(StyledLinkDiv)`
