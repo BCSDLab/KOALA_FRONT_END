@@ -5,6 +5,7 @@ import { patchModifyKeyword, createKeyword } from 'store/modifyKeyword';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import * as S from './styles';
+import styled from 'styled-components';
 
 const KeywordAlarm = ({
   selectRecommendItem,
@@ -86,30 +87,37 @@ const KeywordAlarm = ({
         <S.CheckBox isNormalAlarm={isNormalAlarm}></S.CheckBox>
         <S.CheckBoxTitle>일반 알림</S.CheckBoxTitle>
       </S.NormalContainer>
-      <S.SettingContainer toggle={isOpen}>
-        <S.ModeContainer>
-          <S.SlientMode onClick={onClickSlientAlarm}>무음모드에도 알림</S.SlientMode>
-          <S.SlientCheckBox onClick={onClickSlientAlarm} isSlientAlarm={isSlientAlarm}></S.SlientCheckBox>
-          <S.SlientMode onClick={onClickVibrationAlarm}>진동 알림</S.SlientMode>
-          <S.VibrationCheckBox
-            onClick={onClickVibrationAlarm}
-            isVibrationAlarm={isVibrationAlarm}
-          ></S.VibrationCheckBox>
-          <S.SettingContent>무음모드에도 알림,진동 알림 기능은 모바일 앱에서만 적용이 가능합니다.</S.SettingContent>
-        </S.ModeContainer>
-        <S.AlarmContainer>
-          <S.AlarmTitle>알람주기</S.AlarmTitle>
-          <S.AlarmType>
-            {ALARM_TERM.map((item) => {
-              return (
-                <S.Type onClick={() => onClickAlarmTerm(item.id)} alarmTerm={alarmTerm} checkId={item.id} key={item.id}>
-                  {item.time}
-                </S.Type>
-              );
-            })}
-          </S.AlarmType>
-        </S.AlarmContainer>
-      </S.SettingContainer>
+      <S.BottomContainer>
+        <S.SettingContainer toggle={isOpen}>
+          <S.ModeContainer>
+            <S.SlientMode onClick={onClickSlientAlarm}>무음모드에도 알림</S.SlientMode>
+            <S.SlientCheckBox onClick={onClickSlientAlarm} isSlientAlarm={isSlientAlarm}></S.SlientCheckBox>
+            <S.SlientMode onClick={onClickVibrationAlarm}>진동 알림</S.SlientMode>
+            <S.VibrationCheckBox
+              onClick={onClickVibrationAlarm}
+              isVibrationAlarm={isVibrationAlarm}
+            ></S.VibrationCheckBox>
+          </S.ModeContainer>
+          <S.AlarmContainer>
+            <S.AlarmTitle>알람주기</S.AlarmTitle>
+            <S.AlarmType>
+              {ALARM_TERM.map((item) => {
+                return (
+                  <S.Type
+                    onClick={() => onClickAlarmTerm(item.id)}
+                    alarmTerm={alarmTerm}
+                    checkId={item.id}
+                    key={item.id}
+                  >
+                    {item.time}
+                  </S.Type>
+                );
+              })}
+            </S.AlarmType>
+          </S.AlarmContainer>
+        </S.SettingContainer>
+        <S.ErrorText>※ 알림 기능은 모바일 앱에서만 이용하실 수 있습니다.</S.ErrorText>
+      </S.BottomContainer>
       <S.EditButton toggle={isOpen} onClick={onClickModifyButton}>
         {buttonText}
       </S.EditButton>
