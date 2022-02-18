@@ -211,7 +211,7 @@ const SideNavbar = () => {
           {!desktop && <MenuItemText current={location.pathname === '/mypage' ? 1 : 0}>설정</MenuItemText>}
         </SettingIcon>
       </Nav>
-      {isOpen && !desktop && <SideNavMenu />}
+      {isOpen && desktop && <SideNavMenu />}
     </NavContainer>
   );
 };
