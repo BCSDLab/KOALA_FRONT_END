@@ -5,6 +5,7 @@ import modifyKeyword, {
   patchModifyKeywordSaga,
   getSiteRecommendationSaga,
   createKeywordSaga,
+  getStarSiteSaga,
 } from './modifyKeyword';
 import auth, {
   authSaga,
@@ -28,7 +29,6 @@ import keyword, {
   readKeywordItemSaga,
   deleteKeywordSaga,
 } from './keyword';
-
 
 const rootReducer = combineReducers({
   auth,
@@ -65,6 +65,7 @@ export function* rootSaga() {
     getKeywordRecommendationSaga(),
     createKeywordSaga(),
     deleteKeywordSaga(),
+    getStarSiteSaga(),
   ]);
 }
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { getSiteRecommendation } from 'store/modifyKeyword';
-
+import { getRecommendationSite } from 'store/modifyKeyword';
 const Container = styled.div`
   width: calc(100% - 32px);
   height: calc(100% + 100px);
@@ -120,7 +120,7 @@ const InputKeyword = ({ setIsMobileSite, onClickRecommendItem, setSelectedRecomm
 
   const dispatch = useDispatch();
   const { siteRecommendationList } = useSelector((state) => state.modifyKeyword);
-
+  const { recommendationSiteList } = useSelector((state) => state.modifyKeyword);
   const onClickChevronLeft = () => {
     setIsMobileSite(false);
   };
@@ -149,6 +149,7 @@ const InputKeyword = ({ setIsMobileSite, onClickRecommendItem, setSelectedRecomm
     if (site !== '' && site !== ' ') {
       dispatch(getSiteRecommendation(site));
     }
+    dispatch(getRecommendationSite());
   }, [site]);
 
   return (
@@ -171,7 +172,7 @@ const InputKeyword = ({ setIsMobileSite, onClickRecommendItem, setSelectedRecomm
             <UnderBarBalck isRecommendSite={isRecommendSite}></UnderBarBalck>
           </OptionBar>
           <List>
-            {isRecommendSite ? (
+            {!isRecommendSite ? (
               <>
                 {keywords.map((item) => {
                   return <Item key={item.id}>{item.name}</Item>;
@@ -179,8 +180,8 @@ const InputKeyword = ({ setIsMobileSite, onClickRecommendItem, setSelectedRecomm
               </>
             ) : (
               <>
-                {keywords.map((item) => {
-                  return <Item key={item.id}>{item.name}</Item>;
+                {recommendationSiteList.map((item, index) => {
+                  return <Item key={index}>{item}</Item>;
                 })}
               </>
             )}

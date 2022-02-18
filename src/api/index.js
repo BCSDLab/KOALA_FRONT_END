@@ -57,4 +57,5 @@ export const keywordAPI = {
   getKeywordRecommendation: (keyword) => logined.get(`keyword/search?keyword=${keyword}`),
   createKeyword: (object) => logined.post(`keyword`, object),
   deleteKeyword: (keyword) => logined.patch(`keyword?keyword-name=${keyword}`),
+  getRecommendationSite: () => logined.get(`keyword/site/recommendation`),
 };
