@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { getSiteRecommendation } from 'store/modifyKeyword';
 import { getRecommendationSite } from 'store/modifyKeyword';
+
 const Container = styled.div`
   width: calc(100% - 32px);
   height: calc(100% + 100px);
   padding: 0 16px;
-  background-color: white;
+  background-color: ${(props) => props.theme.colors.white};
   position: absolute;
   top: 0;
   z-index: 1;
@@ -38,41 +39,41 @@ const KeywordSearch = styled.input`
   padding: 0 0 0 16px;
   margin-left: 44px;
   border: 0;
-  background-color: #eee;
+  background-color: ${(props) => props.theme.colors.lightgray};
 `;
 
 const SearchButton = styled.button`
   width: 40px;
   height: 40px;
   flex-grow: 0;
-  color: white;
+  color: ${(props) => props.theme.colors.white};
   padding: 10px;
   font-size: 20px;
-  background-color: #222;
+  background-color: ${(props) => props.theme.colors.darkgray};
 `;
 
 const OptionBar = styled.div`
   display: flex;
   margin-top: 17px;
   height: 32px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
 `;
 
 const RecentSearch = styled.span`
   font-size: 12px;
-  color: #222;
+  color: ${(props) => props.theme.colors.darkgray};
   margin-right: 45px;
 `;
 
 const RecommendSite = styled.span`
   font-size: 12px;
-  color: #222;
+  color: ${(props) => props.theme.colors.darkgray};
 `;
 
 const UnderBarBalck = styled.div`
   width: 38px;
   height: 3px;
-  background-color: #222;
+  background-color: ${(props) => props.theme.colors.darkgray};
   position: absolute;
   top: 110px;
   left: ${(props) => (props.isRecommendSite ? '116px' : '24px')};
@@ -98,7 +99,7 @@ const KeywordList = styled(List)`
 const KeywordItem = styled(Item)`
   width: 100%;
   height: 50px;
-  background-color: #eee;
+  background-color: ${(props) => props.theme.colors.lightgray};
   position: relative;
   display: flex;
   align-items: center;
@@ -109,15 +110,9 @@ const HashImage = styled.img`
   margin-right: 5px;
 `;
 
-const keywords = [
-  { id: 0, name: '학사경고' },
-  { id: 1, name: '학사공지' },
-  { id: 2, name: '실습집중구간' },
-];
-
-const InputKeyword = ({ setIsMobileSite, onClickRecommendItem, setSelectedRecommendItem, setSite, site }) => {
+const InputKeyword = ({ setIsMobileSite, onClickRecommendItem, setSite, site }) => {
   const [isRecommendSite, setIsRecommendSite] = useState(false);
-
+  const [serchedSites, setserchedSites] = useState(JSON.parse(localStorage.getItem('serchedSites') || '[]'));
   const dispatch = useDispatch();
   const { siteRecommendationList } = useSelector((state) => state.modifyKeyword);
   const { recommendationSiteList } = useSelector((state) => state.modifyKeyword);
@@ -129,20 +124,18 @@ const InputKeyword = ({ setIsMobileSite, onClickRecommendItem, setSelectedRecomm
     setSite(value);
   };
 
-  const onClickRecommendKeyword = () => {
+  const onClickRecommendSites = () => {
     setIsRecommendSite(true);
   };
   const onClickRecentSearch = () => {
     setIsRecommendSite(false);
   };
 
-  const onClickHashButton = () => {
+  const onClickHashButton = (site) => {
     setIsMobileSite(false);
+    const newSite = site;
+    if (!serchedSites.indexOf(newSite)) setserchedSites([newSite, ...serchedSites]);
     setSite('');
-  };
-
-  const onClickKeyword = (name) => {
-    setSite(name);
   };
 
   useEffect(() => {
@@ -152,6 +145,9 @@ const InputKeyword = ({ setIsMobileSite, onClickRecommendItem, setSelectedRecomm
     dispatch(getRecommendationSite());
   }, [site]);
 
+  useEffect(() => {
+    localStorage.setItem('serchedSites', JSON.stringify(serchedSites));
+  }, [serchedSites]);
   return (
     <Container>
       <Header>
@@ -164,18 +160,18 @@ const InputKeyword = ({ setIsMobileSite, onClickRecommendItem, setSelectedRecomm
         </SearchButton>
       </Header>
 
-      {siteRecommendationList.length === 0 ? (
+      {site.length === 0 ? (
         <>
           <OptionBar>
             <RecentSearch onClick={onClickRecentSearch}>최근 검색</RecentSearch>
-            <RecommendSite onClick={onClickRecommendKeyword}>추천 대상</RecommendSite>
+            <RecommendSite onClick={onClickRecommendSites}>추천 대상</RecommendSite>
             <UnderBarBalck isRecommendSite={isRecommendSite}></UnderBarBalck>
           </OptionBar>
           <List>
             {!isRecommendSite ? (
               <>
-                {keywords.map((item) => {
-                  return <Item key={item.id}>{item.name}</Item>;
+                {siteRecommendationList.map((item, index) => {
+                  return <Item key={index}>{item}</Item>;
                 })}
               </>
             ) : (

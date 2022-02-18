@@ -55,11 +55,11 @@ export const SearchContainer = styled(HashtagContainer)`
   ${(props) => {
     if (!props.show) {
       return `
-                border:1px solid #222222;
+                border:1px solid ${props.theme.colors.darkgray};
                 border-bottom:none;
             `;
     } else {
-      props.alreadyRegister && `border:1.5px solid #ffd25d;`;
+      props.alreadyRegister && `border:1.5px solid ${props.theme.colors.yellow};`;
     }
   }}
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
@@ -68,11 +68,11 @@ export const SearchContainer = styled(HashtagContainer)`
     ${(props) => {
       if (!props.show) {
         return `
-                border:1px solid #222222;
+                border:1px solid ${props.theme.colors.darkgray};
                 border-bottom:none;
             `;
       } else {
-        props.alreadyRegister && `border:1.5px solid #ffd25d;`;
+        props.alreadyRegister && `border:1.5px solid ${props.theme.colors.yellow};`;
       }
     }}
     margin-bottom: 0;
@@ -85,7 +85,7 @@ export const RecommendItem = styled.li`
   padding-left: 37px;
   line-height: 37px;
   &:hover {
-    background-color: #eeeeee;
+    background-color: ${(props) => props.theme.colors.lightgray};
   }
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: calc(100% - 16px);
@@ -98,7 +98,7 @@ export const RecommendItem = styled.li`
 export const RecommendContainer = styled.ul`
   padding-left: none;
   width: 1116px;
-  border: 1px solid #222222;
+  border: 1px solid ${(props) => props.theme.colors.darkgray};
   border-top: none;
   position: absolute;
   background-color: white;
@@ -114,7 +114,7 @@ export const RecommendContainer = styled.ul`
     display: ${(props) => {
       return props.show ? 'none' : 'block';
     }};
-    background-color: white;
+    background-color: ${(props) => props.theme.colors.white};
   }
 `;
 
@@ -141,7 +141,7 @@ export const InputSite = styled.input`
 export const SiteContainer = styled(HashtagContainer)`
   top: 335px;
   height: 117px;
-  background-color: #eee;
+  background-color: ${(props) => props.theme.colors.lightgray};
   padding: 10px 12px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     background-color: ${(props) => props.theme.colors.white};
@@ -229,7 +229,7 @@ export const CheckBox = styled.div`
   height: 14px;
   margin-right: 8px;
   border-radius: 3px;
-  border: 1px solid #c4c4c4;
+  border: 1px solid ${(props) => props.theme.colors.silver};
   cursor: pointer;
 
   ${(props) => {
@@ -251,7 +251,7 @@ export const CheckBox = styled.div`
 export const CheckBoxTitle = styled.span`
   min-width: 55px;
   font-size: 14px;
-  color: #999999;
+  color: ${(props) => props.theme.colors.gray};
   margin-right: 24px;
   cursor: pointer;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
@@ -261,7 +261,7 @@ export const CheckBoxTitle = styled.span`
 export const CheckBoxContent = styled.span`
   min-width: 241px;
   font-size: 11px;
-  color: #999999;
+  color: ${(props) => props.theme.colors.gray};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
   }
 `;
@@ -330,9 +330,9 @@ export const Type = styled.li`
   margin-right: 48px;
   color: ${(props) => {
     if (props.checkId === props.alarmTerm) {
-      return `#222222`;
+      return `${props.theme.colors.darkgray}`;
     } else {
-      return `#c4c4c4`;
+      return `${props.theme.colors.gray}`;
     }
   }};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
