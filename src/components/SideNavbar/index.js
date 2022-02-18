@@ -159,7 +159,7 @@ const HistoryIcon = styled(Icon)``;
 const ChattingIcon = styled(Icon)``;
 const SettingIcon = styled(Icon)``;
 
-const queries = ['(max-width: 450px)', '(min-width: 800px)'];
+const queries = ['(max-width: 400px)', '(min-width: 800px)'];
 const SideNavbar = () => {
   const dispatch = useDispatch();
 
@@ -211,7 +211,7 @@ const SideNavbar = () => {
           {!desktop && <MenuItemText current={location.pathname === '/mypage' ? 1 : 0}>설정</MenuItemText>}
         </SettingIcon>
       </Nav>
-      {isOpen && <SideNavMenu />}
+      {isOpen && !desktop && <SideNavMenu />}
     </NavContainer>
   );
 };

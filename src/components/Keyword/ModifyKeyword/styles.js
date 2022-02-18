@@ -146,6 +146,7 @@ export const SiteContainer = styled(HashtagContainer)`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     background-color: ${(props) => props.theme.colors.white};
     width: 100%;
+    overflow: hidden;
     height: auto;
     padding: 0;
     border: 0;
