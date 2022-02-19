@@ -103,7 +103,7 @@ const history = handleActions(
       moveToScrapResponse: false,
     }),
 
-    [CLEA_RHISTORY_LIST]: (state) => ({
+    [CLEAR_HISTORY_LIST]: (state) => ({
       ...state,
       historyList: [],
     }),
