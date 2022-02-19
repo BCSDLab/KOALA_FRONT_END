@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import theme from '../../../theme';
+const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors.white;
 const mobileL = theme.deviceSizes.mobileL;
 const mibileS = theme.deviceSizes.mobileS;
 
@@ -12,9 +13,9 @@ export const SelectAll = styled.div`
 export const KeyWordAlert = styled.li`
   display: flex;
   justify-content: space-between;
-  color: ${(props) => (props.isRead ? '#999999' : '#222222')};
+  color: ${(props) => (props.isRead ? gray : darkgray)};
   padding: 15px 0 15px 0;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid ${lightgray};
   @media screen and (max-width: ${mobileL}) {
     position: relative;
     justify-content: start;
@@ -38,7 +39,7 @@ export const AlertBorderBox = styled.div`
       content: '';
       margin-left: 3%;
       width: 87%;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid ${lightgray};
     }
   }
 `;
@@ -58,7 +59,7 @@ export const AlertTitle = styled.a`
   max-height: 18px;
   margin-right: 40px;
   font-size: 12px;
-  color: ${(props) => (props.isRead ? '#999999' : '#222222')};
+  color: ${(props) => (props.isRead ? gray : darkgray)};
   cursor: pointer;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -89,7 +90,7 @@ export const MailBrowse = styled.div`
   margin-right: 24px;
   text-align: center;
   font-size: 11px;
-  color: #999999;
+  color: ${gray};
 `;
 export const ReceiveDate = styled.div`
   width: 67px;
@@ -119,9 +120,9 @@ export const Menues = styled.div`
   padding: 8px;
   align-items: center;
   justify-content: center;
-  border: solid 1px ${(props) => (props.isClicked ? '#222222' : '#eeeeee')};
+  border: solid 1px ${(props) => (props.isClicked ? darkgray : lightgray)};
   margin-right: 15px;
-  color: ${(props) => (props.isClicked ? '#222222' : '#999999')};
+  color: ${(props) => (props.isClicked ? darkgray : gray)};
   cursor: pointer;
   @media screen and (max-width: ${mobileL}) {
     width: 59px;

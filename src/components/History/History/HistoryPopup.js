@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import theme from '../../../theme';
+const {white} = theme.colors.white;
 
 const PopUpWindow = styled.div`
   display: ${(props) => (props.isOpen ? 'block' : 'none')};
@@ -10,7 +12,7 @@ const PopUpWindow = styled.div`
   height: 110px;
   padding: 37px 0 0 30px;
   border: 1px solid #999;
-  background: #fff;
+  background: ${white};
   font-size: 14px;
 `;
 const TextArea = styled.span`

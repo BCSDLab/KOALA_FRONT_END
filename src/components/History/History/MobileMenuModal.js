@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import theme from '../../../theme';
+const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors.white;
+
 const Modal = styled.div`
   display: flex;
   z-index: 99;
@@ -13,20 +16,20 @@ const Modal = styled.div`
   padding: 8px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.15);
   font-size: 12px;
-  color: #999;
+  color: ${gray};
   background-color: white;
 `;
 const ModalMenu = styled.div`
   display: flex;
   width: 98px;
-  color: ${(props) => (props.isToggle ? '#222' : '#999')};
+  color: ${(props) => (props.isToggle ? darkgray : gray)};
   svg {
     width: 16px;
     height: 16px;
     margin: 0 8px 0 0;
   }
   path {
-    stroke: ${(props) => (props.isToggle ? '#222' : '#999')};
+    stroke: ${(props) => (props.isToggle ? darkgray : gray)};
   }
 `;
 const ModalMenuName = styled.span`

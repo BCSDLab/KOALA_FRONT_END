@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import theme from '../../../theme';
 const mobileL = theme.deviceSizes.mobileL;
+const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors.white;
 
 export const SwipeWrapper = styled.div`
     width: 95%;
@@ -65,7 +66,7 @@ export const AlertBorderLine = styled.div`
         display: block;
         content:"";
         width: 87%;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid ${lightgray};
         margin-left: 3%;
     }
   }
@@ -81,21 +82,21 @@ export const MemoWrapper = styled.div`
 export const MemoCircle = styled.div`
     width: 8px;
   height: 8px;
-  background-color: #ffd25d;
+  background-color: ${yellow};
   border-radius: 50%;
   margin: 5px 8px 0 0;
 
 `
 export const MemoText = styled.div`
   width: 89%;
-  color: #999;
+  color: ${gray};
 `
 
 export const FixedAlert = styled.span`
   font-size: 11px;
   min-width: 38px;
   margin: 16px 0 0 0;
-  color: #999;
+  color: ${gray};
 `
 
 export const Memo = styled.div`
@@ -106,8 +107,8 @@ export const MemoFixBlock = styled.div`
   min-width: 88px;
   // height: 119px;
   // min-height: 119px;
-  background: #ffd25d;
-  color: #fff;
+  background: ${yellow};
+  color: ${white};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -117,8 +118,8 @@ export const MemoWriteBlock = styled.div`
     width: 88px;
     min-width: 88px;
     // heigth: 119px;
-    background: #222;
-    color: #fff;
+    background: ${darkgray};
+    color: ${white};
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -140,7 +141,7 @@ export const MemoOption = styled.div`
   width: 100%;
     display: flex;
     justify-content: space-between;
-    color: #999;
+    color: ${gray};
     margin: 11px 0 0 0;
 `
 export const LetterCounter = styled.div`
@@ -149,7 +150,7 @@ export const LetterCounter = styled.div`
 export const WriteBlockWrapper = styled.div`
     width: 88%;
     height: 74px;
-    background: #eee;
+    background: ${lightgray};
     padding: 8px;
     margin-top: 8px;
 `

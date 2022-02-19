@@ -4,6 +4,8 @@ import { useLocation } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../../../theme';
+const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors.white;
+
 const Header = styled.div`
   display: flex;
   width: 1294px;
@@ -20,7 +22,7 @@ const Header = styled.div`
 const FocusLine = styled.div`
   width: 32px;
   height: 2px;
-  background-color: #222222;
+  background-color: ${darkgray};
   margin: ${(props) => {
     if (props.location.pathname === '/history') {
       return '0 0 0 40px';
@@ -43,7 +45,7 @@ const HistoryHeaderTab = styled(NavLink)`
       width: 32px;
       padding: 0 0 14px 0;
       margin: 0 auto;
-      border-bottom: ${(props) => (props.inlink ? '2px solid #222' : '')};
+      border-bottom: ${(props) => (props.inlink ? `2px solid ${darkgray}` : '')};
     }
   }
 `;

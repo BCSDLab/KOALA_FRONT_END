@@ -10,8 +10,8 @@ import {useDispatch} from 'react-redux';
 // import {Swiper,SwiperSlide} from 'swiper/react/swiper-react';
 // import 'swiper/swiper-bundle.min.css'
 // import 'swiper/swiper.min.css'
-
-
+import theme from '../../../theme';
+const {gray, yellow} = theme.colors.white;
 
 const MobileScrapAlert = ({mail, selectMail, list, memo, writeId, setCurr}) => {
     const dispatch = useDispatch();
@@ -31,9 +31,9 @@ const MobileScrapAlert = ({mail, selectMail, list, memo, writeId, setCurr}) => {
     const checkLength = () =>{
         memoLengthRef.current.innerText = memoRef.current.value.length;
         if(memoRef.current.value.length >= 100){
-            memoLengthRef.current.style.color = '#ffd25d';
+            memoLengthRef.current.style.color = yellow;
         }else{
-            memoLengthRef.current.style.color = '#999';
+            memoLengthRef.current.style.color = gray;
         }
     }
     const write = () => {

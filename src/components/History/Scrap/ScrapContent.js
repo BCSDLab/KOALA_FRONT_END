@@ -10,6 +10,8 @@ import theme from '../../../theme';
 import { useMediaQuery } from 'react-responsive';
 import MobileScrapAlert from './MobileScrapAlert';
 const memoState = ['READ', 'WRITE', 'FIX'];
+const {gray, yellow} = theme.colors.white;
+
 const stringToDate = (date) => {
   var yyyyMMdd = String(date);
   var sYear = yyyyMMdd.substring(0, 4);
@@ -136,9 +138,9 @@ const ScrapContent = () => {
     const len = countLetter(obj.target.value);
     letter.current.innerText = len;
     if(len >= 100){
-      letter.current.style.color = '#ffd25d';
+      letter.current.style.color = yellow;
     }else{
-      letter.current.style.color = '#999';
+      letter.current.style.color = gray;
     }
   };
   const countLetter = (letter) => {

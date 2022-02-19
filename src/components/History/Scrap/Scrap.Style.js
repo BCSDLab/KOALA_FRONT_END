@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import theme from '../../../theme';
-const mobileL = theme.deviceSizes.mobileL;
+const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors.white;
 
+const mobileL = theme.deviceSizes.mobileL;
 export const MemoBlock = styled.div`
   width: 1033px;
   border: none;
@@ -15,7 +16,7 @@ export const WriteBlock = styled.textarea`
   border: none;
   resize: none;
   outline: none;
-  background-color: #eeeeee;
+  background-color: ${lightgray};
   font-family: 'NotoSansCJKKR';
   font-size: 12px;
   @media screen and (max-width: ${mobileL}){
@@ -44,8 +45,8 @@ export const Menu = styled.div`
   align-items: center;
   margin-left: 1137px;
   padding: 8px;
-  border: solid 1px #eeeeee;
-  color: #999999;
+  border: solid 1px ${lightgray};
+  color: ${gray};
   cursor: pointer;
   @media screen and (max-width: ${mobileL}){
     margin: 0;
@@ -73,12 +74,12 @@ export const SelectAll = styled.div`
 export const MemoOption = styled.div`
   font-size: 12px;
   width: 23px;
-  color: #999999;
+  color: ${gray};
   cursor: pointer;
 `;
 export const ReceiveDate = styled.div`
   font-size: 12px;
-  color: #999999;
+  color: ${gray};
 `;
 export const DivideLine = styled.img`
   width: 16px;
@@ -92,10 +93,10 @@ export const AlertProp = styled.div`
 export const StorageAlert = styled.li`
   display: flex;
   width: 1294px;
-  color: #222222;
+  color: ${darkgray};
   padding: 0 0 15px 0;
   margin: 15px 0 0 0;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid ${lightgray};
   @media screen and (max-width:${mobileL}){
     width: 100%;
   }
@@ -126,7 +127,7 @@ export const MemoCircle = styled.div`
   width: 8px;
   height: 8px;
   margin: 5px 8px 0px 8px;
-  background-color: #ffd25d;
+  background-color: ${yellow};
   border-radius: 50%;
 `;
 export const MemoWrapper = styled.div`

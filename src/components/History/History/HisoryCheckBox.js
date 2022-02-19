@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../theme';
+const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors.white;
 const mobileL = theme.deviceSizes.mobileL;
 const mibileS = theme.deviceSizes.mobileS;
 const CheckDotLabel = styled.label`
@@ -24,7 +25,7 @@ const CustomCheckDot = styled.div`
   height: 16px;
   border-radius: 3px;
   margin-right: 20px;
-  border: solid 1px #c4c4c4;
+  border: solid 1px ${silver};
   ${CheckDot}:checked + & {
     background: url('/asset/Check.svg');
     background-position: center;

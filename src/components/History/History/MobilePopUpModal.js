@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import theme from '../../../theme';
+const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors.white;
+
 
 const Modal = styled.div`
   position: fixed;
@@ -16,10 +19,10 @@ const Modal = styled.div`
   z-index: 99;
 `;
 const ModalText = styled.div`
-  color: #fff;
+  color: ${white};
 `;
 const UndoButton = styled.div`
-  color: #ffd25d;
+  color: ${yellow};
 `;
 
 export const MobileDeleteModal = ({ undo }) => {
