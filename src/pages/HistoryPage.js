@@ -8,8 +8,8 @@ import SideNavbar from 'components/SideNavbar';
 import theme from 'theme';
 const HistoryPageContent = styled.div`
   display: flex;
-  min-width: 1294px;
-  max-width: 1294px;
+  // min-width: 1294px;
+  // max-width: 1294px;
   @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
     width: 100vw;
     max-width: ${theme.deviceSizes.mobileL};
@@ -26,13 +26,18 @@ const HistoryPageContent = styled.div`
 
 const ContentWrapper = styled.div`
   padding: 49px 0 0 0;
+  display: flex;
+  width: 100%;
+  // justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const HistoryPage = () => {
   const location = useLocation();
   return (
     <HistoryPageContent>
-      {/* <SideNavbar /> */}
+      <SideNavbar />
       <ContentWrapper>
         <HistoryHeader location={location} />
         <Routes>

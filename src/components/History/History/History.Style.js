@@ -142,7 +142,6 @@ export const PageWrapper = styled.div`
   display: block;
   width: 1314px;
   font-size: 12px;
-  position: absolute;
   @media screen and (max-width: ${mobileL}) {
     width: 100vw;
   }
