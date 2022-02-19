@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import KeywordHeader from '../KeywordHeader';
-import { getSiteRecommendation } from 'store/modifyKeyword';
+import { getSiteRecommendation, detailKeyword } from 'store/modifyKeyword';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { MEDIA_QUERIES } from 'constant';
+import { changeSite } from '../utils';
 import useMatchMedia from 'hooks/useMatchMedia';
 import KeywordAlarm from '../KeywordAlarm';
-import SiteInput from '../Mobile/SiteInput';
+import SiteInput from '../Mobile/InputSite';
 import AlertForm from '../Mobile/AlertForm';
 
 const ModifyKeyword = () => {
@@ -17,6 +18,7 @@ const ModifyKeyword = () => {
   const [selectRecommendItem, setSelectRecommendItem] = useState([]);
   const [alreadyRegisterItem, setAlreadyRegisterItem] = useState(false);
   const { siteRecommendationList } = useSelector((state) => state.modifyKeyword);
+  const { keywordInfo } = useSelector((state) => state.modifyKeyword);
   const dispatch = useDispatch();
   const location = useLocation();
   const keywordName = location.state;
@@ -72,6 +74,18 @@ const ModifyKeyword = () => {
     }
   }, [siteRecommendationList]);
 
+  useEffect(() => {
+    dispatch(detailKeyword(keywordName));
+  }, [keywordName]);
+
+  useEffect(() => {
+    const siteList = keywordInfo.siteList;
+    if (siteList !== undefined) {
+      const Site = siteList.map((item) => changeSite(item));
+      setSelectRecommendItem(selectRecommendItem.concat(Site));
+    }
+  }, [keywordInfo.siteList]);
+
   return (
     <>
       <KeywordHeader title={'키워드 수정하기'} />
@@ -90,7 +104,7 @@ const ModifyKeyword = () => {
               alreadyRegister={alreadyRegisterItem}
             />
           ) : (
-            <S.InputSite placeholder="알림받을 사이트 검색" value={site} onClick={mobileSearchSite} />
+            <S.InputSite placeholder="알림받을 사이트 검색" defaultValue={site} onClick={mobileSearchSite} />
           )}
           <S.AlreadyRegisterMessage alreadyRegister={alreadyRegisterItem}>
             이미 등록한 사이트입니다.
@@ -124,6 +138,7 @@ const ModifyKeyword = () => {
           <SiteInput
             setSite={setSite}
             site={site}
+            setAlreadyRegisterItem={setAlreadyRegisterItem}
             setSelectedRecommendItem={setSelectRecommendItem}
             setIsMobileSite={setIsMobileSite}
             onClickRecommendItem={onClickRecommendItem}
@@ -137,7 +152,12 @@ const ModifyKeyword = () => {
             keywordName={keywordName}
           />
         ) : (
-          <AlertForm />
+          <AlertForm
+            buttonText={'수정'}
+            selectRecommendItem={selectRecommendItem}
+            setSelectRecommendItem={setSelectRecommendItem}
+            keywordName={keywordName}
+          />
         )}
       </S.ModifyKeywordContent>
     </>
