@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import theme from '../../../theme';
+
+const {mobileL, mobileS} = theme.deviceSizes;
 
 export const Menu = styled.nav`
   min-width: 1323px;
@@ -9,6 +12,9 @@ export const Menu = styled.nav`
   border-bottom: 1.5px solid #eeeeee;
   top: 180px;
   left: ${(props) => (props.toggle ? '488px' : '353px')};
+  @media screen and (max-width: ${mobileL}){
+    position: static;
+  }
 `;
 
 export const Item = styled.span`
@@ -75,6 +81,11 @@ export const FilterList = styled.nav`
     margin-right: 24px;
     display: flex;
     align-items: center;
+  }
+  @media screen and (max-width: ${mobileL}){
+    position: static;
+    width: 100vw;
+    min-width: ${mobileS};
   }
 `;
 
