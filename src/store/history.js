@@ -3,48 +3,48 @@ import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, { createRequestSagaActionTypes } from './createRequestSaga';
 import { takeLatest } from 'redux-saga/effects';
 
-const [GETHISTORYLIST, GETHISTORYLIST_SUCCESS, GETHISTORYLIST_FAILURE] =
+const [GET_HISTORY_LIST, GET_HISTORY_LIST_SUCCESS, GET_HISTORY_LIST_FAILURE] =
   createRequestSagaActionTypes('history/GETHISTORYLIST');
-const [DELETEHISTORYLIST, DELETEHISTORYLIST_SUCCESS, DELETEHISTORYLIST_FAILURE] =
+const [DELETE_HISTORY_LIST, DELETE_HISTORY_LIST_SUCCESS, DELETE_HISTORY_LIST_FAILURE] =
   createRequestSagaActionTypes('history/DELETEHISTORYLIST');
-const [READHISTRORYITEM, READHISTRORYITEM_SUCCESS, READHISTRORYITEM_FAILURE] =
+const [READ_HISTORY_ITEM, READ_HISTORY_ITEM_SUCCESS, READ_HISTORY_ITEM_FAILURE] =
   createRequestSagaActionTypes('history/READHISTORYITEM');
-const [MOVETOSCRAP, MOVETOSCRAP_SUCCESS, MOVETOSCRAP_FAILURE] = createRequestSagaActionTypes('history/MOVETOSCRAP');
-const [CLEARHISTORYlIST, CLEARHISTORYLIST_SUCCESS, CLEARHISTORYlIST_FAILURE] =
+const [MOVE_TO_SCRAP, MOVE_TO_SCRAP_SUCCESS, MOVE_TO_SCRAP_FAILURE] = createRequestSagaActionTypes('history/MOVETOSCRAP');
+const [CLEAR_HISTORY_LIST, CLEAR_HISTORY_LIST_SUCCESS, CLEAR_HISTORY_LIST_FAILURE] =
   createRequestSagaActionTypes('history/CLEARHISTORYLIST');
-const [UNDOHISTORYLIST, UNDOHISTORYLIST_SUCCESS, UNDOHISTORYLIST_FAILURE] =
+const [UNDO_HISTORY_LIST, UNDO_HISTORY_LIST_SUCCESS, UNDO_HISTORY_LIST_FAILURE] =
   createRequestSagaActionTypes('history/UNDOHISTORYLIST');
 
-export const getHistoryList = createAction(GETHISTORYLIST, (pageNum) => pageNum);
-export const deleteHistoryList = createAction(DELETEHISTORYLIST, (historyList) => historyList);
-export const readHistoryItem = createAction(READHISTRORYITEM, (noticeId) => noticeId);
-export const moveToScrap = createAction(MOVETOSCRAP, (idList) => idList);
-export const clearHistoryList = createAction(CLEARHISTORYlIST);
-export const undoHistoryList = createAction(UNDOHISTORYLIST, (idList) => idList);
+export const getHistoryList = createAction(GET_HISTORY_LIST, (pageNum) => pageNum);
+export const deleteHistoryList = createAction(DELETE_HISTORY_LIST, (historyList) => historyList);
+export const readHistoryItem = createAction(READ_HISTORY_ITEM, (noticeId) => noticeId);
+export const moveToScrap = createAction(MOVE_TO_SCRAP, (idList) => idList);
+export const clearHistoryList = createAction(CLEAR_HISTORY_LIST);
+export const undoHistoryList = createAction(UNDO_HISTORY_LIST, (idList) => idList);
 
-const getHistorySaga = createRequestSaga(GETHISTORYLIST, historyAPI.getHistoryList);
+const getHistorySaga = createRequestSaga(GET_HISTORY_LIST, historyAPI.getHistoryList);
 export function* getHistoryListSaga() {
-  yield takeLatest(GETHISTORYLIST, getHistorySaga);
+  yield takeLatest(GET_HISTORY_LIST, getHistorySaga);
 }
 
-const deleteHistorySaga = createRequestSaga(DELETEHISTORYLIST, historyAPI.deleteHistoryList);
+const deleteHistorySaga = createRequestSaga(DELETE_HISTORY_LIST, historyAPI.deleteHistoryList);
 export function* deleteHistoryListSaga() {
-  yield takeLatest(DELETEHISTORYLIST, deleteHistorySaga);
+  yield takeLatest(DELETE_HISTORY_LIST, deleteHistorySaga);
 }
 
-const readHistorySaga = createRequestSaga(READHISTRORYITEM, historyAPI.readHistoryItem);
+const readHistorySaga = createRequestSaga(READ_HISTORY_ITEM, historyAPI.readHistoryItem);
 export function* readHistoryItemSaga() {
-  yield takeLatest(READHISTRORYITEM, readHistorySaga);
+  yield takeLatest(READ_HISTORY_ITEM, readHistorySaga);
 }
 
-const moveToScrapSaga = createRequestSaga(MOVETOSCRAP, historyAPI.moveToScrap);
+const moveToScrapSaga = createRequestSaga(MOVE_TO_SCRAP, historyAPI.moveToScrap);
 export function* moveToScrapItemSaga() {
-  yield takeLatest(MOVETOSCRAP, moveToScrapSaga);
+  yield takeLatest(MOVE_TO_SCRAP, moveToScrapSaga);
 }
 
-const undoHistorySaga = createRequestSaga(UNDOHISTORYLIST, historyAPI.undoHistoryList);
+const undoHistorySaga = createRequestSaga(UNDO_HISTORY_LIST, historyAPI.undoHistoryList);
 export function* undoHistoryListSaga() {
-  yield takeLatest(UNDOHISTORYLIST, undoHistorySaga);
+  yield takeLatest(UNDO_HISTORY_LIST, undoHistorySaga);
 }
 
 const initialState = {
@@ -58,7 +58,7 @@ const initialState = {
 
 const history = handleActions(
   {
-    [GETHISTORYLIST_SUCCESS]: (state, { payload: history }) => ({
+    [GET_HISTORY_LIST_SUCCESS]: (state, { payload: history }) => ({
       ...state,
       historyList: [...state.historyList, ...history.body],
       getHistoryListResponse: true,
@@ -66,7 +66,7 @@ const history = handleActions(
       readHistoryItemResponse: false,
       undoHistoryListResponse: false,
     }),
-    [GETHISTORYLIST_FAILURE]: (state) => ({
+    [GET_HISTORY_LIST_FAILURE]: (state) => ({
       ...state,
       historyList: [],
       getHistoryListResponse: false,
@@ -75,45 +75,45 @@ const history = handleActions(
       undoHistoryListResponse: false,
     }),
 
-    [DELETEHISTORYLIST_SUCCESS]: (state) => ({
+    [DELETE_HISTORY_LIST_SUCCESS]: (state) => ({
       ...state,
       historyList: [],
       deleteHistoryResponse: true,
     }),
-    [DELETEHISTORYLIST_FAILURE]: (state) => ({
+    [DELETE_HISTORY_LIST_FAILURE]: (state) => ({
       ...state,
       deleteHistoryResponse: false,
     }),
 
-    [READHISTRORYITEM_SUCCESS]: (state) => ({
+    [READ_HISTORY_ITEM_SUCCESS]: (state) => ({
       ...state,
       readHistoryItemResponse: true,
     }),
-    [READHISTRORYITEM_FAILURE]: (state) => ({
+    [READ_HISTORY_ITEM_FAILURE]: (state) => ({
       ...state,
       readHistoryItemResponse: false,
     }),
 
-    [MOVETOSCRAP_SUCCESS]: (state) => ({
+    [MOVE_TO_SCRAP_SUCCESS]: (state) => ({
       ...state,
       moveToScrapResponse: true,
     }),
-    [MOVETOSCRAP_FAILURE]: (state) => ({
+    [MOVE_TO_SCRAP_FAILURE]: (state) => ({
       ...state,
       moveToScrapResponse: false,
     }),
 
-    [CLEARHISTORYlIST]: (state) => ({
+    [CLEA_RHISTORY_LIST]: (state) => ({
       ...state,
       historyList: [],
     }),
 
-    [UNDOHISTORYLIST_SUCCESS]: (state) => ({
+    [UNDO_HISTORY_LIST_SUCCESS]: (state) => ({
       ...state,
       historyList: [],
       undoHistoryListResponse: true,
     }),
-    [UNDOHISTORYLIST_FAILURE]: (state) => ({
+    [UNDO_HISTORY_LIST_FAILURE]: (state) => ({
       ...state,
       undoHistoryListResponse: false,
     }),

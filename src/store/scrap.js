@@ -3,42 +3,49 @@ import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, { createRequestSagaActionTypes } from './createRequestSaga';
 import { takeLatest } from 'redux-saga/effects';
 
-const [GETSCRAPLIST, GETSCRAPLIST_SUCCESS, GETSCRAPLIST_FAILURE] = createRequestSagaActionTypes('scrap/GETSCRAPLIST');
-const [DELETESCRAPITEM, DELETESCRAPITEM_SUCCESS, DELETESCRAPITEM_FAILURE] =
-  createRequestSagaActionTypes('scrap/DELETESCRAPITEM');
-const [GETMEMO, GETMEMO_SUCCESS, GETMEMO_FAILURE] = createRequestSagaActionTypes('scrap/GETMEMO');
-const [FIXMEMO, FIXMEMO_SUCCESS, FIXMEMO_FAILURE] = createRequestSagaActionTypes('scrap/FIXMEMO');
-const [WRITEMEMO, WRITEMEMO_SUCCESS, WRITEMEMO_FAILURE] = createRequestSagaActionTypes('scrap/WRITEMEMO');
+// const [GETSCRAPLIST, GETSCRAPLIST_SUCCESS, GETSCRAPLIST_FAILURE] = createRequestSagaActionTypes('scrap/GETSCRAPLIST');
+// const [DELETESCRAPITEM, DELETESCRAPITEM_SUCCESS, DELETESCRAPITEM_FAILURE] =
+//   createRequestSagaActionTypes('scrap/DELETESCRAPITEM');
+// const [GETMEMO, GETMEMO_SUCCESS, GETMEMO_FAILURE] = createRequestSagaActionTypes('scrap/GETMEMO');
+// const [FIXMEMO, FIXMEMO_SUCCESS, FIXMEMO_FAILURE] = createRequestSagaActionTypes('scrap/FIXMEMO');
+// const [WRITEMEMO, WRITEMEMO_SUCCESS, WRITEMEMO_FAILURE] = createRequestSagaActionTypes('scrap/WRITEMEMO');
 
-export const getScrapList = createAction(GETSCRAPLIST);
-export const deleteScrapItem = createAction(DELETESCRAPITEM, (noticeIdList) => noticeIdList);
-export const getMemo = createAction(GETMEMO);
-export const fixMemo = createAction(FIXMEMO, (memo) => memo);
-export const writeMemo = createAction(WRITEMEMO, (memo) => memo);
+const [GET_SCRAP_LIST, GET_SCRAP_LIST_SUCCESS, GET_SCRAP_LIST_FAILURE] = createRequestSagaActionTypes('scrap/GET_SCRAP_LIST');
+const [DELETE_SCRAP_ITEM, DELETE_SCRAP_ITEM_SUCCESS, DELETE_SCRAP_ITEM_FAILURE] =
+  createRequestSagaActionTypes('scrap/DELETE_SCRAP_ITEM');
+const [GET_MEMO, GET_MEMO_SUCCESS, GET_MEMO_FAILURE] = createRequestSagaActionTypes('scrap/GET_MEMO');
+const [FIX_MEMO, FIX_MEMO_SUCCESS,FIX_MEMO_FAILURE] = createRequestSagaActionTypes('scrap/FIX_MEMO');
+const [WRITE_MEMO, WRITE_MEMO_SUCCESS, WRITE_MEMO_FAILURE] = createRequestSagaActionTypes('scrap/WRITE_MEMO');
 
-const getScrapSaga = createRequestSaga(GETSCRAPLIST, scrapAPI.getScrapList);
+export const getScrapList = createAction(GET_SCRAP_LIST);
+export const deleteScrapItem = createAction(DELETE_SCRAP_ITEM, (noticeIdList) => noticeIdList);
+export const getMemo = createAction(GET_MEMO);
+export const fixMemo = createAction(FIX_MEMO, (memo) => memo);
+export const writeMemo = createAction(WRITE_MEMO, (memo) => memo);
+
+const getScrapSaga = createRequestSaga(GET_SCRAP_LIST, scrapAPI.getScrapList);
 export function* getScrapListSaga() {
-  yield takeLatest(GETSCRAPLIST, getScrapSaga);
+  yield takeLatest(GET_SCRAP_LIST, getScrapSaga);
 }
 
-const deleteScrapSaga = createRequestSaga(DELETESCRAPITEM, scrapAPI.deleteScrapItem);
+const deleteScrapSaga = createRequestSaga(DELETE_SCRAP_ITEM, scrapAPI.deleteScrapItem);
 export function* deleteScrapItemSaga() {
-  yield takeLatest(DELETESCRAPITEM, deleteScrapSaga);
+  yield takeLatest(DELETE_SCRAP_ITEM, deleteScrapSaga);
 }
 
-const getMemoListSaga = createRequestSaga(GETMEMO, scrapAPI.getMemo);
+const getMemoListSaga = createRequestSaga(GET_MEMO, scrapAPI.getMemo);
 export function* getMemoSaga() {
-  yield takeLatest(GETMEMO, getMemoListSaga);
+  yield takeLatest(GET_MEMO, getMemoListSaga);
 }
 
-const fixMemoItemSaga = createRequestSaga(FIXMEMO, scrapAPI.fixMemo);
+const fixMemoItemSaga = createRequestSaga(FIX_MEMO, scrapAPI.fixMemo);
 export function* fixMemoSaga() {
-  yield takeLatest(FIXMEMO, fixMemoItemSaga);
+  yield takeLatest(FIX_MEMO, fixMemoItemSaga);
 }
 
-const writeMemoItemSaga = createRequestSaga(WRITEMEMO, scrapAPI.writeMemo);
+const writeMemoItemSaga = createRequestSaga(WRITE_MEMO, scrapAPI.writeMemo);
 export function* writeMemoSaga() {
-  yield takeLatest(WRITEMEMO, writeMemoItemSaga);
+  yield takeLatest(WRITE_MEMO, writeMemoItemSaga);
 }
 
 const initialState = {
@@ -53,7 +60,7 @@ const initialState = {
 
 const scrap = handleActions(
   {
-    [GETSCRAPLIST_SUCCESS]: (state, { payload: scrap }) => ({
+    [GET_SCRAP_LIST_SUCCESS]: (state, { payload: scrap }) => ({
       ...state,
       scrapList: scrap.body,
       getScrapListResponse: true,
@@ -62,40 +69,40 @@ const scrap = handleActions(
       fixMemoResponse: false,
       writeMemoResponse: false,
     }),
-    [GETSCRAPLIST_FAILURE]: (state) => ({
+    [GET_SCRAP_LIST_FAILURE]: (state) => ({
       ...state,
       scrapList: [],
       getScrapListResponse: false,
       deleteScrapResponse: false,
     }),
 
-    [GETMEMO_SUCCESS]: (state, { payload: scrap }) => ({
+    [GET_MEMO_SUCCESS]: (state, { payload: scrap }) => ({
       ...state,
       memoList: scrap.body,
       getMemoListResponse: true,
     }),
-    [GETMEMO_FAILURE]: () => ({
+    [GET_MEMO_FAILURE]: () => ({
       getMemoListResponse: false,
     }),
 
-    [DELETESCRAPITEM_SUCCESS]: () => ({
+    [DELETE_SCRAP_ITEM_SUCCESS]: () => ({
       deleteScrapResponse: true,
     }),
-    [DELETESCRAPITEM_FAILURE]: () => ({
+    [DELETE_SCRAP_ITEM_FAILURE]: () => ({
       deleteScrapResponse: false,
     }),
 
-    [FIXMEMO_SUCCESS]: () => ({
+    [FIX_MEMO_SUCCESS]: () => ({
       fixMemoResponse: true,
     }),
-    [FIXMEMO_FAILURE]: () => ({
+    [FIX_MEMO_FAILURE]: () => ({
       fixMemoResponse: false,
     }),
 
-    [WRITEMEMO_SUCCESS]: () => ({
+    [WRITE_MEMO_SUCCESS]: () => ({
       writeMemoResponse: true,
     }),
-    [WRITEMEMO_FAILURE]: () => ({
+    [WRITE_MEMO_FAILURE]: () => ({
       writeMemoResponse: false,
     }),
   },
