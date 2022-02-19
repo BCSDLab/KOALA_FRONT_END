@@ -4,7 +4,7 @@ import { useLocation } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import theme from '../../../theme';
-const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors.white;
+const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 const Header = styled.div`
   display: flex;

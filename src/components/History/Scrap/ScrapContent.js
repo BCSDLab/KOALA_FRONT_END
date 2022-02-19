@@ -10,7 +10,7 @@ import theme from '../../../theme';
 import { useMediaQuery } from 'react-responsive';
 import MobileScrapAlert from './MobileScrapAlert';
 const memoState = ['READ', 'WRITE', 'FIX'];
-const {gray, yellow} = theme.colors.white;
+const {gray, yellow} = theme.colors;
 
 const stringToDate = (date) => {
   var yyyyMMdd = String(date);

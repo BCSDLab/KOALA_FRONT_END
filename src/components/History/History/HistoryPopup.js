@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import theme from '../../../theme';
-const {white} = theme.colors.white;
+const {white} = theme.colors;
 
 const PopUpWindow = styled.div`
   display: ${(props) => (props.isOpen ? 'block' : 'none')};

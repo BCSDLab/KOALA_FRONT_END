@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../theme';
-const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors.white;
+const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 const Modal = styled.div`
   display: flex;

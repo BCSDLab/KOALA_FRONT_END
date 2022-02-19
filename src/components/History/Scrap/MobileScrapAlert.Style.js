@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import theme from '../../../theme';
 const mobileL = theme.deviceSizes.mobileL;
-const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors.white;
+const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 export const SwipeWrapper = styled.div`
     width: 95%;

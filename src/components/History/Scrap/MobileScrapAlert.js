@@ -11,7 +11,7 @@ import {useDispatch} from 'react-redux';
 // import 'swiper/swiper-bundle.min.css'
 // import 'swiper/swiper.min.css'
 import theme from '../../../theme';
-const {gray, yellow} = theme.colors.white;
+const {gray, yellow} = theme.colors;
 
 const MobileScrapAlert = ({mail, selectMail, list, memo, writeId, setCurr}) => {
     const dispatch = useDispatch();

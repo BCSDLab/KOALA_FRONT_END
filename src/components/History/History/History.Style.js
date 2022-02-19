@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import theme from '../../../theme';
-const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors.white;
+const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 const mobileL = theme.deviceSizes.mobileL;
 const mibileS = theme.deviceSizes.mobileS;
 
