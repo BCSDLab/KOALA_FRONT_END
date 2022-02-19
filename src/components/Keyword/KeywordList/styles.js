@@ -1,4 +1,8 @@
 import styled from 'styled-components';
+import theme from '../../../theme';
+
+const mobileL = theme.deviceSizes.mobileL;
+const mobileS = theme.deviceSizes.mobileS;
 
 export const CheckBox = styled.div`
   width: 16px;
@@ -31,6 +35,10 @@ export const MainList = styled.div`
   left: ${(props) => (props.toggle ? '501px' : '366px')};
   top: 320px;
   padding-right: 10px;
+  @media screen and (max-width:${mobileL}){
+    width: 90%;
+    min-width: ${mobileS}; 
+  }
 `;
 
 export const MainItem = styled.div`

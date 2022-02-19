@@ -3,6 +3,7 @@ import * as S from './styles';
 import { getTitle } from '../utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { readKeywordItem } from 'store/keyword';
+import useMatchMedia from 'hooks/useMatchMedia';
 
 const KeywordList = ({
   checkListId,
@@ -21,7 +22,8 @@ const KeywordList = ({
   const { keywordList } = useSelector((state) => state.keyword);
   const [list, setList] = useState();
   const { isOpen } = useSelector((state) => state.toggle);
-
+  const queries = ['max-width: 400px, min-width:800px'];
+  const [mobile, desktop] = useMatchMedia(queries);
   const onClickCheckSome = useCallback(
     (id) => {
       setCheckAll(false);
@@ -106,12 +108,11 @@ const KeywordList = ({
     setKeywordSearch('');
     setSearchButton(false);
   }, [searchButton]);
-
   return (
     <S.MainList toggle={isOpen}>
       {list &&
         list.map((item) => {
-          return (
+          return desktop?(
             <S.MainItem key={item.id}>
               <S.MainCheckBox
                 onClick={() => onClickCheckSome(item.id)}
@@ -126,7 +127,24 @@ const KeywordList = ({
               <S.MainReadState>{item.isRead ? '읽음' : '읽지 않음'}</S.MainReadState>
               <S.MainPeriod readState={item.isRead}>{item.createdAt}</S.MainPeriod>
             </S.MainItem>
-          );
+          )
+          :
+          (
+            <S.MainItem key={item.id}>
+            <S.MainCheckBox
+              onClick={() => onClickCheckSome(item.id)}
+              checkSome={checkListId.includes(item.id)}
+            ></S.MainCheckBox>
+            <S.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.site)}</S.MainCheckBoxTitle>
+            <S.MainPeriod readState={item.isRead}>{item.createdAt}</S.MainPeriod>
+            <a href={`${item.url}`} target="_blank">
+              <S.MainContent readState={item.isRead} onClick={() => onClickReadItem(item.id, item.isRead)}>
+                {item.title}
+              </S.MainContent>
+            </a>
+            
+          </S.MainItem>
+          )
         })}
     </S.MainList>
   );

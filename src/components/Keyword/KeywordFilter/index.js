@@ -8,6 +8,9 @@ import KeywordList from '../KeywordList';
 import KeywordMenuBar from '../KeywordMenuBar';
 import KeywordSearch from '../KeywordSearch';
 import KeywordHeader from '../KeywordHeader';
+import useMatchMedia from 'hooks/useMatchMedia';
+const queries = ['max-width: 400px, min-width:800px'];
+
 
 const KeywordFilterBar = () => {
   const userInfo = useSelector((state) => state.auth);
@@ -27,7 +30,7 @@ const KeywordFilterBar = () => {
   const [notReadNotification, setNotReadNotification] = useState(false);
   const [goStore, setGoStore] = useState(false);
   const [deleteList, setDeleteList] = useState(false);
-
+  const [mobile, desktop] = useMatchMedia(queries);
   const onClickAllSelect = () => {
     setCheckAll((prev) => !prev);
   };
@@ -178,10 +181,10 @@ const KeywordFilterBar = () => {
 
   return (
     <>
-      <KeywordHeader title={'키워드 알림'} toggle={false} />
+      {/* <KeywordHeader title={'키워드 알림'} toggle={false} /> */}
       <KeywordMenuBar isToggle={isOpen} menu={menu} setList={setList} onClickMenu={onClickMenu} />
       <S.FilterList toggle={isOpen}>
-        <S.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className="checkBox"></S.CheckBox>
+        {/* <S.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className="checkBox"></S.CheckBox>
         <S.CheckBoxTitle onClick={onClickAllSelect} className="checkTitle">
           전체 선택
         </S.CheckBoxTitle>
@@ -207,16 +210,16 @@ const KeywordFilterBar = () => {
         <S.FilterItem onClick={onClickDeleteList} className="delete">
           <S.FilterItemImage src="/asset/trash.svg" alt="trash" />
           <span>삭제</span>
-        </S.FilterItem>
-        <KeywordSearch
+        </S.FilterItem> */}
+        {/* <KeywordSearch
           setList={setList}
           list={list}
           keywordSearch={keywordSearch}
           setKeywordSearch={setKeywordSearch}
           setSearchButton={setSearchButton}
-        />
+        /> */}
       </S.FilterList>
-      <KeywordList
+      {/* <KeywordList
         list={list}
         checkListId={checkListId}
         setCheckListId={setCheckListId}
@@ -230,7 +233,7 @@ const KeywordFilterBar = () => {
         setSearchButton={setSearchButton}
         searchButton={searchButton}
         menu={menu}
-      />
+      /> */}
     </>
   );
 };
