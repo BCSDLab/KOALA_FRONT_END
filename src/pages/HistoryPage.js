@@ -6,6 +6,9 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import SideNavbar from 'components/SideNavbar';
 import theme from 'theme';
+import LoginButton from 'components/Shared/LoginButton';
+import useMatchMedia from 'hooks/useMatchMedia';
+import { useMediaQuery } from 'react-responsive';
 const HistoryPageContent = styled.div`
   display: flex;
   // min-width: 1294px;
@@ -25,19 +28,21 @@ const HistoryPageContent = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  padding: 49px 0 0 0;
   display: flex;
   width: 100%;
-  // justify-content: center;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
 `;
-
+const queries = ['max-width: 400px'];
 const HistoryPage = () => {
   const location = useLocation();
+  const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.mobileL}` });
+
   return (
     <HistoryPageContent>
       <SideNavbar />
+      {!isMobile && <LoginButton />}
       <ContentWrapper>
         <HistoryHeader location={location} />
         <Routes>
