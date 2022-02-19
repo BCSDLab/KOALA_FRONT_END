@@ -44,6 +44,8 @@ const rootReducer = combineReducers({
   toggle,
   keyword,
   myPage,
+  history,
+  scrap
 });
 
 export function* rootSaga() {
