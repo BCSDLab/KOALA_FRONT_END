@@ -42,17 +42,6 @@ export const Title = styled.span`
   top: 121px;
   left: ${(props) => (props.toggle ? '488px' : '353px')};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
-    width: 100%;
-    height: 61px;
-    display: flex;
-    box-sizing: border-box;
-    border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
-    justify-content: center;
-    align-items: center;
-    font-family: NotoSansCJKKR;
-    font-size: 16px;
-    text-align: center;
-    color: ${(props) => props.theme.colors.darkgray};
-    position: static;
+ 
   }
 `;
