@@ -110,7 +110,7 @@ const HashImage = styled.img`
   margin-right: 5px;
 `;
 
-const InputKeyword = ({ setIsMobileSite, onClickRecommendItem, setSite, site }) => {
+const InputSite = ({ setIsMobileSite, onClickRecommendItem, setSite, site, setAlreadyRegisterItem }) => {
   const [isRecommendSite, setIsRecommendSite] = useState(false);
   const [serchedSites, setserchedSites] = useState(JSON.parse(localStorage.getItem('serchedSites') || '[]'));
   const dispatch = useDispatch();
@@ -122,6 +122,7 @@ const InputKeyword = ({ setIsMobileSite, onClickRecommendItem, setSite, site }) 
   const onChangeSiteInput = (e) => {
     const { value } = e.target;
     setSite(value);
+    setAlreadyRegisterItem(false);
   };
 
   const onClickRecommendSites = () => {
@@ -199,4 +200,4 @@ const InputKeyword = ({ setIsMobileSite, onClickRecommendItem, setSite, site }) 
   );
 };
 
-export default InputKeyword;
+export default InputSite;
