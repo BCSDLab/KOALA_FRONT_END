@@ -98,7 +98,7 @@ export const ErrorText = styled.div`
   text-align: left;
   color: ${(props) => props.theme.colors.yellow};
   position: absolute;
-  left: 453px;
+  left: ${(props) => (props.toggle ? '585px' : '453px')};
   top: 736px;
 `;
 

@@ -116,7 +116,7 @@ const KeywordAlarm = ({
             </S.AlarmType>
           </S.AlarmContainer>
         </S.SettingContainer>
-        <S.ErrorText>※ 알림 기능은 모바일 앱에서만 이용하실 수 있습니다.</S.ErrorText>
+        <S.ErrorText toggle={isOpen}>※ 알림 기능은 모바일 앱에서만 이용하실 수 있습니다.</S.ErrorText>
       </S.BottomContainer>
       <S.EditButton toggle={isOpen} onClick={onClickModifyButton}>
         {buttonText}
