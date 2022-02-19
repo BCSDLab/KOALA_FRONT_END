@@ -10,7 +10,6 @@ export const StyledInput = styled.input`
   margin: 2px 0;
   position: relative;
   outline: none;
-
   &:focus {
     border: solid 1px ${(props) => props.theme.colors.darkgray};
   }
@@ -49,7 +48,6 @@ export const StyledLink = styled(Link)`
     position: relative;
     content: '';
   }
-
   :last-child::after {
     content: '';
     float: right;
@@ -57,7 +55,6 @@ export const StyledLink = styled(Link)`
     width: 0;
     height: 0;
   }
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     color: #a8a8a8;
     font-weight: normal;
@@ -68,7 +65,6 @@ export const StyledLink = styled(Link)`
     &:active {
       color: #a8a8a8;
     }
-
     ::after {
       top: 4px;
       background-color: ${(props) => props.theme.colors.lightgray};
@@ -88,7 +84,6 @@ export const AutoLogin = styled.div`
   top: 8px;
   align-items: center;
   z-index: 1;
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 113px;
   }
@@ -105,11 +100,9 @@ export const AutoLoginText = styled.label`
   color: ${(props) => props.theme.colors.gray};
   margin-left: 4px;
   font-size: 12px;
-
   :after {
     content: '자동 로그인';
   }
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     :after {
       content: '로그인 상태 유지';
@@ -123,23 +116,18 @@ export const OtherOption = styled.div`
   margin-top: 16px;
   align-items: center;
   justify-content: center;
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     margin-top: 16.6px;
-
     a:nth-child(2) {
       right: -75px;
       position: relative;
-
       ::after {
         display: none;
       }
     }
-
     a:nth-child(3) {
       left: -68px;
       position: relative;
-
       ::after {
         top: 4px;
         background-color: ${(props) => props.theme.colors.lightgray};
@@ -173,7 +161,6 @@ export const OauthLogin = styled.div`
 
 export const NoneUserLinkSection = styled.section`
   height: ${({ isNormalLogin }) => (isNormalLogin ? '383px' : '471px')};
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     height: 163px;
     display: ${({ isNormalLogin }) => (isNormalLogin ? 'block' : 'none')};
@@ -190,11 +177,9 @@ export const NoneUserLink = styled(Link)`
   text-align: center;
   font-family: NotoSansCJKKR;
   text-decoration: underline;
-
   :hover {
     text-decoration: underline;
   }
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     margin: 72px 0 70px 0;
   }
@@ -212,7 +197,6 @@ export const CopyRight = styled.p`
   line-height: normal;
   letter-spacing: normal;
   color: ${(props) => props.theme.colors.silver};
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     display: none;
   }

@@ -1,19 +1,22 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import * as S from './styles';
 import { useSelector, useDispatch } from 'react-redux';
+import { useLocation } from 'react-router';
 import { getKeywordList, deleteKeywordList, moveKeywordItem } from 'store/keyword';
 import { makeDeleteQuery } from '../utils';
 import KeywordList from '../KeywordList';
 import KeywordMenuBar from '../KeywordMenuBar';
 import KeywordSearch from '../KeywordSearch';
+import KeywordHeader from '../KeywordHeader';
 
-const KeywordFilterBar = ({ isToggle }) => {
+const KeywordFilterBar = () => {
   const userInfo = useSelector((state) => state.auth);
   const { keywordList, deleteKeywordListResponse, readKeywordItemResponse, getKeywordListResponse } = useSelector(
     (state) => state.keyword
   );
+  const { isOpen } = useSelector((state) => state.toggle);
   const dispatch = useDispatch();
-
+  const { state: keywordName } = useLocation();
   const [list, setList] = useState([]);
   const [checkAll, setCheckAll] = useState(false);
   const [keywordSearch, setKeywordSearch] = useState('');
@@ -67,26 +70,6 @@ const KeywordFilterBar = ({ isToggle }) => {
       return;
     }
 
-    if (notReadNotification) {
-      const filterList = keywordList.filter((item) => {
-        return item.isRead === false;
-      });
-      setList(filterList);
-    } else if (readNotification) {
-      const filterList = keywordList.filter((item) => {
-        return item.isRead === true;
-      });
-      setList(filterList);
-    } else {
-      setList(keywordList);
-    }
-  }, [notReadNotification, readNotification]);
-
-  useEffect(() => {
-    if (list.length === 0) {
-      return;
-    }
-
     if (goStore) {
       if (checkAll) {
         alert('모든 목록 보관');
@@ -111,6 +94,7 @@ const KeywordFilterBar = ({ isToggle }) => {
           dispatch(moveKeywordItem(id));
         });
 
+        setCheckListId([]);
         setGoStore(false);
       } else {
         alert('알림을 선택해 주세요');
@@ -130,7 +114,6 @@ const KeywordFilterBar = ({ isToggle }) => {
 
         const startId = keywordList[0].id;
         const endId = keywordList[keywordList.length - 1].id;
-
         const query = makeDeleteQuery(startId, endId);
 
         dispatch(deleteKeywordList(query));
@@ -161,68 +144,62 @@ const KeywordFilterBar = ({ isToggle }) => {
   }, [deleteList]);
 
   useEffect(() => {
-    if (userInfo.isLoggedIn || deleteKeywordListResponse || readKeywordItemResponse || getKeywordListResponse) {
-      dispatch(getKeywordList('키워드테스트'));
-
-      if (keywordList === '받은 알림이 없습니다.') {
-        setList([]);
-      } else {
-        setList(keywordList);
-      }
-    }
-  }, [userInfo.isLoggedIn, deleteKeywordListResponse, readKeywordItemResponse, getKeywordListResponse]);
-
-  useEffect(() => {
-    if (menu === '전체') {
-      setList(keywordList);
-    } else if (menu === '아우누리') {
-      const filterList = keywordList.filter((item) => {
-        if (item.site === 'PORTAL') {
-          return item;
-        }
-      });
-      setList(filterList);
-    } else if (menu === '아우미르') {
-      const filterList = keywordList.filter((item) => {
-        if (item.site === 'DORM') {
-          return item;
-        }
-      });
-      setList(filterList);
+    if (checkAll) {
+      const listId = keywordList.map((keyword) => keyword.id);
+      setCheckListId(listId);
     } else {
-      setList([]);
+      if (checkListId.length === keywordList.length) {
+        setCheckListId([]);
+      }
     }
-  }, [menu]);
+  }, [checkAll]);
 
   useEffect(() => {
-    const filterList = list.filter((item) => {
-      if (`${item.title}`.includes(`${keywordSearch}`)) {
-        return item;
+    if (userInfo.isLoggedIn) {
+      if (deleteKeywordListResponse || readKeywordItemResponse || getKeywordListResponse || !deleteList || goStore) {
+        dispatch(getKeywordList(keywordName));
+
+        if (keywordList === '받은 알림이 없습니다.') {
+          setList([]);
+        } else {
+          setList(keywordList);
+        }
       }
-    });
-    setList(filterList);
-    setKeywordSearch('');
-    setSearchButton(false);
-  }, [searchButton]);
+    }
+  }, [
+    userInfo,
+    deleteKeywordListResponse,
+    readKeywordItemResponse,
+    getKeywordListResponse,
+    keywordName,
+    deleteList,
+    goStore,
+  ]);
 
   return (
     <>
-      <KeywordMenuBar isToggle={isToggle} menu={menu} list={list} setList={setList} onClickMenu={onClickMenu} />
-      <S.FilterList toggle={isToggle}>
+      <KeywordHeader title={'키워드 알림'} toggle={false} />
+      <KeywordMenuBar isToggle={isOpen} menu={menu} setList={setList} onClickMenu={onClickMenu} />
+      <S.FilterList toggle={isOpen}>
         <S.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className="checkBox"></S.CheckBox>
         <S.CheckBoxTitle onClick={onClickAllSelect} className="checkTitle">
           전체 선택
         </S.CheckBoxTitle>
-        <S.FilterItem onClick={onClickReadNotification} readNotification={readNotification} className="read">
+        <S.FilterReadNotification
+          onClick={onClickReadNotification}
+          readNotification={readNotification}
+          className="read"
+        >
           읽은 알림
-        </S.FilterItem>
-        <S.FilterItem
+        </S.FilterReadNotification>
+        <S.FilterNotReadNotification
           onClick={onClickNotReadNotification}
           notReadNotification={notReadNotification}
+          readNotification={readNotification}
           className="notread"
         >
           읽지 않은 알림
-        </S.FilterItem>
+        </S.FilterNotReadNotification>
         <S.FilterItem onClick={onClickGoStore} goStore={goStore} className="goStore">
           <S.FilterItemImage src="/asset/inbox-in.svg" alt="inbox-in" />
           <span>보관함으로 이동</span>
@@ -243,8 +220,16 @@ const KeywordFilterBar = ({ isToggle }) => {
         list={list}
         checkListId={checkListId}
         setCheckListId={setCheckListId}
+        setKeywordSearch={setKeywordSearch}
         checkAll={checkAll}
-        isToggle={isToggle}
+        setCheckAll={setCheckAll}
+        setCheckAll={setCheckAll}
+        readNotification={readNotification}
+        notReadNotification={notReadNotification}
+        keywordSearch={keywordSearch}
+        setSearchButton={setSearchButton}
+        searchButton={searchButton}
+        menu={menu}
       />
     </>
   );

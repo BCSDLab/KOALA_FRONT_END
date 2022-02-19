@@ -5,7 +5,6 @@ const AuthTemplateBlock = styled.div`
   display: flex;
   justify-content: center;
   alignitems: center;
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     padding: 0 16px;
   }
@@ -14,7 +13,6 @@ const AuthTemplateBlock = styled.div`
 const Box = styled.div`
   width: 368px;
   padding-top: 200px;
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     padding-top: 54px;
   }
@@ -25,9 +23,8 @@ const Box = styled.div`
 
 const MainLogo = styled.div`
   margin-bottom: 48px;
-
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    display: flex;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    display: none;
     justify-content: center;
   }
 `;
@@ -37,7 +34,6 @@ const MainLogoImg = styled.img`
   height: 34px;
   left: 125.2px;
   position: relative;
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 158px;
     height: 43px;

@@ -86,26 +86,27 @@ export const CheckBox = styled.div`
   border: 1px solid #c4c4c4;
   cursor: pointer;
 
-  ${(props) =>
-    props.checkAll &&
-    `
-  background-image:url('/asset/check.svg');
-  background-position:center;
-  `}
+  ${(props) => {
+    if (props.checkAll) {
+      return `
+        background-image:url('/asset/check.svg');
+        background-position:center;
+        `;
+    }
+  }};
 `;
-
 export const CheckBoxTitle = styled.span`
   font-size: 12px;
   margin-right: 40px;
   cursor: pointer;
 `;
 
-export const FilterItem = styled.span`
+export const FilterReadNotification = styled.span`
   padding: 8px;
   cursor: pointer;
 
   ${(props) => {
-    if (props.readNotification || props.notReadNotification) {
+    if (props.readNotification) {
       return `
                 border:1px solid #222222;
                 color:#222222;
@@ -117,6 +118,31 @@ export const FilterItem = styled.span`
             `;
     }
   }}
+`;
+export const FilterNotReadNotification = styled.span`
+  padding: 8px;
+  cursor: pointer;
+
+  ${(props) => {
+    if (props.notReadNotification) {
+      return `
+                border:1px solid #222222;
+                color:#222222;
+            `;
+    } else {
+      return `
+                border:1px solid #eee;
+                color:#999999;
+            `;
+    }
+  }}
+`;
+
+export const FilterItem = styled.span`
+  padding: 8px;
+  cursor: pointer;
+  border: 1px solid #eee;
+  color: #999;
 `;
 
 export const FilterItemImage = styled.img`

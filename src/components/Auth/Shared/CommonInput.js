@@ -6,6 +6,10 @@ const StyledId = styled.div`
   position: relative;
   margin-top: 0;
   margin-bottom: 24px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 100%;
+    height: 48px;
+  }
 `;
 
 const StyledInput = styled(S.StyledInput)`
@@ -15,19 +19,18 @@ const StyledInput = styled(S.StyledInput)`
   background-position-y: center;
   background-position-x: 332px;
   background-repeat: no-repeat;
-`;
-
-const ErrorImg = styled.img`
-  position: absolute;
-  top: 30%;
-  left: 90%;
-  right: 0;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: calc(100% - 16px);
+    height: 48px;
+    padding: 0 0 0 16px;
+  }
 `;
 
 const CommonInput = (props, ref) => {
   return (
     <StyledId>
       <StyledInput
+        type="text"
         ref={ref}
         autocomplete="account"
         value={props.value}

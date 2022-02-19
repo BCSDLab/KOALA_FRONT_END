@@ -30,6 +30,7 @@ export const changeAlarmTerm = (value) => {
       return;
   }
 };
+
 export const getTitle = (url) => {
   if (url === 'PORTAL') {
     return '아우누리';
@@ -50,4 +51,40 @@ export const makeDeleteQuery = (startId, endId) => {
     str += `&notice-id=${i}`;
   }
   return str;
+};
+
+export const getModalPosition = (keywords, selectItemId) => {
+  const indexNumber = keywords.forEach((keyword, index) => {
+    if (keyword.id === selectItemId) {
+      return index;
+    }
+  });
+
+  return indexNumber;
+};
+
+export const getKeywordName = (keywords, selectItemId) => {
+  let keywordName = '';
+
+  keywords &&
+    keywords.forEach((keyword) => {
+      if (selectItemId === keyword.id) {
+        keywordName = keyword.name;
+      }
+    });
+
+  return keywordName;
+};
+
+export const getKeywordPosition = (keywords, selectItemId) => {
+  let modalPosition = 0;
+
+  keywords &&
+    keywords.forEach((keyword, index) => {
+      if (selectItemId === keyword.id) {
+        modalPosition = index;
+      }
+    });
+
+  return modalPosition;
 };
