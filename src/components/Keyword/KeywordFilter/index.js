@@ -36,6 +36,7 @@ const KeywordFilterBar = () => {
   const [mobile] = useMatchMedia(queries);
   const [isMobileMenuOpen, setMenuModal] = useState(false);
   const [isMobilePopupOpen, setPopUp] = useState(null);
+  const [undoList, setUndoList] = useState([]);
   const onClickAllSelect = () => {
     setCheckAll((prev) => !prev);
   };
@@ -89,11 +90,12 @@ const KeywordFilterBar = () => {
         alert('모든 목록 보관');
         setCheckAll(false);
         setGoStore(false);
-
+        
         keywordList.forEach((item) => {
           const id = item.id;
-          dispatch(moveKeywordItem(id));
+          // dispatch(moveKeywordItem(id));
         });
+        setUndoList(keywordList);
         setPopUp('SCRAP');
       } else if (checkListId.length !== 0) {
         alert('선택된 목록 보관');
@@ -106,9 +108,9 @@ const KeywordFilterBar = () => {
 
         filterList.forEach((item) => {
           const id = item.id;
-          dispatch(moveKeywordItem(id));
+          // dispatch(moveKeywordItem(id));
         });
-
+        setUndoList(checkListId);
         setCheckListId([]);
         setPopUp('SCRAP');
         setGoStore(false);
@@ -132,7 +134,7 @@ const KeywordFilterBar = () => {
         const endId = keywordList[keywordList.length - 1].id;
         const query = makeDeleteQuery(startId, endId);
 
-        dispatch(deleteKeywordList(query));
+        // dispatch(deleteKeywordList(query));
         if(mobile){
           setPopUp('DELETE')
         }
@@ -142,13 +144,13 @@ const KeywordFilterBar = () => {
 
         if (checkListId.length === 1) {
           const query = `notice-id=${checkListId[0]}`;
-          dispatch(deleteKeywordList(query));
+          // dispatch(deleteKeywordList(query));
         } else {
           const startId = checkListId[0];
           const endId = checkListId[checkListId.length - 1];
           const query = makeDeleteQuery(startId, endId);
 
-          dispatch(deleteKeywordList(query));
+          // dispatch(deleteKeywordList(query));
         }
         if(mobile){
           setPopUp('DELETE')
@@ -195,6 +197,14 @@ const KeywordFilterBar = () => {
     deleteList,
     goStore,
   ]);
+  useEffect(() => {
+    if(isMobilePopupOpen==='SCRAP' || isMobilePopupOpen==='DELETE'){
+      setTimeout(() => {
+        setPopUp(null);
+        setUndoList([]);
+      }, 4000);
+    }
+  }, [isMobilePopupOpen])
   return (
     <>
         {mobile && (
@@ -254,8 +264,8 @@ const KeywordFilterBar = () => {
            />
           </S.FilterList>
           {console.log(isMobilePopupOpen)}
-          <MobileDeleteModal isOpen={isMobilePopupOpen}/>
-          <MobileMoveScrapModal isOpen={isMobilePopupOpen}/>
+          <MobileDeleteModal isOpen={isMobilePopupOpen} undoList={undoList}/>
+          <MobileMoveScrapModal isOpen={isMobilePopupOpen} undoList={undoList} numberAlert={undoList.length}/>
         </div>
         )}
         {!mobile && (
