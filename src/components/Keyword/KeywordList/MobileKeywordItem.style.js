@@ -4,9 +4,9 @@ const mobileL = theme.deviceSizes.mobileL;
 const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 export const Alert = styled.div`
-    width: 100%;
+    width: 90%;
     min-width: 90%;
-    margin: 0 0 0 5%;
+    margin: 0 auto;
 `
 export const AlertWrapper = styled.li`
     @media screen and (max-width: ${mobileL}){
@@ -22,7 +22,7 @@ export const AlertWrapper = styled.li`
 export const AlertContent = styled.div`
     @media screen and (max-width: ${mobileL}) {
         display: block;
-        width: 85%;
+        width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
     }
