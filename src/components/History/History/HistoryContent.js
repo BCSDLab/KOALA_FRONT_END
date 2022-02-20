@@ -153,10 +153,13 @@ const HistoryContent = () => {
   };
   useEffect(() => {
     if (userInfo.isLoggedIn || deleteHistoryResponse || readHistoryItemResponse || moveToScrapResponse) {
+      console.log(pageNum[0])
       dispatch(getHistoryList(pageNum[0]));
     }
   }, [userInfo.isLoggedIn, pageNum]);
-
+  useEffect(() => {
+    dispatch(clearHistoryList())
+  },[])
   useEffect(() => {
     if (!historyList || historyList.length <= 0) {
       return;
