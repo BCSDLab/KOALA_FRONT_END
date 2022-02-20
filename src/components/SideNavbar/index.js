@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { opened } from '../../store/toggle';
 import styled from 'styled-components';
 import SideNavMenu from './SideNavMenu';
+import KeywordDropdown from './KeywordDropdown';
 
 const Nav = styled.div`
   width: 80px;
@@ -36,7 +37,7 @@ const NavContainer = styled.div`
   display: flex;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     display: flex;
-    width: 0;
+    width: 90vw;
     height: 74px;
   }
 `;
@@ -212,6 +213,7 @@ const SideNavbar = () => {
         </SettingIcon>
       </Nav>
       {isOpen && <SideNavMenu />}
+      {mobile && <KeywordDropdown/>}
     </NavContainer>
   );
 };

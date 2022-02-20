@@ -84,8 +84,17 @@ export const FilterList = styled.nav`
   }
   @media screen and (max-width: ${mobileL}){
     position: static;
+    display: block;
     width: 100vw;
     min-width: ${mobileS};
+    .delete {
+      margin: 0;
+    }
+    .mobileMenu{
+      width:24px;
+      height: 24px;
+      border: none;
+    }
   }
 `;
 
@@ -105,6 +114,9 @@ export const CheckBox = styled.div`
         `;
     }
   }};
+  @media screen and (max-width: ${mobileL}){
+    margin: 0 8px 0 0;
+  }
 `;
 export const CheckBoxTitle = styled.span`
   font-size: 12px;
@@ -209,3 +221,17 @@ export const MainPeriod = styled(MainContent)`
   margin-right: 0px;
   color: ${(props) => (props.readState ? '#999999' : '#222222')};
 `;
+export const MobileMenuBar = styled.div`
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 16px;
+`
+export const MobileSelectAll = styled.div`
+  display: flex;
+`
+export const MobileMenuList = styled.div`
+  display: flex;
+`

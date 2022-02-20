@@ -12,7 +12,6 @@ const KeywordMenuBar = ({ isToggle, menu, onClickMenu }) => {
     !mobile?
     <>
       <S.Menu toggle={isToggle}>
-        <S.MobileMenuWrapper>
         {MENU_ITEM.map((item) => {
           return (
             <S.Item onClick={onClickMenu} key={item.id}>
@@ -20,8 +19,6 @@ const KeywordMenuBar = ({ isToggle, menu, onClickMenu }) => {
             </S.Item>
           );
         })}
-
-        </S.MobileMenuWrapper>
         
       </S.Menu>
       <S.ItemUnderBar menu={menu} toggle={isToggle}></S.ItemUnderBar>

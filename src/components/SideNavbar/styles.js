@@ -202,3 +202,31 @@ export const ContactText = styled.span`
   font-weight: normal;
   margin: 10px 0 14px 32px;
 `;
+
+export const MobileKeyWordHeader = styled.div`
+  display: flex;
+  align-items: center;
+  width: 90%;
+  height: 24px;
+  justify-content: space-between;
+  // border: 1px solid black;
+  margin: 0 auto;
+  margin-top: 39px;
+`
+
+export const MobileKeyWordName = styled.span`
+  font-size: 16px;
+`
+
+export const FixKeyWordBtn = styled.div`
+  font-size: 14px;
+  display: block;
+  // width: 24px;
+  color: #999;
+  cursor: pointer;
+`
+
+export const BackBtn = styled.img`
+  width: 24px;
+  height: 24px;
+`

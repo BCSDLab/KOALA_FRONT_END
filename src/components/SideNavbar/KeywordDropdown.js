@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { inquiry } from 'store/keyword';
+import keyword, { inquiry } from 'store/keyword';
 import * as S from 'components/SideNavbar/styles';
 import { useNavigate } from 'react-router';
 import KeywordModal from 'components/Keyword/KeywordModal';
@@ -20,7 +20,7 @@ const Background = styled.div`
 
 const KeywordDropdown = () => {
   const [dropdownToggle, setDropdownToggle] = useState(false);
-  const [selectItemId, setSelectItemId] = useState(null);
+  const [selectItemId, setSelectItemId] = useState(7);
   const [selectAddKeyword, setSelectAddKeyword] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { keywords } = useSelector((state) => state.keyword);
@@ -60,8 +60,24 @@ const KeywordDropdown = () => {
   if (keywords === undefined) {
     dispatch(inquiry());
   }
-
+  const mobile = true;
+  const findPresentKeyword = (index) =>{
+    console.log(keywords[index])
+    return keywords[index];
+  }
+  console.log(keywords[0])
+  console.log(keywords)
   return (
+    mobile? <S.MobileKeyWordHeader>
+      <S.BackBtn src="/asset/BackArrow.svg"/>
+      <S.MobileKeyWordName>
+      {findPresentKeyword(keywords.findIndex(keyword => keyword.id===selectItemId))?
+      findPresentKeyword(keywords.findIndex(keyword => keyword.id===selectItemId)).name:null
+      }
+      </S.MobileKeyWordName>
+      <S.FixKeyWordBtn>수정</S.FixKeyWordBtn>
+      </S.MobileKeyWordHeader>
+    :
     <>
       <Background onClick={onClickBackground} showModal={showModal} />
       <S.KeywordDropdown>

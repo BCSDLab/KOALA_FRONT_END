@@ -16,7 +16,7 @@ export const Menu = styled.nav`
     position: static;
     padding: 0;
     margin: 0 0 0 5%;
-    width: 100%;
+    width: 90%;
     min-width: ${mobileS};
     overflow-x: scroll;
     border: none;
@@ -46,7 +46,11 @@ export const Item = styled.span`
   @media screen and (max-width: ${mobileL}){
     display: block;
     font-size: 14px;
-    max-width: 200px;
+    min-width: 52px;
+    text-align: center;
+    &:last-child{
+      min-width: 200px;
+    }
     &:after{
       display: block;
       content: '';
