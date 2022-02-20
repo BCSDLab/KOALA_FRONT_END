@@ -164,7 +164,11 @@ const HistoryContent = () => {
     if (!historyList || historyList.length <= 0) {
       return;
     } else {
-      setList(historyList);
+      if(historyList[historyList.length-1]!==null){
+        setList(historyList);
+      }else{
+        setList((historyList.slice(0, historyList.length-1)));
+      }
     }
   }, [historyList]);
 
@@ -187,7 +191,10 @@ const HistoryContent = () => {
       setPageNum([1]);
     }
     if (inView) {
-      setPageNum([pageNum[0] + 1]);
+      if(historyList[historyList.length-1]!==null){
+        setPageNum([pageNum[0] + 1]);
+      }
+      
     }
   }, [inView, readHistoryItemResponse, deleteHistoryResponse, undoHistoryListResponse, historyList]);
 
@@ -262,7 +269,7 @@ const HistoryContent = () => {
           <S.KeyWordAlertList>
             {showList?.map((mail, id) =>
               showList[showList.length - 1].id === mail.id ? (
-                <S.KeyWordAlert isRead={mail.isRead} key={id} ref={refAlert}>
+                <S.KeyWordAlert isRead={mail.isRead} key={mail.id} ref={refAlert}>
                   <HistoryCheckBox
                     onClick={(e) => selectMail(e, mail.id)}
                     checked={checkedList.includes(mail.id) ? true : false}
@@ -286,7 +293,7 @@ const HistoryContent = () => {
                 </S.KeyWordAlert>
               ) : (
                 <>
-                  <S.KeyWordAlert isRead={mail.isRead} key={id}>
+                  <S.KeyWordAlert isRead={mail.isRead} key={mail.id}>
                     <HistoryCheckBox
                       onClick={(e) => selectMail(e, mail.id)}
                       checked={checkedList.includes(mail.id) ? true : false}

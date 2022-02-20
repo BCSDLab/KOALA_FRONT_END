@@ -60,7 +60,7 @@ const history = handleActions(
   {
     [GET_HISTORY_LIST_SUCCESS]: (state, { payload: history }) => ({
       ...state,
-      historyList: [...state.historyList, ...history.body],
+      historyList: state.historyList.concat(history.body.length===0?null:history.body),
       getHistoryListResponse: true,
       deleteHistoryResponse: false,
       readHistoryItemResponse: false,
