@@ -123,6 +123,7 @@ const KeywordFilterBar = () => {
     if (list.length === 0) {
       return;
     }
+
     if (deleteList) {
       if (checkAll) {
         alert('모든 목록 삭제');
@@ -207,7 +208,7 @@ const KeywordFilterBar = () => {
           setKeywordSearch={setKeywordSearch}
           setSearchButton={setSearchButton}
         />
-          <S.MobileMenuBar  >
+          <S.MobileMenuBar  onClick={(e) => e.stopPropagation()}>
             <S.MobileSelectAll>
               <S.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className="checkBox"></S.CheckBox>
               <S.CheckBoxTitle onClick={onClickAllSelect} className="checkTitle">
