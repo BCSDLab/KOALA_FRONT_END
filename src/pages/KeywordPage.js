@@ -11,8 +11,14 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { inquiry } from 'store/keyword';
 
+import theme from '../theme';
+
 const Container = styled.div`
   display: flex;
+  @media screen and (max-width: ${theme.deviceSizes.mobileL}){
+    display: block;
+    width: 100vw;
+  }
 `;
 
 const KeywordPage = () => {
