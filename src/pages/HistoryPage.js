@@ -33,16 +33,21 @@ const ContentWrapper = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
+    position: fixed;
+    top: 0%;
+    margin: 27px 0 0 0;
+    z-index: 99;
+  }
 `;
-const queries = ['max-width: 400px'];
+const queries = [`(max-width: ${theme.deviceSizes.mobileL})`];
 const HistoryPage = () => {
+  const [mobile] = useMatchMedia(queries);
   const location = useLocation();
-  const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.mobileL}` });
-
   return (
     <HistoryPageContent>
       <SideNavbar />
-      {!isMobile && <LoginButton />}
+      {!mobile && <LoginButton />}
       <ContentWrapper>
         <HistoryHeader location={location} />
         <Routes>

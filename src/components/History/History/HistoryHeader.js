@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { useLocation } from 'react-router';
 import { NavLink } from 'react-router-dom';
@@ -42,12 +42,12 @@ const HistoryHeaderTab = styled(NavLink)`
     margin: 0 auto;
     margin-top: 31px;
     margin-bottom: ${(props) => (props.inlink ? '-2px' : '0')};
-    border-bottom: ${(props) => (props.inlink ? `2px solid ${darkgray}` : '')};
+    border-bottom: ${(props) => (props.inlink ? `2px solid ${darkgray}` : '0')};
   }
   @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
     margin: 0 0 ${(props) => (props.inlink ? '-2px' : '0')} 0;
     font-size: 14px;
-    font-weight: ${(props) => (props.inlink ? 'bold' : '')};
+    font-weight: ${(props) => (props.inlink ? 'bold' : '0')};
     &:after {
       display: block;
       content: '';
