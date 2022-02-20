@@ -37,7 +37,7 @@ const NavContainer = styled.div`
   display: flex;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     display: flex;
-    width: 90vw;
+    width: 100vw;
     height: 74px;
   }
 `;
@@ -213,7 +213,7 @@ const SideNavbar = () => {
         </SettingIcon>
       </Nav>
       {isOpen && <SideNavMenu />}
-      {mobile && <KeywordDropdown/>}
+      {mobile &&  <SideNavMenu />}
     </NavContainer>
   );
 };

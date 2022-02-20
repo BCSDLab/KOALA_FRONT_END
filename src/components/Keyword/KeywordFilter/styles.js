@@ -87,14 +87,6 @@ export const FilterList = styled.nav`
     display: block;
     width: 100vw;
     min-width: ${mobileS};
-    .delete {
-      margin: 0;
-    }
-    .mobileMenu{
-      width:24px;
-      height: 24px;
-      border: none;
-    }
   }
 `;
 
@@ -166,6 +158,13 @@ export const FilterItem = styled.span`
   cursor: pointer;
   border: 1px solid #eee;
   color: #999;
+  @media screen and (max-width: ${mobileL}){
+    margin: 0 8px 0 0;
+    &:last-child{
+      margin: 0;
+      border: none;
+    }
+  }
 `;
 
 export const FilterItemImage = styled.img`

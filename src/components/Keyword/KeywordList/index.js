@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import * as S from './styles';
+import * as M from './MobileKeywordItem.style';
 import { getTitle } from '../utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { readKeywordItem } from 'store/keyword';
+import MobileKeywordItem from './MobileKeywordItem';
 import useMatchMedia from 'hooks/useMatchMedia';
-
 const KeywordList = ({
   checkListId,
   checkAll,
@@ -22,8 +23,6 @@ const KeywordList = ({
   const { keywordList } = useSelector((state) => state.keyword);
   const [list, setList] = useState();
   const { isOpen } = useSelector((state) => state.toggle);
-  const queries = ['max-width: 400px, min-width:800px'];
-  const [mobile, desktop] = useMatchMedia(queries);
   const onClickCheckSome = useCallback(
     (id) => {
       setCheckAll(false);
@@ -108,11 +107,13 @@ const KeywordList = ({
     setKeywordSearch('');
     setSearchButton(false);
   }, [searchButton]);
+  const queries = ['(max-width: 450px)'];
+  const [mobile] = useMatchMedia(queries);
   return (
     <S.MainList toggle={isOpen}>
       {list &&
         list.map((item) => {
-          return desktop?(
+          return !mobile?(
             <S.MainItem key={item.id}>
               <S.MainCheckBox
                 onClick={() => onClickCheckSome(item.id)}
@@ -130,20 +131,23 @@ const KeywordList = ({
           )
           :
           (
-            <S.MainItem key={item.id}>
-            <S.MainCheckBox
-              onClick={() => onClickCheckSome(item.id)}
-              checkSome={checkListId.includes(item.id)}
-            ></S.MainCheckBox>
-            <S.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.site)}</S.MainCheckBoxTitle>
-            <S.MainPeriod readState={item.isRead}>{item.createdAt}</S.MainPeriod>
-            <a href={`${item.url}`} target="_blank">
-              <S.MainContent readState={item.isRead} onClick={() => onClickReadItem(item.id, item.isRead)}>
-                {item.title}
-              </S.MainContent>
-            </a>
-            
-          </S.MainItem>
+            <M.Alert key={item.id}>
+              {console.log(item)}
+                <M.AlertWrapper>
+                    <S.MainCheckBox
+                    onClick={() => onClickCheckSome(item.id)}
+                    checkSome={checkListId.includes(item.id)}
+                    />
+                    <M.AlertContent>
+                        <M.AlertDetail> 
+                            <M.Sender isRead={item.isRead}>{getTitle(item.site)}</M.Sender>
+                            <M.ReceiveDate>{item.createdAt}</M.ReceiveDate>
+                        </M.AlertDetail>
+                        <M.AlertTitle href={item.url} isRead={item.isRead}  target="_blank" onClick={() => onClickReadItem(item.id, item.isRead)}>{item.title}</M.AlertTitle>
+                    </M.AlertContent>
+                </M.AlertWrapper>
+                <M.AlertBorderLine/>
+            </M.Alert>
           )
         })}
     </S.MainList>

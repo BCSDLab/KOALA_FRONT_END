@@ -1,13 +1,12 @@
 import React, { useRef, useCallback } from 'react';
 import * as S from './styles';
 import useMatchMedia from 'hooks/useMatchMedia';
-
-const queries = ['max-width: 400px, min-width:800px'];
+import theme from '../../../theme'
+const queries = [`(max-width: ${theme.deviceSizes.mobileL}`];
 
 const KeywordSearch = ({ keywordSearch, setKeywordSearch, setSearchButton }) => {
   const inputSearch = useRef(null);
-  // const [mobile, desktop] = useMatchMedia(queries);
-  const mobile = true;
+  const [mobile] = useMatchMedia(queries);
   const onChangeKeywordSearch = (e) => {
     setKeywordSearch(e.target.value);
   };

@@ -2,10 +2,14 @@ import React from 'react';
 import * as S from 'components/SideNavbar/styles';
 import { useLocation } from 'react-router-dom';
 import KeywordDropdown from './KeywordDropdown';
-
+import useMatchMedia from 'hooks/useMatchMedia';
+import theme from '../../theme'
+const queries = [`(max-width: ${theme.deviceSizes.mobileL})`]
 const Extension = () => {
   const location = useLocation();
+  const [mobile] = useMatchMedia(queries);
   return (
+    !mobile?
     <S.SideMenuBackground>
       <S.Logo src="/asset/KoalaLogo.svg" alt="Logo" />
 
@@ -30,6 +34,8 @@ const Extension = () => {
         </S.Contact>
       </S.SetList>
     </S.SideMenuBackground>
+    :
+    <KeywordDropdown/>
   );
 };
 

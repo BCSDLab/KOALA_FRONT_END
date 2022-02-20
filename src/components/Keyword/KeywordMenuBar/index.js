@@ -3,11 +3,11 @@ import * as S from './styles';
 import { MENU_ITEM } from 'constant';
 import useMatchMedia from 'hooks/useMatchMedia';
 import { useLocation } from 'react-router';
-const queries = ['max-width: 400px, min-width:800px'];
+import theme from '../../../theme'
+const queries = [`(max-width: ${theme.deviceSizes.mobileL}`];
 
 const KeywordMenuBar = ({ isToggle, menu, onClickMenu }) => {
-  // const [mobile, desktop] = useMatchMedia(queries);
-  const mobile = true;
+  const [mobile] = useMatchMedia(queries);
   return (
     !mobile?
     <>

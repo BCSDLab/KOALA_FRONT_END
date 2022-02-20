@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router';
 import KeywordModal from 'components/Keyword/KeywordModal';
 import styled from 'styled-components';
 import { getKeywordName, getKeywordPosition } from 'components/Keyword/utils';
-
+import useMatchMedia from 'hooks/useMatchMedia';
 const Background = styled.div`
   width: 100vw;
   height: 100vh;
@@ -20,7 +20,7 @@ const Background = styled.div`
 
 const KeywordDropdown = () => {
   const [dropdownToggle, setDropdownToggle] = useState(false);
-  const [selectItemId, setSelectItemId] = useState(7);
+  const [selectItemId, setSelectItemId] = useState(null);
   const [selectAddKeyword, setSelectAddKeyword] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { keywords } = useSelector((state) => state.keyword);
@@ -60,19 +60,18 @@ const KeywordDropdown = () => {
   if (keywords === undefined) {
     dispatch(inquiry());
   }
-  const mobile = true;
+  const queries = ['(max-width: 450px)'];
+  const [mobile] = useMatchMedia(queries);
   const findPresentKeyword = (index) =>{
-    console.log(keywords[index])
     return keywords[index];
   }
-  console.log(keywords[0])
-  console.log(keywords)
+  console.log(keywords, selectItemId)
   return (
     mobile? <S.MobileKeyWordHeader>
       <S.BackBtn src="/asset/BackArrow.svg"/>
       <S.MobileKeyWordName>
       {findPresentKeyword(keywords.findIndex(keyword => keyword.id===selectItemId))?
-      findPresentKeyword(keywords.findIndex(keyword => keyword.id===selectItemId)).name:null
+      console.log(findPresentKeyword(keywords.findIndex(keyword => keyword.id===selectItemId)).name):null
       }
       </S.MobileKeyWordName>
       <S.FixKeyWordBtn>수정</S.FixKeyWordBtn>

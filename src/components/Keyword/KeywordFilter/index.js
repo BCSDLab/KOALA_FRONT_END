@@ -9,7 +9,10 @@ import KeywordMenuBar from '../KeywordMenuBar';
 import KeywordSearch from '../KeywordSearch';
 import KeywordHeader from '../KeywordHeader';
 import useMatchMedia from 'hooks/useMatchMedia';
-const queries = ['max-width: 400px, min-width:800px'];
+import theme from '../../../theme'
+import MobileMenuModal from './MobileMenuModal';
+import { MobileDeleteModal, MobileMoveScrapModal } from './MobilePopUp';
+const queries = [`(max-width: ${theme.deviceSizes.mobileL})`];
 
 
 const KeywordFilterBar = () => {
@@ -30,7 +33,9 @@ const KeywordFilterBar = () => {
   const [notReadNotification, setNotReadNotification] = useState(false);
   const [goStore, setGoStore] = useState(false);
   const [deleteList, setDeleteList] = useState(false);
-  const [mobile, desktop] = useMatchMedia(queries);
+  const [mobile] = useMatchMedia(queries);
+  const [isMobileMenuOpen, setMenuModal] = useState(false);
+  const [isMobilePopupOpen, setPopUp] = useState(null);
   const onClickAllSelect = () => {
     setCheckAll((prev) => !prev);
   };
@@ -68,6 +73,12 @@ const KeywordFilterBar = () => {
     setDeleteList(true);
   };
 
+  const onClickMobileMenu = () => {
+    setMenuModal(true);
+  }
+  const closeMobileMenu =() =>{
+    setMenuModal(false);
+  }
   useEffect(() => {
     if (list.length === 0) {
       return;
@@ -83,6 +94,7 @@ const KeywordFilterBar = () => {
           const id = item.id;
           dispatch(moveKeywordItem(id));
         });
+        setPopUp('SCRAP');
       } else if (checkListId.length !== 0) {
         alert('선택된 목록 보관');
         const filterList = list.filter((item) => {
@@ -98,6 +110,7 @@ const KeywordFilterBar = () => {
         });
 
         setCheckListId([]);
+        setPopUp('SCRAP');
         setGoStore(false);
       } else {
         alert('알림을 선택해 주세요');
@@ -110,7 +123,6 @@ const KeywordFilterBar = () => {
     if (list.length === 0) {
       return;
     }
-
     if (deleteList) {
       if (checkAll) {
         alert('모든 목록 삭제');
@@ -120,6 +132,9 @@ const KeywordFilterBar = () => {
         const query = makeDeleteQuery(startId, endId);
 
         dispatch(deleteKeywordList(query));
+        if(mobile){
+          setPopUp('DELETE')
+        }
         setDeleteList(false);
       } else if (checkListId.length !== 0) {
         alert('선택된 목록 삭제');
@@ -134,7 +149,9 @@ const KeywordFilterBar = () => {
 
           dispatch(deleteKeywordList(query));
         }
-
+        if(mobile){
+          setPopUp('DELETE')
+        }
         setDeleteList(false);
       } else {
         alert('알림을 선택해 주세요');
@@ -161,7 +178,6 @@ const KeywordFilterBar = () => {
     if (userInfo.isLoggedIn) {
       if (deleteKeywordListResponse || readKeywordItemResponse || getKeywordListResponse || !deleteList || goStore) {
         dispatch(getKeywordList(keywordName));
-
         if (keywordList === '받은 알림이 없습니다.') {
           setList([]);
         } else {
@@ -178,21 +194,83 @@ const KeywordFilterBar = () => {
     deleteList,
     goStore,
   ]);
-
   return (
     <>
-      {/* <KeywordHeader title={'키워드 알림'} toggle={false} /> */}
-      <KeywordMenuBar isToggle={isOpen} menu={menu} setList={setList} onClickMenu={onClickMenu} />
-      <S.FilterList toggle={isOpen}>
-        {/* <S.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className="checkBox"></S.CheckBox>
-        <S.CheckBoxTitle onClick={onClickAllSelect} className="checkTitle">
-          전체 선택
-        </S.CheckBoxTitle>
-        <S.FilterReadNotification
-          onClick={onClickReadNotification}
-          readNotification={readNotification}
-          className="read"
-        >
+        {mobile && (
+          <div onClick={closeMobileMenu}>
+          <KeywordMenuBar isToggle={isOpen} menu={menu} setList={setList} onClickMenu={onClickMenu} />
+          
+          <KeywordSearch
+          setList={setList}
+          list={list}
+          keywordSearch={keywordSearch}
+          setKeywordSearch={setKeywordSearch}
+          setSearchButton={setSearchButton}
+        />
+          <S.MobileMenuBar  >
+            <S.MobileSelectAll>
+              <S.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className="checkBox"></S.CheckBox>
+              <S.CheckBoxTitle onClick={onClickAllSelect} className="checkTitle">
+                전체 선택
+              </S.CheckBoxTitle>
+            </S.MobileSelectAll>
+            <S.MobileMenuList>
+              <S.FilterItem onClick={onClickGoStore} goStore={goStore} className="goStore">
+              <S.FilterItemImage src="/asset/inbox-in.svg" alt="inbox-in" />
+                <span>보관</span>
+              </S.FilterItem>
+              <S.FilterItem onClick={onClickDeleteList} className="delete">
+                <S.FilterItemImage src="/asset/trash.svg" alt="trash" />
+                <span>삭제</span>
+              </S.FilterItem>  
+              <S.FilterItem onClick={onClickMobileMenu} className="mobileMenu"  >
+                <S.FilterItemImage src="/asset/MobileMenuDots.svg" alt="menu" />
+              </S.FilterItem>
+          </S.MobileMenuList>
+          <MobileMenuModal
+                    isOpen={isMobileMenuOpen}
+                    showRead={onClickReadNotification}
+                    showNotRead={onClickNotReadNotification}
+                    isRead={readNotification}
+                    isNotRead={notReadNotification}
+                  />
+          </S.MobileMenuBar>
+          <S.FilterList toggle={isOpen}>
+          <KeywordList
+             list={list}
+             checkListId={checkListId}
+             setCheckListId={setCheckListId}
+             setKeywordSearch={setKeywordSearch}
+             checkAll={checkAll}
+             setCheckAll={setCheckAll}
+             setCheckAll={setCheckAll}
+             readNotification={readNotification}
+             notReadNotification={notReadNotification}
+             keywordSearch={keywordSearch}
+             setSearchButton={setSearchButton}
+             searchButton={searchButton}
+             menu={menu}
+           />
+          </S.FilterList>
+          {console.log(isMobilePopupOpen)}
+          <MobileDeleteModal isOpen={isMobilePopupOpen}/>
+          <MobileMoveScrapModal isOpen={isMobilePopupOpen}/>
+        </div>
+        )}
+        {!mobile && (
+          <>
+          <KeywordHeader title={'키워드 알림'} toggle={false} />
+          <KeywordMenuBar isToggle={isOpen} menu={menu} setList={setList} onClickMenu={onClickMenu} />
+          <S.FilterList toggle={isOpen}>
+          <S.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className="checkBox"></S.CheckBox>
+          <S.CheckBoxTitle onClick={onClickAllSelect} className="checkTitle">
+            전체 선택
+          </S.CheckBoxTitle>
+          <S.FilterReadNotification
+            onClick={onClickReadNotification}
+            readNotification={readNotification}
+            className="read"
+          >
           읽은 알림
         </S.FilterReadNotification>
         <S.FilterNotReadNotification
@@ -210,30 +288,32 @@ const KeywordFilterBar = () => {
         <S.FilterItem onClick={onClickDeleteList} className="delete">
           <S.FilterItemImage src="/asset/trash.svg" alt="trash" />
           <span>삭제</span>
-        </S.FilterItem> */}
-        {/* <KeywordSearch
-          setList={setList}
-          list={list}
-          keywordSearch={keywordSearch}
-          setKeywordSearch={setKeywordSearch}
-          setSearchButton={setSearchButton}
-        /> */}
-      </S.FilterList>
-      {/* <KeywordList
-        list={list}
-        checkListId={checkListId}
-        setCheckListId={setCheckListId}
-        setKeywordSearch={setKeywordSearch}
-        checkAll={checkAll}
-        setCheckAll={setCheckAll}
-        setCheckAll={setCheckAll}
-        readNotification={readNotification}
-        notReadNotification={notReadNotification}
-        keywordSearch={keywordSearch}
-        setSearchButton={setSearchButton}
-        searchButton={searchButton}
-        menu={menu}
-      /> */}
+        </S.FilterItem>
+          <KeywordSearch
+            setList={setList}
+            list={list}
+            keywordSearch={keywordSearch}
+            setKeywordSearch={setKeywordSearch}
+            setSearchButton={setSearchButton}
+          />
+          </S.FilterList>
+           <KeywordList
+             list={list}
+             checkListId={checkListId}
+             setCheckListId={setCheckListId}
+             setKeywordSearch={setKeywordSearch}
+             checkAll={checkAll}
+             setCheckAll={setCheckAll}
+             setCheckAll={setCheckAll}
+             readNotification={readNotification}
+             notReadNotification={notReadNotification}
+             keywordSearch={keywordSearch}
+             setSearchButton={setSearchButton}
+             searchButton={searchButton}
+             menu={menu}
+           />
+        </>
+        )}
     </>
   );
 };

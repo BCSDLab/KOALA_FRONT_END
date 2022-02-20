@@ -20,6 +20,9 @@ export const CheckBox = styled.div`
             `;
     }
   }}
+  @media screen and (max-width: ${mobileL}){
+    margin: 0 8px 0 0;
+  }
 `;
 
 export const CheckBoxTitle = styled.span`
@@ -36,8 +39,9 @@ export const MainList = styled.div`
   top: 320px;
   padding-right: 10px;
   @media screen and (max-width:${mobileL}){
-    width: 90%;
-    min-width: ${mobileS}; 
+    width: 100%;
+    min-width: ${mobileS};
+    position: static;
   }
 `;
 

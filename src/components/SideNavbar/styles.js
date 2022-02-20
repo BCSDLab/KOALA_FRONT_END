@@ -209,7 +209,6 @@ export const MobileKeyWordHeader = styled.div`
   width: 90%;
   height: 24px;
   justify-content: space-between;
-  // border: 1px solid black;
   margin: 0 auto;
   margin-top: 39px;
 `
