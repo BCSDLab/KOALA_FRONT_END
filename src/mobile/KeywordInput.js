@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { getKeywordRecommendation } from 'store/modifyKeyword';
+import { getKeywordRecommendation, getSiteRecommendation } from 'store/modifyKeyword';
+import { inquiry } from 'store/keyword';
+import { useCallback } from 'react';
 
 const Container = styled.div`
   width: 360px;
@@ -112,11 +114,24 @@ const keywords = [
   { id: 2, name: '실습집중구간' },
 ];
 
-const InputKeyword = ({ setIsKeywordInput, setKeyword, keyword }) => {
+const InputKeyword = ({
+  setIsKeywordInput,
+  setKeyword,
+  keyword,
+  isKeywordInput,
+  isAlarmInput,
+  setIsAlarmInput,
+  alarm,
+  setAlarm,
+  setSelectedAlarmList,
+  selectedAlarmList,
+  setIsRegisterKeyword,
+}) => {
   const [isRecommendKeyword, setIsRecommendKeyword] = useState(false);
 
   const dispatch = useDispatch();
-  const { keywordRecommendationList } = useSelector((state) => state.modifyKeyword);
+  const { keywordRecommendationList, siteRecommendationList } = useSelector((state) => state.modifyKeyword);
+  const { keywords: registeredKeyword } = useSelector((state) => state.keyword);
 
   const onClickRecommendKeyword = () => {
     setIsRecommendKeyword(true);
@@ -124,7 +139,11 @@ const InputKeyword = ({ setIsKeywordInput, setKeyword, keyword }) => {
 
   const onChangeKeywordInput = (e) => {
     const { value } = e.target;
-    setKeyword(value);
+    if (isKeywordInput) {
+      setKeyword(value);
+    } else {
+      setAlarm(value);
+    }
   };
 
   const onClickRecentSearch = () => {
@@ -133,14 +152,38 @@ const InputKeyword = ({ setIsKeywordInput, setKeyword, keyword }) => {
 
   const onClickChevronLeft = () => {
     setIsKeywordInput(false);
+    setIsAlarmInput(false);
   };
 
-  const onClickHashButton = () => {
+  const onClickHashButton = useCallback(() => {
     setIsKeywordInput(false);
-  };
+    setIsAlarmInput(false);
+    setIsRegisterKeyword(false);
+    if (isAlarmInput) {
+      if (selectedAlarmList) {
+        const list = [...selectedAlarmList, alarm];
+        setSelectedAlarmList(list);
+      } else {
+        const list = [alarm];
+        setSelectedAlarmList(list);
+      }
+    } else if (isKeywordInput) {
+      registeredKeyword.forEach((item) => {
+        console.log(item.name === keyword);
+        if (item.name === keyword) {
+          setIsRegisterKeyword(true);
+        }
+      });
+      setKeyword(keyword);
+    }
+  }, [keyword, isAlarmInput, registeredKeyword, selectedAlarmList, alarm]);
 
   const onClickKeyword = (name) => {
     setKeyword(name);
+  };
+
+  const onClickSite = (name) => {
+    setAlarm(name);
   };
 
   useEffect(() => {
@@ -149,17 +192,31 @@ const InputKeyword = ({ setIsKeywordInput, setKeyword, keyword }) => {
     }
   }, [keyword]);
 
+  useEffect(() => {
+    if (alarm !== '' && alarm !== ' ') {
+      dispatch(getSiteRecommendation(alarm));
+    }
+  }, [alarm]);
+
+  useEffect(() => {
+    dispatch(inquiry());
+  }, []);
+
   return (
     <Container>
       <Header>
         <ChevronLeft onClick={onClickChevronLeft} src="/asset/chevron-left.svg" />
-        <KeywordSearch onChange={onChangeKeywordInput} value={keyword} placeholder="키워드 입력"></KeywordSearch>
+        <KeywordSearch
+          onChange={onChangeKeywordInput}
+          value={isKeywordInput ? keyword : alarm}
+          placeholder={isKeywordInput ? '키워드 입력' : '알림받을 대상 입력'}
+        ></KeywordSearch>
         <SearchButton onClick={onClickHashButton}>
           <img src="/asset/HashtagWhite.svg" />
         </SearchButton>
       </Header>
 
-      {keywordRecommendationList.length === 0 ? (
+      {keywordRecommendationList.length < 2 && siteRecommendationList.length === 0 ? (
         <>
           <RecentSearch onClick={onClickRecentSearch}>최근 검색</RecentSearch>
           <RecommendKeyword onClick={onClickRecommendKeyword}>추천 키워드</RecommendKeyword>
@@ -172,16 +229,28 @@ const InputKeyword = ({ setIsKeywordInput, setKeyword, keyword }) => {
           </List>
         </>
       ) : (
-        <KeywordList>
-          {keywordRecommendationList.map((item, index) => {
-            return (
-              <KeywordItem onClick={() => onClickKeyword(item)} key={index}>
-                <HashImage src="/asset/Hashtagblack.svg" />
-                <span>{item}</span>
-              </KeywordItem>
-            );
-          })}
-        </KeywordList>
+        <>
+          <KeywordList>
+            {isKeywordInput &&
+              keywordRecommendationList.map((item, index) => {
+                return (
+                  <KeywordItem onClick={() => onClickKeyword(item)} key={index}>
+                    <HashImage src="/asset/Hashtagblack.svg" />
+                    <span>{item}</span>
+                  </KeywordItem>
+                );
+              })}
+            {isAlarmInput &&
+              siteRecommendationList.map((item, index) => {
+                return (
+                  <KeywordItem onClick={() => onClickSite(item)} key={index}>
+                    <HashImage src="/asset/Hashtagblack.svg" />
+                    <span>{item}</span>
+                  </KeywordItem>
+                );
+              })}
+          </KeywordList>
+        </>
       )}
     </Container>
   );

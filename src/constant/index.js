@@ -78,4 +78,4 @@ export const MENU_ITEM = [
   },
 ];
 
-export const queries = ['(min-width:450px)'];
+export const queries = ['(min-width:380px)'];

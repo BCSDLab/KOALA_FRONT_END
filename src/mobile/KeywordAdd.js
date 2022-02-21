@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import InputKeyword from './KeywordInput';
+import { createKeyword } from 'store/modifyKeyword';
+import { useDispatch } from 'react-redux';
+import { changeSiteName } from 'components/Keyword/utils';
 
 const Container = styled.div`
   width: 360px;
@@ -44,13 +47,15 @@ const InputContainer = styled.div`
 
 const KeywordInputContainer = styled.div`
   height: 40px;
-  border: 1px solid #eee;
+  border: ${(props) => (props.isRegisterKeyword ? `1px solid #ffd25d` : '1px solid #eee')};
+  position: relative;
 `;
 
 const AlarmSearchContainer = styled.div`
   height: 40px;
-  border: 1px solid #eee;
+  border: ${(props) => (props.checkAlarm ? '1px solid #ffd25d' : '1px solid #eee')};
   margin-top: 24px;
+  position: relative;
 `;
 
 const HashImage = styled.img`
@@ -60,6 +65,8 @@ const HashImage = styled.img`
 `;
 
 const KeywordInput = styled.input`
+  width: 300px;
+  background-color: #fff;
   height: 18px;
   border: none;
 `;
@@ -71,6 +78,8 @@ const SearchImage = styled.img`
 `;
 
 const SearchInput = styled.input`
+  width: 300px;
+  background-color: #fff;
   height: 18px;
   border: none;
 `;
@@ -78,7 +87,7 @@ const SearchInput = styled.input`
 const AlarmContainer = styled.div`
   width: 360px;
   height: ${(props) => (props.isNormalAlarm ? '163px' : '254px')};
-  margin-top: 32px;
+  margin-top: 20px;
   margin-left: 16px;
   position: relative;
   border: 1px solid ${(props) => (props.isNormalAlarm ? '#eee' : '#ffd25d')};
@@ -117,7 +126,7 @@ const NormalAlarm = styled.div`
 
 const SlientMode = styled.span`
   font-size: 16px;
-  color: #c4c4c4;
+  color: ${(props) => (props.isNormalAlarm ? '#222' : '#c4c4c4')};
   position: absolute;
   top: 72px;
   left: 16px;
@@ -171,10 +180,58 @@ const Message = styled.span`
   bottom: -20px;
 `;
 
+const AlarmList = styled.ul`
+  width: 360px;
+  height: ${(props) => (props.isNormalAlarm ? '180px' : '80px')};
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  margin-left: 16px;
+`;
+
+const AlarmItem = styled.li`
+  width: 343px;
+  min-height: 50px;
+  background-color: #eee;
+  display: flex;
+  padding-left: 16px;
+  position: relative;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+const DeleteIcon = styled.img`
+  position: absolute;
+  right: 8px;
+  top: 17px;
+`;
+
+const RegisteredKeyword = styled.span`
+  color: #ffd25d;
+  height: 3px;
+`;
+
+const WarningAlarm = styled(RegisteredKeyword)``;
+
+const RegisteredIcon = styled.img`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+`;
+
 const KeywordAdd = () => {
   const [isNormalAlarm, setIsNormalAlarm] = useState(false);
   const [isKeywordInput, setIsKeywordInput] = useState(false);
+  const [isAlarmInput, setIsAlarmInput] = useState(false);
+  const [isSilentMode, setIsSilentMode] = useState(false);
+  const [isVibrationMode, setIsVibrationMode] = useState(false);
+  const [selectedAlarmList, setSelectedAlarmList] = useState(null);
   const [keyword, setKeyword] = useState('');
+  const [isRegisterKeyword, setIsRegisterKeyword] = useState(false);
+
+  const [alarm, setAlarm] = useState('');
+
+  const dispatch = useDispatch();
 
   const onClickNormalAlarm = () => {
     setIsNormalAlarm(true);
@@ -186,32 +243,104 @@ const KeywordAdd = () => {
 
   const onClickKeywordInput = () => {
     setIsKeywordInput(true);
+    setIsAlarmInput(false);
   };
+
+  const onClickAlarmInput = () => {
+    setIsAlarmInput(true);
+    setIsKeywordInput(false);
+  };
+
+  const onClickDeleteIcon = (name) => {
+    const list = [];
+
+    selectedAlarmList.forEach((item) => {
+      if (item !== name) {
+        list.push(item);
+      }
+    });
+
+    setSelectedAlarmList(list);
+  };
+
+  const onClickSlientMode = () => {
+    setIsSilentMode((prev) => !prev);
+    setIsVibrationMode(false);
+  };
+
+  const onClickVibrationMode = () => {
+    setIsVibrationMode((prev) => !prev);
+    setIsSilentMode(false);
+  };
+
+  const onClickCompeleteButton = useCallback(() => {
+    const data = {
+      alarmCycle: 15,
+      alarmMode: isNormalAlarm ? 1 : 0,
+      isImportant: 0,
+      silentMode: isSilentMode ? 1 : 0,
+      untilPressOkButton: 0,
+      vibrationMode: isVibrationMode ? 1 : 0,
+      name: keyword,
+      siteList: selectedAlarmList.map((item) => changeSiteName(item)),
+    };
+
+    dispatch(createKeyword(data));
+
+    setIsNormalAlarm(false);
+    setIsKeywordInput(false);
+    setIsAlarmInput(false);
+    setSelectedAlarmList([]);
+    setKeyword('');
+    setAlarm('');
+  }, [selectedAlarmList, keyword, isNormalAlarm]);
 
   return (
     <>
-      {!isKeywordInput ? (
+      {!isKeywordInput && !isAlarmInput && (
         <>
           <Container>
             <Header>
               <ChovernLeft src="/asset/chevron-left.svg" />
               <Title>키워드 추가하기</Title>
-              <Compelete>완료</Compelete>
+              <Compelete onClick={onClickCompeleteButton}>완료</Compelete>
             </Header>
             <InputContainer>
-              <KeywordInputContainer onClick={onClickKeywordInput}>
+              <KeywordInputContainer onClick={onClickKeywordInput} isRegisterKeyword={isRegisterKeyword}>
                 <HashImage src="/asset/Hashtagblack.svg" />
                 <KeywordInput
                   placeholder="키워드 입력"
                   disabled
                   value={keyword.length !== 0 ? keyword : ''}
                 ></KeywordInput>
+                {isRegisterKeyword && <RegisteredIcon src="/asset/exclamation.svg" />}
               </KeywordInputContainer>
-              <AlarmSearchContainer>
+              {isRegisterKeyword && <RegisteredKeyword>이미 등록된 키워드 입니다.</RegisteredKeyword>}
+              <AlarmSearchContainer onClick={onClickAlarmInput} checkAlarm={alarm.length === 0}>
                 <SearchImage src="/asset/searchblack.svg" />
-                <SearchInput placeholder="알람받을 대상 입력" disabled></SearchInput>
+                <SearchInput
+                  placeholder="알람받을 대상 입력"
+                  disabled
+                  value={alarm.length !== 0 ? alarm : ''}
+                ></SearchInput>
+                {alarm.length === 0 && <RegisteredIcon src="/asset/exclamation.svg" />}
               </AlarmSearchContainer>
+              {alarm.length === 0 && <WarningAlarm>알림받을 대상을 반드시 선택해 주세요.</WarningAlarm>}
             </InputContainer>
+
+            {selectedAlarmList && (
+              <AlarmList isNormalAlarm={isNormalAlarm}>
+                {selectedAlarmList !== '' &&
+                  selectedAlarmList.map((item, index) => {
+                    return (
+                      <AlarmItem key={index}>
+                        <span>{item}</span>
+                        <DeleteIcon onClick={() => onClickDeleteIcon(item)} src="/asset/x.svg" />
+                      </AlarmItem>
+                    );
+                  })}
+              </AlarmList>
+            )}
 
             <AlarmContainer isNormalAlarm={isNormalAlarm}>
               <ImportantAlarm onClick={onClickImportantAlarm} isNormalAlarm={isNormalAlarm}>
@@ -237,15 +366,36 @@ const KeywordAdd = () => {
                 <>
                   <SlientMode isNormalAlarm={isNormalAlarm}>무음모드 알림</SlientMode>
                   <Vibration isNormalAlarm={isNormalAlarm}>진동 알림</Vibration>
-                  <FirstButton src="/asset/ToggleOff.svg" />
-                  <SecondButton src="/asset/ToggleOff.svg" />
+                  <FirstButton
+                    onClick={onClickSlientMode}
+                    src={isSilentMode ? '/asset/ToggleOn.svg' : '/asset/ToggleOff.svg'}
+                  />
+                  <SecondButton
+                    onClick={onClickVibrationMode}
+                    src={isVibrationMode ? '/asset/ToggleOn.svg' : '/asset/ToggleOff.svg'}
+                  />
                 </>
               )}
             </AlarmContainer>
           </Container>
         </>
-      ) : (
-        <InputKeyword setIsKeywordInput={setIsKeywordInput} setKeyword={setKeyword} keyword={keyword} />
+      )}
+      {(isKeywordInput || isAlarmInput) && (
+        <>
+          <InputKeyword
+            isKeywordInput={isKeywordInput}
+            isAlarmInput={isAlarmInput}
+            setIsAlarmInput={setIsAlarmInput}
+            setIsKeywordInput={setIsKeywordInput}
+            setSelectedAlarmList={setSelectedAlarmList}
+            selectedAlarmList={selectedAlarmList}
+            setKeyword={setKeyword}
+            setAlarm={setAlarm}
+            alarm={alarm}
+            keyword={keyword}
+            setIsRegisterKeyword={setIsRegisterKeyword}
+          />
+        </>
       )}
     </>
   );
