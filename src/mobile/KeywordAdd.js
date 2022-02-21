@@ -316,16 +316,21 @@ const KeywordAdd = () => {
                 {isRegisterKeyword && <RegisteredIcon src="/asset/exclamation.svg" />}
               </KeywordInputContainer>
               {isRegisterKeyword && <RegisteredKeyword>이미 등록된 키워드 입니다.</RegisteredKeyword>}
-              <AlarmSearchContainer onClick={onClickAlarmInput} checkAlarm={alarm.length === 0}>
+              <AlarmSearchContainer
+                onClick={onClickAlarmInput}
+                checkAlarm={selectedAlarmList && selectedAlarmList.length === 0}
+              >
                 <SearchImage src="/asset/searchblack.svg" />
                 <SearchInput
                   placeholder="알람받을 대상 입력"
                   disabled
                   value={alarm.length !== 0 ? alarm : ''}
                 ></SearchInput>
-                {alarm.length === 0 && <RegisteredIcon src="/asset/exclamation.svg" />}
+                {selectedAlarmList && selectedAlarmList.length === 0 && <RegisteredIcon src="/asset/exclamation.svg" />}
               </AlarmSearchContainer>
-              {alarm.length === 0 && <WarningAlarm>알림받을 대상을 반드시 선택해 주세요.</WarningAlarm>}
+              {selectedAlarmList && selectedAlarmList.length === 0 && (
+                <WarningAlarm>알림받을 대상을 반드시 선택해 주세요.</WarningAlarm>
+              )}
             </InputContainer>
 
             {selectedAlarmList && (
