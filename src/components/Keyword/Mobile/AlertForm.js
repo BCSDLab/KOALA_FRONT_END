@@ -50,64 +50,64 @@ const AlertForm = ({
     }
   };
   return (
-    <MobileAlertForm>
-      <AlertContainer>
-        <AlertHeader>
-          <ImportantAlert>중요알림</ImportantAlert>
-          <GeneralAlert>일반알림</GeneralAlert>
-        </AlertHeader>
-        <AlarmInner>
-          <AlramContentLine>
-            <AlarmInnerMain>무음모드 알림</AlarmInnerMain>
-            <AlarmInnerOption>
+    <MobileNoticeForm>
+      <NoticeContainer>
+        <NoticeHeader>
+          <ImportantNotice>중요알림</ImportantNotice>
+          <GeneralNotice>일반알림</GeneralNotice>
+        </NoticeHeader>
+        <NoticeContent>
+          <ContentLine>
+            <NoticeTitle>무음모드 알림</NoticeTitle>
+            <NoticeOption>
               <ToggleImage src="/asset/ToggleOff.svg" />
-            </AlarmInnerOption>
-          </AlramContentLine>
-          <AlramContentLine>
-            <AlarmInnerMain>진동모드 알림</AlarmInnerMain>
-            <AlarmInnerOption>
+            </NoticeOption>
+          </ContentLine>
+          <ContentLine>
+            <NoticeTitle>진동모드 알림</NoticeTitle>
+            <NoticeOption>
               <ToggleImage src="/asset/ToggleOff.svg" />
-            </AlarmInnerOption>
-          </AlramContentLine>
-          <AlramContentLine>
-            <AlarmInnerMain>확인 버튼 누를 때까지 알림</AlarmInnerMain>
-            <AlarmInnerOption>
+            </NoticeOption>
+          </ContentLine>
+          <ContentLine>
+            <NoticeTitle>확인 버튼 누를 때까지 알림</NoticeTitle>
+            <NoticeOption>
               <ToggleImage src="/asset/ToggleOff.svg" />
-            </AlarmInnerOption>
-          </AlramContentLine>
-          <AlramContentLine>
-            <AlarmInnerMain>알림주기</AlarmInnerMain>
-            <AlarmInnerOption>
+            </NoticeOption>
+          </ContentLine>
+          <ContentLine>
+            <NoticeTitle>알림주기</NoticeTitle>
+            <NoticeOption>
               {keywordInfo.alarmCycle}분
-              <ArrowImage src="/asset/chevron-right.svg" />
-            </AlarmInnerOption>
-          </AlramContentLine>
-        </AlarmInner>
-      </AlertContainer>
+              <DropDownImage src="/asset/chevron-right.svg" />
+            </NoticeOption>
+          </ContentLine>
+        </NoticeContent>
+      </NoticeContainer>
       <ErrorText>알림은 앱에서만 설정할 수 있습니다.</ErrorText>
       <ModifyCompleteButton onClick={onClickModifyButton}>완료</ModifyCompleteButton>
-    </MobileAlertForm>
+    </MobileNoticeForm>
   );
 };
 
 export default AlertForm;
 
-const MobileAlertForm = styled.div`
+const MobileNoticeForm = styled.div`
   width: 100%;
   height: auto;
   flex-direction: column;
 `;
-const AlertContainer = styled.div`
+const NoticeContainer = styled.div`
   width: 100%;
   height: 254px;
   border: 1px solid ${(props) => props.theme.colors.yellow};
 `;
 
-const AlertHeader = styled.div`
+const NoticeHeader = styled.div`
   display: flex;
   border-bottom: 1px solid ${(props) => props.theme.colors.lightgray};
 `;
-const AlertHeaderContent = styled.div`
+const HeaderContent = styled.div`
   width: 50%;
   height: 48px;
   font-size: 14px;
@@ -116,16 +116,16 @@ const AlertHeaderContent = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const ImportantAlert = styled(AlertHeaderContent)`
+const ImportantNotice = styled(HeaderContent)`
   color: ${(props) => props.theme.colors.white};
   background-color: ${(props) => props.theme.colors.silver};
 `;
-const GeneralAlert = styled(AlertHeaderContent)`
+const GeneralNotice = styled(HeaderContent)`
   background-color: ${(props) => props.theme.colors.white};
   color: ${(props) => props.theme.colors.silver};
 `;
 
-const AlramContentLine = styled.div`
+const ContentLine = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -136,13 +136,13 @@ const AlramContentLine = styled.div`
   text-align: left;
   color: ${(props) => props.theme.colors.silver};
 `;
-const AlarmInner = styled.div`
+const NoticeContent = styled.div`
   padding: 24px 16px;
 `;
-const AlarmInnerMain = styled.div`
+const NoticeTitle = styled.div`
   width: 234px;
 `;
-const AlarmInnerOption = styled.div`
+const NoticeOption = styled.div`
   width: 62px;
 `;
 const ToggleImage = styled.img`
@@ -150,7 +150,7 @@ const ToggleImage = styled.img`
   height: 24px;
   margin-left: 16px;
 `;
-const ArrowImage = styled.img`
+const DropDownImage = styled.img`
   width: 20px;
   height: 20px;
   margin-left: 8px;
