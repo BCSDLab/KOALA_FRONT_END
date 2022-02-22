@@ -12,17 +12,14 @@ const StyledButton = styled.button`
   outline: none;
   color: white;
   cursor: pointer;
-
   &:hover {
     background: ${(props) => props.theme.colors.silver};
   }
-
   :disabled,
   [disabled] {
     background: ${(props) => props.theme.colors.silver};
     cursor: default;
   }
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 328px;
     font-size: 14px;

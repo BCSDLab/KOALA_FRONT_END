@@ -1,9 +1,7 @@
 {
   "short_name": "KOALA",
   "name": "KOALA",
-  "icons": [
-  
-  ],
+  "icons": [],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",

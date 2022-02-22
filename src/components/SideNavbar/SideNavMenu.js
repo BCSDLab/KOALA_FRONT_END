@@ -12,7 +12,7 @@ const Extension = () => {
       <KeywordDropdown />
 
       <S.HistoryList>
-        <S.HistoryLink to="#">
+        <S.HistoryLink to="/history">
           <S.HistoryText>히스토리</S.HistoryText>
         </S.HistoryLink>
       </S.HistoryList>
@@ -21,7 +21,6 @@ const Extension = () => {
           <S.ChatText current={location.pathname.includes('/chat')}>채팅방</S.ChatText>
         </S.ChatLink>
       </S.ChatList>
-
       <S.SetList>
         <S.Set current={location.pathname === '/mypage'} to="/mypage">
           <S.SetText current={location.pathname === '/mypage'}>설정</S.SetText>

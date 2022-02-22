@@ -10,12 +10,20 @@ import FindId from 'components/Auth/Find/FindId';
 import FindPw from 'components/Auth/Find/FindPw';
 import RegisterDoc from 'components/Auth/Register/RegisterDoc';
 import Register from 'components/Auth/Register/Register';
+import HistoryPage from 'pages/HistoryPage';
 import { setTokenOnHeader } from 'api/logined';
 import { getCookie } from 'components/Shared/Cookies';
+import ScrapContent from 'components/History/Scrap/ScrapContent';
+import HistoryContent from 'components/History/History/HistoryContent';
 import MyPage from 'pages/MyPage';
 import ChatPage from 'pages/ChatPage';
 import ChatAuth from 'components/Chat/ChatAuth';
 import Unauth from 'components/Chat/Unauth';
+import KeywordPage from 'pages/KeywordPage';
+import KeywordFilterBar from 'components/Keyword/KeywordFilter';
+import AddKeyword from 'components/Keyword/AddKeyword';
+import ModifyKeyword from 'components/Keyword/ModifyKeyword';
+import SettingKeyword from 'components/Keyword/SettingKeyword';
 import ChatRoom from 'components/Chat/ChatRoom';
 
 const AuthorizedRoute = () => {
@@ -57,10 +65,23 @@ const App = () => {
         </Route>
 
         <Route element={<AuthorizedRoute />}>
+          <Route path="keyword/*" element={<KeywordPage />}>
+            <Route index element={<KeywordFilterBar />}></Route>
+            <Route path="create" element={<AddKeyword />}></Route>
+            <Route path="modify" element={<ModifyKeyword />}></Route>
+            <Route path="mypage" element={<SettingKeyword />}></Route>
+          </Route>
+        </Route>
+
+        <Route element={<AuthorizedRoute />}>
           <Route exact path="chat/*" element={<ChatPage />}>
             <Route path="auth" element={<ChatAuth />} />
             <Route path="room" element={isSchoolAuth ? <ChatRoom /> : <Unauth />} />
           </Route>
+        </Route>
+        <Route path="history/*" element={<HistoryPage />}>
+          <Route index element={<HistoryContent />} />
+          <Route path="scrap" element={<ScrapContent />} />
         </Route>
       </Routes>
     </>
