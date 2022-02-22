@@ -110,6 +110,7 @@ const KeywordList = ({
   const [mobile] = useMatchMedia(queries);
   return (
     <S.MainList toggle={isOpen}>
+      {list && list.length ===0?<M.NoResultBox>검색결과가 없습니다.</M.NoResultBox>:null}
       {list &&
         list.map((item) => {
           return !mobile?(

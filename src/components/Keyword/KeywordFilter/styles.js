@@ -222,10 +222,11 @@ export const MainPeriod = styled(MainContent)`
 `;
 export const MobileMenuBar = styled.div`
   width: 90%;
+  min-width: ${mobileS};
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 auto;
+  margin-left: 5%;
   margin-top: 16px;
 `
 export const MobileSelectAll = styled.div`

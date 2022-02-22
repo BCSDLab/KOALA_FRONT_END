@@ -258,23 +258,22 @@ const KeywordFilterBar = () => {
                   />
           </S.MobileMenuBar>
           <S.FilterList toggle={isOpen}>
-          <KeywordList
-             list={list}
-             checkListId={checkListId}
-             setCheckListId={setCheckListId}
-             setKeywordSearch={setKeywordSearch}
-             checkAll={checkAll}
-             setCheckAll={setCheckAll}
-             setCheckAll={setCheckAll}
-             readNotification={readNotification}
-             notReadNotification={notReadNotification}
-             keywordSearch={keywordSearch}
-             setSearchButton={setSearchButton}
-             searchButton={searchButton}
-             menu={menu}
-           />
+              <KeywordList
+                list={list}
+                checkListId={checkListId}
+                setCheckListId={setCheckListId}
+                setKeywordSearch={setKeywordSearch}
+                checkAll={checkAll}
+                setCheckAll={setCheckAll}
+                setCheckAll={setCheckAll}
+                readNotification={readNotification}
+                notReadNotification={notReadNotification}
+                keywordSearch={keywordSearch}
+                setSearchButton={setSearchButton}
+                searchButton={searchButton}
+                menu={menu}
+              />
           </S.FilterList>
-          {console.log(isMobilePopupOpen)}
           <MobileDeleteModal isOpen={isMobilePopupOpen} undoList={undoList} undo={undoDelete}/>
           <MobileMoveScrapModal isOpen={isMobilePopupOpen} undoList={undoList} numberAlert={undoList.length} undo={undoMoveScrap}/>
         </div>

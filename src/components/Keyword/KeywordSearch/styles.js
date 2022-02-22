@@ -5,6 +5,7 @@ const {mobileL, mobileS} = theme.deviceSizes;
 
 export const MobileSearchWrapper = styled.div`
   width: 90%;
+  min-width: ${mobileS};
   height: 40px;
   display: flex;
   justify-content: space-between;

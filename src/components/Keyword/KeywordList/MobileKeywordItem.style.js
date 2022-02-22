@@ -30,7 +30,7 @@ export const AlertContent = styled.div`
 
 export const AlertDetail = styled.div`
     @media screen and (max-width: ${mobileL}) {
-    width: 96%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
@@ -154,4 +154,16 @@ export const WriteBlockWrapper = styled.div`
 export const SaveBtn = styled.div`
   font-size: 11px;
   cursor: pointer;
+`
+
+export const NoResultBox = styled.div`
+@media screen and (max-width: ${mobileL}){
+  width: 100%;
+  color: ${gray};
+  font-size: 14px;
+  margin: 0 auto;
+  margin: 72px 0 0 0;
+  text-align: center;
+  
+}
 `

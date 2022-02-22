@@ -66,8 +66,11 @@ const KeywordDropdown = () => {
     return keywords[index];
   }
   console.log(keywords, selectItemId)
+  console.log(location.pathname)
   return (
-    mobile? <S.MobileKeyWordHeader>
+    mobile?
+    location.pathname.includes('/keyword') ?
+    <S.MobileKeyWordHeader>
       <S.BackBtn src="/asset/BackArrow.svg"/>
       <S.MobileKeyWordName>
       {findPresentKeyword(keywords.findIndex(keyword => keyword.id===selectItemId))?
@@ -75,7 +78,7 @@ const KeywordDropdown = () => {
       }
       </S.MobileKeyWordName>
       <S.FixKeyWordBtn to='/keyword/modify'>수정</S.FixKeyWordBtn>
-      </S.MobileKeyWordHeader>
+      </S.MobileKeyWordHeader>:null
     :
     <>
       <Background onClick={onClickBackground} showModal={showModal} />
