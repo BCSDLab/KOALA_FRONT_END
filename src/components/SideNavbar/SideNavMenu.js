@@ -12,7 +12,7 @@ const Extension = () => {
       <KeywordDropdown />
 
       <S.HistoryList>
-        <S.HistoryLink to="#">
+        <S.HistoryLink to="/history">
           <S.HistoryText>히스토리</S.HistoryText>
         </S.HistoryLink>
       </S.HistoryList>

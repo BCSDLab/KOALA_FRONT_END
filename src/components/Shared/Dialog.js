@@ -21,19 +21,23 @@ const fadeOut = keyframes`
 
 const slideUp = keyframes`
     from {
-        transform: translateY(200px);
+        transform: translateY(10px);
+        transition: all .4s ease-out;
     }
     to {
-        transform: translateY(0px);
+        transform: translateY(-48px);
+        transition: all .4s ease-out;
     }
 `;
 
 const slideDown = keyframes`
     from {
-        transform: translateY(0px);
+        transform: translateY(-48px);
+        transition: all .4s ease-out;
     }
     to {
-        transform: translateY(200px);
+        transform: translateY(10px);
+        transition: all .4s ease-out;
     }
 `;
 
@@ -46,7 +50,7 @@ const DarkBackground = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.2);
   animation-duration: 0.25s;
   animation-timing-function: ease-out;
   animation-name: ${fadeIn};
@@ -60,17 +64,19 @@ const DarkBackground = styled.div`
 `;
 
 const DialogBlock = styled.div`
-  width: ${(props) => (props.length === 'long' ? '376px' : '325px')};
-  height: ${(props) => (props.length === 'long' ? '182px' : '170px')};
-  padding: ${(props) => (props.length === 'long' ? '21px 21px 15px 21px' : '21px 21px 12px 21px')};
-  box-sizing: border-box;
+  width: calc(100% - 40px);
+  max-width: 376px;
+  height: auto;
+  min-height: 148px;
+  padding: 24px 24px 16px;
   background: white;
   border-radius: 2px;
   animation-duration: 0.25s;
   animation-timing-function: ease-out; // 처음에 빨랐다가 나중에 느려진다.
   animation-name: ${slideUp};
   animation-fill-mode: forwards;
-  box-shadow: 0 10px 19px 0 rgba(0, 0, 0, 0.26);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
   position: relative;
   z-index: 200;
   ${(props) =>
@@ -78,105 +84,58 @@ const DialogBlock = styled.div`
     css`
       animation-name: ${slideDown};
     `}
-  h3 {
-    margin: 0;
-    font-family: NanumSquareEB;
-    font-size: 19px;
-    line-height: 1.13;
-    text-align: left;
-    color: #000000;
-  }
-  p {
-    font-family: NanumSquareR;
-    font-size: 15px;
-    line-height: 1.25;
-    text-align: left;
-    color: #797979;
-  }
-  @media (max-width: 576px) {
-    width: ${(props) => (props.length === 'long' ? '280px' : '325px')};
-    height: ${(props) => (props.length === 'long' ? '272px' : '170px')};
-    h3 {
-      height: 21px;
-      flex-grow: 0;
-      font-family: NotoSansCJKKR;
-      font-size: 14px;
-      font-weight: 500;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      text-align: left;
-      color: #222;
-    }
-    p {
-      height: 36px;
-      flex-grow: 0;
-      font-family: NotoSansCJKKR;
-      margin-top: 9px;
-      font-size: 12px;
-      font-weight: normal;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: normal;
-      letter-spacing: normal;
-      text-align: left;
-      color: #222;
-    }
-  }
 `;
 
 const ButtonGroup = styled.div`
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
   display: flex;
+  bottom: 16px;
+  right: 24px;
+  position: absolute;
   justify-content: flex-end;
-  @media (max-width: 576px) {
-    bottom: 16px;
-    right: 16px;
+`;
+
+const CancelButton = styled.button`
+  width: auto;
+  background: none;
+  border: none;
+  color: ${(props) => props.theme.colors.darkgray};
+  font-size: 16px;
+  line-height: 1.14;
+  letter-spacing: 1.25px;
+  outline: none;
+  text-align: center;
+  :hover {
+    background: none;
+  }
+
+  &:active {
+    background: none;
   }
 `;
 
-const Button = styled.button`
-  width: ${(props) => (props.type === 'confirm' ? '61px' : '93px')};
-  height: 36px;
-  font-family: NotoSansCJKKR;
+const ConfirmButton = styled(CancelButton)`
+  width: auto;
+  border: none;
+  margin-left: 40px;
+  color: ${(props) => props.theme.colors.yellow};
   font-size: 16px;
   outline: none;
-  border: none;
-  color: ${(props) => (props.color === '#222' ? '#222' : '#ffd25d')};
-  cursor: pointer;
-  text-align: center;
-  background: white;
-  & + & {
-    margin-left: 10px;
-  }
-  &:hover {
-    font-weight: bold;
-  }
-  &:active {
-    background: rgba(0, 0, 0, 0.2);
-    font-weight: bold;
-  }
-  @media (max-width: 576px) {
-    width: ${(props) => (props.type === 'confirm' ? '55px' : '89px')};
-    font-size: 14px;
-  }
 `;
 
-export default function Dialog({
-  title,
-  children,
-  confirmText,
-  cancelText,
-  onConfirm,
-  onCancel,
-  visible,
-  length,
-  type,
-  theme,
-}) {
+const Title = styled.h3`
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  margin-bottom: 10px;
+`;
+
+const Description = styled.p`
+  font-size: 12px;
+  font-weight: normal;
+  line-height: normal;
+`;
+
+const Dialog = ({ title, children, confirmText, cancelText, onConfirm, onCancel, visible, type }) => {
   const [animate, setAnimate] = useState(false);
   const [localVisible, setLocalVisible] = useState(visible);
   const dialogRef = useRef();
@@ -204,26 +163,27 @@ export default function Dialog({
   if (!localVisible && !animate) return null;
   return (
     <DarkBackground disappear={!visible}>
-      <DialogBlock disappear={!visible} length={length} onKeyPress={handleKeyPress} tabIndex="0" ref={dialogRef}>
-        <h3>{title}</h3>
-        <p>{children}</p>
+      <DialogBlock disappear={!visible} length={length} onKeyPress={handleKeyPress} ref={dialogRef}>
+        <Title>{title}</Title>
+        <Description>{children}</Description>
+
         {type === 'confirm' ? (
           <ButtonGroup>
-            <Button color={'#222'} type={type} onClick={onCancel}>
+            <CancelButton type={type} onClick={onCancel}>
               {cancelText}
-            </Button>
-            <Button color={'#ffd25d'} type={type} onClick={onConfirm}>
+            </CancelButton>
+            <ConfirmButton type={type} onClick={onConfirm}>
               {confirmText}
-            </Button>
+            </ConfirmButton>
           </ButtonGroup>
         ) : (
           <ButtonGroup>
-            <Button color={'#ffd25d'} onClick={onConfirm}>
-              {confirmText}
-            </Button>
+            <ConfirmButton onClick={onConfirm}>{confirmText}</ConfirmButton>
           </ButtonGroup>
         )}
       </DialogBlock>
     </DarkBackground>
   );
-}
+};
+
+export default Dialog;

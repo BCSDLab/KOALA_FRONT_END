@@ -6,10 +6,6 @@ const StyledId = styled.div`
   position: relative;
   margin-top: 0;
   margin-bottom: 24px;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
-    width: 100%;
-    height: 48px;
-  }
 `;
 
 const StyledInput = styled(S.StyledInput)`
@@ -19,18 +15,28 @@ const StyledInput = styled(S.StyledInput)`
   background-position-y: center;
   background-position-x: 332px;
   background-repeat: no-repeat;
+
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
-    width: calc(100% - 16px);
-    height: 48px;
-    padding: 0 0 0 16px;
+    width: calc(100% - 52px);
+    border: solid 1px ${({ isError, ...props }) => (isError ? props.theme.colors.yellow : props.theme.colors.lightgray)};
+    padding-right: 34px;
+    background-position-x: calc(100% - 8px);
+    font-size: 14px;
+    line-height: normal;
   }
+`;
+
+const ErrorImg = styled.img`
+  position: absolute;
+  top: 30%;
+  left: 90%;
+  right: 0;
 `;
 
 const CommonInput = (props, ref) => {
   return (
     <StyledId>
       <StyledInput
-        type="text"
         ref={ref}
         autocomplete="account"
         value={props.value}

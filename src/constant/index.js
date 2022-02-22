@@ -67,7 +67,7 @@ export const MENU_ITEM = [
     title: '전체',
   },
   {
-    id: 1,
+    id: 'PORTAL',
     title: '아우누리',
   },
   {
