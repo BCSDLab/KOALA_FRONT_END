@@ -104,7 +104,7 @@ const ScrapContent = () => {
       e.target.innerText = '수정';
       console.log('메모 수정 완료');
       const memoStatement = fixMemoValue.current.value;
-      dispatch(fixMemo({ memo: memoStatement, id: id }));
+      dispatch(fixMemo({ memo: memoStatement, user_scrap_id: id }));
     }
   };
   const selectAll = (e) => {

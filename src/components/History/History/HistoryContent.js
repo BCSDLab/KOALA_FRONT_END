@@ -213,8 +213,9 @@ const HistoryContent = () => {
   }, [isMobileDeleteOpen, isMobileScrapOpen]);
   return (
     <>
+    
       <S.PageWrapper onClick={isMobile ? closeMobileMenu : null}>
-        {!isMobile && <PopUp isOpen={isPopOpen} closePopUp={closePopUp} />}
+      {!isMobile && <PopUp isOpen={isPopOpen} closePopUp={closePopUp} />}
         <S.Content isOpen={isPopOpen}>
           <S.MenuList>
             <S.SelectAll>

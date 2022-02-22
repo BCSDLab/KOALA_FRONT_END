@@ -11,7 +11,7 @@ import useMatchMedia from 'hooks/useMatchMedia';
 import { useMediaQuery } from 'react-responsive';
 const HistoryPageContent = styled.div`
   display: flex;
-  // min-width: 1294px;
+  min-width: 1494px;
   // max-width: 1294px;
   @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
     width: 100vw;

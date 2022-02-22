@@ -5,9 +5,9 @@ const {white} = theme.colors;
 
 const PopUpWindow = styled.div`
   display: ${(props) => (props.isOpen ? 'block' : 'none')};
-  position: relative;
-  top: -143px;
-  left: 325px;
+  position: fixed;
+  top: 20px;
+  left: 625px;
   width: 265px;
   height: 110px;
   padding: 37px 0 0 30px;

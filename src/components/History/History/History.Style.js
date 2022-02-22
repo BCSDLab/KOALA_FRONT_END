@@ -148,7 +148,6 @@ export const PageWrapper = styled.div`
 `;
 export const Content = styled.div`
   position: relative;
-  top: ${(props) => (props.isOpen ? '-147px' : '0px')};
   @media screen and (max-width: ${mobileL}) {
     width: 100%;
     margin: 0 auto;
