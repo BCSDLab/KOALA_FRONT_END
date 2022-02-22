@@ -86,7 +86,7 @@ export function* rootSaga() {
     getMemoSaga(),
     deleteScrapItemSaga(),
     fixMemoSaga(),
-    writeMemoSaga()
+    writeMemoSaga(),
     getStarSiteSaga(),
   ]);
 }
