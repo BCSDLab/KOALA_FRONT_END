@@ -21,7 +21,7 @@ const fadeOut = keyframes`
 
 const slideUp = keyframes`
     from {
-        transform: translateY(100px);
+        transform: translateY(10px);
         transition: all .4s ease-out;
     }
     to {
@@ -36,7 +36,7 @@ const slideDown = keyframes`
         transition: all .4s ease-out;
     }
     to {
-        transform: translateY(100px);
+        transform: translateY(10px);
         transition: all .4s ease-out;
     }
 `;
@@ -163,7 +163,7 @@ const Dialog = ({ title, children, confirmText, cancelText, onConfirm, onCancel,
   if (!localVisible && !animate) return null;
   return (
     <DarkBackground disappear={!visible}>
-      <DialogBlock disappear={!visible} length={length} onKeyPress={handleKeyPress} tabIndex="0" ref={dialogRef}>
+      <DialogBlock disappear={!visible} length={length} onKeyPress={handleKeyPress} ref={dialogRef}>
         <Title>{title}</Title>
         <Description>{children}</Description>
 
