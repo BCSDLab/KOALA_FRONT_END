@@ -15,7 +15,7 @@ const MainPage = () => {
   return (
     <Container>
       {/* <SideNavbar/> */}
-      {/* <LogoutButton /> */}
+      <LogoutButton />
       <Wrapper>
         <HistoryPage />
       </Wrapper>
