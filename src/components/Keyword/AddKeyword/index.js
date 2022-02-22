@@ -5,6 +5,9 @@ import { inquiry } from 'store/keyword';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import KeywordAlarm from '../KeywordAlarm';
+import KeywordAdd from 'mobile/KeywordAdd';
+import useMatchMedia from 'hooks/useMatchMedia';
+import { queries } from 'constant';
 
 const AddKeyword = () => {
   const [site, setSite] = useState('');
@@ -21,6 +24,8 @@ const AddKeyword = () => {
   const { keywords } = useSelector((state) => state.keyword);
   const { isOpen } = useSelector((state) => state.toggle);
   const dispatch = useDispatch();
+
+  const [desktop] = useMatchMedia(queries);
 
   const onChangeSite = (e) => {
     setSite(e.target.value);
@@ -117,69 +122,77 @@ const AddKeyword = () => {
 
   return (
     <>
-      <KeywordHeader title={'키워드 추가하기'} />
-      <S.HashtagContainer toggle={isOpen} keyword={recommendKeyword === ''} alreadyRegister={isRegisterKeyword}>
-        <S.HashtageImage src="/asset/hashtagblack.svg" alt="hashtage_image" />
-        <S.InputKeyword
-          placeholder="키워드 입력"
-          onChange={onChangeRecommendKeyword}
-          value={selectRecommendKeyword === '' ? recommendKeyword : selectRecommendKeyword}
-        ></S.InputKeyword>
-        <S.AlreadyRegisterKeyword alreadyRegister={isRegisterKeyword}>
-          이미 등록한 키워드입니다.
-        </S.AlreadyRegisterKeyword>
-      </S.HashtagContainer>
-      <S.RecommendKeywordContainer show={recommendKeyword === ''} toggle={isOpen}>
-        {recommendKeywords.length !== 0 &&
-          recommendKeywords.map((item, index) => {
-            return (
-              <S.RecommendItem onClick={() => onClickRecommendKeyword(item)} key={index}>
-                {item}
-              </S.RecommendItem>
-            );
-          })}
-      </S.RecommendKeywordContainer>
-      <S.SearchContainer show={site === ''} alreadyRegister={isRegisterItem} toggle={isOpen}>
-        <S.SearchImage src="/asset/searchblack.svg" alt="search_image" />
-        <S.InputSite
-          placeholder="알림받을 사이트 검색"
-          value={site}
-          onChange={onChangeSite}
-          alreadyRegister={isRegisterItem}
-        ></S.InputSite>
-        <S.AlreadyRegisterMessage alreadyRegister={isRegisterItem}>이미 등록한 사이트입니다.</S.AlreadyRegisterMessage>
-      </S.SearchContainer>
-      <S.RecommendSiteContainer show={site === ''} alreadyRegister={isRegisterItem} toggle={isOpen}>
-        {recommendList.length !== 0 &&
-          recommendList.map((item, index) => {
-            return (
-              <S.RecommendItem onClick={onClickRecommendItem} key={index}>
-                {item}
-              </S.RecommendItem>
-            );
-          })}
-      </S.RecommendSiteContainer>
-      <S.SiteContainer toggle={isOpen}>
-        <S.SiteList>
-          {selectRecommendItem.map((item, index) => {
-            return (
-              <S.SiteItem key={index}>
-                <S.SiteName>{item}</S.SiteName>
-                <S.CloseBtn onClick={() => onClickDeleteRecommendItem(index)}>
-                  <S.XImage src="/asset/x.svg" alt="x_image" />
-                </S.CloseBtn>
-              </S.SiteItem>
-            );
-          })}
-        </S.SiteList>
-      </S.SiteContainer>
-      <KeywordAlarm
-        buttonText={'등록'}
-        selectRecommendItem={selectRecommendItem}
-        setSelectRecommendItem={setSelectRecommendItem}
-        setRecommendKeyword={setRecommendKeyword}
-        setSelectRecommendKeyword={setSelectRecommendKeyword}
-      />
+      {desktop ? (
+        <>
+          <KeywordHeader title={'키워드 추가하기'} />
+          <S.HashtagContainer toggle={isOpen} keyword={recommendKeyword === ''} alreadyRegister={isRegisterKeyword}>
+            <S.HashtageImage src="/asset/hashtagblack.svg" alt="hashtage_image" />
+            <S.InputKeyword
+              placeholder="키워드 입력"
+              onChange={onChangeRecommendKeyword}
+              value={selectRecommendKeyword === '' ? recommendKeyword : selectRecommendKeyword}
+            ></S.InputKeyword>
+            <S.AlreadyRegisterKeyword alreadyRegister={isRegisterKeyword}>
+              이미 등록한 키워드입니다.
+            </S.AlreadyRegisterKeyword>
+          </S.HashtagContainer>
+          <S.RecommendKeywordContainer show={recommendKeyword === ''} toggle={isOpen}>
+            {recommendKeywords.length !== 0 &&
+              recommendKeywords.map((item, index) => {
+                return (
+                  <S.RecommendItem onClick={() => onClickRecommendKeyword(item)} key={index}>
+                    {item}
+                  </S.RecommendItem>
+                );
+              })}
+          </S.RecommendKeywordContainer>
+          <S.SearchContainer show={site === ''} alreadyRegister={isRegisterItem} toggle={isOpen}>
+            <S.SearchImage src="/asset/searchblack.svg" alt="search_image" />
+            <S.InputSite
+              placeholder="알림받을 사이트 검색"
+              value={site}
+              onChange={onChangeSite}
+              alreadyRegister={isRegisterItem}
+            ></S.InputSite>
+            <S.AlreadyRegisterMessage alreadyRegister={isRegisterItem}>
+              이미 등록한 사이트입니다.
+            </S.AlreadyRegisterMessage>
+          </S.SearchContainer>
+          <S.RecommendSiteContainer show={site === ''} alreadyRegister={isRegisterItem} toggle={isOpen}>
+            {recommendList.length !== 0 &&
+              recommendList.map((item, index) => {
+                return (
+                  <S.RecommendItem onClick={onClickRecommendItem} key={index}>
+                    {item}
+                  </S.RecommendItem>
+                );
+              })}
+          </S.RecommendSiteContainer>
+          <S.SiteContainer toggle={isOpen}>
+            <S.SiteList>
+              {selectRecommendItem.map((item, index) => {
+                return (
+                  <S.SiteItem key={index}>
+                    <S.SiteName>{item}</S.SiteName>s
+                    <S.CloseBtn onClick={() => onClickDeleteRecommendItem(index)}>
+                      <S.XImage src="/asset/x.svg" alt="x_image" />
+                    </S.CloseBtn>
+                  </S.SiteItem>
+                );
+              })}
+            </S.SiteList>
+          </S.SiteContainer>
+          <KeywordAlarm
+            buttonText={'등록'}
+            selectRecommendItem={selectRecommendItem}
+            setSelectRecommendItem={setSelectRecommendItem}
+            setRecommendKeyword={setRecommendKeyword}
+            setSelectRecommendKeyword={setSelectRecommendKeyword}
+          />
+        </>
+      ) : (
+        <KeywordAdd />
+      )}
     </>
   );
 };
