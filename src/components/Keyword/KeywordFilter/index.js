@@ -134,7 +134,7 @@ const KeywordFilterBar = () => {
         const endId = keywordList[keywordList.length - 1].id;
         const query = makeDeleteQuery(startId, endId);
 
-        // dispatch(deleteKeywordList(query));
+        dispatch(deleteKeywordList(query));
         if(mobile){
           setPopUp('DELETE')
         }
@@ -150,7 +150,7 @@ const KeywordFilterBar = () => {
           const endId = checkListId[checkListId.length - 1];
           const query = makeDeleteQuery(startId, endId);
 
-          // dispatch(deleteKeywordList(query));
+          dispatch(deleteKeywordList(query));
         }
         if(mobile){
           setPopUp('DELETE')

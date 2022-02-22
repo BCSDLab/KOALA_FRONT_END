@@ -42,6 +42,7 @@ export const MainList = styled.div`
     width: 100%;
     min-width: ${mobileS};
     position: static;
+    padding: 0px;
   }
 `;
 

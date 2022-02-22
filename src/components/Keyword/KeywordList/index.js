@@ -4,7 +4,6 @@ import * as M from './MobileKeywordItem.style';
 import { getTitle } from '../utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { readKeywordItem } from 'store/keyword';
-import MobileKeywordItem from './MobileKeywordItem';
 import useMatchMedia from 'hooks/useMatchMedia';
 const KeywordList = ({
   checkListId,

@@ -74,7 +74,7 @@ const KeywordDropdown = () => {
       console.log(findPresentKeyword(keywords.findIndex(keyword => keyword.id===selectItemId)).name):null
       }
       </S.MobileKeyWordName>
-      <S.FixKeyWordBtn>수정</S.FixKeyWordBtn>
+      <S.FixKeyWordBtn to='/keyword/modify'>수정</S.FixKeyWordBtn>
       </S.MobileKeyWordHeader>
     :
     <>
