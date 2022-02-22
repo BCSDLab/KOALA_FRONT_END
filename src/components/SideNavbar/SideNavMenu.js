@@ -2,7 +2,6 @@ import React from 'react';
 import * as S from 'components/SideNavbar/styles';
 import { useLocation } from 'react-router-dom';
 import KeywordDropdown from './KeywordDropdown';
-import useMatchMedia from 'hooks/useMatchMedia';
 
 const Extension = () => {
   const location = useLocation();
@@ -13,7 +12,7 @@ const Extension = () => {
       <KeywordDropdown />
 
       <S.HistoryList>
-        <S.HistoryLink to="#">
+        <S.HistoryLink to="/history">
           <S.HistoryText>히스토리</S.HistoryText>
         </S.HistoryLink>
       </S.HistoryList>

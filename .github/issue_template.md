@@ -1,10 +1,8 @@
-
 ---
 type: Feature request
 about: 프로젝트 기능 개발 관련 이슈 발행
-title: "[FEATURE] "
+title: '[FEATURE] '
 assignees: ''
-
 ---
 
 ## 기능 설명 <!-- 개발할 기능에 대한 간단한 설명 작성 -->

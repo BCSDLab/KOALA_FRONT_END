@@ -15,6 +15,15 @@ const StyledInput = styled(S.StyledInput)`
   background-position-y: center;
   background-position-x: 332px;
   background-repeat: no-repeat;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: calc(100% - 52px);
+    border: solid 1px ${({ isError, ...props }) => (isError ? props.theme.colors.yellow : props.theme.colors.lightgray)};
+    padding-right: 34px;
+    background-position-x: calc(100% - 8px);
+    font-size: 14px;
+    line-height: normal;
+  }
 `;
 
 const ErrorImg = styled.img`

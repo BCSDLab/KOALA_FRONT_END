@@ -3,9 +3,8 @@ import { Link } from 'react-router-dom';
 
 export const SideMenuBackground = styled.div`
   width: 270px;
-  height: 1110px;
+  height: 100%;
   flex-grow: 0;
-  margin-right: 96px;
   padding: 40px 0 0;
   background-color: #f6f7f8;
 `;
@@ -45,9 +44,6 @@ export const KeywordDropdown = styled.div`
 const MenuTitle = styled.span`
   font-size: 14px;
   font-weight: 500;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: left;
   color: ${(props) => props.theme.colors.darkgray};
 `;
@@ -60,9 +56,6 @@ export const KeywordSetting = styled(Link)`
   right: 17px;
   position: absolute;
   font-size: 14px;
-  font-weight: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: right;
   color: ${(props) => props.theme.colors.gray};
   cursor: pointer;
@@ -122,7 +115,7 @@ export const AddKeywordSection = styled.div`
   display: flex;
   align-items: center;
   height: 44px;
-  margin: 11px 0 15.5px 0;
+  margin: 11px 0 2.5px 0;
   padding: 0 17px 0 32px;
   background-color: ${(props) => (props.selectAddKeyword ? '#222' : '#f6f7f8')};
   cursor: pointer;
@@ -138,10 +131,8 @@ export const AddText = styled.div`
   position: relative;
   top: 1px;
   font-size: 14px;
-  font-weight: normal;
   line-height: 43px;
-  letter-spacing: normal;
-  color: ${(props) => (props.selectAddKeyword ? '#fff' : '#222')};
+  color: ${(props) => (props.selectAddKeyword ? props.theme.colors.white : props.theme.colors.darkgray)};
 `;
 
 export const HistoryList = styled(List)`
@@ -181,11 +172,12 @@ export const ChatText = styled(MenuTitle)`
 export const SetList = styled.div`
   width: 270px;
   height: 92px;
-  padding: 190px 0 0 0;
   display: flex;
   flex-direction: column;
   font-size: 14px;
   text-align: left;
+  position: absolute;
+  bottom: 41px;
 `;
 
 export const Set = styled(StyledLinkDiv)`
@@ -209,4 +201,31 @@ export const ContactText = styled.span`
   font-size: 16px;
   font-weight: normal;
   margin: 10px 0 14px 32px;
+`;
+
+export const MobileKeyWordHeader = styled.div`
+  display: flex;
+  align-items: center;
+  width: 90%;
+  height: 24px;
+  justify-content: space-between;
+  margin: 0 auto;
+  margin-top: 39px;
+`;
+
+export const MobileKeyWordName = styled.span`
+  font-size: 16px;
+`;
+
+export const FixKeyWordBtn = styled(Link)`
+  font-size: 14px;
+  display: block;
+  // width: 24px;
+  color: #999;
+  cursor: pointer;
+`;
+
+export const BackBtn = styled.img`
+  width: 24px;
+  height: 24px;
 `;

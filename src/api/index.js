@@ -57,4 +57,22 @@ export const keywordAPI = {
   getKeywordRecommendation: (keyword) => logined.get(`keyword/search/${keyword}`),
   createKeyword: (object) => logined.post(`keyword`, object),
   deleteKeyword: (keyword) => logined.patch(`keyword?keyword-name=${keyword}`),
+  getRecommendationSite: () => logined.get(`keyword/site/recommendation`),
+  getKeywordDetailInfo: (keywordName) => logined.get(`keyword/detail?keyword-name=${keywordName}`),
+};
+
+export const historyAPI = {
+  getHistoryList: (pageNum) => logined.get(`/history?page-num=${pageNum}`),
+  deleteHistoryList: (historyList) => logined.patch(`history?${historyList}`),
+  readHistoryItem: (noticeId) => logined.put(`/history?notice-id=${noticeId}`),
+  moveToScrap: (idList) => logined.post(`/scrap`, idList),
+  undoHistoryList: (idList) => logined.patch(`history/undo?${idList}`),
+};
+
+export const scrapAPI = {
+  getScrapList: () => logined.get(`/scrap`),
+  deleteScrapItem: (noticeIdList) => logined.delete(`/scrap`, { data: noticeIdList }),
+  getMemo: () => logined.get(`/memo`),
+  fixMemo: (memo) => logined.patch(`/memo`, { memo: memo.memo, user_scrap_id: memo.user_scrap_id }),
+  writeMemo: (memo) => logined.post(`/memo`, memo),
 };

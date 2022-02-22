@@ -59,13 +59,15 @@ export const WEEK = [
   { id: 7, day: '공휴일' },
 ];
 
+export const MEDIA_QUERIES = ['(max-width: 450px)', '(min-width: 800px)'];
+
 export const MENU_ITEM = [
   {
     id: 0,
     title: '전체',
   },
   {
-    id: 1,
+    id: 'PORTAL',
     title: '아우누리',
   },
   {

@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import * as S from './styles';
+import theme from 'theme';
 
 const AuthTemplateBlock = styled.div`
   display: flex;
@@ -18,42 +20,28 @@ const Box = styled.div`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     padding-top: 54px;
   }
+
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    padding-top: 48px;
     width: 328px;
   }
 `;
 
-const MainLogo = styled.div`
-  margin-bottom: 48px;
+const queries = ['(max-width: ' + theme.deviceSizes.mobileL + ')'];
 
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    display: flex;
-    justify-content: center;
-  }
-`;
+const AuthTemplate = ({ children }) => {
 
-const MainLogoImg = styled.img`
-  width: 125px;
-  height: 34px;
-  left: 125.2px;
-  position: relative;
+  return (
+    <AuthTemplateBlock>
+      <Box>
+        <S.MainLogo>
+          <S.MainLogoImg />
+        </S.MainLogo>
 
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 158px;
-    height: 43px;
-    left: 0;
-  }
-`;
-
-const AuthTemplate = ({ children }) => (
-  <AuthTemplateBlock>
-    <Box>
-      <MainLogo>
-        <MainLogoImg src="/asset/mainLogo.svg" alt="logo" />
-      </MainLogo>
-      {children}
-    </Box>
-  </AuthTemplateBlock>
-);
+        {children}
+      </Box>
+    </AuthTemplateBlock>
+  );
+};
 
 export default AuthTemplate;
