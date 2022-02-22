@@ -5,6 +5,8 @@ import modifyKeyword, {
   patchModifyKeywordSaga,
   getSiteRecommendationSaga,
   createKeywordSaga,
+  getStarSiteSaga,
+  detailKeywordSaga,
 } from './modifyKeyword';
 import auth, {
   authSaga,
@@ -56,6 +58,7 @@ export function* rootSaga() {
     inquiryKeywordSaga(),
     getKeywordListSaga(),
     deleteKeywordListSaga(),
+    detailKeywordSaga(),
     moveKeywordItemSaga(),
     readKeywordItemSaga(),
     changeNameSaga(),
@@ -84,6 +87,7 @@ export function* rootSaga() {
     deleteScrapItemSaga(),
     fixMemoSaga(),
     writeMemoSaga()
+    getStarSiteSaga(),
   ]);
 }
 

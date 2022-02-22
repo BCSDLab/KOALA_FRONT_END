@@ -9,6 +9,17 @@ export const changeSiteName = (value) => {
     return 'FACEBOOK';
   }
 };
+export const changeSite = (value) => {
+  if (value === 'PORTAL') {
+    return '아우누리';
+  } else if (value === 'DORM') {
+    return '아우미르';
+  } else if (value === 'YOUTUBE') {
+    return '유튜브';
+  } else if (value === 'FACEBOOK') {
+    return '페이스북';
+  }
+};
 
 export const changeAlarmTerm = (value) => {
   switch (value) {

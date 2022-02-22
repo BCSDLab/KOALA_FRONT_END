@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const HashtagContainer = styled.div`
   width: 1092px;
   height: 48px;
-  border: 1px solid #eee;
+  border: 1px solid ${(props) => props.theme.colors.lightgray};
   display: flex;
   align-items: center;
   padding-left: 24px;
@@ -68,6 +68,7 @@ export const SettingContainer = styled(HashtagContainer)`
   left: ${(props) => (props.toggle ? '590px' : '455px')};
   top: 570px;
   display: flex;
+  border: 1.5px solid ${(props) => props.theme.colors.yellow};
   flex-direction: column;
 `;
 
@@ -91,6 +92,20 @@ export const VibrationCheckBox = styled(CheckBox)`
 `;
 
 export const SettingContent = styled(CheckBoxContent)``;
+
+export const ErrorText = styled.div`
+  font-size: 11px;
+  text-align: left;
+  color: ${(props) => props.theme.colors.yellow};
+  position: absolute;
+  left: ${(props) => (props.toggle ? '585px' : '453px')};
+  top: 736px;
+`;
+
+export const BottomContainer = styled.div`
+  width: 100%;
+  display: flex;
+`;
 
 export const AlarmContainer = styled.div`
   width: 100%;

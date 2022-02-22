@@ -115,7 +115,7 @@ export const AddKeywordSection = styled.div`
   display: flex;
   align-items: center;
   height: 44px;
-  margin: 11px 0 15.5px 0;
+  margin: 11px 0 2.5px 0;
   padding: 0 17px 0 32px;
   background-color: ${(props) => (props.selectAddKeyword ? '#222' : '#f6f7f8')};
   cursor: pointer;
