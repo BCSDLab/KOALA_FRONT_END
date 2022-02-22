@@ -186,7 +186,7 @@ const SideNavbar = () => {
           />
           {mobile && <MenuItemText current={location.pathname.includes('/keyword') ? 1 : 0}>키워드</MenuItemText>}
         </KeywordIcon>
-        <HistoryIcon to="#" current={location.pathname.includes('/history') ? 1 : 0}>
+        <HistoryIcon to="/history" current={location.pathname.includes('/history') ? 1 : 0}>
           <HistoryImg
             isSideMenu={isOpen}
             src={location.pathname.includes('/history') ? '/asset/HistoryBlack.svg' : '/asset/History.svg'}
