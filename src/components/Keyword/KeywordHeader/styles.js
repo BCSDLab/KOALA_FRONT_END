@@ -1,11 +1,14 @@
 import styled from 'styled-components';
 
-export const UserContainer = styled.div`
-  position: absolute;
-  display: flex;
-  min-width: 173px;
-  left: 1664px;
-  top: 40px;
+export const HeaderContainer = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 61px;
+    margin-bottom: 24px;
+  }
 `;
 
 export const Username = styled.span`
@@ -14,6 +17,9 @@ export const Username = styled.span`
   top: 40px;
   line-height: 32px;
   margin-right: 16px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    display: none;
+  }
 `;
 
 export const LoginButton = styled.button`
@@ -24,6 +30,9 @@ export const LoginButton = styled.button`
   font-size: 14px;
   font-weight: 500;
   text-align: center;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    display: none;
+  }
 `;
 
 export const Title = styled.span`
@@ -32,4 +41,7 @@ export const Title = styled.span`
   position: absolute;
   top: 121px;
   left: ${(props) => (props.toggle ? '488px' : '353px')};
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+ 
+  }
 `;

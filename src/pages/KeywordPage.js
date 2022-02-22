@@ -15,9 +15,25 @@ import theme from '../theme';
 
 const Container = styled.div`
   display: flex;
-  @media screen and (max-width: ${theme.deviceSizes.mobileL}){
+  width: 100%;
+  height: 100%;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+`;
+const Content = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 100%;
     display: block;
-    width: 100vw;
+    height: auto;
   }
 `;
 
@@ -32,17 +48,17 @@ const KeywordPage = () => {
   }, [userInfo]);
 
   return (
-    <>
-      <Container>
-        <SideNavbar />
+    <Container>
+      <Content>
+      <SideNavbar />
         <Routes>
           <Route index element={<KeywordFilterBar />}></Route>
           <Route path="create" element={<AddKeyword />}></Route>
           <Route path="modify" element={<ModifyKeyword />}></Route>
           <Route path="mypage" element={<SettingKeyword />}></Route>
         </Routes>
-      </Container>
-    </>
+      </Content>
+    </Container>
   );
 };
 
