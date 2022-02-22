@@ -12,6 +12,7 @@ import useMatchMedia from 'hooks/useMatchMedia';
 import theme from '../../../theme'
 import MobileMenuModal from './MobileMenuModal';
 import { MobileDeleteModal, MobileMoveScrapModal } from './MobilePopUp';
+import { deleteScrapItem } from 'store/scrap';
 const queries = [`(max-width: ${theme.deviceSizes.mobileL})`];
 
 
@@ -79,6 +80,16 @@ const KeywordFilterBar = () => {
   }
   const closeMobileMenu =() =>{
     setMenuModal(false);
+  }
+  const undoDelete = () => {
+    alert('undo!')
+    setUndoList([]);
+    setPopUp(false);
+  }
+  const undoMoveScrap = () => {
+    dispatch(deleteScrapItem(undoList));
+    setUndoList([]);
+    setPopUp(false);
   }
   useEffect(() => {
     if (list.length === 0) {
@@ -264,8 +275,8 @@ const KeywordFilterBar = () => {
            />
           </S.FilterList>
           {console.log(isMobilePopupOpen)}
-          <MobileDeleteModal isOpen={isMobilePopupOpen} undoList={undoList}/>
-          <MobileMoveScrapModal isOpen={isMobilePopupOpen} undoList={undoList} numberAlert={undoList.length}/>
+          <MobileDeleteModal isOpen={isMobilePopupOpen} undoList={undoList} undo={undoDelete}/>
+          <MobileMoveScrapModal isOpen={isMobilePopupOpen} undoList={undoList} numberAlert={undoList.length} undo={undoMoveScrap}/>
         </div>
         )}
         {!mobile && (
