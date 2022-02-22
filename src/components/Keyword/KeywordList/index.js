@@ -1,9 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import * as S from './styles';
+import * as M from './MobileKeywordItem.style';
 import { getTitle } from '../utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { readKeywordItem } from 'store/keyword';
-
+import useMatchMedia from 'hooks/useMatchMedia';
 const KeywordList = ({
   checkListId,
   checkAll,
@@ -21,7 +22,6 @@ const KeywordList = ({
   const { keywordList } = useSelector((state) => state.keyword);
   const [list, setList] = useState();
   const { isOpen } = useSelector((state) => state.toggle);
-
   const onClickCheckSome = useCallback(
     (id) => {
       setCheckAll(false);
@@ -106,12 +106,14 @@ const KeywordList = ({
     setKeywordSearch('');
     setSearchButton(false);
   }, [searchButton]);
-
+  const queries = ['(max-width: 450px)'];
+  const [mobile] = useMatchMedia(queries);
   return (
     <S.MainList toggle={isOpen}>
+      {list && list.length === 0 ? <M.NoResultBox>검색결과가 없습니다.</M.NoResultBox> : null}
       {list &&
         list.map((item) => {
-          return (
+          return !mobile ? (
             <S.MainItem key={item.id}>
               <S.MainCheckBox
                 onClick={() => onClickCheckSome(item.id)}
@@ -126,6 +128,28 @@ const KeywordList = ({
               <S.MainReadState>{item.isRead ? '읽음' : '읽지 않음'}</S.MainReadState>
               <S.MainPeriod readState={item.isRead}>{item.createdAt}</S.MainPeriod>
             </S.MainItem>
+          ) : (
+            <M.Alert key={item.id}>
+              {console.log(item)}
+              <M.AlertWrapper>
+                <S.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={checkListId.includes(item.id)} />
+                <M.AlertContent>
+                  <M.AlertDetail>
+                    <M.Sender isRead={item.isRead}>{getTitle(item.site)}</M.Sender>
+                    <M.ReceiveDate>{item.createdAt}</M.ReceiveDate>
+                  </M.AlertDetail>
+                  <M.AlertTitle
+                    href={item.url}
+                    isRead={item.isRead}
+                    target="_blank"
+                    onClick={() => onClickReadItem(item.id, item.isRead)}
+                  >
+                    {item.title}
+                  </M.AlertTitle>
+                </M.AlertContent>
+              </M.AlertWrapper>
+              <M.AlertBorderLine />
+            </M.Alert>
           );
         })}
     </S.MainList>

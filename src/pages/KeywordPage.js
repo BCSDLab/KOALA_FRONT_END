@@ -11,6 +11,8 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { inquiry } from 'store/keyword';
 
+import theme from '../theme';
+
 const Container = styled.div`
   display: flex;
   width: 100%;
@@ -47,8 +49,8 @@ const KeywordPage = () => {
 
   return (
     <Container>
-      <SideNavbar />
       <Content>
+      <SideNavbar />
         <Routes>
           <Route index element={<KeywordFilterBar />}></Route>
           <Route path="create" element={<AddKeyword />}></Route>
