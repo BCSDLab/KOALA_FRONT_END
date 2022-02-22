@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import theme from '../../../theme';
 
-const {mobileL, mobileS} = theme.deviceSizes;
+const { mobileL, mobileS } = theme.deviceSizes;
 
 export const Menu = styled.nav`
   min-width: 1323px;
@@ -12,7 +12,7 @@ export const Menu = styled.nav`
   border-bottom: 1.5px solid #eeeeee;
   top: 180px;
   left: ${(props) => (props.toggle ? '488px' : '353px')};
-  @media screen and (max-width: ${mobileL}){
+  @media screen and (max-width: ${mobileL}) {
     position: static;
   }
 `;
@@ -82,7 +82,7 @@ export const FilterList = styled.nav`
     display: flex;
     align-items: center;
   }
-  @media screen and (max-width: ${mobileL}){
+  @media screen and (max-width: ${mobileL}) {
     position: static;
     display: block;
     width: 100vw;
@@ -106,7 +106,7 @@ export const CheckBox = styled.div`
         `;
     }
   }};
-  @media screen and (max-width: ${mobileL}){
+  @media screen and (max-width: ${mobileL}) {
     margin: 0 8px 0 0;
   }
 `;
@@ -158,9 +158,9 @@ export const FilterItem = styled.span`
   cursor: pointer;
   border: 1px solid #eee;
   color: #999;
-  @media screen and (max-width: ${mobileL}){
+  @media screen and (max-width: ${mobileL}) {
     margin: 0 8px 0 0;
-    &:last-child{
+    &:last-child {
       margin: 0;
       border: none;
     }
@@ -228,10 +228,10 @@ export const MobileMenuBar = styled.div`
   align-items: center;
   margin-left: 5%;
   margin-top: 16px;
-`
+`;
 export const MobileSelectAll = styled.div`
   display: flex;
-`
+`;
 export const MobileMenuList = styled.div`
   display: flex;
-`
+`;

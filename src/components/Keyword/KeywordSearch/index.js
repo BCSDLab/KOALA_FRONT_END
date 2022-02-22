@@ -1,7 +1,7 @@
 import React, { useRef, useCallback } from 'react';
 import * as S from './styles';
 import useMatchMedia from 'hooks/useMatchMedia';
-import theme from '../../../theme'
+import theme from '../../../theme';
 const queries = [`(max-width: ${theme.deviceSizes.mobileL}`];
 
 const KeywordSearch = ({ keywordSearch, setKeywordSearch, setSearchButton }) => {
@@ -16,8 +16,7 @@ const KeywordSearch = ({ keywordSearch, setKeywordSearch, setSearchButton }) => 
     inputSearch.current.focus();
   }, []);
 
-  return (
-    !mobile?
+  return !mobile ? (
     <>
       <S.SearchInput
         ref={inputSearch}
@@ -30,7 +29,7 @@ const KeywordSearch = ({ keywordSearch, setKeywordSearch, setSearchButton }) => 
         <S.SearchImage src="/asset/search.svg" />
       </S.SearchButton>
     </>
-    :
+  ) : (
     <S.MobileSearchWrapper>
       <S.SearchInput
         ref={inputSearch}

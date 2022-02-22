@@ -213,7 +213,7 @@ const SideNavbar = () => {
         </SettingIcon>
       </Nav>
       {isOpen && <SideNavMenu />}
-      {mobile && <KeywordDropdown/>}
+      {mobile && <KeywordDropdown />}
     </NavContainer>
   );
 };

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import theme from '../../../theme';
-const {mobileL, mobileS} = theme.deviceSizes;
+const { mobileL, mobileS } = theme.deviceSizes;
 
 export const Menu = styled.nav`
   min-width: 1323px;
@@ -11,7 +11,7 @@ export const Menu = styled.nav`
   border-bottom: 1.5px solid #eeeeee;
   top: 180px;
   left: ${(props) => (props.toggle ? '488px' : '353px')};
-  @media screen and (max-width: ${mobileL}){
+  @media screen and (max-width: ${mobileL}) {
     display: block;
     position: static;
     padding: 0;
@@ -21,12 +21,12 @@ export const Menu = styled.nav`
     overflow-x: scroll;
     border: none;
     height: 100%;
-    &:after{
+    &:after {
       display: block;
       content: '';
       border-bottom: 1px solid #eee;
       width: 130%;
-    };
+    }
   }
 `;
 
@@ -35,29 +35,27 @@ export const MobileMenuWrapper = styled.div`
   width: 140%;
   min-width: ${mobileS};
   justify-content: space-between;
-
-`
-
+`;
 
 export const Item = styled.span`
   font-size: 16px;
   margin-right: 40px;
   cursor: pointer;
-  @media screen and (max-width: ${mobileL}){
+  @media screen and (max-width: ${mobileL}) {
     display: block;
     font-size: 14px;
     min-width: 52px;
     text-align: center;
-    &:last-child{
+    &:last-child {
       min-width: 200px;
     }
-    &:after{
+    &:after {
       display: block;
       content: '';
       width: 32px;
       margin: 0 auto;
       margin-top: 14px;
-      border-bottom: ${props => props.isToggle?'2px solid #222':''};
+      border-bottom: ${(props) => (props.isToggle ? '2px solid #222' : '')};
     }
   }
 `;

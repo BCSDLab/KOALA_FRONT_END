@@ -20,7 +20,7 @@ export const CheckBox = styled.div`
             `;
     }
   }}
-  @media screen and (max-width: ${mobileL}){
+  @media screen and (max-width: ${mobileL}) {
     margin: 0 8px 0 0;
   }
 `;
@@ -38,7 +38,7 @@ export const MainList = styled.div`
   left: ${(props) => (props.toggle ? '501px' : '366px')};
   top: 320px;
   padding-right: 10px;
-  @media screen and (max-width:${mobileL}){
+  @media screen and (max-width: ${mobileL}) {
     width: 100%;
     min-width: ${mobileS};
     position: static;

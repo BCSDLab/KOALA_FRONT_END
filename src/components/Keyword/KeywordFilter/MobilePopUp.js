@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../theme';
-const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
-
+const { white, black, darkgray, lightgray, silver, gray, yellow } = theme.colors;
 
 const Modal = styled.div`
   position: fixed;
@@ -26,24 +25,19 @@ const UndoButton = styled.div`
 `;
 
 export const MobileDeleteModal = ({ undo, isOpen }) => {
-  return (
-    isOpen === 'DELETE'?(
+  return isOpen === 'DELETE' ? (
     <Modal>
       <ModalText>선택한 알람을 삭제하였습니다.</ModalText>
       <UndoButton onClick={undo}>실행취소</UndoButton>
     </Modal>
-    ):null
-  );
+  ) : null;
 };
 
 export const MobileMoveScrapModal = ({ numberAlert, undo, isOpen }) => {
-  return (
-    isOpen === 'SCRAP'?(
-        <Modal>
+  return isOpen === 'SCRAP' ? (
+    <Modal>
       <ModalText>{numberAlert}개의 알람을 이동하였습니다.</ModalText>
       <UndoButton onClick={undo}>실행취소</UndoButton>
     </Modal>
-        ):null
-    
-  );
+  ) : null;
 };

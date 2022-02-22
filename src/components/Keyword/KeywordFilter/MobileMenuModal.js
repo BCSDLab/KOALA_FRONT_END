@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../theme';
-const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
+const { white, black, darkgray, lightgray, silver, gray, yellow } = theme.colors;
 
 const Modal = styled.div`
   display: flex;
@@ -61,16 +61,16 @@ const ReadMail = () => {
   );
 };
 const MobileMenuModal = ({ isOpen, showRead, showNotRead, isRead, isNotRead }) => {
-  console.log(isRead, isNotRead)
-    return (
+  console.log(isRead, isNotRead);
+  return (
     <>
       {isOpen ? (
         <Modal>
-          <ModalMenu onClick={showNotRead} isToggle={isNotRead? 1 : 0}>
+          <ModalMenu onClick={showNotRead} isToggle={isNotRead ? 1 : 0}>
             <NotReadMail />
             <ModalMenuName>읽지 않은 알림</ModalMenuName>
           </ModalMenu>
-          <ModalMenu onClick={showRead} isToggle={isRead? 1 : 0}>
+          <ModalMenu onClick={showRead} isToggle={isRead ? 1 : 0}>
             <ReadMail />
             <ModalMenuName>읽은 알림</ModalMenuName>
           </ModalMenu>
