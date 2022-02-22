@@ -28,7 +28,14 @@ import keyword, {
   readKeywordItemSaga,
   deleteKeywordSaga,
 } from './keyword';
-
+import history, {
+  getHistoryListSaga,
+  deleteHistoryListSaga,
+  readHistoryItemSaga,
+  moveToScrapItemSaga,
+  undoHistoryListSaga,
+} from './history';
+import scrap, { getScrapListSaga, getMemoSaga, deleteScrapItemSaga, fixMemoSaga, writeMemoSaga } from './scrap';
 
 const rootReducer = combineReducers({
   auth,
@@ -37,6 +44,8 @@ const rootReducer = combineReducers({
   toggle,
   keyword,
   myPage,
+  history,
+  scrap
 });
 
 export function* rootSaga() {
@@ -65,6 +74,16 @@ export function* rootSaga() {
     getKeywordRecommendationSaga(),
     createKeywordSaga(),
     deleteKeywordSaga(),
+    deleteHistoryListSaga(),
+    readHistoryItemSaga(),
+    undoHistoryListSaga(),
+    moveToScrapItemSaga(),
+    getHistoryListSaga(),
+    getScrapListSaga(),
+    getMemoSaga(),
+    deleteScrapItemSaga(),
+    fixMemoSaga(),
+    writeMemoSaga()
   ]);
 }
 
