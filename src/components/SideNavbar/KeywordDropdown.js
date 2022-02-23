@@ -63,23 +63,20 @@ const KeywordDropdown = () => {
   }
   const queries = ['(max-width: 450px)'];
   const [mobile] = useMatchMedia(queries);
-  const findPresentKeyword = (index) => {
-    return keywords[index];
-  };
   console.log(keywords, selectItemId);
   console.log(location.pathname);
   return mobile ? (
     location.pathname ==='/keyword' ? (
+      <>
       <MobileKeywordSelect keywords = {keywords} onClickAddKeyword={onClickAddKeyword} onClickItem={onClickItem}/>
-      // <S.MobileKeyWordHeader>
-      //   <S.BackBtn src="/asset/BackArrow.svg" />
-      //   <S.MobileKeyWordName>
-      //     {findPresentKeyword(keywords.findIndex((keyword) => keyword.id === selectItemId))
-      //       ? console.log(findPresentKeyword(keywords.findIndex((keyword) => keyword.id === selectItemId)).name)
-      //       : null}
-      //   </S.MobileKeyWordName>
-      //   <S.FixKeyWordBtn to="/keyword/modify">수정</S.FixKeyWordBtn>
-      // </S.MobileKeyWordHeader>
+      {/* <S.MobileKeyWordHeader>
+        <S.BackBtn src="/asset/BackArrow.svg" />
+        <S.MobileKeyWordName>
+          {keywords[keywords.findIndex(i => i.id === selectItemId)].name}
+        </S.MobileKeyWordName>
+        <S.FixKeyWordBtn to="/keyword/modify">수정</S.FixKeyWordBtn>
+      </S.MobileKeyWordHeader> */}
+      </>
     ) : null
   ) : (
     <>
