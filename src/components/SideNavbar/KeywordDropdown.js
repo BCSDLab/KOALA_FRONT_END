@@ -7,6 +7,7 @@ import KeywordModal from 'components/Keyword/KeywordModal';
 import styled from 'styled-components';
 import { getKeywordName, getKeywordPosition } from 'components/Keyword/utils';
 import useMatchMedia from 'hooks/useMatchMedia';
+import MobileKeywordSelect from 'components/Keyword/KeywordList/MobileKeywordSelect';
 const Background = styled.div`
   width: 100vw;
   height: 100vh;
@@ -69,15 +70,16 @@ const KeywordDropdown = () => {
   console.log(location.pathname);
   return mobile ? (
     location.pathname.includes('/keyword') ? (
-      <S.MobileKeyWordHeader>
-        <S.BackBtn src="/asset/BackArrow.svg" />
-        <S.MobileKeyWordName>
-          {findPresentKeyword(keywords.findIndex((keyword) => keyword.id === selectItemId))
-            ? console.log(findPresentKeyword(keywords.findIndex((keyword) => keyword.id === selectItemId)).name)
-            : null}
-        </S.MobileKeyWordName>
-        <S.FixKeyWordBtn to="/keyword/modify">수정</S.FixKeyWordBtn>
-      </S.MobileKeyWordHeader>
+      <MobileKeywordSelect keywords = {keywords}/>
+      // <S.MobileKeyWordHeader>
+      //   <S.BackBtn src="/asset/BackArrow.svg" />
+      //   <S.MobileKeyWordName>
+      //     {findPresentKeyword(keywords.findIndex((keyword) => keyword.id === selectItemId))
+      //       ? console.log(findPresentKeyword(keywords.findIndex((keyword) => keyword.id === selectItemId)).name)
+      //       : null}
+      //   </S.MobileKeyWordName>
+      //   <S.FixKeyWordBtn to="/keyword/modify">수정</S.FixKeyWordBtn>
+      // </S.MobileKeyWordHeader>
     ) : null
   ) : (
     <>
