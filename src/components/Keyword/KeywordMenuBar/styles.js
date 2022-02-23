@@ -15,7 +15,7 @@ export const Menu = styled.nav`
     display: block;
     position: static;
     padding: 0;
-    margin: 0 0 0 5%;
+    margin: 75px 0 0 5%;
     width: 90%;
     min-width: ${mobileS};
     overflow-x: scroll;
