@@ -9,7 +9,7 @@ import AccountForm from '../Shared/AccountForm';
 import EmailForm from '../Shared/EmailForm';
 import AuthNumberForm from '../Shared/AuthNumberForm';
 import PasswordForm from '../Shared/PasswordForm';
-import ConfiremdPasswordForm from '../Shared/ConfiremdPasswordForm';
+import ConfiremdPasswordForm from '../Shared/ConfirmedPasswordForm';
 import { LOGIN } from 'constant';
 import * as S from 'components/Auth/styles';
 import styled from 'styled-components';
