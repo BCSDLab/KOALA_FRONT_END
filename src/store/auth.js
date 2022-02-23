@@ -6,6 +6,8 @@ import { setTokenOnHeader } from 'api/logined';
 import * as authAPI from 'api';
 
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/LOGIN');
+const [KAKAO_LOGIN, KAKAO_LOGIN_SUCCESS, KAKAO_LOGIN_FAILURE] = createRequestSagaActionTypes('auth/KAKAO_LOGIN');
+const [SOCIAL_LOGIN, SOCIAL_LOGIN_SUCCESS, SOCIAL_LOGIN_FAILURE] = createRequestSagaActionTypes('auth/SOCIAL_LOGIN');
 const [REFRESH, REFRESH_SUCCESS, REFRESH_FAILURE] = createRequestSagaActionTypes('auth/REFRESH');
 const [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FALIURE] = createRequestSagaActionTypes('auth/SIGNUP');
 const [GUEST, GUEST_SUCCESS, GUEST_FALIURE] = createRequestSagaActionTypes('auth/GUEST');
@@ -44,6 +46,15 @@ export const login = createAction(LOGIN, ({ deviceToken, account, password }) =>
   account,
   password,
 }));
+export const kakaoLogin = createAction(KAKAO_LOGIN, ({ code }) => ({
+  code,
+}));
+export const socialLogin = createAction(SOCIAL_LOGIN, ({ snsType, deviceToken, accessToken }) => ({
+  snsType,
+  deviceToken,
+  accessToken,
+}));
+
 export const refresh = createAction(REFRESH);
 export const signUp = createAction(SIGNUP, ({ account, password, find_email, nickName }) => ({
   account,
@@ -82,6 +93,17 @@ export const resetAuthState = createAction(RESET_AUTH_STATE);
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
+  yield takeLatest(LOGIN_SUCCESS, setToken);
+}
+const kakaoLoginSaga = createRequestSaga(KAKAO_LOGIN, authAPI.kakaoLogin);
+export function* kakaoAuthSaga() {
+  yield takeLatest(KAKAO_LOGIN, kakaoLoginSaga);
+  yield takeLatest(KAKAO_LOGIN_SUCCESS, setToken);
+}
+const socialLoginSaga = createRequestSaga(SOCIAL_LOGIN, authAPI.socialLogin);
+export function* socialAuthSaga() {
+  yield takeLatest(SOCIAL_LOGIN, socialLoginSaga);
+  yield takeLatest(SOCIAL_LOGIN_SUCCESS, setToken);
   yield takeLatest(LOGIN_SUCCESS, setToken);
 }
 const refreshSaga = createRequestSaga(REFRESH, authAPI.refresh);
@@ -150,6 +172,37 @@ const auth = handleActions(
       isLoggedIn: true,
     }),
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+      isLoggedIn: false,
+    }),
+    [KAKAO_LOGIN]: (state) => ({
+      ...state,
+      isLoggedIn: null,
+      authError: null,
+    }),
+    [KAKAO_LOGIN_SUCCESS]: (state) => ({
+      ...state,
+      authError: null,
+      isLoggedIn: true,
+    }),
+    [KAKAO_LOGIN_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      errorCode: error.response.data.code,
+      authError: error,
+      isLoggedIn: false,
+    }),
+    [SOCIAL_LOGIN]: (state) => ({
+      ...state,
+      isLoggedIn: null,
+      authError: null,
+    }),
+    [SOCIAL_LOGIN_SUCCESS]: (state) => ({
+      ...state,
+      authError: null,
+      isLoggedIn: true,
+    }),
+    [SOCIAL_LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error,
       isLoggedIn: false,

@@ -7,6 +7,9 @@ import * as S from 'components/Auth/styles';
 import { useNavigate } from 'react-router';
 import { nonMemberLogin } from 'store/auth';
 import { uuid } from 'api/logined';
+import GoogleLoginButton from './SNSLogin/GoogleLoginButton';
+import KakaoLoginButton from './SNSLogin/KakaoLoginButton';
+import NaverLoginButton from './SNSLogin/NaverLoginButton';
 
 const LoginContainer = styled.div`
   display: flex;
@@ -63,66 +66,6 @@ const SNSLoginOptionSection = styled.div`
   justify-content: center;
 `;
 
-const LoginButtonAttributes = css`
-  border: none;
-  width: 343px;
-  height: 44px;
-  margin-bottom: 16px;
-  padding: 0 10px;
-  font-size: 16px;
-  font-weight: normal;
-  text-align: center;
-  :after {
-    content: '로그인';
-  }
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 328px;
-    height: 48px;
-    font-size: 14px;
-  }
-`;
-
-const GoogleLoginButton = styled.button`
-  ${LoginButtonAttributes}
-  border: solid 1px ${(props) => props.theme.colors.lightgray};
-  color: ${(props) => props.theme.colors.black};
-  background: 12px center no-repeat ${(props) => props.theme.colors.white} url('/asset/google-logo.svg');
-  background-size: 18px;
-  :after {
-    content: '구글 로그인';
-  }
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    background: 13px center no-repeat ${(props) => props.theme.colors.white} url('/asset/google-logo.svg');
-    background-size: 18px 18.8px;
-  }
-`;
-
-const NaverLoginButton = styled.button`
-  ${LoginButtonAttributes}
-  color: ${(props) => props.theme.colors.white};
-  background: 14px center no-repeat #03c75a url('/asset/naver-logo.svg');
-  background-size: 12.1px 12px;
-  :after {
-    content: '네이버 로그인';
-  }
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    background: 15px center no-repeat #03c75a url('/asset/naver-logo.svg');
-    background-size: 14.1px 14.6px;
-  }
-`;
-
-const KakaoLoginButton = styled.button`
-  ${LoginButtonAttributes}
-  color: ${(props) => props.theme.colors.black};
-  background: 14px center no-repeat #fee500 url('/asset/kakao-logo.svg');
-  background-size: 18px 16.6px;
-  :after {
-    content: '카카오 로그인';
-  }
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    background-size: 18px 17.4px;
-  }
-`;
 const MainLogo = styled.div`
   margin-bottom: 48px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
@@ -183,11 +126,12 @@ const AuthMainForm = () => {
 
   return (
     <>
-      {!desktop && (
+      {/* {!desktop && (
         <MainLogo>
           <MainLogoImg src="/asset/mainLogo.svg" alt="logo" />
         </MainLogo>
-      )}
+      )} */}
+
       <LoginContainer>
         <LoginOptionContainer>
           <LoginOptionButton onClick={() => setIsNormalLogin(true)} isClicked={isNormalLogin}>

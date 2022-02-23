@@ -10,6 +10,8 @@ import modifyKeyword, {
 } from './modifyKeyword';
 import auth, {
   authSaga,
+  kakaoAuthSaga,
+  socialAuthSaga,
   refreshLoginSaga,
   signUpRegisterSaga,
   sendPasswordSaga,
@@ -47,12 +49,14 @@ const rootReducer = combineReducers({
   keyword,
   myPage,
   history,
-  scrap
+  scrap,
 });
 
 export function* rootSaga() {
   yield all([
     authSaga(),
+    kakaoAuthSaga(),
+    socialAuthSaga(),
     refreshLoginSaga(),
     signUpRegisterSaga(),
     inquiryKeywordSaga(),

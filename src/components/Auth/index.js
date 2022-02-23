@@ -30,7 +30,6 @@ const Box = styled.div`
 const queries = ['(max-width: ' + theme.deviceSizes.mobileL + ')'];
 
 const AuthTemplate = ({ children }) => {
-
   return (
     <AuthTemplateBlock>
       <Box>

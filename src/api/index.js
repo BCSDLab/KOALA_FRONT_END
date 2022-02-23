@@ -1,7 +1,23 @@
 import logined from './logined';
+import { KAKAO_CLIENT_ID, KAKAO_REDIRECT_URI } from 'components/Auth/Login/SNSLogin/OAuth/';
+
+const setTokenOnHeader = (token) => {
+  logined.defaults.headers.common['Authorization'] = `${token}`;
+};
 
 export const login = ({ deviceToken, account, password }) =>
   logined.post(`user/login?device_token=${deviceToken}`, { account, password });
+
+export const kakaoLogin = ({ code }) =>
+  logined.post(`https://kauth.kakao.com/oauth/token`, {
+    token_type: 'bearer',
+    client_id: KAKAO_CLIENT_ID,
+    redirect_uri: KAKAO_REDIRECT_URI,
+    code: code,
+  });
+
+export const socialLogin = ({ snsType, deviceToken, accessToken }) =>
+  logined.post(`user/oauth2/${snsType}?device_token=${deviceToken}`, setTokenOnHeader(accessToken));
 
 export const nonMember = ({ deviceToken }) => logined.post(`/user/non-member?device_token=${deviceToken}`);
 
