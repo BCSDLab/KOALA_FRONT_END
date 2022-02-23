@@ -8,16 +8,21 @@ const setTokenOnHeader = (token) => {
 export const login = ({ deviceToken, account, password }) =>
   logined.post(`user/login?device_token=${deviceToken}`, { account, password });
 
-export const kakaoLogin = ({ code }) =>
-  logined.post(`https://kauth.kakao.com/oauth/token`, {
-    token_type: 'bearer',
-    client_id: KAKAO_CLIENT_ID,
-    redirect_uri: KAKAO_REDIRECT_URI,
-    code: code,
-  });
+export const kakaoLogin = ({ deviceToken, code }) =>
+  logined.post(
+    `https://kauth.kakao.com/oauth/token`,
+    `grant_type=authorization_code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&code=${code}`,
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+    }
+  );
 
 export const socialLogin = ({ snsType, deviceToken, accessToken }) =>
-  logined.post(`user/oauth2/${snsType}?device_token=${deviceToken}`, setTokenOnHeader(accessToken));
+  logined.post(`user/oauth2/${snsType}?device_token=${deviceToken}`, () => {
+    if (accessToken != undefined) setTokenOnHeader(accessToken);
+  });
 
 export const nonMember = ({ deviceToken }) => logined.post(`/user/non-member?device_token=${deviceToken}`);
 

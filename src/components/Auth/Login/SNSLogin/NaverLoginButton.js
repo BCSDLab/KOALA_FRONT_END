@@ -39,7 +39,7 @@ const NaverLoginButton = () => {
         onSuccess={(e) => onSuccess(e)}
         onFailure={(result) => console.error(result)}
       />
-      <StyledNaverLoginButton onClick={onClick} />
+      {/* <StyledNaverLoginButton onClick={onClick} /> */}
     </>
   );
 };

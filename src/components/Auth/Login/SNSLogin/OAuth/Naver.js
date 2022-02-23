@@ -26,14 +26,13 @@ const Naver = (props) => {
   };
 
   useEffect(() => {
-    if (errorCode) {
-      const ErrorMessage = authError.response.data.errorMessage;
-      setModalDesc(`${errorMessage} (${errorCode})`);
+    if (authError) {
+      setModalDesc(`네이버 로그인 오류`);
       setVisible(true);
       return;
     }
 
-    if (errorCode === '' && isLoggedIn) {
+    if (authError === null && isLoggedIn) {
       setModalDesc('홈화면으로 돌아갑니다.');
       setVisible(true);
     }

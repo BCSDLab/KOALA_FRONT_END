@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, { createRequestSagaActionTypes } from './createRequestSaga';
 import { takeLatest } from '@redux-saga/core/effects';
 import { setCookie } from 'components/Shared/Cookies';
-import { setTokenOnHeader } from 'api/logined';
+import { setTokenOnHeader, setNoneBearerTokenOnHeader } from 'api/logined';
 import * as authAPI from 'api';
 
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/LOGIN');
@@ -41,12 +41,16 @@ function* setToken(action) {
   setTokenOnHeader(action.payload.body.access_token);
 }
 
+function* setAccessToken4Kakao(action) {
+  setNoneBearerTokenOnHeader(action.payload.access_token);
+}
+
 export const login = createAction(LOGIN, ({ deviceToken, account, password }) => ({
   deviceToken,
   account,
   password,
 }));
-export const kakaoLogin = createAction(KAKAO_LOGIN, ({ code }) => ({
+export const kakaoLogin = createAction(KAKAO_LOGIN, ({ deviceToken, code }) => ({
   code,
 }));
 export const socialLogin = createAction(SOCIAL_LOGIN, ({ snsType, deviceToken, accessToken }) => ({
@@ -98,13 +102,12 @@ export function* authSaga() {
 const kakaoLoginSaga = createRequestSaga(KAKAO_LOGIN, authAPI.kakaoLogin);
 export function* kakaoAuthSaga() {
   yield takeLatest(KAKAO_LOGIN, kakaoLoginSaga);
-  yield takeLatest(KAKAO_LOGIN_SUCCESS, setToken);
+  yield takeLatest(KAKAO_LOGIN_SUCCESS, setAccessToken4Kakao);
 }
 const socialLoginSaga = createRequestSaga(SOCIAL_LOGIN, authAPI.socialLogin);
 export function* socialAuthSaga() {
   yield takeLatest(SOCIAL_LOGIN, socialLoginSaga);
   yield takeLatest(SOCIAL_LOGIN_SUCCESS, setToken);
-  yield takeLatest(LOGIN_SUCCESS, setToken);
 }
 const refreshSaga = createRequestSaga(REFRESH, authAPI.refresh);
 export function* refreshLoginSaga() {
@@ -154,6 +157,7 @@ const initialState = {
   changeComplete: false,
   errorCode: '',
   blindAccount: '',
+  isKakaoAuthTrue: false,
 };
 
 const auth = handleActions(
@@ -184,13 +188,14 @@ const auth = handleActions(
     [KAKAO_LOGIN_SUCCESS]: (state) => ({
       ...state,
       authError: null,
-      isLoggedIn: true,
+      isKakaoAuthTrue: true,
+      isLoggedIn: false,
     }),
     [KAKAO_LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      errorCode: error.response.data.code,
       authError: error,
       isLoggedIn: false,
+      isKakaoAuthTrue: false,
     }),
     [SOCIAL_LOGIN]: (state) => ({
       ...state,
