@@ -210,7 +210,7 @@ const AuthMainForm = () => {
         )}
 
         <S.NoneUserLinkSection isNormalLogin={isNormalLogin}>
-          <S.NoneUserLink isNormalLogin={isNormalLogin} onClick={nonMemberService} to="/">
+          <S.NoneUserLink isNormalLogin={isNormalLogin} onClick={nonMemberService} to="/keyword">
             비회원으로 이용하기
           </S.NoneUserLink>
         </S.NoneUserLinkSection>

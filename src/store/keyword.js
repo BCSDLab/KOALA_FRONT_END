@@ -3,8 +3,9 @@ import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, { createRequestSagaActionTypes } from './createRequestSaga';
 import { takeLatest } from 'redux-saga/effects';
 
-const [GET_KEYWORD, GET_KEYWORD_SUCCESS, GET_KEYWORD_FAILURE] = createRequestSagaActionTypes('keyword/INQUIRY');
-const [DELETE_KEYWORD, DELETE_KEYWORD_SUCCESS, DELETE_KEYWORD_FAILURE] = createRequestSagaActionTypes('keyword/DELETE');
+const [GET_KEYWORD, GET_KEYWORD_SUCCESS, GET_KEYWORD_FAILURE] = createRequestSagaActionTypes('keyword/GET_KEYWORD');
+const [DELETE_KEYWORD, DELETE_KEYWORD_SUCCESS, DELETE_KEYWORD_FAILURE] =
+  createRequestSagaActionTypes('keyword/DELETE_KEYWORD');
 const [GET_KEYWORD_LIST, GET_KEYWORD_LIST_SUCCESS, GET_KEYWORD_LIST_FAILURE] =
   createRequestSagaActionTypes('keyword/GETKEYWORDLIST');
 const [DELETE_KEYWORD_LIST, DELETE_KEYWORD_LIST_SUCCESS, DELETE_KEYWORD_LIST_FAILURE] =
@@ -108,11 +109,11 @@ const keyword = handleActions(
     [READ_KEYWORD_ITEM_FAILURE]: () => ({
       readKeywordItemResponse: false,
     }),
-    [DELETE_KEYWORD_FAILURE]: () => ({
-      deleteKeywordResponse: false,
-    }),
     [DELETE_KEYWORD_SUCCESS]: () => ({
       deleteKeywordResponse: true,
+    }),
+    [DELETE_KEYWORD_FAILURE]: () => ({
+      deleteKeywordResponse: false,
     }),
   },
   initialState

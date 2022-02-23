@@ -18,6 +18,7 @@ import auth, {
   authAccountSaga,
   setAccountSaga,
   changeingPasswordSaga,
+  nonLoginSaga,
 } from './auth';
 import loading from './loading';
 import toggle from './toggle';
@@ -47,7 +48,7 @@ const rootReducer = combineReducers({
   keyword,
   myPage,
   history,
-  scrap
+  scrap,
 });
 
 export function* rootSaga() {
@@ -70,6 +71,7 @@ export function* rootSaga() {
     sendAccountSaga(),
     authAccountSaga(),
     setAccountSaga(),
+    nonLoginSaga(),
     changeingPasswordSaga(),
     changeImageSaga(),
     getSiteRecommendationSaga(),
