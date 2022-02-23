@@ -27,11 +27,15 @@ const ElementContainer = styled.div`
 `
 const KeywordElement = styled.div`
     display: flex;
+    background: ${theme.colors.white};
+    height: 48px;
     width: 75%;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 24px;
-    margin-right: 5%;
+    position: relative;
+    padding: 0 5% 0 0;
+    left: 0;
+    transition: 0.5s ease;
 `
 const KeyWordSwiper = styled.div`
     display: flex;
@@ -39,6 +43,7 @@ const KeyWordSwiper = styled.div`
     left: 0;
     transition: 0.5s ease;
     width: 125%;
+    background: #ff3b30;
 `
 const KeywordName = styled.span`
 `
@@ -65,24 +70,37 @@ const Deletebtn = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 46px;
+    height: 48px;
     color: ${theme.colors.white};
-    padding: 0 31px;
+    padding: 0 32px 0  31px;
 `
 const SwiperWrapper = styled.div`
     width: 100%;
+    background: #ff3b30;
+    &:last-child{
+        margin-bottom: 26px;
+    }
 `
 const MobileKeywordSelect = ({keywords, onClickAddKeyword, onClickItem}) => {
     const swiperRef = useRef([]);
+    const elementRef = useRef([]);
     const keywordId = [null];
     const cordX = [null];
     const dispatch = useDispatch();
-    const moveLeft = (e,id) =>{
+    const moveLeft = (e,id,name) =>{
         const startPoint = cordX[cordX.length-1];
-        if(startPoint-e.changedTouches[0].clientX > (window.innerWidth/4)){
+        swiperRef.current[id].style.left = `-${startPoint-e.changedTouches[0].clientX}`;
+        if(startPoint-e.changedTouches[0].clientX > (window.innerWidth*0.225)){
             swiperRef.current[id].style.left = '-88px';
             keywordId.push(id);
             keywordId.slice(1,2)
+        }
+        if(startPoint-e.changedTouches[0].clientX > (window.innerWidth*0.675)){
+            console.log(elementRef.current[id]);
+            elementRef.current[id].style.left = `-${window.innerWidth}px`;
+            keywordId.push(null);
+            keywordId.slice(1,2)
+            deleteKeywordItem(name);
         }
     }
     const rollBack = () => {
@@ -109,8 +127,10 @@ const MobileKeywordSelect = ({keywords, onClickAddKeyword, onClickItem}) => {
                 <SwiperWrapper key={keyword.id} onClick={() => onClickItem(keyword.id, keyword.name)}>
                     <KeyWordSwiper ref={(element) => {
                         swiperRef.current[keyword.id]  = element
-                    }} onTouchMove={(e) => moveLeft(e,keyword.id)} onTouchStart={touchStart} onClick={(e)=>e.stopPropagation()}>
-                        <KeywordElement>
+                    }} onTouchMove={(e) => moveLeft(e,keyword.id,keyword.name)} onTouchStart={touchStart}>
+                        <KeywordElement ref={(element) => {
+                            elementRef.current[keyword.id]  = element
+                            }}>
                             <KeywordName>{keyword.name}</KeywordName>
                             <KeywordCount>{keyword.noticeNum}</KeywordCount>
                         </KeywordElement>
