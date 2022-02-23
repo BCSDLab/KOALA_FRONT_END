@@ -35,7 +35,6 @@ const ContentWrapper = styled.div`
   flex-direction: column;
   @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
     position: fixed;
-    top: 0%;
     margin: 27px 0 0 0;
     z-index: 99;
   }

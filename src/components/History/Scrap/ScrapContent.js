@@ -9,6 +9,8 @@ import { formatingDate } from '../History/HistoryContent';
 import theme from '../../../theme';
 import { useMediaQuery } from 'react-responsive';
 import MobileScrapAlert from './MobileScrapAlert';
+
+
 const memoState = ['READ', 'WRITE', 'FIX'];
 const {gray, yellow} = theme.colors;
 
@@ -163,6 +165,7 @@ const ScrapContent = () => {
     console.log(scrapList);
   }, [scrapList]);
   return (
+    <>
     <S.Wrapper>
       <S.MenuList>
         <S.CheckBox>
@@ -248,6 +251,7 @@ const ScrapContent = () => {
         ))}
       </S.KeyWordAlertList>
     </S.Wrapper>
+    </>
   );
 };
 
