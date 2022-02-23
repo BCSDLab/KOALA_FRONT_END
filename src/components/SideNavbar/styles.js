@@ -144,9 +144,11 @@ export const HistoryList = styled(List)`
 export const HistoryLink = styled(StyledLinkDiv)`
   margin: 27.5px 0px 26.5px 0;
   font-size: 14px;
+  background-color: ${(props) => props.current && props.theme.colors.darkgray};
 `;
 export const HistoryText = styled(MenuTitle)`
   margin: 27.5px 194px 27.5px 24px;
+  color: ${(props) => (props.current ? props.theme.colors.white : props.theme.colors.darkgray)};
 `;
 
 export const ChatList = styled(List)`

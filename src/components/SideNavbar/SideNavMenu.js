@@ -12,18 +12,18 @@ const Extension = () => {
       <KeywordDropdown />
 
       <S.HistoryList>
-        <S.HistoryLink to="/history">
-          <S.HistoryText>히스토리</S.HistoryText>
+        <S.HistoryLink current={location.pathname.includes('/history') ? 1 : 0} to="/history">
+          <S.HistoryText current={location.pathname.includes('/history') ? 1 : 0}>히스토리</S.HistoryText>
         </S.HistoryLink>
       </S.HistoryList>
       <S.ChatList>
-        <S.ChatLink current={location.pathname.includes('/chat')} to="/chat">
-          <S.ChatText current={location.pathname.includes('/chat')}>채팅방</S.ChatText>
+        <S.ChatLink current={location.pathname.includes('/chat') ? 1 : 0} to="/chat">
+          <S.ChatText current={location.pathname.includes('/chat') ? 1 : 0}>채팅방</S.ChatText>
         </S.ChatLink>
       </S.ChatList>
       <S.SetList>
-        <S.Set current={location.pathname === '/mypage'} to="/mypage">
-          <S.SetText current={location.pathname === '/mypage'}>설정</S.SetText>
+        <S.Set current={location.pathname === '/mypage' ? 1 : 0} to="/mypage">
+          <S.SetText current={location.pathname === '/mypage' ? 1 : 0}>설정</S.SetText>
         </S.Set>
         <S.Contact to="#">
           <S.ContactText>문의하기</S.ContactText>
