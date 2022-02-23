@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import { LOGIN } from './constant';
@@ -13,6 +13,7 @@ import Register from 'components/Auth/Register/Register';
 import HistoryPage from 'pages/HistoryPage';
 import { setTokenOnHeader } from 'api/logined';
 import { getCookie } from 'components/Shared/Cookies';
+import { inquiry } from 'store/keyword';
 import ScrapContent from 'components/History/Scrap/ScrapContent';
 import HistoryContent from 'components/History/History/HistoryContent';
 import MyPage from 'pages/MyPage';
@@ -39,7 +40,7 @@ const App = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const isSchoolAuth = useSelector((state) => state.myPage.isAuth);
-  useEffect(() => {
+  useLayoutEffect(() => {
     const token = getCookie('refresh_token');
     setTokenOnHeader(token);
     dispatch(refresh());
@@ -48,13 +49,13 @@ const App = () => {
   useEffect(() => {
     if (isLoggedIn) {
       dispatch(getUserInfo());
+      dispatch(inquiry());
     }
   }, [isLoggedIn]);
 
   return (
     <>
       <Routes>
-        <Route exact path="/" />
         <Route path="mypage" element={<MyPage />} />
         <Route exact path="auth/*" element={<AuthPage />}>
           <Route index element={<Login />} />
@@ -65,23 +66,21 @@ const App = () => {
         </Route>
 
         <Route element={<AuthorizedRoute />}>
+          <Route exact path="/" />
           <Route path="keyword/*" element={<KeywordPage />}>
             <Route index element={<KeywordFilterBar />}></Route>
             <Route path="create" element={<AddKeyword />}></Route>
             <Route path="modify" element={<ModifyKeyword />}></Route>
             <Route path="mypage" element={<SettingKeyword />}></Route>
           </Route>
-        </Route>
-
-        <Route element={<AuthorizedRoute />}>
           <Route exact path="chat/*" element={<ChatPage />}>
             <Route path="auth" element={<ChatAuth />} />
             <Route path="room" element={isSchoolAuth ? <ChatRoom /> : <Unauth />} />
           </Route>
-        </Route>
-        <Route path="history/*" element={<HistoryPage />}>
-          <Route index element={<HistoryContent />} />
-          <Route path="scrap" element={<ScrapContent />} />
+          <Route path="history/*" element={<HistoryPage />}>
+            <Route index element={<HistoryContent />} />
+            <Route path="scrap" element={<ScrapContent />} />
+          </Route>
         </Route>
       </Routes>
     </>
