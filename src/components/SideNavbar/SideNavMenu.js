@@ -5,6 +5,10 @@ import KeywordDropdown from './KeywordDropdown';
 
 const Extension = () => {
   const location = useLocation();
+
+  const deniedContact = () => {
+    alert('준비중입니다!');
+  };
   return (
     <S.SideMenuBackground>
       <S.Logo src="/asset/KoalaLogo.svg" alt="Logo" />
@@ -17,7 +21,7 @@ const Extension = () => {
         </S.HistoryLink>
       </S.HistoryList>
       <S.ChatList>
-        <S.ChatLink current={location.pathname.includes('/chat') ? 1 : 0} to="/chat">
+        <S.ChatLink onClick={deniedContact} current={location.pathname.includes('/chat') ? 1 : 0} to="#">
           <S.ChatText current={location.pathname.includes('/chat') ? 1 : 0}>채팅방</S.ChatText>
         </S.ChatLink>
       </S.ChatList>

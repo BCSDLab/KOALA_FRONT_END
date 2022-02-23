@@ -46,7 +46,7 @@ const App = () => {
     dispatch(refresh());
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isLoggedIn) {
       dispatch(getUserInfo());
       dispatch(inquiry());
