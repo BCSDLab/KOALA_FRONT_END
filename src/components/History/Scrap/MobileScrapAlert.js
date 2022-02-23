@@ -7,9 +7,6 @@ import { MENU_ITEM } from 'constant';
 import { formatingDate } from "../History/HistoryContent";
 import {writeMemo, fixMemo} from 'store/scrap';
 import {useDispatch} from 'react-redux';
-// import {Swiper,SwiperSlide} from 'swiper/react/swiper-react';
-// import 'swiper/swiper-bundle.min.css'
-// import 'swiper/swiper.min.css'
 import theme from '../../../theme';
 const {gray, yellow} = theme.colors;
 
@@ -17,6 +14,7 @@ const MobileScrapAlert = ({mail, selectMail, list, memo, writeId, setCurr}) => {
     const dispatch = useDispatch();
     const memoRef = useRef();
     const memoLengthRef = useRef();
+    const swiperRef = useRef();
     const [pageState, setState] = useState('READ');
     const addMemo = () => {
         console.log(mail.userScrapId);
@@ -48,21 +46,32 @@ const MobileScrapAlert = ({mail, selectMail, list, memo, writeId, setCurr}) => {
             setState('FIX');
         }
     }
+    var xCord = null;
+    const TouchStart= (e) => {
+        console.log(e.touches[0].clientX);
+        xCord = e.touches[0].clientX;
+    }
+    const TouchEnd =(e) => {
+        console.log(e.touches[0].clientX)
+        // if(xCord-e.touches[0].clientX > 0){
+        //     console.log('left');
+        // }
+    }
+    const TouchMove = (e) => {
+        console.log(xCord, e.changedTouches[0].clientX)
+        if(xCord - e.changedTouches[0].clientX > 100){
+            console.log('swiped')
+            swiperRef.current.style.left = '-194px';
+        }else if(xCord - e.changedTouches[0].clientX < -100){
+            console.log('swipe right')
+            swiperRef.current.style.left = '0';
+        }
+    }
     return(
         mail.id !== writeId?
-    //     <Swiper
-    //     className='swiper-container'
-    //     spaceBetween={50}
-    //     slidesPerView={3}
-    //     onSwiper={(swiper) => console.log(swiper)}
-    //     onSlideChange={() => console.log("slide change")}
-    //   >
-    //     <SwiperSlide> slide1 </SwiperSlide>
-    //     <SwiperSlide> slide2 </SwiperSlide>
-    //     <SwiperSlide> slide3 </SwiperSlide>
-    //   </Swiper>
-
+        <>
         <M.SwipeWrapper>
+            <M.Swiper onTouchStart={(e) => TouchStart(e)} onTouchMove={(e) => TouchMove(e)} ref={swiperRef}>
             <M.Alert>
                 <M.AlertWrapper>
                     <HistoryCheckBox
@@ -101,7 +110,9 @@ const MobileScrapAlert = ({mail, selectMail, list, memo, writeId, setCurr}) => {
                 <div>메모 추가</div>
             </M.MemoWriteBlock>
             </M.MenuBlock>
+            </M.Swiper>
             </M.SwipeWrapper>
+            </>
             :
             <M.Alert>
                 <M.AlertWrapper state={'WRITE'}>
@@ -131,8 +142,7 @@ const MobileScrapAlert = ({mail, selectMail, list, memo, writeId, setCurr}) => {
                 </M.AlertWrapper>
                 <M.AlertBorderLine/>
             </M.Alert>
-
-        
+    
     )
 }
 
