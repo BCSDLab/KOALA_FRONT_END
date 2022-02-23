@@ -35,6 +35,8 @@ const NavContainer = styled.div`
   width: ${({ isSideMenu }) => (isSideMenu ? `350px;` : `80px;`)};
   height: 100vh;
   display: flex;
+  position: fixed;
+  left: 0px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     display: flex;
     width: 100vw;
@@ -213,7 +215,7 @@ const SideNavbar = () => {
         </SettingIcon>
       </Nav>
       {isOpen && <SideNavMenu />}
-      {/* {mobile && <KeywordDropdown/>} */}
+      {mobile && <KeywordDropdown />}
     </NavContainer>
   );
 };

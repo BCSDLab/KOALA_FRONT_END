@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { inquiry } from 'store/keyword';
+import keyword, { inquiry } from 'store/keyword';
 import * as S from 'components/SideNavbar/styles';
 import { useNavigate } from 'react-router';
 import KeywordModal from 'components/Keyword/KeywordModal';
 import styled from 'styled-components';
 import { getKeywordName, getKeywordPosition } from 'components/Keyword/utils';
-
+import useMatchMedia from 'hooks/useMatchMedia';
 const Background = styled.div`
   width: 100vw;
   height: 100vh;
@@ -60,8 +60,26 @@ const KeywordDropdown = () => {
   if (keywords === undefined) {
     dispatch(inquiry());
   }
-
-  return (
+  const queries = ['(max-width: 450px)'];
+  const [mobile] = useMatchMedia(queries);
+  const findPresentKeyword = (index) => {
+    return keywords[index];
+  };
+  console.log(keywords, selectItemId);
+  console.log(location.pathname);
+  return mobile ? (
+    location.pathname.includes('/keyword') ? (
+      <S.MobileKeyWordHeader>
+        <S.BackBtn src="/asset/BackArrow.svg" />
+        <S.MobileKeyWordName>
+          {findPresentKeyword(keywords.findIndex((keyword) => keyword.id === selectItemId))
+            ? console.log(findPresentKeyword(keywords.findIndex((keyword) => keyword.id === selectItemId)).name)
+            : null}
+        </S.MobileKeyWordName>
+        <S.FixKeyWordBtn to="/keyword/modify">수정</S.FixKeyWordBtn>
+      </S.MobileKeyWordHeader>
+    ) : null
+  ) : (
     <>
       <Background onClick={onClickBackground} showModal={showModal} />
       <S.KeywordDropdown>

@@ -1,4 +1,8 @@
 import styled from 'styled-components';
+import theme from '../../../theme';
+
+const mobileL = theme.deviceSizes.mobileL;
+const mobileS = theme.deviceSizes.mobileS;
 
 export const CheckBox = styled.div`
   width: 16px;
@@ -16,6 +20,9 @@ export const CheckBox = styled.div`
             `;
     }
   }}
+  @media screen and (max-width: ${mobileL}) {
+    margin: 0 8px 0 0;
+  }
 `;
 
 export const CheckBoxTitle = styled.span`
@@ -31,6 +38,12 @@ export const MainList = styled.div`
   left: ${(props) => (props.toggle ? '501px' : '366px')};
   top: 320px;
   padding-right: 10px;
+  @media screen and (max-width: ${mobileL}) {
+    width: 100%;
+    min-width: ${mobileS};
+    position: static;
+    padding: 0px;
+  }
 `;
 
 export const MainItem = styled.div`
