@@ -1,11 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { changeAlarmTerm, changeSiteName } from '../utils';
 import { ALARM_TERM } from 'constant';
+import { useNavigate } from 'react-router';
+import { inquiry } from 'store/keyword';
 import { patchModifyKeyword, createKeyword } from 'store/modifyKeyword';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as S from './styles';
-import styled from 'styled-components';
 
 const KeywordAlarm = ({
   selectRecommendItem,
@@ -20,9 +20,9 @@ const KeywordAlarm = ({
   const [isSlientAlarm, setIsSlientAlarm] = useState(false);
   const [isVibrationAlarm, setIsVibrationAlarm] = useState(false);
   const [alarmTerm, setAlarmTerm] = useState(null);
-
+  const { keywordInfo } = useSelector((state) => state.modifyKeyword);
   const { isOpen } = useSelector((state) => state.toggle);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const onClickImportantAlarm = () => {
@@ -49,6 +49,11 @@ const KeywordAlarm = ({
     setAlarmTerm(id);
   };
 
+  const onClickCancle = () => {
+    navigate(-1);
+    setSelectRecommendItem([]);
+  };
+
   const onClickModifyButton = useCallback(() => {
     setIsNormalAlarm(false);
     setIsImportantAlarm(false);
@@ -56,23 +61,37 @@ const KeywordAlarm = ({
     setIsVibrationAlarm(false);
     setAlarmTerm(false);
     setSelectRecommendItem([]);
+
     if (buttonText == '등록') {
       setRecommendKeyword(undefined);
       setSelectRecommendKeyword(undefined);
     }
 
-    const data = {
-      alarmCycle: changeAlarmTerm(alarmTerm),
-      alarmMode: isNormalAlarm ? 1 : 0,
-      isImportant: isImportantAlarm ? 1 : 0,
-      name: keywordName,
-      siteList: selectRecommendItem.map((item) => changeSiteName(item)),
-    };
-
     if (buttonText === '수정') {
+      const data = {
+        alarmCycle: keywordInfo.alarmCycle,
+        isImportant: keywordInfo.isImportant,
+        name: keywordName,
+        silentMode: keywordInfo.silentMode,
+        siteList: selectRecommendItem.map((item) => changeSiteName(item)),
+        untilPressOkButton: keywordInfo.untilPressOkButton,
+        vibrationMode: keywordInfo.vibrationMode,
+      };
       dispatch(patchModifyKeyword(data.name, data));
+      dispatch(inquiry());
+      navigate(-1);
     } else {
+      const data = {
+        alarmCycle: 30,
+        isImportant: 1,
+        name: keywordName,
+        silentMode: 0,
+        siteList: selectRecommendItem.map((item) => changeSiteName(item)),
+        untilPressOkButton: 0,
+        vibrationMode: 1,
+      };
       dispatch(createKeyword(data));
+      navigate(-1);
     }
   }, [alarmTerm, isNormalAlarm, isImportantAlarm, selectRecommendItem]);
 
@@ -121,7 +140,9 @@ const KeywordAlarm = ({
       <S.EditButton toggle={isOpen} onClick={onClickModifyButton}>
         {buttonText}
       </S.EditButton>
-      <S.CancelButton toggle={isOpen}>취소</S.CancelButton>
+      <S.CancelButton onClick={onClickCancle} toggle={isOpen}>
+        취소
+      </S.CancelButton>
     </>
   );
 };

@@ -18,6 +18,8 @@ export const changeSite = (value) => {
     return '유튜브';
   } else if (value === 'FACEBOOK') {
     return '페이스북';
+  } else if (value === 'INSTAGRAM') {
+    return '인스타그램';
   }
 };
 

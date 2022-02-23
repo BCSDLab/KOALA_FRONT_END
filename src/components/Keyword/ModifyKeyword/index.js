@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import KeywordHeader from '../KeywordHeader';
 import { getSiteRecommendation, detailKeyword } from 'store/modifyKeyword';
+import { debounce } from 'lodash';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
@@ -25,7 +26,15 @@ const ModifyKeyword = () => {
   const { isOpen } = useSelector((state) => state.toggle);
   const [mobile, desktop] = useMatchMedia(MEDIA_QUERIES);
 
+  const delayInput = useCallback(
+    debounce((value) => {
+      dispatch(getSiteRecommendation(value));
+    }, 500),
+    []
+  );
+
   const searchSite = (e) => {
+    delayInput(e.target.value);
     setSite(e.target.value);
     setAlreadyRegisterItem(false);
   };
@@ -59,12 +68,6 @@ const ModifyKeyword = () => {
   );
 
   useEffect(() => {
-    if (site !== '') {
-      dispatch(getSiteRecommendation(site));
-    }
-  }, [site]);
-
-  useEffect(() => {
     if (siteRecommendationList && siteRecommendationList.length !== 0) {
       if (JSON.stringify(recommendList) !== JSON.stringify(siteRecommendationList)) {
         setRecommendList([...siteRecommendationList]);
@@ -81,9 +84,10 @@ const ModifyKeyword = () => {
   useEffect(() => {
     const siteList = keywordInfo.siteList;
     if (siteList !== undefined) {
-      const Site = siteList.map((item) => changeSite(item));
-      setSelectRecommendItem(selectRecommendItem.concat(Site));
+      const site = siteList.map((item) => changeSite(item));
+      setSelectRecommendItem([...site]);
     }
+    console.log(selectRecommendItem);
   }, [keywordInfo.siteList]);
 
   return (
@@ -99,6 +103,7 @@ const ModifyKeyword = () => {
           {desktop ? (
             <S.InputSite
               placeholder="알림받을 사이트 검색"
+              type="text"
               value={site}
               onChange={searchSite}
               alreadyRegister={alreadyRegisterItem}

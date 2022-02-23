@@ -8,6 +8,7 @@ import KeywordAlarm from '../KeywordAlarm';
 import KeywordAdd from 'mobile/KeywordAdd';
 import useMatchMedia from 'hooks/useMatchMedia';
 import { queries } from 'constant';
+import { debounce } from 'redux-saga/effects';
 
 const AddKeyword = () => {
   const [site, setSite] = useState('');
@@ -27,12 +28,32 @@ const AddKeyword = () => {
 
   const [desktop] = useMatchMedia(queries);
 
+  const delayKeywordInput = useCallback(
+    debounce((value) => {
+      dispatch(getKeywordRecommendation(value));
+    }, 500)
+  );
+  const delaySiteInput = useCallback(
+    debounce((value) => {
+      dispatch(getSiteRecommendation(value));
+    }, 500),
+    []
+  );
+  const onChangeRecommendKeyword = (e) => {
+    const { value } = e.target;
+    setIsRegisterKeyword(false);
+    delayKeywordInput(value);
+    setRecommendKeyword(value);
+    setSelectRecommendKeyword('');
+  };
+
   const onChangeSite = (e) => {
+    delaySiteInput(e.target.value);
     setSite(e.target.value);
     setIsRegisterItem(false);
   };
 
-  const onClickRecommendItem = useCallback(
+  const addRecommnedSite = useCallback(
     (e) => {
       let { innerText: value } = e.target;
 
@@ -75,25 +96,6 @@ const AddKeyword = () => {
     [selectRecommendItem]
   );
 
-  const onChangeRecommendKeyword = (e) => {
-    const { value } = e.target;
-    setIsRegisterKeyword(false);
-    setRecommendKeyword(value);
-    setSelectRecommendKeyword('');
-  };
-
-  useEffect(() => {
-    if (site !== '') {
-      dispatch(getSiteRecommendation(site));
-    }
-  }, [site]);
-
-  useEffect(() => {
-    if (recommendKeyword !== '') {
-      dispatch(getKeywordRecommendation(recommendKeyword));
-    }
-  }, [recommendKeyword]);
-
   useEffect(() => {
     if (siteRecommendationList.length !== 0) {
       if (JSON.stringify(recommendList) !== JSON.stringify(siteRecommendationList)) {
@@ -113,12 +115,6 @@ const AddKeyword = () => {
       setRecommendKeywords([]);
     }
   }, [keywordRecommendationList]);
-
-  useEffect(() => {
-    if (userInfo.isLoggedIn) {
-      dispatch(inquiry());
-    }
-  }, [userInfo.isLoggedIn]);
 
   return (
     <>
@@ -162,7 +158,7 @@ const AddKeyword = () => {
             {recommendList.length !== 0 &&
               recommendList.map((item, index) => {
                 return (
-                  <S.RecommendItem onClick={onClickRecommendItem} key={index}>
+                  <S.RecommendItem onClick={addRecommnedSite} key={index}>
                     {item}
                   </S.RecommendItem>
                 );
@@ -173,7 +169,7 @@ const AddKeyword = () => {
               {selectRecommendItem.map((item, index) => {
                 return (
                   <S.SiteItem key={index}>
-                    <S.SiteName>{item}</S.SiteName>s
+                    <S.SiteName>{item}</S.SiteName>
                     <S.CloseBtn onClick={() => onClickDeleteRecommendItem(index)}>
                       <S.XImage src="/asset/x.svg" alt="x_image" />
                     </S.CloseBtn>
@@ -184,6 +180,7 @@ const AddKeyword = () => {
           </S.SiteContainer>
           <KeywordAlarm
             buttonText={'등록'}
+            keywordName={selectRecommendKeyword}
             selectRecommendItem={selectRecommendItem}
             setSelectRecommendItem={setSelectRecommendItem}
             setRecommendKeyword={setRecommendKeyword}
