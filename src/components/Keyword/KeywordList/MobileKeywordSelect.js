@@ -1,4 +1,6 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useRef} from "react";
+import { useDispatch } from "react-redux";
+import { deleteKeyword } from 'store/keyword';
 import styled from "styled-components";
 import theme from '../../../theme';
 
@@ -70,18 +72,14 @@ const Deletebtn = styled.div`
 const SwiperWrapper = styled.div`
     width: 100%;
 `
-const MobileKeywordSelect = ({keywords}) => {
+const MobileKeywordSelect = ({keywords, onClickAddKeyword, onClickItem}) => {
     const swiperRef = useRef([]);
     const keywordId = [null];
     const cordX = [null];
+    const dispatch = useDispatch();
     const moveLeft = (e,id) =>{
-        console.log(e.changedTouches[0].clientX)
-        // console.log(cordX[cordX.length-1])
         const startPoint = cordX[cordX.length-1];
-        console.log(window.innerWidth)
         if(startPoint-e.changedTouches[0].clientX > (window.innerWidth/4)){
-            console.log('work')
-            console.log(swiperRef.current)
             swiperRef.current[id].style.left = '-88px';
             keywordId.push(id);
             keywordId.slice(1,2)
@@ -98,27 +96,30 @@ const MobileKeywordSelect = ({keywords}) => {
         cordX.push(e.touches[0].clientX);
         cordX.slice(1);
     }
+    const deleteKeywordItem = (name) => {
+        dispatch(deleteKeyword(name));
+    }
     return (
         <Pannel>
             <Logo src="/asset/mainLogo.svg"/>
             <KeywordWrapper onClick={rollBack}>
                 <KeywordLabel>키워드</KeywordLabel>
                 <ElementContainer>
-                {keywords.map(keyword => 
-                <SwiperWrapper key={keyword.id}>
+                {keywords?.map(keyword => 
+                <SwiperWrapper key={keyword.id} onClick={() => onClickItem(keyword.id, keyword.name)}>
                     <KeyWordSwiper ref={(element) => {
                         swiperRef.current[keyword.id]  = element
-                    }} onTouchMove={(e) => moveLeft(e,keyword.id)} onTouchStart={touchStart} >
+                    }} onTouchMove={(e) => moveLeft(e,keyword.id)} onTouchStart={touchStart} onClick={(e)=>e.stopPropagation()}>
                         <KeywordElement>
                             <KeywordName>{keyword.name}</KeywordName>
                             <KeywordCount>{keyword.noticeNum}</KeywordCount>
                         </KeywordElement>
-                        <Deletebtn>제거</Deletebtn>
+                        <Deletebtn onClick={() => deleteKeywordItem(keyword.name)}>제거</Deletebtn>
                     </KeyWordSwiper>
                 </SwiperWrapper>
                 )}
                 </ElementContainer>
-                <AddKeywordBtn><AddBtnImg src='/asset/GrayPlus.svg'/>키워드추가하기</AddKeywordBtn>
+                <AddKeywordBtn onClick={onClickAddKeyword}><AddBtnImg src='/asset/GrayPlus.svg'/>키워드추가하기</AddKeywordBtn>
             </KeywordWrapper>
         </Pannel>
     )

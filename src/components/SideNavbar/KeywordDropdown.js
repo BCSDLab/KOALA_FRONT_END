@@ -69,8 +69,8 @@ const KeywordDropdown = () => {
   console.log(keywords, selectItemId);
   console.log(location.pathname);
   return mobile ? (
-    location.pathname.includes('/keyword') ? (
-      <MobileKeywordSelect keywords = {keywords}/>
+    location.pathname ==='/keyword' ? (
+      <MobileKeywordSelect keywords = {keywords} onClickAddKeyword={onClickAddKeyword} onClickItem={onClickItem}/>
       // <S.MobileKeyWordHeader>
       //   <S.BackBtn src="/asset/BackArrow.svg" />
       //   <S.MobileKeyWordName>
