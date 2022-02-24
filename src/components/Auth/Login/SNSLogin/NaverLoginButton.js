@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { LoginButtonAttributes } from './SocialLogin.style';
-import NaverLogin from 'react-naver-login';
-import { NAVER_AUTH_URL, NAVER_CLIENT_ID, NAVER_REDIRECT_URI } from './OAuth/';
+import { NAVER } from './OAuth/';
 
 const StyledNaverLoginButton = styled.button`
   ${LoginButtonAttributes}
@@ -20,26 +19,12 @@ const StyledNaverLoginButton = styled.button`
 
 const NaverLoginButton = () => {
   const onClick = () => {
-    window.location.href = NAVER_AUTH_URL;
-  };
-
-  const onSuccess = (e) => {
-    alert();
-    let naverid = e.id; // 네이버에서 제공한 ID
+    window.location.href = NAVER.getAuthUrl();
   };
 
   return (
     <>
-      <NaverLogin
-        clientId={NAVER_CLIENT_ID}
-        callbackUrl={NAVER_REDIRECT_URI}
-        render={(renderProps) => (
-          <StyledNaverLoginButton onClick={renderProps.onClick} disabled={renderProps.disabled} />
-        )}
-        onSuccess={(e) => onSuccess(e)}
-        onFailure={(result) => console.error(result)}
-      />
-      {/* <StyledNaverLoginButton onClick={onClick} /> */}
+      <StyledNaverLoginButton onClick={onClick} />
     </>
   );
 };

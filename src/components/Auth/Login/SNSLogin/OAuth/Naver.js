@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { socialLogin } from 'store/auth';
+import { useNavigate } from 'react-router';
+import { socialLogin, getOAuthToken } from 'store/auth';
 import { uuid } from 'api/logined';
+import { NAVER } from '.';
 import AlertModal from 'components/Shared/AlertModal';
 
 const Naver = (props) => {
   const dispatch = useDispatch();
-  const { authError, errorCode, isLoggedIn } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const { isLoggedIn, isOAuthTrue } = useSelector((state) => state.auth);
   const [visible, setVisible] = useState(false);
   const [modalDesc, setModalDesc] = useState('');
 
-  let accessToken = new URL(window.location.href).hash.split('&')[0].split('=')[1];
+  const code = new URL(window.location.href).searchParams.get('code');
 
   let deviceToken;
   if (!localStorage.getItem('user_token')) {
@@ -22,25 +25,36 @@ const Naver = (props) => {
 
   const onConfirm = () => {
     setVisible(false);
-    window.close();
+    navigate('/auth');
   };
 
   useEffect(() => {
-    if (authError) {
+    if (!isLoggedIn) {
       setModalDesc(`네이버 로그인 오류`);
       setVisible(true);
-      return;
-    }
-
-    if (authError === null && isLoggedIn) {
-      setModalDesc('홈화면으로 돌아갑니다.');
+    } else {
+      setModalDesc('홈 화면으로 돌아갑니다.');
       setVisible(true);
     }
-  }, [errorCode, isLoggedIn]);
+  }, [isLoggedIn]);
 
   useEffect(async () => {
-    await dispatch(socialLogin({ snsType: 'naver', deviceToken, accessToken }));
+    await dispatch(
+      getOAuthToken({
+        method: 'GET',
+        uri: NAVER.OAUTH_URI,
+        clientId: NAVER.CLIENT_ID,
+        redirectUri: NAVER.REDIRECT_URI,
+        code,
+      })
+    );
   }, []);
+
+  useEffect(async () => {
+    if (isOAuthTrue) {
+      await dispatch(socialLogin({ snsType: 'naver', deviceToken }));
+    }
+  }, [isOAuthTrue]);
 
   return (
     <>
@@ -50,7 +64,7 @@ const Naver = (props) => {
         type="confirm"
         title={`네이버 로그인에 ${isLoggedIn ? '성공' : '실패'}했습니다.`}
         desc={modalDesc}
-        confirmText="닫기"
+        confirmText={isLoggedIn ? '확인' : '돌아가기'}
         onConfirm={onConfirm}
         visible={visible}
       />
