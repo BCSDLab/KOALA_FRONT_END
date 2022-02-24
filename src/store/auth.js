@@ -6,7 +6,7 @@ import { setTokenOnHeader, setNoneBearerTokenOnHeader } from 'api/logined';
 import * as authAPI from 'api';
 
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/LOGIN');
-const [KAKAO_LOGIN, KAKAO_LOGIN_SUCCESS, KAKAO_LOGIN_FAILURE] = createRequestSagaActionTypes('auth/KAKAO_LOGIN');
+const [OAUTH, OAUTH_SUCCESS, OAUTH_FAILURE] = createRequestSagaActionTypes('auth/OAUTH');
 const [SOCIAL_LOGIN, SOCIAL_LOGIN_SUCCESS, SOCIAL_LOGIN_FAILURE] = createRequestSagaActionTypes('auth/SOCIAL_LOGIN');
 const [REFRESH, REFRESH_SUCCESS, REFRESH_FAILURE] = createRequestSagaActionTypes('auth/REFRESH');
 const [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FALIURE] = createRequestSagaActionTypes('auth/SIGNUP');
@@ -41,7 +41,7 @@ function* setToken(action) {
   setTokenOnHeader(action.payload.body.access_token);
 }
 
-function* setAccessToken4Kakao(action) {
+function* setAccessTokenOnHeader(action) {
   setNoneBearerTokenOnHeader(action.payload.access_token);
 }
 
@@ -50,13 +50,17 @@ export const login = createAction(LOGIN, ({ deviceToken, account, password }) =>
   account,
   password,
 }));
-export const kakaoLogin = createAction(KAKAO_LOGIN, ({ deviceToken, code }) => ({
+export const getOAuthToken = createAction(OAUTH, ({ method, uri, clientId, redirectUri, code }) => ({
+  method,
+  uri,
+  clientId,
+  redirectUri,
   code,
 }));
-export const socialLogin = createAction(SOCIAL_LOGIN, ({ snsType, deviceToken, accessToken }) => ({
+
+export const socialLogin = createAction(SOCIAL_LOGIN, ({ snsType, deviceToken }) => ({
   snsType,
   deviceToken,
-  accessToken,
 }));
 
 export const refresh = createAction(REFRESH);
@@ -99,11 +103,12 @@ export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
   yield takeLatest(LOGIN_SUCCESS, setToken);
 }
-const kakaoLoginSaga = createRequestSaga(KAKAO_LOGIN, authAPI.kakaoLogin);
-export function* kakaoAuthSaga() {
-  yield takeLatest(KAKAO_LOGIN, kakaoLoginSaga);
-  yield takeLatest(KAKAO_LOGIN_SUCCESS, setAccessToken4Kakao);
+const getOAuthTokenSaga = createRequestSaga(OAUTH, authAPI.getOAuthToken);
+export function* getOAuthTokenAuthSaga() {
+  yield takeLatest(OAUTH, getOAuthTokenSaga);
+  yield takeLatest(OAUTH_SUCCESS, setAccessTokenOnHeader);
 }
+
 const socialLoginSaga = createRequestSaga(SOCIAL_LOGIN, authAPI.socialLogin);
 export function* socialAuthSaga() {
   yield takeLatest(SOCIAL_LOGIN, socialLoginSaga);
@@ -157,7 +162,7 @@ const initialState = {
   changeComplete: false,
   errorCode: '',
   blindAccount: '',
-  isKakaoAuthTrue: false,
+  isOAuthTrue: false,
 };
 
 const auth = handleActions(
@@ -180,22 +185,22 @@ const auth = handleActions(
       authError: error,
       isLoggedIn: false,
     }),
-    [KAKAO_LOGIN]: (state) => ({
+    [OAUTH]: (state) => ({
       ...state,
       isLoggedIn: null,
       authError: null,
     }),
-    [KAKAO_LOGIN_SUCCESS]: (state) => ({
+    [OAUTH_SUCCESS]: (state) => ({
       ...state,
       authError: null,
-      isKakaoAuthTrue: true,
+      isOAuthTrue: true,
       isLoggedIn: false,
     }),
-    [KAKAO_LOGIN_FAILURE]: (state, { payload: error }) => ({
+    [OAUTH_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error,
       isLoggedIn: false,
-      isKakaoAuthTrue: false,
+      isOAuthTrue: false,
     }),
     [SOCIAL_LOGIN]: (state) => ({
       ...state,

@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { kakaoLogin, socialLogin } from 'store/auth';
+import { getOAuthToken, socialLogin } from 'store/auth';
 import { uuid } from 'api/logined';
+import { KAKAO } from '.';
 import AlertModal from 'components/Shared/AlertModal';
-
 const Kakao = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { authError, errorCode, isLoggedIn, isKakaoAuthTrue } = useSelector((state) => state.auth);
+  const { isLoggedIn, isOAuthTrue } = useSelector((state) => state.auth);
   const [visible, setVisible] = useState(false);
   const [modalDesc, setModalDesc] = useState('');
 
@@ -23,27 +23,32 @@ const Kakao = () => {
   }
 
   useEffect(async () => {
-    await dispatch(kakaoLogin({ deviceToken, code }));
+    await dispatch(
+      getOAuthToken({
+        method: 'GET',
+        uri: KAKAO.OAUTH_URI,
+        clientId: KAKAO.CLIENT_ID,
+        redirectUri: KAKAO.REDIRECT_URI,
+        code,
+      })
+    );
   }, []);
 
   useEffect(async () => {
-    if (isKakaoAuthTrue) {
+    if (isOAuthTrue) {
       await dispatch(socialLogin({ snsType: 'kakao', deviceToken }));
     }
-  }, [isKakaoAuthTrue]);
+  }, [isOAuthTrue]);
 
   useEffect(() => {
-    if (authError) {
+    if (!isLoggedIn) {
       setModalDesc(`카카오 로그인 오류`);
       setVisible(true);
-      return;
-    }
-
-    if (authError === null && isLoggedIn) {
+    } else {
       setModalDesc('홈 화면으로 돌아갑니다.');
       setVisible(true);
     }
-  }, [authError]);
+  }, [isLoggedIn]);
 
   const onConfirm = () => {
     navigate('/auth');
@@ -57,7 +62,7 @@ const Kakao = () => {
         type="confirm"
         title={`카카오 로그인에 ${isLoggedIn ? '성공' : '실패'}했습니다.`}
         desc={modalDesc}
-        confirmText="돌아가기"
+        confirmText={isLoggedIn ? '확인' : '돌아가기'}
         onConfirm={onConfirm}
         visible={visible}
       />

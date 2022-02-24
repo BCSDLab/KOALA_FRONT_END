@@ -1,28 +1,35 @@
 import logined from './logined';
-import { KAKAO_CLIENT_ID, KAKAO_REDIRECT_URI } from 'components/Auth/Login/SNSLogin/OAuth/';
-
-const setTokenOnHeader = (token) => {
-  logined.defaults.headers.common['Authorization'] = `${token}`;
-};
 
 export const login = ({ deviceToken, account, password }) =>
   logined.post(`user/login?device_token=${deviceToken}`, { account, password });
 
-export const kakaoLogin = ({ deviceToken, code }) =>
-  logined.post(
-    `https://kauth.kakao.com/oauth/token`,
-    `grant_type=authorization_code&client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&code=${code}`,
-    {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-      },
-    }
+// export const getOAuthToken = ({ method, uri, clientId, redirectUri, code }) => {
+//   if (method === 'POST') {
+//     logined.post(
+//       `${uri}/token`,
+//       `grant_type=authorization_code&client_id=${clientId}&redirect_uri=${redirectUri}&code=${code}`,
+//       {
+//         headers: {
+//           'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+//         },
+//       }
+//     );
+//   } else {
+//     // logined.defaults.headers.common['Access-Control-Allow-Origin'] = window.location.origin;
+
+//     logined.get(
+//       `${uri}/token?grant_type=authorization_code&client_id=${clientId}&redirect_uri=${redirectUri}&code=${code}&client_secret=DD3HIKV220`
+//     );
+//   }
+// };
+
+export const getOAuthToken = ({ method, uri, clientId, redirectUri, code }) =>
+  logined.get(
+    `${uri}/token?grant_type=authorization_code&client_id=${clientId}&redirect_uri=${redirectUri}&code=${code}&client_secret=DD3HIKV220`
   );
 
-export const socialLogin = ({ snsType, deviceToken, accessToken }) =>
-  logined.post(`user/oauth2/${snsType}?device_token=${deviceToken}`, () => {
-    if (accessToken != undefined) setTokenOnHeader(accessToken);
-  });
+export const socialLogin = ({ snsType, deviceToken }) =>
+  logined.post(`user/oauth2/${snsType}?device_token=${deviceToken}`);
 
 export const nonMember = ({ deviceToken }) => logined.post(`/user/non-member?device_token=${deviceToken}`);
 

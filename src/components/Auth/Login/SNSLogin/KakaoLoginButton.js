@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { KAKAO_AUTH_URL } from './OAuth/';
+import { KAKAO } from './OAuth/';
 import { LoginButtonAttributes } from './SocialLogin.style';
 
 const StyledKakaoLoginButton = styled.button`
@@ -19,7 +19,7 @@ const StyledKakaoLoginButton = styled.button`
 const { Kakao } = window;
 const KakaoLoginButton = () => {
   const onClick = () => {
-    window.location.href = KAKAO_AUTH_URL;
+    window.location.href = KAKAO.getAuthUrl();
   };
 
   return (
