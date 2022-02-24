@@ -39,6 +39,7 @@ const NavContainer = styled.div`
   left: 0px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     display: flex;
+    position: absolute;
     width: 100vw;
     height: 74px;
   }
@@ -162,7 +163,7 @@ const HistoryIcon = styled(Icon)``;
 const ChattingIcon = styled(Icon)``;
 const SettingIcon = styled(Icon)``;
 
-const queries = ['(max-width: 400px)', '(min-width: 800px)'];
+const queries = ['(max-width: 450px)', '(min-width: 800px)'];
 const SideNavbar = () => {
   const dispatch = useDispatch();
 

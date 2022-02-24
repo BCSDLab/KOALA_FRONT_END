@@ -87,7 +87,6 @@ const ModifyKeyword = () => {
       const site = siteList.map((item) => changeSite(item));
       setSelectRecommendItem([...site]);
     }
-    console.log(selectRecommendItem);
   }, [keywordInfo.siteList]);
 
   return (

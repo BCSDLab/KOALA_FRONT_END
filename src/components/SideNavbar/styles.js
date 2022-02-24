@@ -209,11 +209,10 @@ export const ContactText = styled.span`
 export const MobileKeyWordHeader = styled.div`
   display: flex;
   align-items: center;
-  width: 90%;
+  width: calc(100% - 25px);
   height: 24px;
   justify-content: space-between;
-  margin: 0 auto;
-  margin-top: 39px;
+  margin: 12.6px 16px 0px 9px;
 `;
 
 export const MobileKeyWordName = styled.span`
