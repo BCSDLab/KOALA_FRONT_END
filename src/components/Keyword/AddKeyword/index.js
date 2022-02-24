@@ -2,13 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import KeywordHeader from '../KeywordHeader';
 import { getSiteRecommendation, getKeywordRecommendation } from 'store/modifyKeyword';
 import { inquiry } from 'store/keyword';
+import { debounce } from 'lodash';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import KeywordAlarm from '../KeywordAlarm';
 import KeywordAdd from 'mobile/KeywordAdd';
 import useMatchMedia from 'hooks/useMatchMedia';
 import { queries } from 'constant';
-import { debounce } from 'redux-saga/effects';
 
 const AddKeyword = () => {
   const [site, setSite] = useState('');
@@ -31,7 +31,8 @@ const AddKeyword = () => {
   const delayKeywordInput = useCallback(
     debounce((value) => {
       dispatch(getKeywordRecommendation(value));
-    }, 500)
+    }, 500),
+    []
   );
   const delaySiteInput = useCallback(
     debounce((value) => {
@@ -126,7 +127,7 @@ const AddKeyword = () => {
             <S.InputKeyword
               placeholder="키워드 입력"
               onChange={onChangeRecommendKeyword}
-              value={selectRecommendKeyword === '' ? recommendKeyword : selectRecommendKeyword}
+              value={(selectRecommendKeyword === '' ? recommendKeyword : selectRecommendKeyword) || ''}
             ></S.InputKeyword>
             <S.AlreadyRegisterKeyword alreadyRegister={isRegisterKeyword}>
               이미 등록한 키워드입니다.

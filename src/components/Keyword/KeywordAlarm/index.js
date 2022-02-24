@@ -78,7 +78,6 @@ const KeywordAlarm = ({
         vibrationMode: keywordInfo.vibrationMode,
       };
       dispatch(patchModifyKeyword(data.name, data));
-      dispatch(inquiry());
       navigate(-1);
     } else {
       const data = {

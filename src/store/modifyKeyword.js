@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, { createRequestSagaActionTypes } from './createRequestSaga';
 import { takeLatest } from '@redux-saga/core/effects';
 import { keywordAPI } from 'api';
-import keyword from './keyword';
+import { userRegisterKeywordSaga } from './keyword';
 
 const [GET_SITE_RECOMMENDATION, GET_SITE_RECOMMENDATION_SUCCESS, GET_SITE_RECOMMENDATION_FAILURE] =
   createRequestSagaActionTypes('modifyKeyword/GET_SITE_RECOMMENDATION');
@@ -30,6 +30,7 @@ export const patchModifyKeyword = createAction(MODIFY_KEYWORD, (keywordName, obj
 export const createKeyword = createAction(CREATE_KEYWORD, (object) => object);
 
 export const getRecommendationSite = createAction(GET_RECOMMENDATION_SITE, keywordAPI.getRecommendationSite);
+
 export const detailKeyword = createAction(DETAIL_KEYWORD, (keyword) => keyword);
 
 const getKeywordSaga = createRequestSaga(GET_KEYWORD_RECOMMENDATION, keywordAPI.getKeywordRecommendation);
@@ -50,6 +51,7 @@ export function* patchModifyKeywordSaga() {
 const createSaga = createRequestSaga(CREATE_KEYWORD, keywordAPI.createKeyword);
 export function* createKeywordSaga() {
   yield takeLatest(CREATE_KEYWORD, createSaga);
+  yield takeLatest(CREATE_KEYWORD_SUCCESS, userRegisterKeywordSaga);
 }
 
 const getRecommendationSiteSaga = createRequestSaga(GET_RECOMMENDATION_SITE, keywordAPI.getRecommendationSite);
