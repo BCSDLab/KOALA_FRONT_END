@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useMatchMedia from 'hooks/useMatchMedia';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import LoginForm from 'components/Auth/Login/LoginForm';
 import * as S from 'components/Auth/styles';
 import { useNavigate } from 'react-router';
@@ -87,13 +87,6 @@ const MainLogoImg = styled.img`
 `;
 const queries = ['(max-width: 400px)', '(min-width: 800px)'];
 
-/**
- * TODO:
- * - [] 비회원으로 이용하기 클릭시, keyword리스트 페이지로 이동
- * - [] 구글 로그인
- * - [] 네이버 로그인
- * - [] 카카오 로그인
- */
 const AuthMainForm = () => {
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.myPage);
@@ -154,7 +147,7 @@ const AuthMainForm = () => {
         )}
 
         <S.NoneUserLinkSection isNormalLogin={isNormalLogin}>
-          <S.NoneUserLink isNormalLogin={isNormalLogin} onClick={nonMemberService} to="/">
+          <S.NoneUserLink onClick={nonMemberService} to="/">
             비회원으로 이용하기
           </S.NoneUserLink>
         </S.NoneUserLinkSection>
