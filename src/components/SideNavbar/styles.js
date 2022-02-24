@@ -71,6 +71,7 @@ export const KeywordDropdownButton = styled.img`
 export const KeywordList = styled.ul`
   width: 270px;
   padding: 0 0;
+  height: 225px;
   margin: 16px 0 0 0;
   ${(props) => {
     if (props.dropdownToggle) {

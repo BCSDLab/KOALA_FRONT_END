@@ -65,8 +65,6 @@ const KeywordDropdown = () => {
   const findPresentKeyword = (index) => {
     return keywords[index];
   };
-  console.log(keywords, selectItemId);
-  console.log(location.pathname);
   return mobile ? (
     location.pathname.includes('/keyword') ? (
       <S.MobileKeyWordHeader>
