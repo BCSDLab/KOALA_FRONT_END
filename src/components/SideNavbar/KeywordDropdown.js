@@ -63,22 +63,8 @@ const KeywordDropdown = () => {
   }
   const queries = ['(max-width: 450px)'];
   const [mobile] = useMatchMedia(queries);
-  console.log(keywords, selectItemId);
-  console.log(location.pathname);
-  return mobile ? (
-    location.pathname ==='/keyword' ? (
-      <>
-      <MobileKeywordSelect keywords = {keywords} onClickAddKeyword={onClickAddKeyword} onClickItem={onClickItem}/>
-      {/* <S.MobileKeyWordHeader>
-        <S.BackBtn src="/asset/BackArrow.svg" />
-        <S.MobileKeyWordName>
-          {keywords[keywords.findIndex(i => i.id === selectItemId)].name}
-        </S.MobileKeyWordName>
-        <S.FixKeyWordBtn to="/keyword/modify">수정</S.FixKeyWordBtn>
-      </S.MobileKeyWordHeader> */}
-      </>
-    ) : null
-  ) : (
+  return  (
+
     <>
       <Background onClick={onClickBackground} showModal={showModal} />
       <S.KeywordDropdown>
