@@ -3,7 +3,7 @@ import logined from './logined';
 export const login = ({ deviceToken, account, password }) =>
   logined.post(`user/login?device_token=${deviceToken}`, { account, password });
 
-export const getOAuthToken = ({ method, uri, clientId, redirectUri, code, state, clientSecret }) =>
+export const getOAuthToken = ({ uri, clientId, redirectUri, code, state, clientSecret }) =>
   logined.post(
     `${uri}/token`,
     `grant_type=authorization_code&client_id=${clientId}${

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import useMatchMedia from 'hooks/useMatchMedia';
 import { useNavigate } from 'react-router';
 import { socialLogin } from 'store/auth';
 import { uuid } from 'api/logined';
@@ -9,13 +8,36 @@ import * as S from '../../../styles';
 import AlertModal from 'components/Shared/AlertModal';
 import { setNoneBearerTokenOnHeader } from 'api/logined';
 
+const AuthTemplateBlock = styled.div`
+  display: flex;
+  justify-content: center;
+  alignitems: center;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    padding: 0 16px;
+  }
+`;
+
+const Box = styled.div`
+  width: 368px;
+  padding-top: 200px;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    padding-top: 54px;
+  }
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    padding-top: 48px;
+    width: 328px;
+  }
+`;
+
 const MainLogo = styled(S.MainLogo)`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     display: flex;
   }
 `;
 
-const queries = ['(max-width: 450px)'];
 const Naver = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,7 +47,6 @@ const Naver = (props) => {
   const [modalTitle, setModalTitle] = useState('');
   const [modalConfirmText, setModalConfirmText] = useState('');
   const [seconds, setSeconds] = useState(parseInt('00'));
-  const [mobile] = useMatchMedia(queries);
 
   const token = new URL(window.location.href).hash.split('#')[1].split('&')[0].split('=')[1];
 
@@ -42,9 +63,9 @@ const Naver = (props) => {
     navigate('/auth');
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     setNoneBearerTokenOnHeader(token);
-    await dispatch(socialLogin({ snsType: 'naver', deviceToken }));
+    dispatch(socialLogin({ snsType: 'naver', deviceToken }));
   }, []);
 
   useEffect(() => {
@@ -78,23 +99,24 @@ const Naver = (props) => {
   }, [seconds]);
 
   return (
-    <>
-      {mobile && (
+    <AuthTemplateBlock>
+      <Box>
         <MainLogo>
           <S.MainLogoImg />
         </MainLogo>
-      )}
-      <p> 네이버 로그인중...</p>
 
-      <AlertModal
-        type="confirm"
-        title={modalTitle}
-        desc={modalDesc}
-        confirmText={modalConfirmText}
-        onConfirm={onConfirm}
-        visible={visible}
-      />
-    </>
+        <p> 네이버 로그인중...</p>
+
+        <AlertModal
+          type="confirm"
+          title={modalTitle}
+          desc={modalDesc}
+          confirmText={modalConfirmText}
+          onConfirm={onConfirm}
+          visible={visible}
+        />
+      </Box>
+    </AuthTemplateBlock>
   );
 };
 

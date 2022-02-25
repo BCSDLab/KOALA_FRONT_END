@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { LoginButtonAttributes } from './SocialLogin.style';
 import { NAVER } from './OAuth/';
 
-import NaverLogin from 'react-naver-login';
+import NaverLogin from './ReactLogin/ReactNaverLogin';
 
 const StyledNaverLoginButton = styled.button`
   ${LoginButtonAttributes}
