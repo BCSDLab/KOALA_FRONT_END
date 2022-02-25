@@ -5,6 +5,10 @@ export const MainLogo = styled.div`
   margin-bottom: 48px;
   display: flex;
   justify-content: center;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    display: none;
+  }
 `;
 
 export const MainLogoImg = styled.i`

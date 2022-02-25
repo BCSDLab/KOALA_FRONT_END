@@ -50,13 +50,18 @@ export const login = createAction(LOGIN, ({ deviceToken, account, password }) =>
   account,
   password,
 }));
-export const getOAuthToken = createAction(OAUTH, ({ method, uri, clientId, redirectUri, code }) => ({
-  method,
-  uri,
-  clientId,
-  redirectUri,
-  code,
-}));
+export const getOAuthToken = createAction(
+  OAUTH,
+  ({ method, uri, clientId, redirectUri, code, state, clientSecret }) => ({
+    method,
+    uri,
+    clientId,
+    redirectUri,
+    code,
+    state,
+    clientSecret,
+  })
+);
 
 export const socialLogin = createAction(SOCIAL_LOGIN, ({ snsType, deviceToken }) => ({
   snsType,
@@ -187,20 +192,19 @@ const auth = handleActions(
     }),
     [OAUTH]: (state) => ({
       ...state,
-      isLoggedIn: null,
       authError: null,
     }),
     [OAUTH_SUCCESS]: (state) => ({
       ...state,
       authError: null,
-      isOAuthTrue: true,
       isLoggedIn: false,
+      isOAuthTrue: true,
     }),
     [OAUTH_FAILURE]: (state, { payload: error }) => ({
       ...state,
       authError: error,
-      isLoggedIn: false,
       isOAuthTrue: false,
+      isLoggedIn: false,
     }),
     [SOCIAL_LOGIN]: (state) => ({
       ...state,

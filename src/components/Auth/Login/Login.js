@@ -66,33 +66,20 @@ const SNSLoginOptionSection = styled.div`
   justify-content: center;
 `;
 
-const MainLogo = styled.div`
-  margin-bottom: 48px;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+const MainLogo = styled(S.MainLogo)`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     display: flex;
-    justify-content: center;
   }
 `;
 
-const MainLogoImg = styled.img`
-  width: 125px;
-  height: 34px;
-  left: 125.2px;
-  position: relative;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 158px;
-    height: 43px;
-    left: 0;
-  }
-`;
-const queries = ['(max-width: 400px)', '(min-width: 800px)'];
+const queries = ['(max-width: 450px)'];
 
 const AuthMainForm = () => {
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.myPage);
   const [isNormalLogin, setIsNormalLogin] = useState(true);
   const dispatch = useDispatch();
-  const [mobile, desktop] = useMatchMedia(queries);
+  const [mobile] = useMatchMedia(queries);
 
   /*
    * - guid 함수를 통해 고유값을 device_token과 같이 활용한다.
@@ -119,11 +106,11 @@ const AuthMainForm = () => {
 
   return (
     <>
-      {/* {!desktop && (
+      {mobile && (
         <MainLogo>
-          <MainLogoImg src="/asset/mainLogo.svg" alt="logo" />
+          <S.MainLogoImg />
         </MainLogo>
-      )} */}
+      )}
 
       <LoginContainer>
         <LoginOptionContainer>

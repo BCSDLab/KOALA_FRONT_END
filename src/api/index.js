@@ -3,29 +3,17 @@ import logined from './logined';
 export const login = ({ deviceToken, account, password }) =>
   logined.post(`user/login?device_token=${deviceToken}`, { account, password });
 
-// export const getOAuthToken = ({ method, uri, clientId, redirectUri, code }) => {
-//   if (method === 'POST') {
-//     logined.post(
-//       `${uri}/token`,
-//       `grant_type=authorization_code&client_id=${clientId}&redirect_uri=${redirectUri}&code=${code}`,
-//       {
-//         headers: {
-//           'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-//         },
-//       }
-//     );
-//   } else {
-//     // logined.defaults.headers.common['Access-Control-Allow-Origin'] = window.location.origin;
-
-//     logined.get(
-//       `${uri}/token?grant_type=authorization_code&client_id=${clientId}&redirect_uri=${redirectUri}&code=${code}&client_secret=DD3HIKV220`
-//     );
-//   }
-// };
-
-export const getOAuthToken = ({ method, uri, clientId, redirectUri, code }) =>
-  logined.get(
-    `${uri}/token?grant_type=authorization_code&client_id=${clientId}&redirect_uri=${redirectUri}&code=${code}&client_secret=DD3HIKV220`
+export const getOAuthToken = ({ method, uri, clientId, redirectUri, code, state, clientSecret }) =>
+  logined.post(
+    `${uri}/token`,
+    `grant_type=authorization_code&client_id=${clientId}${
+      redirectUri ? '&redirect_uri=' + redirectUri : ''
+    }&code=${code}${state ? '&state=' + state : ''}${clientSecret ? '&client_secret=' + clientSecret : ''}`,
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+    }
   );
 
 export const socialLogin = ({ snsType, deviceToken }) =>

@@ -5,15 +5,17 @@ export const KAKAO = {
   CLIENT_ID: '0a08168dba45c265fba1b38c0aaf9d56',
   REDIRECT_URI: `${OAUTH_REDIRECT_URI}/kakao`,
   getAuthUrl: () => {
-    return `${KAKAO.OAUTH_URI}/authorize?response_type=code&client_id=${KAKAO.CLIENT_ID}&redirect_uri=${KAKAO.REDIRECT_URI}`;
+    return `${KAKAO.OAUTH_URI}/authorize?response_type=code&client_id=${KAKAO.CLIENT_ID}&redirect_uri=${KAKAO.REDIRECT_URI}&state=koala&prompt=login`;
   },
 };
 
 export const NAVER = {
   OAUTH_URI: 'https://nid.naver.com/oauth2.0',
   CLIENT_ID: 'GDneoy5Vfi8rkjQVroIN',
-  REDIRECT_URI: `${OAUTH_REDIRECT_URI}/naver`,
+  TOKEN_REDIRECT_URI: `${OAUTH_REDIRECT_URI}/naver`,
+  REDIRECT_URI: `${window.location.origin}/callback`,
+  CLIENT_SECRET: 'DD3HIKV220',
   getAuthUrl: () => {
-    return `${NAVER.OAUTH_URI}/authorize?response_type=code&client_id=${NAVER.CLIENT_ID}&redirect_uri=${NAVER.REDIRECT_URI}&state=k`;
+    return `${NAVER.OAUTH_URI}/authorize?response_type=code&client_id=${NAVER.CLIENT_ID}&redirect_uri=${NAVER.REDIRECT_URI}&state=koala`;
   },
 };

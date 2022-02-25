@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { LoginButtonAttributes } from './SocialLogin.style';
 import { NAVER } from './OAuth/';
 
+import NaverLogin from 'react-naver-login';
+
 const StyledNaverLoginButton = styled.button`
   ${LoginButtonAttributes}
   color: ${(props) => props.theme.colors.white};
@@ -18,13 +20,14 @@ const StyledNaverLoginButton = styled.button`
 `;
 
 const NaverLoginButton = () => {
-  const onClick = () => {
-    window.location.href = NAVER.getAuthUrl();
-  };
-
   return (
     <>
-      <StyledNaverLoginButton onClick={onClick} />
+      <NaverLogin
+        clientId={NAVER.CLIENT_ID}
+        callbackUrl={NAVER.REDIRECT_URI}
+        isPopup={false}
+        render={(props) => <StyledNaverLoginButton onClick={props.onClick} />}
+      />
     </>
   );
 };
