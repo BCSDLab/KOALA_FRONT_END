@@ -35,10 +35,11 @@ const NavContainer = styled.div`
   width: ${({ isSideMenu }) => (isSideMenu ? `350px;` : `80px;`)};
   height: 100vh;
   display: flex;
-  position: fixed;
+  position: static;
   left: 0px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     display: flex;
+    position: absolute;
     width: 100vw;
     height: 74px;
   }
@@ -162,7 +163,7 @@ const HistoryIcon = styled(Icon)``;
 const ChattingIcon = styled(Icon)``;
 const SettingIcon = styled(Icon)``;
 
-const queries = ['(max-width: 400px)', '(min-width: 800px)'];
+const queries = ['(max-width: 450px)', '(min-width: 800px)'];
 const SideNavbar = () => {
   const dispatch = useDispatch();
 
@@ -181,7 +182,7 @@ const SideNavbar = () => {
         <MenuButton onClick={toggleSideMenu}>
           <MenuImg src="/asset/MenuBtn.svg" alt="Vector" />
         </MenuButton>
-        <KeywordIcon to="#" current={location.pathname.includes('/keyword') ? 1 : 0}>
+        <KeywordIcon to="/keyword" current={location.pathname.includes('/keyword') ? 1 : 0}>
           <HashTagImg
             src={location.pathname.includes('/keyword') ? '/asset/Hashtagblack.svg' : '/asset/Hashtag.svg'}
             alt="keyword"
@@ -192,7 +193,7 @@ const SideNavbar = () => {
           <HistoryImg
             isSideMenu={isOpen}
             src={location.pathname.includes('/history') ? '/asset/HistoryBlack.svg' : '/asset/History.svg'}
-            to="#"
+            to="/history"
             alt="history"
           />
           {!desktop && <MenuItemText current={location.pathname.includes('/history') ? 1 : 0}>히스토리</MenuItemText>}

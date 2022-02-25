@@ -71,6 +71,7 @@ export const KeywordDropdownButton = styled.img`
 export const KeywordList = styled.ul`
   width: 270px;
   padding: 0 0;
+  height: 225px;
   margin: 16px 0 0 0;
   ${(props) => {
     if (props.dropdownToggle) {
@@ -144,9 +145,11 @@ export const HistoryList = styled(List)`
 export const HistoryLink = styled(StyledLinkDiv)`
   margin: 27.5px 0px 26.5px 0;
   font-size: 14px;
+  background-color: ${(props) => props.current && props.theme.colors.darkgray};
 `;
 export const HistoryText = styled(MenuTitle)`
   margin: 27.5px 194px 27.5px 24px;
+  color: ${(props) => (props.current ? props.theme.colors.white : props.theme.colors.darkgray)};
 `;
 
 export const ChatList = styled(List)`
@@ -206,11 +209,10 @@ export const ContactText = styled.span`
 export const MobileKeyWordHeader = styled.div`
   display: flex;
   align-items: center;
-  width: 90%;
+  width: calc(100% - 25px);
   height: 24px;
   justify-content: space-between;
-  margin: 0 auto;
-  margin-top: 39px;
+  margin: 12.6px 16px 0px 9px;
 `;
 
 export const MobileKeyWordName = styled.span`

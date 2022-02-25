@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import keyword, { inquiry } from 'store/keyword';
 import * as S from 'components/SideNavbar/styles';
 import { useNavigate } from 'react-router';
+
 import KeywordModal from 'components/Keyword/KeywordModal';
 import styled from 'styled-components';
 import { getKeywordName, getKeywordPosition } from 'components/Keyword/utils';
@@ -61,10 +62,24 @@ const KeywordDropdown = () => {
   if (keywords === undefined) {
     dispatch(inquiry());
   }
-  const queries = ['(max-width: 450px)'];
-  const [mobile] = useMatchMedia(queries);
-  return  (
-
+  const queries = ['(max-width: 450px)', '(min-width: 800px)'];
+  const [mobile, desktop] = useMatchMedia(queries);
+  const findPresentKeyword = (index) => {
+    return keywords[index];
+  };
+  return mobile ? (
+    location.pathname.includes('/keyword') ? (
+      <S.MobileKeyWordHeader>
+        <S.BackBtn src="/asset/BackArrow.svg" />
+        <S.MobileKeyWordName>
+          {findPresentKeyword(keywords.findIndex((keyword) => keyword.id === selectItemId))}
+        </S.MobileKeyWordName>
+        <S.FixKeyWordBtn to="/keyword/modify">수정</S.FixKeyWordBtn>
+      </S.MobileKeyWordHeader>
+    ) : (
+      <></>
+    )
+  ) : (
     <>
       <Background onClick={onClickBackground} showModal={showModal} />
       <S.KeywordDropdown>

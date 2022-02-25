@@ -130,7 +130,6 @@ const KeywordList = ({
             </S.MainItem>
           ) : (
             <M.Alert key={item.id}>
-              {console.log(item)}
               <M.AlertWrapper>
                 <S.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={checkListId.includes(item.id)} />
                 <M.AlertContent>
