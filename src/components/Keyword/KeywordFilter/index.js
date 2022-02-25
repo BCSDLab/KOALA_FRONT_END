@@ -220,9 +220,11 @@ const KeywordFilterBar = () => {
       }, 4000);
     }
   }, [isMobilePopupOpen]);
+  console.log(keywordName,'asdfasdfssfsfsfsf')
   return (
     <>
       {mobile && (
+        keywordName !== null?
         <FilterContainer onClick={closeMobileMenu}>
           <KeywordMenuBar isToggle={isOpen} menu={menu} setList={setList} onClickMenu={onClickMenu} />
 
@@ -285,7 +287,7 @@ const KeywordFilterBar = () => {
             numberAlert={undoList.length}
             undo={undoMoveScrap}
           />
-        </FilterContainer>
+        </FilterContainer>:null
       )}
       {!mobile && (
         <>

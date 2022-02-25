@@ -2,7 +2,7 @@ import React, { useRef} from "react";
 import { useDispatch } from "react-redux";
 import { deleteKeyword } from 'store/keyword';
 import styled from "styled-components";
-import theme from '../../../theme';
+import theme from '../../theme';
 
 const Pannel = styled.div`
     width: 100%;
@@ -16,6 +16,7 @@ const Logo = styled.img`
 `
 const KeywordWrapper = styled.div`
     margin: 40px 0 0 5%;
+    overflow-x: hidden;
 `
 const KeywordLabel = styled.div`
     margin: 0 5% 0 0;
