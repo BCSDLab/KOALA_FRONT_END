@@ -29,10 +29,15 @@ const RESET_AUTH_STATE = {
 function* setToken(action) {
   const isAuto = JSON.parse(localStorage.getItem('isAuto'));
   if (isAuto === null || isAuto === false) {
+    console.log('if');
+    console.dir(action.payload.body.refresh_token);
+
     setCookie('refresh_token', action.payload.body.refresh_token, {
       path: '/',
     });
   } else {
+    console.log('else');
+    console.dir(action);
     setCookie('refresh_token', action.payload.body.refresh_token, {
       path: '/',
       expires: 15,
@@ -42,6 +47,7 @@ function* setToken(action) {
 }
 
 function* setAccessTokenOnHeader(action) {
+  console.dir(action);
   setNoneBearerTokenOnHeader(action.payload.access_token);
 }
 
@@ -50,18 +56,14 @@ export const login = createAction(LOGIN, ({ deviceToken, account, password }) =>
   account,
   password,
 }));
-export const getOAuthToken = createAction(
-  OAUTH,
-  ({ method, uri, clientId, redirectUri, code, state, clientSecret }) => ({
-    method,
-    uri,
-    clientId,
-    redirectUri,
-    code,
-    state,
-    clientSecret,
-  })
-);
+export const getOAuthToken = createAction(OAUTH, ({ uri, clientId, redirectUri, code, state, clientSecret }) => ({
+  uri,
+  clientId,
+  redirectUri,
+  code,
+  state,
+  clientSecret,
+}));
 
 export const socialLogin = createAction(SOCIAL_LOGIN, ({ snsType, deviceToken }) => ({
   snsType,

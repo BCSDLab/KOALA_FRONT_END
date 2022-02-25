@@ -67,8 +67,8 @@ const App = () => {
           <Route path="findPw" element={<FindPw />} />
         </Route>
 
-        <Route exact path="user/oauth2/authorization/kakao" element={<Kakao />} />
-        <Route exact path="callback" element={<Naver />} />
+        <Route path="user/oauth2/authorization/kakao" element={<Kakao />} />
+        <Route path="callback" element={<Naver />} />
 
         <Route element={<AuthorizedRoute />}>
           <Route path="keyword/*" element={<KeywordPage />}>

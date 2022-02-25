@@ -59,7 +59,6 @@ const Naver = (props) => {
   }
 
   const onConfirm = () => {
-    setVisible(false);
     navigate('/auth');
   };
 

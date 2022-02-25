@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { LoginButtonAttributes } from './SocialLogin.style';
+import { GOOGLE } from './OAuth/';
 import GoogleLogin from 'react-google-login';
 
 const StyledGoogleLoginButton = styled.button`
@@ -30,7 +31,7 @@ const GoogleLoginButton = () => {
   return (
     <>
       <GoogleLogin
-        clientId={'980522844038-r9gh6mkeuckjkam93je731t98ptf1igl.apps.googleusercontent.com'}
+        clientId={GOOGLE.CLIENT_ID}
         buttonText="Login"
         render={(renderProps) => (
           <StyledGoogleLoginButton onClick={renderProps.onClick} disabled={renderProps.disabled} />
