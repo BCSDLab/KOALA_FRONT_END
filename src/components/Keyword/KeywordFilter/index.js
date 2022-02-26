@@ -220,7 +220,6 @@ const KeywordFilterBar = () => {
       }, 4000);
     }
   }, [isMobilePopupOpen]);
-  console.log(keywordName,'asdfasdfssfsfsfsf')
   return (
     <>
       {mobile && (
