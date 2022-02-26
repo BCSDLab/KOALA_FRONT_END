@@ -3,9 +3,8 @@ const OAUTH_REDIRECT_URI = `${window.location.origin}/user/oauth2/authorization`
 export const GOOGLE = {
   OAUTH_URI: 'https://accounts.google.com/signin/oauth',
   CLIENT_ID: '980522844038-r9gh6mkeuckjkam93je731t98ptf1igl.apps.googleusercontent.com',
-  CLIENT_PW: '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',
   REDIRECT_URI: `${OAUTH_REDIRECT_URI}/google`,
-  SCOPE: 'https://www.googleapis.com/auth/drive.metadata.readonly',
+  SCOPE: 'https://www.googleapis.com/auth/userinfo.profile',
   getAuthUrl: () => {
     return `${GOOGLE.OAUTH_URI}?response_type=code&client_id=${GOOGLE.CLIENT_ID}&redirect_uri=${GOOGLE.REDIRECT_URI}&scope=${GOOGLE.SCOPE}`;
   },

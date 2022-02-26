@@ -20,25 +20,15 @@ const StyledGoogleLoginButton = styled.button`
 `;
 
 const GoogleLoginButton = () => {
-  const onClick = () => {
-    window.location = GOOGLE.getAuthUrl();
-  };
-
-  const onSuccess = (e) => {
-    let googleid = e.FT.NT; // 구글에서 제공한 ID
-  };
-
   return (
     <>
-      <StyledGoogleLoginButton onClick={onClick} />
       <GoogleLogin
         clientId={GOOGLE.CLIENT_ID}
-        buttonText="Login"
+        uxMode="redirect"
+        redirectUri={GOOGLE.REDIRECT_URI}
         render={(renderProps) => (
           <StyledGoogleLoginButton onClick={renderProps.onClick} disabled={renderProps.disabled} />
         )}
-        onSuccess={(e) => onSuccess(e)}
-        onFailure={console.log}
         cookiePolicy={'single_host_origin'}
       />
     </>

@@ -28,19 +28,11 @@ const RESET_AUTH_STATE = {
 
 function* setToken(action) {
   const isAuto = JSON.parse(localStorage.getItem('isAuto'));
-  console.log(action.type);
-
   if (isAuto === null || isAuto === false) {
-    console.log('isAuto === null ');
-    console.dir(action.payload.body.refresh_token);
-
     setCookie('refresh_token', action.payload.body.refresh_token, {
       path: '/',
     });
   } else {
-    console.log('else');
-    console.dir(action);
-
     setCookie('refresh_token', action.payload.body.refresh_token, {
       path: '/',
       expires: 15,

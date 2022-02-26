@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { getOAuthToken, socialLogin } from 'store/auth';
-import { uuid } from 'api/logined';
+import { setNoneBearerTokenOnHeader, uuid } from 'api/logined';
 import { GOOGLE } from '.';
 import styled from 'styled-components';
 import * as S from '../../../styles';
@@ -48,7 +48,7 @@ const Google = () => {
   const [modalConfirmText, setModalConfirmText] = useState('');
   const [seconds, setSeconds] = useState(parseInt('00'));
 
-  const code = new URL(window.location.href).searchParams.get('code');
+  const token = new URL(window.location).hash.split('&')[1].split('=')[1];
 
   let deviceToken;
   if (!localStorage.getItem('user_token')) {
@@ -63,21 +63,9 @@ const Google = () => {
   };
 
   useEffect(() => {
-    dispatch(
-      getOAuthToken({
-        uri: GOOGLE.OAUTH_URI,
-        clientId: GOOGLE.CLIENT_ID,
-        redirectUri: GOOGLE.REDIRECT_URI,
-        code,
-      })
-    );
+    setNoneBearerTokenOnHeader(token);
+    dispatch(socialLogin({ snsType: 'google', deviceToken }));
   }, []);
-
-  useEffect(() => {
-    if (isOAuthTrue) {
-      dispatch(socialLogin({ snsType: 'google', deviceToken }));
-    }
-  }, [isOAuthTrue]);
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -91,7 +79,7 @@ const Google = () => {
       setSeconds('3');
     }
 
-    if (isLoggedIn === isOAuthTrue) setVisible(true);
+    setVisible(true);
   }, [isLoggedIn]);
 
   useEffect(() => {
