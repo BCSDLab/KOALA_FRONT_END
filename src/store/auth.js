@@ -28,8 +28,10 @@ const RESET_AUTH_STATE = {
 
 function* setToken(action) {
   const isAuto = JSON.parse(localStorage.getItem('isAuto'));
+  console.log(action.type);
+
   if (isAuto === null || isAuto === false) {
-    console.log('if');
+    console.log('isAuto === null ');
     console.dir(action.payload.body.refresh_token);
 
     setCookie('refresh_token', action.payload.body.refresh_token, {
@@ -38,6 +40,7 @@ function* setToken(action) {
   } else {
     console.log('else');
     console.dir(action);
+
     setCookie('refresh_token', action.payload.body.refresh_token, {
       path: '/',
       expires: 15,
@@ -47,7 +50,6 @@ function* setToken(action) {
 }
 
 function* setAccessTokenOnHeader(action) {
-  console.dir(action);
   setNoneBearerTokenOnHeader(action.payload.access_token);
 }
 
@@ -115,7 +117,6 @@ export function* getOAuthTokenAuthSaga() {
   yield takeLatest(OAUTH, getOAuthTokenSaga);
   yield takeLatest(OAUTH_SUCCESS, setAccessTokenOnHeader);
 }
-
 const socialLoginSaga = createRequestSaga(SOCIAL_LOGIN, authAPI.socialLogin);
 export function* socialAuthSaga() {
   yield takeLatest(SOCIAL_LOGIN, socialLoginSaga);

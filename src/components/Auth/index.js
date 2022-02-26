@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import * as S from './styles';
-import theme from 'theme';
 
 const AuthTemplateBlock = styled.div`
   display: flex;
@@ -26,8 +25,6 @@ const Box = styled.div`
     width: 328px;
   }
 `;
-
-const queries = ['(max-width: ' + theme.deviceSizes.mobileL + ')'];
 
 const AuthTemplate = ({ children }) => {
   return (

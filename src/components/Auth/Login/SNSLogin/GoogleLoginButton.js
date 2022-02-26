@@ -21,7 +21,7 @@ const StyledGoogleLoginButton = styled.button`
 
 const GoogleLoginButton = () => {
   const onClick = () => {
-    window.location.href = 'https://api.stage.koala.im/user/GOOGLE';
+    window.location = GOOGLE.getAuthUrl();
   };
 
   const onSuccess = (e) => {
@@ -30,6 +30,7 @@ const GoogleLoginButton = () => {
 
   return (
     <>
+      <StyledGoogleLoginButton onClick={onClick} />
       <GoogleLogin
         clientId={GOOGLE.CLIENT_ID}
         buttonText="Login"
