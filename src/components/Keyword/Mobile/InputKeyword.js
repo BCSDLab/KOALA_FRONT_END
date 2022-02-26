@@ -19,20 +19,21 @@ const Header = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  margin-top: 48px;
+  margin-top: 24px;
 `;
 
 const ChevronLeft = styled.img`
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
   margin-left: 8px;
   margin-right: 12px;
 `;
 
 const KeywordSearch = styled.input`
-  width: 240px;
+  width: calc(100% - 100px);
   height: 40px;
   border: none;
+
   padding-left: 16px;
   background-color: #eee;
 `;
@@ -41,6 +42,7 @@ const SearchButton = styled.div`
   width: 40px;
   height: 40px;
   background-color: #222;
+  margin-right: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,7 +52,7 @@ const RecentSearch = styled.span`
   font-size: 14px;
   color: #222;
   position: absolute;
-  top: 112px;
+  top: 85.6px;
   left: 16px;
 `;
 
@@ -58,7 +60,7 @@ const RecommendKeyword = styled.span`
   font-size: 14px;
   color: #222;
   position: absolute;
-  top: 112px;
+  top: 85.6px;
   left: 103px;
 `;
 
@@ -67,7 +69,7 @@ const UnderBar = styled.div`
   height: 1px;
   background-color: #eee;
   position: absolute;
-  top: 140px;
+  top: 109.6px;
   left: 16px;
 `;
 
@@ -76,7 +78,7 @@ const UnderBarBalck = styled.div`
   height: 3px;
   background-color: #222;
   position: absolute;
-  top: 139px;
+  top: 109.6px;
   left: ${(props) => (props.isRecommendKeyword ? '116px' : '24px')};
 `;
 
@@ -85,7 +87,7 @@ const List = styled.ul`
   height: 320px;
   overflow: scroll;
   position: absolute;
-  top: 154px;
+  top: 127.6px;
   left: 16px;
 `;
 

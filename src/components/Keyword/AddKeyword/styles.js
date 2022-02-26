@@ -92,7 +92,7 @@ export const SearchContainer = styled.div`
     width: calc(100% - 18px);
     height: 38px;
     padding: 0 0 0 16px;
-    margin: 24px 0 32px;
+    margin: 24px 0 8px;
   }
 `;
 
@@ -147,6 +147,8 @@ export const RecommendKeywordContainer = styled.ul`
   z-index: 1;
   display: ${(props) => (props.show ? 'none' : 'block')};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    position: static;
+    display: none;
   }
 `;
 
@@ -193,8 +195,10 @@ export const SiteContainer = styled.div`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     background-color: ${(props) => props.theme.colors.white};
     width: 100%;
+    position: static;
     overflow: hidden;
     height: auto;
+    margin: 0 0 32px 0;
     padding: 0;
     border: 0;
     border-top: 8px;

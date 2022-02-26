@@ -46,7 +46,6 @@ const AlertForm = ({
         vibrationMode: 1,
       };
       dispatch(createKeyword(data));
-      navigate(-1);
     }
   };
   return (

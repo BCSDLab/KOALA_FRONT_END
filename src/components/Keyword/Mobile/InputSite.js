@@ -37,7 +37,6 @@ const KeywordSearch = styled.input`
   height: 40px;
   flex-grow: 0;
   padding: 0 0 0 16px;
-  margin-left: 44px;
   border: 0;
   background-color: ${(props) => props.theme.colors.lightgray};
 `;
