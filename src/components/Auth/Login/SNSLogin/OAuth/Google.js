@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { getOAuthToken, socialLogin } from 'store/auth';
+import { socialLogin } from 'store/auth';
 import { setNoneBearerTokenOnHeader, uuid } from 'api/logined';
-import { GOOGLE } from '.';
 import styled from 'styled-components';
-import * as S from '../../../styles';
+import * as S from 'components/Auth/styles';
 import AlertModal from 'components/Shared/AlertModal';
 
 const AuthTemplateBlock = styled.div`
@@ -41,7 +40,7 @@ const MainLogo = styled(S.MainLogo)`
 const Google = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLoggedIn, isOAuthTrue } = useSelector((state) => state.auth);
+  const { isLoggedIn } = useSelector((state) => state.auth);
   const [visible, setVisible] = useState(false);
   const [modalDesc, setModalDesc] = useState('');
   const [modalTitle, setModalTitle] = useState('');
@@ -91,7 +90,7 @@ const Google = () => {
       if (parseInt(seconds) === 0) {
         setModalDesc('홈 화면으로 돌아갑니다.');
         clearInterval(countdown);
-        // navigate('/auth');
+        navigate('/auth');
       }
     }, 1000);
     return () => clearInterval(countdown);

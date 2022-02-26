@@ -5,6 +5,7 @@ import { LOGIN } from './constant';
 import { refresh } from 'store/auth';
 import { getUserInfo } from 'store/myPage';
 import AuthPage from 'pages/AuthPage';
+import OAuthPage from 'pages/OAuthPage';
 import Login from 'components/Auth/Login/Login';
 import FindId from 'components/Auth/Find/FindId';
 import FindPw from 'components/Auth/Find/FindPw';
@@ -70,8 +71,10 @@ const App = () => {
         </Route>
 
         <Route path="user/oauth2/authorization/kakao" element={<Kakao />} />
-        <Route path="user/oauth2/authorization/google" element={<Google />} />
+        <Route path="google-login" element={<Google />} />
         <Route path="callback" element={<Naver />} />
+
+        <Route path="oAuth/*" element={<OAuthPage />} />
 
         <Route element={<AuthorizedRoute />}>
           <Route path="keyword/*" element={<KeywordPage />}>

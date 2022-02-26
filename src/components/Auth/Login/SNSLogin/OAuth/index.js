@@ -1,4 +1,4 @@
-const OAUTH_REDIRECT_URI = `${window.location.origin}/user/oauth2/authorization`;
+const OAUTH_REDIRECT_URI = `${window.location.origin}/oAuth`;
 
 export const GOOGLE = {
   OAUTH_URI: 'https://accounts.google.com/signin/oauth',
@@ -13,7 +13,7 @@ export const NAVER = {
   OAUTH_URI: 'https://nid.naver.com/oauth2.0',
   CLIENT_ID: 'GDneoy5Vfi8rkjQVroIN',
   CLIENT_SECRET: 'DD3HIKV220',
-  REDIRECT_URI: `${window.location.origin}/callback`,
+  REDIRECT_URI: `${OAUTH_REDIRECT_URI}/naver`,
   getAuthUrl: () => {
     return `${NAVER.OAUTH_URI}/authorize?response_type=code&client_id=${NAVER.CLIENT_ID}&redirect_uri=${NAVER.REDIRECT_URI}`;
   },
