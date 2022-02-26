@@ -17,6 +17,7 @@ const KeywordList = ({
   setSearchButton,
   setCheckAll,
   menu,
+  keywordName
 }) => {
   const dispatch = useDispatch();
   const { keywordList } = useSelector((state) => state.keyword);
@@ -129,6 +130,7 @@ const KeywordList = ({
               <S.MainPeriod readState={item.isRead}>{item.createdAt}</S.MainPeriod>
             </S.MainItem>
           ) : (
+            keywordName!==null?
             <M.Alert key={item.id}>
               <M.AlertWrapper>
                 <S.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={checkListId.includes(item.id)} />
@@ -149,6 +151,7 @@ const KeywordList = ({
               </M.AlertWrapper>
               <M.AlertBorderLine />
             </M.Alert>
+            :null
           );
         })}
     </S.MainList>

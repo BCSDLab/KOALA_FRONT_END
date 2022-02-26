@@ -6,6 +6,7 @@ import { opened } from '../../store/toggle';
 import styled from 'styled-components';
 import SideNavMenu from './SideNavMenu';
 import KeywordDropdown from './KeywordDropdown';
+import { useNavigate } from 'react-router';
 
 const Nav = styled.div`
   width: 80px;
@@ -166,7 +167,7 @@ const SettingIcon = styled(Icon)``;
 const queries = ['(max-width: 450px)', '(min-width: 800px)'];
 const SideNavbar = () => {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const isOpen = useSelector((state) => state.toggle.isOpen);
 
   const location = useLocation();
@@ -175,7 +176,9 @@ const SideNavbar = () => {
   };
 
   const [mobile, desktop] = useMatchMedia(queries);
-
+  const moveKeywordMain = () => {
+    navigate(`/keyword`, { state: null });
+  }
   return (
     <NavContainer isSideMenu={isOpen}>
       <Nav isSideMenu={isOpen}>
@@ -187,7 +190,7 @@ const SideNavbar = () => {
             src={location.pathname.includes('/keyword') ? '/asset/Hashtagblack.svg' : '/asset/Hashtag.svg'}
             alt="keyword"
           />
-          {!desktop && <MenuItemText current={location.pathname.includes('/keyword') ? 1 : 0}>키워드</MenuItemText>}
+          {!desktop && <MenuItemText onClick={moveKeywordMain} current={location.pathname.includes('/keyword') ? 1 : 0}>키워드</MenuItemText>}
         </KeywordIcon>
         <HistoryIcon to="/history" current={location.pathname.includes('/history') ? 1 : 0}>
           <HistoryImg
