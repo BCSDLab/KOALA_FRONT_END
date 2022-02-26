@@ -219,6 +219,8 @@ const AddKeyword = () => {
           <KeywordInput
             setKeyword={setRecommendKeyword}
             keyword={recommendKeyword}
+            selectRecommendKeyword={selectRecommendKeyword}
+            setSelectRecommendKeyword={setSelectRecommendKeyword}
             setAlreadyRegisterItem={setIsRegisterKeyword}
             setSelectedRecommendItem={setSelectRecommendKeyword}
             setIsMobileKeyword={setIsMobileKeyword}

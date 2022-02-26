@@ -33,7 +33,6 @@ const KeywordSearch = styled.input`
   width: calc(100% - 100px);
   height: 40px;
   border: none;
-
   padding-left: 16px;
   background-color: #eee;
 `;
@@ -123,7 +122,9 @@ const InputKeyword = ({
   setKeyword,
   keyword,
   setAlreadyRegisterItem,
+  selectRecommendKeyword,
   setSelectedRecommendItem,
+  setSelectRecommendKeyword,
   setIsMobileKeyword,
   onClickRecommendItem,
 }) => {
@@ -157,12 +158,12 @@ const InputKeyword = ({
     setIsRegisterKeyword(false);
 
     registeredKeyword.forEach((item) => {
-      console.log(item.name === keyword);
       if (item.name === keyword) {
         setIsRegisterKeyword(true);
       }
     });
     setKeyword(keyword);
+    setSelectRecommendKeyword(keyword);
   }, [keyword, registeredKeyword]);
 
   const onClickKeyword = (name) => {

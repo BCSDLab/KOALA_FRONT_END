@@ -65,7 +65,8 @@ const RecentSearch = styled.span`
 `;
 
 const RecommendSite = styled.span`
-  font-size: 12px;
+  f
+  nt-size: 12px;
   color: ${(props) => props.theme.colors.darkgray};
 `;
 
