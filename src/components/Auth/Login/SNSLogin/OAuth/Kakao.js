@@ -103,7 +103,7 @@ const Kakao = () => {
       if (parseInt(seconds) === 0) {
         setModalDesc('홈 화면으로 돌아갑니다.');
         clearInterval(countdown);
-        // navigate('/auth');
+        navigate('/auth');
       }
     }, 1000);
     return () => clearInterval(countdown);
