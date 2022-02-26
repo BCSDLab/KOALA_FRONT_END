@@ -6,7 +6,7 @@ import theme from 'theme';
 const AuthTemplateBlock = styled.div`
   display: flex;
   justify-content: center;
-  alignitems: center;
+  align-items: center;
 
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     padding: 0 16px;
@@ -30,7 +30,6 @@ const Box = styled.div`
 const queries = ['(max-width: ' + theme.deviceSizes.mobileL + ')'];
 
 const AuthTemplate = ({ children }) => {
-
   return (
     <AuthTemplateBlock>
       <Box>

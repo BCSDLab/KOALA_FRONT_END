@@ -183,11 +183,6 @@ const AuthMainForm = () => {
 
   return (
     <>
-      {!desktop && (
-        <MainLogo>
-          <MainLogoImg src="/asset/mainLogo.svg" alt="logo" />
-        </MainLogo>
-      )}
       <LoginContainer>
         <LoginOptionContainer>
           <LoginOptionButton onClick={() => setIsNormalLogin(true)} isClicked={isNormalLogin}>
