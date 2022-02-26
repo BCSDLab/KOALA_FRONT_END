@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { KAKAO } from './OAuth/';
-import { LoginButtonAttributes } from './SocialLogin.style';
+import { KAKAO } from '../OAuth/';
+import { LoginButtonAttributes } from './SNSLoginButton.style';
 
 const StyledKakaoLoginButton = styled.button`
   ${LoginButtonAttributes}

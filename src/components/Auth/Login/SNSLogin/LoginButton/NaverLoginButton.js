@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { LoginButtonAttributes } from './SocialLogin.style';
-import { NAVER } from './OAuth/';
+import { LoginButtonAttributes } from './SNSLoginButton.style';
+import { NAVER } from '../OAuth/';
 
-import NaverLogin from './ReactLogin/ReactNaverLogin';
+import NaverLogin from '../ReactLogin/ReactNaverLogin';
 
 const StyledNaverLoginButton = styled.button`
   ${LoginButtonAttributes}

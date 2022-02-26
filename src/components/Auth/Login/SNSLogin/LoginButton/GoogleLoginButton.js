@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { LoginButtonAttributes } from './SocialLogin.style';
-import { GOOGLE } from './OAuth/';
+import { LoginButtonAttributes } from './SNSLoginButton.style';
+import { GOOGLE } from '../OAuth';
 import GoogleLogin from 'react-google-login';
 
 const StyledGoogleLoginButton = styled.button`

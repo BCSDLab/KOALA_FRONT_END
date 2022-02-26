@@ -7,9 +7,9 @@ import * as S from 'components/Auth/styles';
 import { useNavigate } from 'react-router';
 import { nonMemberLogin } from 'store/auth';
 import { uuid } from 'api/logined';
-import GoogleLoginButton from './SNSLogin/GoogleLoginButton';
-import KakaoLoginButton from './SNSLogin/KakaoLoginButton';
-import NaverLoginButton from './SNSLogin/NaverLoginButton';
+import GoogleLoginButton from './SNSLogin/LoginButton/GoogleLoginButton';
+import KakaoLoginButton from './SNSLogin/LoginButton/KakaoLoginButton';
+import NaverLoginButton from './SNSLogin/LoginButton/NaverLoginButton';
 
 const LoginContainer = styled.div`
   display: flex;
