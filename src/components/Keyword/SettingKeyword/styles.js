@@ -24,20 +24,8 @@ export const NotifyCheckBoxTitle = styled.span`
   min-width: 126px;
   height: 21px;
   font-size: 14px;
-  color: #999999;
+  color: #c4c4c4;
   margin-right: 24px;
-`;
-
-export const MinusImage = styled.img`
-  position: absolute;
-  left: ${(props) => (props.toggle ? '796px' : '661px')};
-  top: 482px;
-`;
-
-export const VibrationContent = styled.div`
-  width: 199px;
-  font-size: 11px;
-  color: #999999;
 `;
 
 export const VibrationCheckBox = styled(NotifyCheckBox)``;
@@ -71,11 +59,12 @@ export const DisturbCheckBox = styled.div`
   margin: 0px 8px 0px 15px;
 `;
 
+export const DisturbDay = styled.span`
+  margin-right: 24px;
+`;
+
 export const DisturbTimeStart = styled.input`
-  position: absolute;
-  left: ${(props) => (props.toggle ? '596px' : '461px')};
-  top: 470px;
-  min-width: 180px;
+  width: 180px;
   height: 48px;
   border: 1.5px solid #eee;
   text-align: center;
@@ -84,81 +73,13 @@ export const DisturbTimeStart = styled.input`
   &:after {
     width: 12px;
     height: 1px;
-    color: ;
   }
 `;
 
-export const DisturbTimeEnd = styled(DisturbTimeStart)`
-  left: ${(props) => (props.toggle ? '840px' : '705px')};
+export const MinusImage = styled.img`
+  width: 24px;
+  height: 23px;
+  margin: 12px 20px 13px;
 `;
 
-export const SelectTitle = styled.span`
-  width: 68px;
-  position: absolute;
-  left: ${(props) => (props.toggle ? '596px' : '461px')};
-  top: 590px;
-`;
-
-export const SelectBox = styled.div`
-  min-width: 180px;
-  height: 48px;
-  border: 1.5px solid #eee;
-  position: absolute;
-  left: ${(props) => (props.toggle ? '596px' : '461px')};
-  top: 627px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-export const SelectMenu = styled.span`
-  margin-left: 16px;
-`;
-
-export const ChevronDownImage = styled.img`
-  margin-right: 8px;
-`;
-
-export const BrowserTitle = styled(NotifyCheckBoxTitle)`
-  position: absolute;
-  top: 747px;
-  left: ${(props) => (props.toggle ? '596px' : '461px')};
-  color: #222222;
-`;
-
-export const BrowserCheckContainer = styled.div`
-  display: flex;
-  align-items: center;
-  position: absolute;
-  left: ${(props) => (props.toggle ? '596px' : '461px')};
-  top: 792px;
-`;
-
-export const ChromeImage = styled.img`
-  width: 21px;
-  height: 21px;
-  margin-right: 8px;
-`;
-
-export const ChromeName = styled.span`
-  margin-right: 32px;
-`;
-
-export const ChromeCheckBox = styled(NotifyCheckBox)``;
-
-export const SaveButton = styled.button`
-  width: 80px;
-  height: 32px;
-  background: #222;
-  color: #fff;
-  position: absolute;
-  top: 1014px;
-  left: ${(props) => (props.toggle ? '1018px' : '883px')};
-  font-size: 14px;
-  font-weight: 500;
-  text-align: center;
-`;
-
-export const CancelButton = styled(SaveButton)`
-  left: ${(props) => (props.toggle ? '1142px' : '1007px')};
-`;
+export const DisturbTimeEnd = styled(DisturbTimeStart)``;
