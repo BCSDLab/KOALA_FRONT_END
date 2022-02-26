@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import * as S from './styles';
+import { useLocation } from 'react-router';
 import theme from 'theme';
 
 const AuthTemplateBlock = styled.div`
@@ -30,12 +31,16 @@ const Box = styled.div`
 const queries = ['(max-width: ' + theme.deviceSizes.mobileL + ')'];
 
 const AuthTemplate = ({ children }) => {
+  const location = useLocation();
+
   return (
     <AuthTemplateBlock>
       <Box>
-        <S.MainLogo>
-          <S.MainLogoImg />
-        </S.MainLogo>
+        {location.pathname === '/auth' && (
+          <S.MainLogo>
+            <S.MainLogoImg />
+          </S.MainLogo>
+        )}
 
         {children}
       </Box>
