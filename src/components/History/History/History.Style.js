@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import theme from '../../../theme';
-const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
+const { white, black, darkgray, lightgray, silver, gray, yellow } = theme.colors;
 const mobileL = theme.deviceSizes.mobileL;
 const mibileS = theme.deviceSizes.mobileS;
 
@@ -23,7 +23,7 @@ export const KeyWordAlert = styled.li`
   }
 `;
 export const KeyWordAlertList = styled.ol`
-  height: 600px;
+  height: calc(100vh - 188px);
   overflow-y: scroll;
   @media screen and (max-width: ${mobileL}) {
     width: 100%;
@@ -105,7 +105,7 @@ export const MenuList = styled.div`
   position: relative;
   align-items: center;
   margin: 31px 0 17px 0;
-  &: last-child {
+  &:last-child {
     margin-right: 0;
   }
   @media screen and (max-width: ${mobileL}) {

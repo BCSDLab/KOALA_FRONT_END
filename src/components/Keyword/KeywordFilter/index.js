@@ -11,9 +11,14 @@ import KeywordHeader from '../KeywordHeader';
 import useMatchMedia from 'hooks/useMatchMedia';
 import theme from '../../../theme';
 import MobileMenuModal from './MobileMenuModal';
+import styled from 'styled-components';
 import { MobileDeleteModal, MobileMoveScrapModal } from './MobilePopUp';
 import { deleteScrapItem } from 'store/scrap';
 const queries = [`(max-width: ${theme.deviceSizes.mobileL})`];
+
+const FilterContainer = styled.div`
+  margin-top: 63px;
+`;
 
 const KeywordFilterBar = () => {
   const userInfo = useSelector((state) => state.auth);
@@ -218,7 +223,8 @@ const KeywordFilterBar = () => {
   return (
     <>
       {mobile && (
-        <div onClick={closeMobileMenu}>
+        keywordName !== null?
+        <FilterContainer onClick={closeMobileMenu}>
           <KeywordMenuBar isToggle={isOpen} menu={menu} setList={setList} onClickMenu={onClickMenu} />
 
           <KeywordSearch
@@ -280,7 +286,7 @@ const KeywordFilterBar = () => {
             numberAlert={undoList.length}
             undo={undoMoveScrap}
           />
-        </div>
+        </FilterContainer>:null
       )}
       {!mobile && (
         <>

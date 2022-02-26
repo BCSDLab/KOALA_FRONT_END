@@ -177,7 +177,7 @@ const AuthMainForm = () => {
   //회원이 로그인페이지에 접속하게 되면 메인 페이지로 돌려보낸다.
   useEffect(() => {
     if (userInfo.userType === 'NORMAL') {
-      navigate('/');
+      navigate('/keyword');
     }
   }, [userInfo.userType]);
 
@@ -210,7 +210,7 @@ const AuthMainForm = () => {
         )}
 
         <S.NoneUserLinkSection isNormalLogin={isNormalLogin}>
-          <S.NoneUserLink isNormalLogin={isNormalLogin} onClick={nonMemberService} to="/">
+          <S.NoneUserLink isNormalLogin={isNormalLogin} onClick={nonMemberService} to="/keyword">
             비회원으로 이용하기
           </S.NoneUserLink>
         </S.NoneUserLinkSection>

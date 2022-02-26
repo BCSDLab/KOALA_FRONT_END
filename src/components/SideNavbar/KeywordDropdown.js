@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch} from 'react-redux';
 import keyword, { inquiry } from 'store/keyword';
 import * as S from 'components/SideNavbar/styles';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import KeywordModal from 'components/Keyword/KeywordModal';
 import styled from 'styled-components';
 import { getKeywordName, getKeywordPosition } from 'components/Keyword/utils';
 import useMatchMedia from 'hooks/useMatchMedia';
+import MobileKeywordSelect from './MobileKeywordSelect';
 const Background = styled.div`
   width: 100vw;
   height: 100vh;
@@ -24,10 +25,9 @@ const KeywordDropdown = () => {
   const [selectAddKeyword, setSelectAddKeyword] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const { keywords } = useSelector((state) => state.keyword);
-
+  const { state: keywordName } = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const onClickDropdownButton = () => {
     setDropdownToggle((prev) => !prev);
   };
@@ -60,25 +60,30 @@ const KeywordDropdown = () => {
   if (keywords === undefined) {
     dispatch(inquiry());
   }
-  const queries = ['(max-width: 450px)'];
-  const [mobile] = useMatchMedia(queries);
-  const findPresentKeyword = (index) => {
-    return keywords[index];
-  };
-  console.log(keywords, selectItemId);
-  console.log(location.pathname);
+  const queries = ['(max-width: 450px)', '(min-width: 800px)'];
+  const [mobile, desktop] = useMatchMedia(queries);
+  useEffect(() => {
+    if(location.pathname ==='/keyword'){
+      setSelectItemId(null);
+      setSelectAddKeyword(null);
+      navigate(`/keyword`, { state: null })
+    }
+  },[])
   return mobile ? (
-    location.pathname.includes('/keyword') ? (
+    location.pathname ==='/keyword' ? (
+      keywordName!==null?
       <S.MobileKeyWordHeader>
-        <S.BackBtn src="/asset/BackArrow.svg" />
+        <S.BackBtn src="/asset/BackArrow.svg" onClick={() => onClickItem(null, null)}/>
         <S.MobileKeyWordName>
-          {findPresentKeyword(keywords.findIndex((keyword) => keyword.id === selectItemId))
-            ? console.log(findPresentKeyword(keywords.findIndex((keyword) => keyword.id === selectItemId)).name)
-            : null}
+          {getKeywordName(keywords, selectItemId)}
         </S.MobileKeyWordName>
         <S.FixKeyWordBtn to="/keyword/modify">수정</S.FixKeyWordBtn>
       </S.MobileKeyWordHeader>
-    ) : null
+      :
+      <MobileKeywordSelect keywords={keywords} onClickAddKeyword={onClickAddKeyword} onClickItem={onClickItem}/>
+    ) : (
+      <></>
+    )
   ) : (
     <>
       <Background onClick={onClickBackground} showModal={showModal} />

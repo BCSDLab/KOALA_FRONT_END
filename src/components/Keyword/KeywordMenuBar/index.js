@@ -2,7 +2,6 @@ import React from 'react';
 import * as S from './styles';
 import { MENU_ITEM } from 'constant';
 import useMatchMedia from 'hooks/useMatchMedia';
-import { useLocation } from 'react-router';
 import theme from '../../../theme';
 const queries = [`(max-width: ${theme.deviceSizes.mobileL}`];
 

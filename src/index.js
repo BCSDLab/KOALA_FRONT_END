@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from '@redux-saga/core';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from './GlobalStyle';
@@ -16,7 +16,11 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(sagaMiddleware, logger)));
+const enhancer =
+  process.env.NODE_ENV === 'production'
+    ? compose(applyMiddleware(sagaMiddleware))
+    : composeWithDevTools(applyMiddleware(sagaMiddleware, logger));
+const store = createStore(rootReducer, enhancer);
 
 sagaMiddleware.run(rootSaga);
 

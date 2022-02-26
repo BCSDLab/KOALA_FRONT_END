@@ -17,7 +17,6 @@ const KeywordHeader = ({ title }) => {
         <MobileTopBar content={title}></MobileTopBar>
       ) : (
         <>
-          {user.isLoggedIn && <S.Username>test</S.Username>}
           <LoginButton />
           <S.Title toggle={isOpen}>{title}</S.Title>
         </>

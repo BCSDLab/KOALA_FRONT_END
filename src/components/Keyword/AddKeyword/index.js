@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import KeywordHeader from '../KeywordHeader';
 import { getSiteRecommendation, getKeywordRecommendation } from 'store/modifyKeyword';
 import { inquiry } from 'store/keyword';
+import { debounce } from 'lodash';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import KeywordAlarm from '../KeywordAlarm';
@@ -27,12 +28,33 @@ const AddKeyword = () => {
 
   const [desktop] = useMatchMedia(queries);
 
+  const delayKeywordInput = useCallback(
+    debounce((value) => {
+      dispatch(getKeywordRecommendation(value));
+    }, 500),
+    []
+  );
+  const delaySiteInput = useCallback(
+    debounce((value) => {
+      dispatch(getSiteRecommendation(value));
+    }, 500),
+    []
+  );
+  const onChangeRecommendKeyword = (e) => {
+    const { value } = e.target;
+    setIsRegisterKeyword(false);
+    delayKeywordInput(value);
+    setRecommendKeyword(value);
+    setSelectRecommendKeyword('');
+  };
+
   const onChangeSite = (e) => {
+    delaySiteInput(e.target.value);
     setSite(e.target.value);
     setIsRegisterItem(false);
   };
 
-  const onClickRecommendItem = useCallback(
+  const addRecommnedSite = useCallback(
     (e) => {
       let { innerText: value } = e.target;
 
@@ -75,25 +97,6 @@ const AddKeyword = () => {
     [selectRecommendItem]
   );
 
-  const onChangeRecommendKeyword = (e) => {
-    const { value } = e.target;
-    setIsRegisterKeyword(false);
-    setRecommendKeyword(value);
-    setSelectRecommendKeyword('');
-  };
-
-  useEffect(() => {
-    if (site !== '') {
-      dispatch(getSiteRecommendation(site));
-    }
-  }, [site]);
-
-  useEffect(() => {
-    if (recommendKeyword !== '') {
-      dispatch(getKeywordRecommendation(recommendKeyword));
-    }
-  }, [recommendKeyword]);
-
   useEffect(() => {
     if (siteRecommendationList.length !== 0) {
       if (JSON.stringify(recommendList) !== JSON.stringify(siteRecommendationList)) {
@@ -114,12 +117,6 @@ const AddKeyword = () => {
     }
   }, [keywordRecommendationList]);
 
-  useEffect(() => {
-    if (userInfo.isLoggedIn) {
-      dispatch(inquiry());
-    }
-  }, [userInfo.isLoggedIn]);
-
   return (
     <>
       {desktop ? (
@@ -130,7 +127,7 @@ const AddKeyword = () => {
             <S.InputKeyword
               placeholder="키워드 입력"
               onChange={onChangeRecommendKeyword}
-              value={selectRecommendKeyword === '' ? recommendKeyword : selectRecommendKeyword}
+              value={(selectRecommendKeyword === '' ? recommendKeyword : selectRecommendKeyword) || ''}
             ></S.InputKeyword>
             <S.AlreadyRegisterKeyword alreadyRegister={isRegisterKeyword}>
               이미 등록한 키워드입니다.
@@ -162,7 +159,7 @@ const AddKeyword = () => {
             {recommendList.length !== 0 &&
               recommendList.map((item, index) => {
                 return (
-                  <S.RecommendItem onClick={onClickRecommendItem} key={index}>
+                  <S.RecommendItem onClick={addRecommnedSite} key={index}>
                     {item}
                   </S.RecommendItem>
                 );
@@ -173,7 +170,7 @@ const AddKeyword = () => {
               {selectRecommendItem.map((item, index) => {
                 return (
                   <S.SiteItem key={index}>
-                    <S.SiteName>{item}</S.SiteName>s
+                    <S.SiteName>{item}</S.SiteName>
                     <S.CloseBtn onClick={() => onClickDeleteRecommendItem(index)}>
                       <S.XImage src="/asset/x.svg" alt="x_image" />
                     </S.CloseBtn>
@@ -184,6 +181,7 @@ const AddKeyword = () => {
           </S.SiteContainer>
           <KeywordAlarm
             buttonText={'등록'}
+            keywordName={selectRecommendKeyword}
             selectRecommendItem={selectRecommendItem}
             setSelectRecommendItem={setSelectRecommendItem}
             setRecommendKeyword={setRecommendKeyword}
