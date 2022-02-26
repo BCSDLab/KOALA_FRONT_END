@@ -178,7 +178,7 @@ const SideNavbar = () => {
   const [mobile, desktop] = useMatchMedia(queries);
   const moveKeywordMain = () => {
     navigate(`/keyword`, { state: null });
-  }
+  };
   return (
     <NavContainer isSideMenu={isOpen}>
       <Nav isSideMenu={isOpen}>
@@ -190,7 +190,11 @@ const SideNavbar = () => {
             src={location.pathname.includes('/keyword') ? '/asset/Hashtagblack.svg' : '/asset/Hashtag.svg'}
             alt="keyword"
           />
-          {!desktop && <MenuItemText onClick={moveKeywordMain} current={location.pathname.includes('/keyword') ? 1 : 0}>키워드</MenuItemText>}
+          {!desktop && (
+            <MenuItemText onClick={moveKeywordMain} current={location.pathname.includes('/keyword') ? 1 : 0}>
+              키워드
+            </MenuItemText>
+          )}
         </KeywordIcon>
         <HistoryIcon to="/history" current={location.pathname.includes('/history') ? 1 : 0}>
           <HistoryImg

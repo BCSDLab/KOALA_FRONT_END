@@ -116,6 +116,7 @@ const InputSite = ({ setIsMobileSite, onClickRecommendItem, setSite, site, setAl
   const dispatch = useDispatch();
   const { siteRecommendationList } = useSelector((state) => state.modifyKeyword);
   const { recommendationSiteList } = useSelector((state) => state.modifyKeyword);
+
   const onClickChevronLeft = () => {
     setIsMobileSite(false);
   };

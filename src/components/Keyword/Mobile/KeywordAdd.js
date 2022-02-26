@@ -1,31 +1,34 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
+import AlertForm from './AlertForm';
 import InputKeyword from './KeywordInput';
 import { createKeyword } from 'store/modifyKeyword';
 import { useDispatch } from 'react-redux';
 import { changeSiteName } from 'components/Keyword/utils';
 
 const Container = styled.div`
-  width: 360px;
-  height: 640px;
+  width: 100%;
+  height: 100%;
+  align-items: center;
   display: flex;
   flex-direction: column;
 `;
 
 const Header = styled.div`
   display: flex;
-  width: 360px;
-  justify-content: space-between;
+  width: calc(100% - 36px);
   height: 24px;
+  justify-content: center;
   line-height: 24px;
-  margin-top: 56px;
-  padding: 0px 24px 12px 8px;
-  padding-bottom: 12px;
+  margin-top: 21px;
+  padding: 0 24px 12px 8px;
   border-bottom: 1px solid #eee;
 `;
 const ChovernLeft = styled.img`
+  position: absolute;
+  left: 8px;
   min-width: 24px;
-  hegiht: auto;
+  height: auto;
 `;
 const Title = styled.span`
   font-size: 16px;
@@ -33,22 +36,26 @@ const Title = styled.span`
 const Compelete = styled.span`
   color: #999;
   font-size: 16px;
-  maring-right: 24px;
+`;
+
+const AddKeywordContent = styled.div`
+  width: calc(100% - 32px);
+  padding: 0 16px;
 `;
 
 const InputContainer = styled.div`
-  width: 360px;
+  width: 100%;
   height: 108px;
   display: flex;
   flex-direction: column;
   margin-top: 24px;
-  margin-left: 16px;
 `;
 
 const KeywordInputContainer = styled.div`
   height: 40px;
   border: ${(props) => (props.isRegisterKeyword ? `1px solid #ffd25d` : '1px solid #eee')};
   position: relative;
+  display: flex;
 `;
 
 const AlarmSearchContainer = styled.div`
@@ -56,39 +63,43 @@ const AlarmSearchContainer = styled.div`
   border: ${(props) => (props.checkAlarm ? '1px solid #ffd25d' : '1px solid #eee')};
   margin-top: 24px;
   position: relative;
+  display: flex;
 `;
 
 const HashImage = styled.img`
-  margin-top: 10px;
-  margin: 10px 16px 0px 16px;
-  margin-right: 16px;
+  width: 20px;
+  height: 20px;
+  margin: 10px 16px;
 `;
 
 const KeywordInput = styled.input`
-  width: 300px;
+  width: 100%;
+  margin: 11px 0;
+  font-size: 12px;
   background-color: #fff;
   height: 18px;
   border: none;
 `;
 
 const SearchImage = styled.img`
-  margin-top: 10px;
-  margin: 10px 16px 0px 16px;
-  margin-right: 16px;
+  width: 20px;
+  height: 20px;
+  margin: 10px 16px;
 `;
 
 const SearchInput = styled.input`
-  width: 300px;
+  width: 100%;
+  margin: 11px 0;
+  font-size: 12px;
   background-color: #fff;
   height: 18px;
   border: none;
 `;
 
 const AlarmContainer = styled.div`
-  width: 360px;
+  width: 100%;
   height: ${(props) => (props.isNormalAlarm ? '163px' : '254px')};
   margin-top: 20px;
-  margin-left: 16px;
   position: relative;
   border: 1px solid ${(props) => (props.isNormalAlarm ? '#eee' : '#ffd25d')};
 `;
@@ -113,10 +124,8 @@ const NormalTitle = styled.span`
 `;
 
 const NormalAlarm = styled.div`
-  width: 180px;
+  width: 100%;
   height: 48px;
-  position: absolute;
-  right: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -175,9 +184,6 @@ const AlarmChevron = styled.img`
 const Message = styled.span`
   font-size: 11px;
   color: #ffd25d;
-  position: absolute;
-  left: 0px;
-  bottom: -20px;
 `;
 
 const AlarmList = styled.ul`
@@ -303,85 +309,53 @@ const KeywordAdd = () => {
             <Header>
               <ChovernLeft src="/asset/chevron-left.svg" />
               <Title>키워드 추가하기</Title>
-              <Compelete onClick={onClickCompeleteButton}>완료</Compelete>
             </Header>
-            <InputContainer>
-              <KeywordInputContainer onClick={onClickKeywordInput} isRegisterKeyword={isRegisterKeyword}>
-                <HashImage src="/asset/Hashtagblack.svg" />
-                <KeywordInput
-                  placeholder="키워드 입력"
-                  disabled
-                  value={keyword.length !== 0 ? keyword : ''}
-                ></KeywordInput>
-                {isRegisterKeyword && <RegisteredIcon src="/asset/exclamation.svg" />}
-              </KeywordInputContainer>
-              {isRegisterKeyword && <RegisteredKeyword>이미 등록된 키워드 입니다.</RegisteredKeyword>}
-              <AlarmSearchContainer
-                onClick={onClickAlarmInput}
-                checkAlarm={selectedAlarmList && selectedAlarmList.length === 0}
-              >
-                <SearchImage src="/asset/searchblack.svg" />
-                <SearchInput
-                  placeholder="알람받을 대상 입력"
-                  disabled
-                  value={alarm.length !== 0 ? alarm : ''}
-                ></SearchInput>
-                {selectedAlarmList && selectedAlarmList.length === 0 && <RegisteredIcon src="/asset/exclamation.svg" />}
-              </AlarmSearchContainer>
-              {selectedAlarmList && selectedAlarmList.length === 0 && (
-                <WarningAlarm>알림받을 대상을 반드시 선택해 주세요.</WarningAlarm>
-              )}
-            </InputContainer>
+            <AddKeywordContent>
+              <InputContainer>
+                <KeywordInputContainer onClick={onClickKeywordInput} isRegisterKeyword={isRegisterKeyword}>
+                  <HashImage src="/asset/Hashtagblack.svg" />
+                  <KeywordInput
+                    placeholder="키워드 입력"
+                    disabled
+                    value={keyword.length !== 0 ? keyword : ''}
+                  ></KeywordInput>
+                  {isRegisterKeyword && <RegisteredIcon src="/asset/exclamation.svg" />}
+                </KeywordInputContainer>
+                {isRegisterKeyword && <RegisteredKeyword>이미 등록된 키워드 입니다.</RegisteredKeyword>}
+                <AlarmSearchContainer
+                  onClick={onClickAlarmInput}
+                  checkAlarm={selectedAlarmList && selectedAlarmList.length === 0}
+                >
+                  <SearchImage src="/asset/searchblack.svg" />
+                  <SearchInput
+                    placeholder="알람받을 대상 입력"
+                    disabled
+                    value={alarm.length !== 0 ? alarm : ''}
+                  ></SearchInput>
+                  {selectedAlarmList && selectedAlarmList.length === 0 && (
+                    <RegisteredIcon src="/asset/exclamation.svg" />
+                  )}
+                </AlarmSearchContainer>
+                {selectedAlarmList && selectedAlarmList.length === 0 && (
+                  <WarningAlarm>알림받을 대상을 반드시 선택해 주세요.</WarningAlarm>
+                )}
+              </InputContainer>
 
-            {selectedAlarmList && (
-              <AlarmList isNormalAlarm={isNormalAlarm}>
-                {selectedAlarmList !== '' &&
-                  selectedAlarmList.map((item, index) => {
-                    return (
-                      <AlarmItem key={index}>
-                        <span>{item}</span>
-                        <DeleteIcon onClick={() => onClickDeleteIcon(item)} src="/asset/x.svg" />
-                      </AlarmItem>
-                    );
-                  })}
-              </AlarmList>
-            )}
-
-            <AlarmContainer isNormalAlarm={isNormalAlarm}>
-              <ImportantAlarm onClick={onClickImportantAlarm} isNormalAlarm={isNormalAlarm}>
-                <ImportantTtitle isNormalAlarm={isNormalAlarm}>중요알림</ImportantTtitle>
-              </ImportantAlarm>
-              <NormalAlarm onClick={onClickNormalAlarm} isNormalAlarm={isNormalAlarm}>
-                <NormalTitle>일반알림</NormalTitle>
-              </NormalAlarm>
-              {!isNormalAlarm ? (
-                <>
-                  <SlientMode>무음모드 알림</SlientMode>
-                  <Vibration>진동 알림</Vibration>
-                  <CheckAlarm>확인 버튼 누를 때 까지 알림</CheckAlarm>
-                  <AlarmCycle>알림 주기</AlarmCycle>
-                  <FirstButton src="/asset/ToggleOff.svg" />
-                  <SecondButton src="/asset/ToggleOff.svg" />
-                  <ThirdButton src="/asset/ToggleOff.svg" />
-                  <AlarmTime>0시간</AlarmTime>
-                  <AlarmChevron src="/asset/chevron-right.svg" />
-                  <Message>중요알림은 앱에서만 이용하실 수 있습니다.</Message>
-                </>
-              ) : (
-                <>
-                  <SlientMode isNormalAlarm={isNormalAlarm}>무음모드 알림</SlientMode>
-                  <Vibration isNormalAlarm={isNormalAlarm}>진동 알림</Vibration>
-                  <FirstButton
-                    onClick={onClickSlientMode}
-                    src={isSilentMode ? '/asset/ToggleOn.svg' : '/asset/ToggleOff.svg'}
-                  />
-                  <SecondButton
-                    onClick={onClickVibrationMode}
-                    src={isVibrationMode ? '/asset/ToggleOn.svg' : '/asset/ToggleOff.svg'}
-                  />
-                </>
+              {selectedAlarmList && (
+                <AlarmList isNormalAlarm={isNormalAlarm}>
+                  {selectedAlarmList !== '' &&
+                    selectedAlarmList.map((item, index) => {
+                      return (
+                        <AlarmItem key={index}>
+                          <span>{item}</span>
+                          <DeleteIcon onClick={() => onClickDeleteIcon(item)} src="/asset/x.svg" />
+                        </AlarmItem>
+                      );
+                    })}
+                </AlarmList>
               )}
-            </AlarmContainer>
+              <AlertForm buttonText={'등록'} keywordName={keyword} />
+            </AddKeywordContent>
           </Container>
         </>
       )}
@@ -407,3 +381,38 @@ const KeywordAdd = () => {
 };
 
 export default KeywordAdd;
+/*  <AlarmContainer isNormalAlarm={isNormalAlarm}>
+                <ImportantAlarm onClick={onClickImportantAlarm} isNormalAlarm={isNormalAlarm}>
+                  <ImportantTtitle isNormalAlarm={isNormalAlarm}>중요알림</ImportantTtitle>
+                </ImportantAlarm>
+                <NormalAlarm onClick={onClickNormalAlarm} isNormalAlarm={isNormalAlarm}>
+                  <NormalTitle>일반알림</NormalTitle>
+                </NormalAlarm>
+                {!isNormalAlarm ? (
+                  <>
+                    <SlientMode>무음모드 알림</SlientMode>
+                    <Vibration>진동 알림</Vibration>
+                    <CheckAlarm>확인 버튼 누를 때 까지 알림</CheckAlarm>
+                    <AlarmCycle>알림 주기</AlarmCycle>
+                    <FirstButton src="/asset/ToggleOff.svg" />
+                    <SecondButton src="/asset/ToggleOff.svg" />
+                    <ThirdButton src="/asset/ToggleOff.svg" />
+                    <AlarmTime>0시간</AlarmTime>
+                    <AlarmChevron src="/asset/chevron-right.svg" />
+                    <Message>중요알림은 앱에서만 이용하실 수 있습니다.</Message>
+                  </>
+                ) : (
+                  <>
+                    <SlientMode isNormalAlarm={isNormalAlarm}>무음모드 알림</SlientMode>
+                    <Vibration isNormalAlarm={isNormalAlarm}>진동 알림</Vibration>
+                    <FirstButton
+                      onClick={onClickSlientMode}
+                      src={isSilentMode ? '/asset/ToggleOn.svg' : '/asset/ToggleOff.svg'}
+                    />
+                    <SecondButton
+                      onClick={onClickVibrationMode}
+                      src={isVibrationMode ? '/asset/ToggleOn.svg' : '/asset/ToggleOff.svg'}
+                    />
+                  </>
+                )}
+              </AlarmContainer> */
