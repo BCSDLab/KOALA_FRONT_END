@@ -68,8 +68,6 @@ const ScrapContent = () => {
           return memo.userScrapId;
         })
       );
-      console.log('asdf', memoIdList);
-      console.log(memoItemList);
     }
   }, [memoList]);
   //상태에 따라 메모/수정/완료 표시
@@ -79,14 +77,12 @@ const ScrapContent = () => {
       e.target.innerText = '완료';
       setState('WRITE');
       setCurr(id);
-      console.log('메모 작성 시작');
     } else if (pageState === 'WRITE') {
       const memoStatement = writeMemoValue.current.value;
       if (memoStatement !== '') {
         setState('READ');
         setIdList([...memoIdList, id]);
         setCurr(null);
-        console.log('메모 작성 완료');
         e.target.innerText = '수정';
         dispatch(writeMemo({ memo: memoStatement, user_scrap_id: id }));
       } else {
@@ -99,12 +95,10 @@ const ScrapContent = () => {
       setState('FIX');
       e.target.innerText = '완료';
       setCurr(id);
-      console.log('메모 수정 시작');
     } else if (pageState === 'FIX') {
       setState('READ');
       setCurr(null);
       e.target.innerText = '수정';
-      console.log('메모 수정 완료');
       const memoStatement = fixMemoValue.current.value;
       dispatch(fixMemo({ memo: memoStatement, user_scrap_id: id }));
     }
@@ -129,7 +123,6 @@ const ScrapContent = () => {
   };
   const deleteAlert = () => {
     if (checkedList.length > 0) {
-      console.log(checkedList);
       dispatch(deleteScrapItem(checkedList));
       setCheckedList([]);
     } else {
@@ -162,7 +155,6 @@ const ScrapContent = () => {
         return a > b ? -1 : a < b ? 1 : 0;
       })
     );
-    console.log(scrapList);
   }, [scrapList]);
   return (
     <>

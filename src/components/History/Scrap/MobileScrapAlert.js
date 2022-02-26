@@ -17,7 +17,6 @@ const MobileScrapAlert = ({mail, selectMail, list, memo, writeId, setCurr}) => {
     const swiperRef = useRef();
     const [pageState, setState] = useState('READ');
     const addMemo = () => {
-        console.log(mail.userScrapId);
         if(pageState === 'WRITE'){
             dispatch(writeMemo({memo: memoRef.current.value, user_scrap_id: mail.userScrapId}));
         }else if(pageState === 'FIX'){
@@ -48,22 +47,13 @@ const MobileScrapAlert = ({mail, selectMail, list, memo, writeId, setCurr}) => {
     }
     var xCord = null;
     const TouchStart= (e) => {
-        console.log(e.touches[0].clientX);
         xCord = e.touches[0].clientX;
     }
-    const TouchEnd =(e) => {
-        console.log(e.touches[0].clientX)
-        // if(xCord-e.touches[0].clientX > 0){
-        //     console.log('left');
-        // }
-    }
+
     const TouchMove = (e) => {
-        console.log(xCord, e.changedTouches[0].clientX)
         if(xCord - e.changedTouches[0].clientX > 100){
-            console.log('swiped')
             swiperRef.current.style.left = '-194px';
         }else if(xCord - e.changedTouches[0].clientX < -100){
-            console.log('swipe right')
             swiperRef.current.style.left = '0';
         }
     }
