@@ -38,7 +38,6 @@ const MainLogo = styled(S.MainLogo)`
   }
 `;
 
-const queries = ['(max-width: 450px)'];
 const Kakao = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
