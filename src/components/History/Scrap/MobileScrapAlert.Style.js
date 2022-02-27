@@ -4,11 +4,18 @@ const mobileL = theme.deviceSizes.mobileL;
 const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 export const SwipeWrapper = styled.div`
+    position: relative;
     width: 95%;
     overflow: hidden;
     display: flex;
 `
-
+export const Swiper =styled.div`
+    display: flex;
+    position: relative;
+    left: 0;
+    width: 100%;
+    transition: 0.3s ease;
+`
 export const Alert = styled.div`
     min-width: 100%;
     margin: 0 0 0 5%;

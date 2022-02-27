@@ -155,6 +155,7 @@ export const KeyWordAlertList = styled.ol`
   overflow-y: ${(props) => (props.scrollOption ? 'scroll' : 'none')};
   @media screen and (max-width: ${mobileL}) {
     width: 100%;
+    height: 71vh;
     overflow-y: scroll;
     overflow-x: hidden;
   }
