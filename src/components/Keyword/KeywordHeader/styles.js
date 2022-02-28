@@ -37,7 +37,7 @@ export const LoginButton = styled.button`
 
 export const Title = styled.span`
   font-size: 18px;
-  min-width: 120px;
+  max-width: 120px;
   position: absolute;
   top: 121px;
   left: ${(props) => (props.toggle ? '488px' : '353px')};

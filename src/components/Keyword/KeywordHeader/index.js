@@ -5,7 +5,7 @@ import LoginButton from 'components/Shared/LoginButton';
 import MobileTopBar from 'components/Shared/MobileTopBar';
 import { useSelector } from 'react-redux';
 
-const queries = ['(max-width: 400px)', '(min-width: 800px)'];
+const queries = ['(max-width: 450px)', '(min-width: 800px)'];
 const KeywordHeader = ({ title }) => {
   const user = useSelector((state) => state.auth);
   const { isOpen } = useSelector((state) => state.toggle);
