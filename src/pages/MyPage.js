@@ -133,9 +133,10 @@ const MyPageContainer = styled.div`
   }
 `;
 
+
 const MyPageContent = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  max-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -144,6 +145,7 @@ const MyPageContent = styled.div`
     display: block;
     height: auto;
   }
+
 `;
 
 const UserInfoContainer = styled.div`
@@ -172,7 +174,7 @@ const UserInfo = styled.div`
 `;
 
 const MainText = styled.div`
-  width: 34px;
+  max-width: 384px;
   height: 27px;
   font-family: NotoSansCJKKR;
   font-size: 18px;
@@ -180,7 +182,7 @@ const MainText = styled.div`
   text-align: left;
   color: ${(props) => props.theme.colors.darkgray};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
-    width: 100%;
+    max-width: 100%;
     height: 61px;
     display: flex;
     justify-content: center;
@@ -195,13 +197,13 @@ const MainText = styled.div`
 `;
 
 const MyInfo = styled.div`
-  width: 48px;
+  width: 100%;
   height: 24px;
-  margin: 33px 67px 32px 80px;
+  margin: 0px 67px 32px 80px;
   font-family: NotoSansCJKKR;
   font-size: 16px;
   font-weight: 500;
-  text-align: center;
+  text-align: left;
   color: ${(props) => props.theme.colors.darkgray};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 118px;
@@ -239,8 +241,8 @@ const UserImage = styled.img`
 `;
 const OverLay = styled.div`
   position: absolute;
-  height: 72px;
-  width: 72px;
+  max-height: 72px;
+  max-width: 72px;
   border-radius: 50%;
   margin: -88px 98px 16px 195px;
   font-family: NotoSansCJKKR;
@@ -289,8 +291,8 @@ const PatchImg = styled.input`
 `;
 
 const UserNickname = styled.div`
-  width: 304px;
-  height: 24px;
+  max-width: 100%;
+  max-height: 24px;
   margin: 0px 0px 32px 80px;
   font-family: NotoSansCJKKR;
   font-size: 16px;
@@ -329,7 +331,7 @@ const Title = styled.div`
 `;
 
 const NicknameTitle = styled(Title)`
-  width: 39px;
+  max-width: 39px;
   margin: 0px 76px 24px 80px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     margin: 26px 226px 16px 0px;
@@ -337,14 +339,14 @@ const NicknameTitle = styled(Title)`
 `;
 
 const SchoolAuthTitle = styled(Title)`
-  width: 52px;
+  max-width: 52px;
   margin: 71.3px 50px 16px 80px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     margin: 46px 226px 7px 0px;
   }
 `;
 const EtcTitle = styled.div`
-  width: 32px;
+  max-width: 32px;
   height: 24px;
   margin: 80px 83px 41px 80px;
   font-family: NotoSansCJKKR;
@@ -361,10 +363,16 @@ const EtcTitle = styled.div`
     text-align: left;
     color: ${(props) => props.theme.colors.gray};
   }
+  @media screen and (min-height: ${(props)=>props.theme.deviceSizes.tabletL}){
+    margin: 40px 83px 20px 80px;
+  }
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+    margin: 40px 83px 20px 80px;
+  }
 `;
 
 const Element = styled.div`
-  width: 52px;
+  max-width: 52px;
   height: 21px;
   cursor: pointer;
   margin: 0px 50px 32px 80px;
@@ -381,6 +389,12 @@ const Element = styled.div`
     font-size: 14px;
     text-align: left;
     color: ${(props) => props.theme.colors.darkgray};
+  }
+  @media screen and (min-height: ${(props)=>props.theme.deviceSizes.tabletL}){
+   margin: 0px 50px 16px 80px;
+  }
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+    margin: 0px 50px 16px 80px;
   }
 `;
 
