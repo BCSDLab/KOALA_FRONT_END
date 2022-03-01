@@ -18,6 +18,9 @@ const Header = styled.div`
     align-items: center;
     padding: 0;
   }
+  @media screen and (min-width:${(props)=>props.theme.deviceSizes.tablet}){
+    width: 900px;
+  }
 `;
 const FocusLine = styled.div`
   width: 32px;

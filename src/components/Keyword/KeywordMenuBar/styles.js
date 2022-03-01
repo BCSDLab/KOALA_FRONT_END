@@ -3,7 +3,7 @@ import theme from '../../../theme';
 const { mobileL, mobileS } = theme.deviceSizes;
 
 export const Menu = styled.nav`
-  min-width: 1323px;
+  width: 1323px;
   height: 24px;
   padding-bottom: 15.3px;
   justify-content: space-between;
@@ -27,7 +27,11 @@ export const Menu = styled.nav`
       border-bottom: 1px solid #eee;
       width: 130%;
     }
+  
   }
+  @media screen and (min-width:${(props)=>props.theme.deviceSizes.tabletL}) {
+      width: 900px;
+    }
 `;
 
 export const MobileMenuWrapper = styled.div`

@@ -11,9 +11,10 @@ import useMatchMedia from 'hooks/useMatchMedia';
 
 const HistoryPageContent = styled.div`
   display: flex;
-  min-width: 1494px;
+  max-width: 1494px;
   height: 100%;
   overflow-y: hidden;
+  overflow-x: hidden;
   // max-width: 1294px;
   @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
     width: 100vw;
@@ -31,7 +32,7 @@ const HistoryPageContent = styled.div`
 
 const ContentWrapper = styled.div`
   display: flex;
-  width: 100%;
+  width: 90%;
   height: 100%;
   justify-content: center;
   align-items: center;

@@ -33,7 +33,8 @@ export const CheckBoxTitle = styled.span`
 
 export const MainList = styled.div`
   position: absolute;
-  max-height: 600px;
+  width: 100%;
+  height: 600px;
   overflow-y: scroll;
   left: ${(props) => (props.toggle ? '501px' : '366px')};
   top: 320px;
@@ -44,14 +45,21 @@ export const MainList = styled.div`
     position: static;
     padding: 0px;
   }
+  @media screen and (min-width:${(props)=>props.theme.deviceSizes.tabletL}) {
+  height: 400px;
+}
 `;
 
 export const MainItem = styled.div`
-  min-width: 1310px;
+  width: 1310px;
   display: flex;
+  
   padding-bottom: 15px;
   margin-bottom: 15px;
   border-bottom: 1.5px solid #eeeeee;
+  @media screen and (min-width:${(props)=>props.theme.deviceSizes.tabletL}) {
+  width: 900px;
+}
 `;
 
 export const MainCheckBox = styled(CheckBox)`
@@ -65,27 +73,34 @@ export const MainCheckBox = styled(CheckBox)`
   }}
 `;
 export const MainCheckBoxTitle = styled(CheckBoxTitle)`
-  min-width: 45px;
+  width: 60px;
   margin-right: 125px;
   color: ${(props) => (props.readState ? '#999999' : '#222222')};
 `;
 export const MainContent = styled.div`
-  min-width: 899px;
+  width: 899px;
   font-size: 12px;
+  text-overflow : ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  height: 18px;
   cursor: pointer;
   margin-right: 65px;
   color: ${(props) => (props.readState ? '#999999' : '#222222')};
+  @media screen and (min-width:${(props)=>props.theme.deviceSizes.tabletL}) {
+  width: 400px;
+}
 `;
 
 export const MainReadState = styled(MainContent)`
-  min-width: 47px;
+  width: 50px;
   text-align: center;
   color: #999999;
   margin-right: 24px;
 `;
 
 export const MainPeriod = styled(MainContent)`
-  min-width: 62px;
+  width: 62px;
   margin-right: 0px;
   color: ${(props) => (props.readState ? '#999999' : '#222222')};
 `;

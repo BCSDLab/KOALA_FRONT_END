@@ -93,6 +93,7 @@ const AddKeyword = () => {
         setIsRegisterItem(true);
       }
       setIsMobileSite(false);
+      setSite('');
     },
     [selectRecommendItem, site]
   );

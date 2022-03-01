@@ -46,12 +46,17 @@ export const AlertBorderBox = styled.div`
 `;
 export const Sender = styled.div`
   font-size: 12px;
+  white-space: nowrap;
   width: 45px;
   margin-right: 119px;
   @media screen and (max-width: ${mobileL}) {
     font-size: 14px;
     width: 52px;
     margin: 0;
+  }
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+    margin-right: 50px;
+  
   }
 `;
 export const AlertTitle = styled.a`
@@ -147,6 +152,10 @@ export const PageWrapper = styled.div`
     width: 100vw;
     margin: 0 0 74px 0;
   }
+  @media screen and (min-width:${(props)=>props.theme.deviceSizes.tablet}){
+    width: 900px;
+    height: 400px;
+  }
 `;
 export const Content = styled.div`
   position: relative;
@@ -161,7 +170,7 @@ export const MenuWrapper = styled.div`
   display: flex;
 `;
 export const MobileMenu = styled.img`
-  @media on screen and (max-width: ${mobileL}) {
+  @media screen and (max-width: ${mobileL}) {
     width: 24px;
     height: 24px;
     margin-right: 8px;

@@ -39,6 +39,9 @@ export const MenuList = styled.div`
     margin: 0 auto;
     margin-top: 17px;
   }
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+    width: 900px;
+  }
 `;
 export const Menu = styled.div`
   display: flex;
@@ -50,6 +53,9 @@ export const Menu = styled.div`
   cursor: pointer;
   @media screen and (max-width: ${mobileL}){
     margin: 0;
+  }
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+    margin-left: 720px;
   }
 `;
 export const MenuLogo = styled.img`
@@ -65,6 +71,10 @@ export const Wrapper = styled.div`
   font-size: 12px;
   @media screen and (max-width: ${mobileL}){
     width: 100vw;
+  }
+  @media screen and (min-width:${(props)=>props.theme.deviceSizes.tablet}){
+    width: 900px;
+    height: 400px;
   }
 `;
 export const SelectAll = styled.div`
@@ -100,6 +110,9 @@ export const StorageAlert = styled.li`
   @media screen and (max-width:${mobileL}){
     width: 100%;
   }
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+    width: 900px;
+  }
 `;
 export const MemoAlertWrapper = styled.div`
   display: block;
@@ -110,7 +123,7 @@ export const AlertContent = styled.div`
 `;
 export const AlertTitle = styled.a`
   width: 899px;
-  max-width: 899px;
+  
   max-height: 18px;
   margin-right: 45px;
   font-size: 12px;
@@ -120,6 +133,9 @@ export const AlertTitle = styled.a`
   @media screen and (max-width: ${mobileL}){
     width: 100%;
     max-width: 100%;
+  }
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+    width: 550px;
   }
 `;
 
