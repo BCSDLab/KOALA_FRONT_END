@@ -26,6 +26,7 @@ import AddKeyword from 'components/Keyword/AddKeyword';
 import ModifyKeyword from 'components/Keyword/ModifyKeyword';
 import SettingKeyword from 'components/Keyword/SettingKeyword';
 import ChatRoom from 'components/Chat/ChatRoom';
+import KeywordNotifyPage from 'pages/KeywordNotifyPage';
 
 const AuthorizedRoute = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -67,7 +68,7 @@ const App = () => {
 
         <Route element={<AuthorizedRoute />}>
           <Route exact path="/" />
-          <Route path="keyword/*" element={<KeywordPage />}>
+          <Route path="keyword/*" element={<KeywordNotifyPage />}>
             <Route index element={<KeywordFilterBar />}></Route>
             <Route path="create" element={<AddKeyword />}></Route>
             <Route path="modify" element={<ModifyKeyword />}></Route>
