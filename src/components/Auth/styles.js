@@ -126,7 +126,7 @@ export const AutoLoginText = styled.label`
   color: ${(props) => props.theme.colors.gray};
   margin-left: 4px;
   font-size: 12px;
-  width: auto;
+  width: 100%;
 
   :after {
     content: '자동 로그인';

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import * as S from './styles';
+import useMatchMedia from 'hooks/useMatchMedia';
 import { useLocation } from 'react-router';
 import theme from 'theme';
 
@@ -32,11 +33,11 @@ const queries = ['(max-width: ' + theme.deviceSizes.mobileL + ')'];
 
 const AuthTemplate = ({ children }) => {
   const location = useLocation();
-
+  const [desktop] = useMatchMedia(queries);
   return (
     <AuthTemplateBlock>
       <Box>
-        {location.pathname === '/auth' && (
+        {(location.pathname === '/auth' || !desktop ) && (
           <S.MainLogo>
             <S.MainLogoImg />
           </S.MainLogo>
