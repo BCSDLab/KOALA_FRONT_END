@@ -40,7 +40,7 @@ export const DisturbTitle = styled.span`
 `;
 
 export const DisturbContainer = styled.ul`
-  min-width: 1092px;
+  width: 1092px;
   height: 68px;
   border: 1.5px solid #eee;
   position: absolute;
@@ -48,6 +48,10 @@ export const DisturbContainer = styled.ul`
   top: 386px;
   display: flex;
   align-items: center;
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+    width: 800px;
+  
+  }
 `;
 
 export const DisturbCheckBox = styled.div`
@@ -61,6 +65,10 @@ export const DisturbCheckBox = styled.div`
 
 export const DisturbDay = styled.span`
   margin-right: 24px;
+  white-space: nowrap;
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+   margin-right: 12px;
+  }
 `;
 
 export const DisturbTimeStart = styled.input`
