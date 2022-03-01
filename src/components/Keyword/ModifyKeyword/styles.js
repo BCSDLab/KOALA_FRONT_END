@@ -29,6 +29,11 @@ export const HashtagContainer = styled.div`
     height: 40px;
     margin-bottom: 16px;
   }
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+   width: 700px;
+   top:172px;
+  
+  }
 `;
 
 export const HashtageImage = styled.img`
@@ -77,6 +82,10 @@ export const SearchContainer = styled(HashtagContainer)`
     }}
     margin-bottom: 0;
   }
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+    width: 700px;
+    top: 236px;
+  }
 `;
 
 export const RecommendItem = styled.li`
@@ -93,6 +102,10 @@ export const RecommendItem = styled.li`
     background-color: ${(props) => props.theme.colors.white};
     margin-bottom: 8px;
   }
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+    width: 690px;
+  }
+ 
 `;
 
 export const RecommendContainer = styled.ul`
@@ -116,6 +129,10 @@ export const RecommendContainer = styled.ul`
     }};
     background-color: ${(props) => props.theme.colors.white};
   }
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+    width: 724px;
+    top:285px;
+  }
 `;
 
 export const AlreadyRegisterMessage = styled.span`
@@ -136,6 +153,10 @@ export const InputSite = styled.input`
   border: none;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
   }
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+    width: 700px;
+  
+  }
 `;
 
 export const SiteContainer = styled(HashtagContainer)`
@@ -152,6 +173,10 @@ export const SiteContainer = styled(HashtagContainer)`
     border: 0;
     border-top: 8px;
   }
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+    top: 295px;
+  }
+  
 `;
 
 export const SiteList = styled.ul`
@@ -163,12 +188,14 @@ export const SiteList = styled.ul`
     display: flex;
     flex-direction: column;
   }
+ 
 `;
 
 export const SiteItem = styled.li`
   height: 21px;
   display: flex;
   align-items: center;
+  margin-left: 8px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: calc(100% - 24px);
     padding-left: 16px;
@@ -215,6 +242,7 @@ export const ImportantContainer = styled.div`
   cursor: pointer;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
   }
+
 `;
 
 export const NormalContainer = styled(ImportantContainer)`
