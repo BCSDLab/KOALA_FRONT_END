@@ -17,6 +17,10 @@ const AddKeywordContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+    width: 100%;
+  
+  }
 `;
 const AddkeywordContent = styled.div`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
@@ -27,6 +31,10 @@ const AddkeywordContent = styled.div`
     align-items: center;
     margin-top: 85px;
     padding: 0 16px;
+  }
+  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+    width: 100%;
+              
   }
 `;
 

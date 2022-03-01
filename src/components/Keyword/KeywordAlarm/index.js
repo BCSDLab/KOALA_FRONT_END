@@ -137,5 +137,6 @@ const KeywordAlarm = ({
 export default KeywordAlarm;
 
 const AlarmFormContainer = styled.div`
+  width: 700px;
   color: ${(props) => props.theme.colors.silver};
 `;
