@@ -139,6 +139,7 @@ const SearchIcon = styled.img`
 const AlarmContainer = styled.div`
   width: 100%;
   max-height: 800px;
+  overflow-y: auto;
   margin: 41px 0px 0px 13px;
 `;
 
@@ -149,6 +150,7 @@ const AlarmItem = styled.li`
   align-items: center;
   width: 100%;
   padding-bottom: 15px;
+  margin-bottom: 15px;
   border-bottom: 1.5px solid ${theme.colors.lightgray};
 `;
 
@@ -176,6 +178,41 @@ const FILTER_MENU = [
 ];
 
 const dummy = [
+  {
+    name: '아우누리',
+    id: 1,
+    content: '이유정장학재단_이유정장학금 장학생 선정안내',
+    read: '읽지 않음',
+    time: '8/15 - 18:30',
+  },
+  {
+    name: '아우누리',
+    id: 1,
+    content: '이유정장학재단_이유정장학금 장학생 선정안내',
+    read: '읽지 않음',
+    time: '8/15 - 18:30',
+  },
+  {
+    name: '아우누리',
+    id: 1,
+    content: '이유정장학재단_이유정장학금 장학생 선정안내',
+    read: '읽지 않음',
+    time: '8/15 - 18:30',
+  },
+  {
+    name: '아우누리',
+    id: 1,
+    content: '이유정장학재단_이유정장학금 장학생 선정안내',
+    read: '읽지 않음',
+    time: '8/15 - 18:30',
+  },
+  {
+    name: '아우누리',
+    id: 1,
+    content: '이유정장학재단_이유정장학금 장학생 선정안내',
+    read: '읽지 않음',
+    time: '8/15 - 18:30',
+  },
   {
     name: '아우누리',
     id: 1,
