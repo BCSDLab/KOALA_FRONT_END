@@ -45,8 +45,9 @@ export const MainList = styled.div`
     position: static;
     padding: 0px;
   }
-  @media screen and (min-width:${(props)=>props.theme.deviceSizes.tabletL}) {
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
   height: 400px;
+  width: 900px;
 }
 `;
 
@@ -57,7 +58,7 @@ export const MainItem = styled.div`
   padding-bottom: 15px;
   margin-bottom: 15px;
   border-bottom: 1.5px solid #eeeeee;
-  @media screen and (min-width:${(props)=>props.theme.deviceSizes.tabletL}) {
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
   width: 900px;
 }
 `;
@@ -87,7 +88,7 @@ export const MainContent = styled.div`
   cursor: pointer;
   margin-right: 65px;
   color: ${(props) => (props.readState ? '#999999' : '#222222')};
-  @media screen and (min-width:${(props)=>props.theme.deviceSizes.tabletL}) {
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
   width: 400px;
 }
 `;

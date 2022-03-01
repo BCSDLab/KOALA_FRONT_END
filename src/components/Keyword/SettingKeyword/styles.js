@@ -6,6 +6,7 @@ export const NotifyContainer = styled.div`
   position: absolute;
   left: ${(props) => (props.toggle ? '596px' : '461px')};
   top: 232px;
+ 
 `;
 
 export const VibrationContaienr = styled(NotifyContainer)`
@@ -48,9 +49,8 @@ export const DisturbContainer = styled.ul`
   top: 386px;
   display: flex;
   align-items: center;
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     width: 800px;
-  
   }
 `;
 
@@ -66,7 +66,7 @@ export const DisturbCheckBox = styled.div`
 export const DisturbDay = styled.span`
   margin-right: 24px;
   white-space: nowrap;
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
    margin-right: 12px;
   }
 `;
