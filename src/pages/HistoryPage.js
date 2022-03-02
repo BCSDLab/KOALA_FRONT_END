@@ -11,15 +11,11 @@ import useMatchMedia from 'hooks/useMatchMedia';
 
 const HistoryPageContent = styled.div`
   display: flex;
-  max-width: 1494px;
   height: 100%;
   overflow-y: hidden;
   overflow-x: hidden;
-  // max-width: 1294px;
   @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
     width: 100vw;
-    max-width: ${theme.deviceSizes.mobileL};
-    min-width: ${theme.deviceSizes.mobileS};
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -31,13 +27,9 @@ const HistoryPageContent = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  display: flex;
   width: 100%;
   height: 100%;
-  // justify-content: center;
-  margin-top: 121px;
-  align-items: center;
-  flex-direction: column;
+  margin: 121px 0 0 131px;
   @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
     position: fixed;
     justify-content: unset;
