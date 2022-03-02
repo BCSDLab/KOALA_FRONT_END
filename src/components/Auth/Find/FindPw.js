@@ -15,7 +15,7 @@ import * as S from 'components/Auth/styles';
 import styled from 'styled-components';
 import Button from 'components/Shared/Button';
 
-const queries = ['(max-width: 400px)', '(min-width: 800px)'];
+const queries = ['(max-width: 450px)'];
 
 const FindPw = () => {
   const [account, setAccount] = useState('');
@@ -30,7 +30,7 @@ const FindPw = () => {
   const [isConfirmedPasswordError, setIsConfirmedPasswordError] = useState(true);
 
   const changeComplete = useSelector((state) => state.auth.changeComplete);
-  const [mobile, desktop] = useMatchMedia(queries);
+  const [desktop] = useMatchMedia(queries);
 
   const onChangeAccount = (validatedData) => {
     setIsAccountError(validatedData.isError);
@@ -85,7 +85,7 @@ const FindPw = () => {
     <FindPasswordContainer>
       {!authSuccess ? (
         <>
-          {!desktop ? <MobileTopBar content="비밀번호찾기" /> : <S.Title>비밀번호 찾기</S.Title>}
+          {desktop ? <MobileTopBar content="비밀번호찾기" /> : <S.Title>비밀번호 찾기</S.Title>}
 
           <AccountForm ref={accountRef} onChange={onChangeAccount} />
           <EmailForm ref={emailRef} onChange={onChangeEmail} />
