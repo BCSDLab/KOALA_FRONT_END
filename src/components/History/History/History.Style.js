@@ -54,7 +54,7 @@ export const Sender = styled.div`
     width: 52px;
     margin: 0;
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     margin-right: 50px;
   
   }
@@ -152,7 +152,7 @@ export const PageWrapper = styled.div`
     width: 100vw;
     margin: 0 0 74px 0;
   }
-  @media screen and (min-width:${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     width: 900px;
     height: 400px;
   }

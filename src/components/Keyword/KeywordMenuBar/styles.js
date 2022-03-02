@@ -29,7 +29,7 @@ export const Menu = styled.nav`
     }
   
   }
-  @media screen and (min-width:${(props)=>props.theme.deviceSizes.tabletL}) {
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
       width: 900px;
     }
 `;

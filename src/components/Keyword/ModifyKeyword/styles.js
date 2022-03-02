@@ -29,7 +29,7 @@ export const HashtagContainer = styled.div`
     height: 40px;
     margin-bottom: 16px;
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tablet}) and (max-width: ${(props)=>props.theme.deviceSizes.tabletL}){
    width: 700px;
    top:172px;
   
@@ -82,7 +82,7 @@ export const SearchContainer = styled(HashtagContainer)`
     }}
     margin-bottom: 0;
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tablet}) and (max-width: ${(props)=>props.theme.deviceSizes.tabletL}){
     width: 700px;
     top: 236px;
   }
@@ -102,7 +102,7 @@ export const RecommendItem = styled.li`
     background-color: ${(props) => props.theme.colors.white};
     margin-bottom: 8px;
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tablet}) and (max-width: ${(props)=>props.theme.deviceSizes.tabletL}){
     width: 690px;
   }
  
@@ -129,7 +129,7 @@ export const RecommendContainer = styled.ul`
     }};
     background-color: ${(props) => props.theme.colors.white};
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tablet}) and (max-width: ${(props)=>props.theme.deviceSizes.tabletL}){
     width: 724px;
     top:285px;
   }
@@ -153,7 +153,7 @@ export const InputSite = styled.input`
   border: none;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     width: 700px;
   
   }
@@ -173,7 +173,7 @@ export const SiteContainer = styled(HashtagContainer)`
     border: 0;
     border-top: 8px;
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     top: 295px;
   }
   

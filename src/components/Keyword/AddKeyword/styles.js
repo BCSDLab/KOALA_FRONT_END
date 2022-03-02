@@ -42,7 +42,7 @@ export const HashtagContainer = styled.div`
       }
     }}
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     width: 700px;
     top: 172px;
   }
@@ -64,7 +64,7 @@ export const InputKeyword = styled.input`
     width: 100%;
     font-size: 12px;
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     width: 700px;
   
   }
@@ -102,7 +102,7 @@ export const SearchContainer = styled.div`
     padding: 0 0 0 16px;
     margin: 24px 0 8px;
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     width: 700px;
     top: 236px;
   
@@ -146,7 +146,7 @@ export const RecommendSiteContainer = styled.ul`
     }};
     background-color: ${(props) => props.theme.colors.white};
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     width: 724px;
     top: 285px;
   }
@@ -167,7 +167,7 @@ export const RecommendKeywordContainer = styled.ul`
     position: static;
     display: none;
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     width: 724px;
     top: 221px;
   }
@@ -224,7 +224,7 @@ export const SiteContainer = styled.div`
     border: 0;
     border-top: 8px;
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     width: 700px;
     top: 295px;
   }
@@ -294,7 +294,7 @@ export const ImportantContainer = styled.div`
   cursor: pointer;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     top: 460px;
   }
 `;
@@ -304,7 +304,7 @@ export const NormalContainer = styled(ImportantContainer)`
   cursor: pointer;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     top: 490px;
   }
 `;
@@ -361,7 +361,7 @@ export const SettingContainer = styled.div`
   flex-direction: column;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     top: 530px;
   }
 `;

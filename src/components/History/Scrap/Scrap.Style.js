@@ -39,7 +39,7 @@ export const MenuList = styled.div`
     margin: 0 auto;
     margin-top: 17px;
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     width: 900px;
   }
 `;
@@ -54,7 +54,7 @@ export const Menu = styled.div`
   @media screen and (max-width: ${mobileL}){
     margin: 0;
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     margin-left: 720px;
   }
 `;
@@ -72,7 +72,7 @@ export const Wrapper = styled.div`
   @media screen and (max-width: ${mobileL}){
     width: 100vw;
   }
-  @media screen and (min-width:${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     width: 900px;
     height: 400px;
   }
@@ -110,7 +110,7 @@ export const StorageAlert = styled.li`
   @media screen and (max-width:${mobileL}){
     width: 100%;
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     width: 900px;
   }
 `;
@@ -134,7 +134,7 @@ export const AlertTitle = styled.a`
     width: 100%;
     max-width: 100%;
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     width: 550px;
   }
 `;
