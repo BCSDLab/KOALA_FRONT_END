@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useMatchMedia from 'hooks/useMatchMedia';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import LoginForm from 'components/Auth/Login/LoginForm';
 import * as S from 'components/Auth/styles';
 import { useNavigate } from 'react-router';
 import { nonMemberLogin } from 'store/auth';
 import { uuid } from 'api/logined';
+import GoogleLoginButton from './SNSLogin/LoginButton/GoogleLoginButton';
+import KakaoLoginButton from './SNSLogin/LoginButton/KakaoLoginButton';
+import NaverLoginButton from './SNSLogin/LoginButton/NaverLoginButton';
 
 const LoginContainer = styled.div`
   display: flex;
@@ -63,100 +66,20 @@ const SNSLoginOptionSection = styled.div`
   justify-content: center;
 `;
 
-const LoginButtonAttributes = css`
-  border: none;
-  width: 343px;
-  height: 44px;
-  margin-bottom: 16px;
-  padding: 0 10px;
-  font-size: 16px;
-  font-weight: normal;
-  text-align: center;
-  :after {
-    content: '로그인';
-  }
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 328px;
-    height: 48px;
-    font-size: 14px;
-  }
-`;
-
-const GoogleLoginButton = styled.button`
-  ${LoginButtonAttributes}
-  border: solid 1px ${(props) => props.theme.colors.lightgray};
-  color: ${(props) => props.theme.colors.black};
-  background: 12px center no-repeat ${(props) => props.theme.colors.white} url('/asset/google-logo.svg');
-  background-size: 18px;
-  :after {
-    content: '구글 로그인';
-  }
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    background: 13px center no-repeat ${(props) => props.theme.colors.white} url('/asset/google-logo.svg');
-    background-size: 18px 18.8px;
-  }
-`;
-
-const NaverLoginButton = styled.button`
-  ${LoginButtonAttributes}
-  color: ${(props) => props.theme.colors.white};
-  background: 14px center no-repeat #03c75a url('/asset/naver-logo.svg');
-  background-size: 12.1px 12px;
-  :after {
-    content: '네이버 로그인';
-  }
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    background: 15px center no-repeat #03c75a url('/asset/naver-logo.svg');
-    background-size: 14.1px 14.6px;
-  }
-`;
-
-const KakaoLoginButton = styled.button`
-  ${LoginButtonAttributes}
-  color: ${(props) => props.theme.colors.black};
-  background: 14px center no-repeat #fee500 url('/asset/kakao-logo.svg');
-  background-size: 18px 16.6px;
-  :after {
-    content: '카카오 로그인';
-  }
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    background-size: 18px 17.4px;
-  }
-`;
-const MainLogo = styled.div`
-  margin-bottom: 48px;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+const MainLogo = styled(S.MainLogo)`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     display: flex;
-    justify-content: center;
   }
 `;
 
-const MainLogoImg = styled.img`
-  width: 125px;
-  height: 34px;
-  left: 125.2px;
-  position: relative;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 158px;
-    height: 43px;
-    left: 0;
-  }
-`;
-const queries = ['(max-width: 400px)', '(min-width: 800px)'];
+const queries = ['(max-width: 450px)'];
 
-/**
- * TODO:
- * - [] 비회원으로 이용하기 클릭시, keyword리스트 페이지로 이동
- * - [] 구글 로그인
- * - [] 네이버 로그인
- * - [] 카카오 로그인
- */
 const AuthMainForm = () => {
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.myPage);
   const [isNormalLogin, setIsNormalLogin] = useState(true);
   const dispatch = useDispatch();
-  const [mobile, desktop] = useMatchMedia(queries);
+  const [mobile] = useMatchMedia(queries);
 
   /*
    * - guid 함수를 통해 고유값을 device_token과 같이 활용한다.
@@ -183,11 +106,12 @@ const AuthMainForm = () => {
 
   return (
     <>
-      {!desktop && (
+      {mobile && (
         <MainLogo>
-          <MainLogoImg src="/asset/mainLogo.svg" alt="logo" />
+          <S.MainLogoImg />
         </MainLogo>
       )}
+
       <LoginContainer>
         <LoginOptionContainer>
           <LoginOptionButton onClick={() => setIsNormalLogin(true)} isClicked={isNormalLogin}>
@@ -210,7 +134,7 @@ const AuthMainForm = () => {
         )}
 
         <S.NoneUserLinkSection isNormalLogin={isNormalLogin}>
-          <S.NoneUserLink isNormalLogin={isNormalLogin} onClick={nonMemberService} to="/keyword">
+          <S.NoneUserLink onClick={nonMemberService} to="/keyword">
             비회원으로 이용하기
           </S.NoneUserLink>
         </S.NoneUserLinkSection>
