@@ -191,7 +191,6 @@ const ScrapContent = () => {
               checked={checkedList.includes(mail.id) ? true : false}
               readOnly
             />
-            {console.log(SITE_LIST[SITE_LIST.findIndex((site) => site.id === mail.site)])}
             <Sender>{SITE_LIST[SITE_LIST.findIndex((site) => site.id === mail.site)].title}</Sender>
             <S.MemoAlertWrapper>
               <S.AlertContent>
