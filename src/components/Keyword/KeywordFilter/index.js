@@ -108,7 +108,7 @@ const KeywordFilterBar = () => {
 
         keywordList.forEach((item) => {
           const id = item.id;
-          // dispatch(moveKeywordItem(id));
+          dispatch(moveKeywordItem(id));
         });
         setUndoList(keywordList);
         setPopUp('SCRAP');
@@ -123,7 +123,7 @@ const KeywordFilterBar = () => {
 
         filterList.forEach((item) => {
           const id = item.id;
-          // dispatch(moveKeywordItem(id));
+          dispatch(moveKeywordItem(id));
         });
         setUndoList(checkListId);
         setCheckListId([]);
@@ -159,7 +159,7 @@ const KeywordFilterBar = () => {
 
         if (checkListId.length === 1) {
           const query = `notice-id=${checkListId[0]}`;
-          // dispatch(deleteKeywordList(query));
+          dispatch(deleteKeywordList(query));
         } else {
           const startId = checkListId[0];
           const endId = checkListId[checkListId.length - 1];
