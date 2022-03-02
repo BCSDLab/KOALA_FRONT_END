@@ -93,7 +93,7 @@ export const FilterList = styled.nav`
 export const CheckBox = styled.div`
   width: 16px;
   height: 16px;
-  margin-right: 24px;
+  margin-right: 22px;
   border-radius: 3px;
   border: 1px solid #c4c4c4;
   cursor: pointer;
