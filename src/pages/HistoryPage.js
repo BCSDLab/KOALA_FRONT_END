@@ -32,6 +32,7 @@ const ContentWrapper = styled.div`
   margin: 121px 0 0 131px;
   @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
     position: fixed;
+    height: 0%;
     justify-content: unset;
     top: 0%;
     margin: 26px 0 0 0;
