@@ -1,8 +1,7 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { changeAlarmTerm, changeSiteName } from '../utils';
+import React, { useState, useCallback } from 'react';
+import { changeSiteName } from '../utils';
 import { ALARM_TERM } from 'constant';
 import { useNavigate } from 'react-router';
-import { inquiry } from 'store/keyword';
 import { patchModifyKeyword, createKeyword } from 'store/modifyKeyword';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -121,12 +120,9 @@ const KeywordAlarm = ({
         <S.SettingContainer toggle={isOpen}>
           <S.ModeContainer>
             <S.SlientMode>무음모드에도 알림</S.SlientMode>
-            <S.SlientCheckBox onClick={onClickSlientAlarm} isSlientAlarm={isSlientAlarm}></S.SlientCheckBox>
+            <S.SlientCheckBox isSlientAlarm={isSlientAlarm}></S.SlientCheckBox>
             <S.SlientMode>진동 알림</S.SlientMode>
-            <S.VibrationCheckBox
-              onClick={onClickVibrationAlarm}
-              isVibrationAlarm={isVibrationAlarm}
-            ></S.VibrationCheckBox>
+            <S.VibrationCheckBox isVibrationAlarm={isVibrationAlarm}></S.VibrationCheckBox>
           </S.ModeContainer>
           <S.AlarmContainer>
             <S.AlarmTitle>알람주기</S.AlarmTitle>
