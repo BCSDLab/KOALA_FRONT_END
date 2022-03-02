@@ -62,8 +62,10 @@ const KeywordDropdown = () => {
   }
   const queries = ['(max-width: 450px)', '(min-width: 800px)'];
   const [mobile, desktop] = useMatchMedia(queries);
+
   useEffect(() => {
-    if(location.pathname ==='/keyword'){
+    
+    if(location.pathname ==='/keyword' && mobile){
       setSelectItemId(null);
       setSelectAddKeyword(null);
       navigate(`/keyword`, { state: null })
