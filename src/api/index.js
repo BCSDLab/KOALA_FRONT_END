@@ -3,6 +3,22 @@ import logined from './logined';
 export const login = ({ deviceToken, account, password }) =>
   logined.post(`user/login?device_token=${deviceToken}`, { account, password });
 
+export const getOAuthToken = ({ uri, clientId, redirectUri, code, state, clientSecret }) =>
+  logined.post(
+    `${uri}/token`,
+    `grant_type=authorization_code&client_id=${clientId}${
+      redirectUri ? '&redirect_uri=' + redirectUri : ''
+    }&code=${code}${state ? '&state=' + state : ''}${clientSecret ? '&client_secret=' + clientSecret : ''}`,
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+    }
+  );
+
+export const socialLogin = ({ snsType, deviceToken }) =>
+  logined.post(`user/oauth2/${snsType}?device_token=${deviceToken}`);
+
 export const nonMember = ({ deviceToken }) => logined.post(`/user/non-member?device_token=${deviceToken}`);
 
 export const refresh = () => logined.post('user/refresh');
