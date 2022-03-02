@@ -20,16 +20,17 @@ export const ImportantContainer = styled.div`
   top: 501px;
   align-items: center;
   cursor: pointer;
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
     top: 461px;
-  
   }
 `;
 
 export const NormalContainer = styled(ImportantContainer)`
   top: 530px;
   cursor: pointer;
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
     top: 490px;
   }
 `;
@@ -78,7 +79,8 @@ export const SettingContainer = styled(HashtagContainer)`
   display: flex;
   border: 1.5px solid ${(props) => props.theme.colors.yellow};
   flex-direction: column;
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
     width: 700px;
     top: 530px;
   }
@@ -112,9 +114,9 @@ export const ErrorText = styled.div`
   position: absolute;
   left: ${(props) => (props.toggle ? '585px' : '453px')};
   top: 736px;
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
     top: 696px;
-  
   }
 `;
 
@@ -160,12 +162,13 @@ export const EditButton = styled.button`
   font-size: 14px;
   font-weight: 500;
   text-align: center;
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
     left: ${(props) => (props.toggle ? '818px' : '683px')};
     top: 754px;
   }
 `;
 
 export const CancelButton = styled(EditButton)`
-  left: ${(props) => (props.toggle ? '942px' : '807px')};
+  left: ${(props) => (props.toggle ? '1142px' : '1007px')};
 `;
