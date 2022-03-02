@@ -88,7 +88,7 @@ const FindId = () => {
       ) : (
         <FindAccountContainer>
           <FindAccountText>아이디는 {auth.blindAccount}입니다.</FindAccountText>
-          <NextButton onClick={completeClick}>완료</NextButton>
+          <CompleteButton onClick={completeClick}>완료</CompleteButton>
         </FindAccountContainer>
       )}
     </FindAccountForm>
@@ -129,7 +129,15 @@ const IdfForm = styled.div`
   }
 `;
 const NextButton = styled(Button)`
-  margin-top: 0;
+  margin-top:120px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 328px;
+    position: absolute;
+    bottom: 40px;
+  }
+`;
+const CompleteButton = styled(Button)`
+  margin-top:0px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 328px;
     position: absolute;

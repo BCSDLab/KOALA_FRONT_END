@@ -190,7 +190,7 @@ const SideNavbar = () => {
             src={location.pathname.includes('/keyword') ? '/asset/Hashtagblack.svg' : '/asset/Hashtag.svg'}
             alt="keyword"
           />
-          {!desktop && (
+          {mobile && (
             <MenuItemText onClick={moveKeywordMain} current={location.pathname.includes('/keyword') ? 1 : 0}>
               키워드
             </MenuItemText>
@@ -203,7 +203,7 @@ const SideNavbar = () => {
             to="/history"
             alt="history"
           />
-          {!desktop && <MenuItemText current={location.pathname.includes('/history') ? 1 : 0}>히스토리</MenuItemText>}
+          {mobile && <MenuItemText current={location.pathname.includes('/history') ? 1 : 0}>히스토리</MenuItemText>}
         </HistoryIcon>
         <ChattingIcon to="#" current={location.pathname.includes('/chat') ? 1 : 0}>
           <ChatImg
@@ -211,7 +211,7 @@ const SideNavbar = () => {
             src={location.pathname.includes('/chat') ? '/asset/Chatblack.svg' : '/asset/Chat.svg'}
             alt="chat"
           />
-          {!desktop && <MenuItemText current={location.pathname.includes('/chat') ? 1 : 0}>채팅방</MenuItemText>}
+          {mobile && <MenuItemText current={location.pathname.includes('/chat') ? 1 : 0}>채팅방</MenuItemText>}
         </ChattingIcon>
         <SettingIcon to="/mypage" current={location.pathname === '/mypage' ? 1 : 0}>
           <SettingImg
@@ -219,7 +219,7 @@ const SideNavbar = () => {
             src={location.pathname === '/mypage' ? '/asset/Settingblack.svg' : '/asset/Setting.svg'}
             alt="mypage"
           />
-          {!desktop && <MenuItemText current={location.pathname === '/mypage' ? 1 : 0}>설정</MenuItemText>}
+          {mobile && <MenuItemText current={location.pathname === '/mypage' ? 1 : 0}>설정</MenuItemText>}
         </SettingIcon>
       </Nav>
       {isOpen && <SideNavMenu />}
