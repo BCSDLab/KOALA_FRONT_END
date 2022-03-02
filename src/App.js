@@ -28,10 +28,6 @@ import ModifyKeyword from 'components/Keyword/ModifyKeyword';
 import SettingKeyword from 'components/Keyword/SettingKeyword';
 import ChatRoom from 'components/Chat/ChatRoom';
 
-import Google from 'components/Auth/Login/SNSLogin/OAuth/Google';
-import Kakao from 'components/Auth/Login/SNSLogin/OAuth/Kakao';
-import Naver from 'components/Auth/Login/SNSLogin/OAuth/Naver';
-
 const AuthorizedRoute = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   if (isLoggedIn === null) {
@@ -69,10 +65,6 @@ const App = () => {
           <Route path="findId" element={<FindId />} />
           <Route path="findPw" element={<FindPw />} />
         </Route>
-
-        <Route path="user/oauth2/authorization/kakao" element={<Kakao />} />
-        <Route path="google-login" element={<Google />} />
-        <Route path="callback" element={<Naver />} />
 
         <Route path="oAuth/*" element={<OAuthPage />} />
 
