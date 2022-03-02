@@ -48,7 +48,6 @@ const AddKeyword = () => {
   const [isRegisterItem, setIsRegisterItem] = useState(false);
   const [isRegisterKeyword, setIsRegisterKeyword] = useState(false);
 
-  const userInfo = useSelector((state) => state.auth);
   const { siteRecommendationList, keywordRecommendationList } = useSelector((state) => state.modifyKeyword);
   const { keywords } = useSelector((state) => state.keyword);
   const { isOpen } = useSelector((state) => state.toggle);
@@ -172,7 +171,11 @@ const AddKeyword = () => {
             이미 등록한 키워드입니다.
           </S.AlreadyRegisterKeyword>
         </S.HashtagContainer>
-        <S.RecommendKeywordContainer show={recommendKeyword === ''} toggle={isOpen}>
+        <S.RecommendKeywordContainer
+          show={recommendKeyword === ''}
+          isRegisterKeyword={isRegisterKeyword}
+          toggle={isOpen}
+        >
           {recommendKeywords.length !== 0 &&
             recommendKeywords.map((item, index) => {
               return (

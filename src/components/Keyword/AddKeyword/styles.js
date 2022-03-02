@@ -15,17 +15,15 @@ export const HashtagContainer = styled.div`
   ${(props) => {
     if (props.alreadyRegister) {
       return `
-        border:1.5px solid #ffd25d; 
+        border:1.5px solid ${theme.colors.yellow}; 
       `;
     }
-
     if (!props.keyword) {
       return `
-                border:1px solid ${theme.colors.darkgray};
-                border-bottom:none;
-            `;
+                  border:1px solid ${theme.colors.darkgray};
+              `;
     }
-  }}
+  }}}
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     position: static;
     width: calc(100% - 18px);
@@ -43,7 +41,7 @@ export const HashtagContainer = styled.div`
     }}
   }
   @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
+  props.theme.deviceSizes.NoteBook}) {
     width: 700px;
     top: 172px;
   }
@@ -86,16 +84,14 @@ export const SearchContainer = styled.div`
     if (!props.show) {
       return `
                 border:1px solid ${theme.colors.darkgray};
-                border-bottom:none;
             `;
-    } else {
-      if (props.alreadyRegister) {
-        return `
-                    border:1.5px solid #ffd25d;
-                `;
-      }
     }
-  }}
+    if (props.alreadyRegister) {
+      return `
+                    border:1.5px solid ${theme.colors.yellow};
+                `;
+    }
+  }}}
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     position: static;
     width: calc(100% - 18px);
@@ -104,7 +100,7 @@ export const SearchContainer = styled.div`
     margin: 24px 0 8px;
   }
   @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
+  props.theme.deviceSizes.NoteBook}) {
     width: 700px;
     top: 236px;
   }
@@ -157,7 +153,7 @@ export const RecommendSiteContainer = styled.ul`
 export const RecommendKeywordContainer = styled.ul`
   padding-left: none;
   width: 1116px;
-  border: 1px solid ${theme.colors.darkgray};
+  border: ${(props) => (props.isRegisterKeyword ? 'none' : `1px solid ${theme.colors.darkgray}`)};
   border-top: none;
   position: absolute;
   background-color: white;
