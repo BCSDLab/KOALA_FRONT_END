@@ -17,9 +17,8 @@ const AddKeywordContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media screen and (min-width: ${(props) => props.theme.deviceSizes.tablet}) {
     width: 100%;
-  
   }
 `;
 const AddkeywordContent = styled.div`
@@ -32,9 +31,8 @@ const AddkeywordContent = styled.div`
     margin-top: 85px;
     padding: 0 16px;
   }
-  @media screen and (min-width: ${(props)=>props.theme.deviceSizes.tablet}){
+  @media screen and (min-width: ${(props) => props.theme.deviceSizes.tablet}) {
     width: 100%;
-              
   }
 `;
 
@@ -248,6 +246,7 @@ const AddKeyword = () => {
         )}
         {!mobile ? (
           <KeywordAlarm
+            isRegisterKeyword={isRegisterKeyword}
             buttonText={'등록'}
             keywordName={selectRecommendKeyword}
             selectRecommendItem={selectRecommendItem}

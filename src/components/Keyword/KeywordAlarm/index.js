@@ -15,6 +15,7 @@ const KeywordAlarm = ({
   setSelectRecommendKeyword,
   buttonText,
   keywordName,
+  isRegisterKeyword,
 }) => {
   const [isImportantAlarm, setIsImportantAlarm] = useState(false);
   const [isNormalAlarm, setIsNormalAlarm] = useState(true);
@@ -40,12 +41,32 @@ const KeywordAlarm = ({
     setAlarmTerm(id);
   };
 
+  const onClickSlientAlarm = () => {
+    setIsSlientAlarm(true);
+    setIsVibrationAlarm(false);
+  };
+
+  const onClickVibrationAlarm = () => {
+    setIsVibrationAlarm(true);
+    setIsSlientAlarm(false);
+  };
+
   const onClickCancle = () => {
     navigate(-1);
     setSelectRecommendItem([]);
   };
 
   const onClickModifyButton = useCallback(() => {
+    if (selectRecommendItem.length === 0 || keywordName === false || alarmTerm === null) {
+      alert('필요한 항목을 입력해주세요');
+      return;
+    }
+
+    if (isRegisterKeyword) {
+      alert('이미 등록된 키워드 입니다');
+      return;
+    }
+
     setIsNormalAlarm(false);
     setIsImportantAlarm(false);
     setIsSlientAlarm(false);
@@ -100,9 +121,12 @@ const KeywordAlarm = ({
         <S.SettingContainer toggle={isOpen}>
           <S.ModeContainer>
             <S.SlientMode>무음모드에도 알림</S.SlientMode>
-            <S.SlientCheckBox isSlientAlarm={isSlientAlarm}></S.SlientCheckBox>
+            <S.SlientCheckBox onClick={onClickSlientAlarm} isSlientAlarm={isSlientAlarm}></S.SlientCheckBox>
             <S.SlientMode>진동 알림</S.SlientMode>
-            <S.VibrationCheckBox isVibrationAlarm={isVibrationAlarm}></S.VibrationCheckBox>
+            <S.VibrationCheckBox
+              onClick={onClickVibrationAlarm}
+              isVibrationAlarm={isVibrationAlarm}
+            ></S.VibrationCheckBox>
           </S.ModeContainer>
           <S.AlarmContainer>
             <S.AlarmTitle>알람주기</S.AlarmTitle>
