@@ -17,7 +17,7 @@ const KeywordList = ({
   setSearchButton,
   setCheckAll,
   menu,
-  keywordName
+  keywordName,
 }) => {
   const dispatch = useDispatch();
   const { keywordList } = useSelector((state) => state.keyword);
@@ -129,8 +129,7 @@ const KeywordList = ({
               <S.MainReadState>{item.isRead ? '읽음' : '읽지 않음'}</S.MainReadState>
               <S.MainPeriod readState={item.isRead}>{item.createdAt}</S.MainPeriod>
             </S.MainItem>
-          ) : (
-            keywordName!==null?
+          ) : keywordName !== null ? (
             <M.Alert key={item.id}>
               <M.AlertWrapper>
                 <S.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={checkListId.includes(item.id)} />
@@ -151,8 +150,7 @@ const KeywordList = ({
               </M.AlertWrapper>
               <M.AlertBorderLine />
             </M.Alert>
-            :null
-          );
+          ) : null;
         })}
     </S.MainList>
   );

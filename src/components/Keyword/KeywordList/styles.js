@@ -45,22 +45,24 @@ export const MainList = styled.div`
     position: static;
     padding: 0px;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-  height: 400px;
-  width: 900px;
-}
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
+    height: 400px;
+    width: 900px;
+  }
 `;
 
 export const MainItem = styled.div`
   width: 1310px;
   display: flex;
-  
+
   padding-bottom: 15px;
   margin-bottom: 15px;
   border-bottom: 1.5px solid #eeeeee;
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-  width: 900px;
-}
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
+    width: 900px;
+  }
 `;
 
 export const MainCheckBox = styled(CheckBox)`
@@ -81,21 +83,21 @@ export const MainCheckBoxTitle = styled(CheckBoxTitle)`
 export const MainContent = styled.div`
   width: 899px;
   font-size: 12px;
-  text-overflow : ellipsis;
+  text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   height: 18px;
   cursor: pointer;
   margin-right: 65px;
   color: ${(props) => (props.readState ? '#999999' : '#222222')};
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-  width: 400px;
-}
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
+    width: 400px;
+  }
 `;
 
 export const MainReadState = styled(MainContent)`
   width: 50px;
-  text-align: center;
   color: #999999;
   margin-right: 24px;
 `;
