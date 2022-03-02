@@ -40,23 +40,13 @@ const KeywordAlarm = ({
     setAlarmTerm(id);
   };
 
-  const onClickSlientAlarm = () => {
-    setIsSlientAlarm(true);
-    setIsVibrationAlarm(false);
-  };
-
-  const onClickVibrationAlarm = () => {
-    setIsVibrationAlarm(true);
-    setIsSlientAlarm(false);
-  };
-
   const onClickCancle = () => {
     navigate(-1);
     setSelectRecommendItem([]);
   };
 
   const onClickModifyButton = useCallback(() => {
-    if (selectRecommendItem.length === 0 || keywordName === false || alarmTerm === null) {
+    if (selectRecommendItem.length === 0 || keywordName === false) {
       alert('필요한 항목을 입력해주세요');
       return;
     }

@@ -13,7 +13,7 @@ export const MobileSearchWrapper = styled.div`
   margin-top: 20px;
 `;
 export const SearchInput = styled.input`
-  max-width: 665px;
+  width: 665px;
   padding: 8px;
   border: none;
   background-color: #eeeeee;
@@ -25,7 +25,7 @@ export const SearchInput = styled.input`
 `;
 
 export const SearchButton = styled.button`
-  max-width: 101px;
+  width: 101px;
   height: 34px;
   padding: 8px;
   display: flex;
