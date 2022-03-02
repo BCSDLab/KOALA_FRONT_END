@@ -27,6 +27,7 @@ export const KeyWordAlertList = styled.ol`
   overflow-y: scroll;
   @media screen and (max-width: ${mobileL}) {
     width: 100%;
+    height: calc(100vh-74px);
     margin: 0 0 0 5%;
   }
 `;
@@ -144,6 +145,7 @@ export const PageWrapper = styled.div`
   font-size: 12px;
   @media screen and (max-width: ${mobileL}) {
     width: 100vw;
+    margin: 0 0 74px 0;
   }
 `;
 export const Content = styled.div`

@@ -97,7 +97,6 @@ const MobileKeywordSelect = ({keywords, onClickAddKeyword, onClickItem}) => {
             keywordId.slice(1,2)
         }
         if(startPoint-e.changedTouches[0].clientX > (window.innerWidth*0.675)){
-            console.log(elementRef.current[id]);
             elementRef.current[id].style.left = `-${window.innerWidth}px`;
             keywordId.push(null);
             keywordId.slice(1,2)

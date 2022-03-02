@@ -61,7 +61,6 @@ const ReadMail = () => {
   );
 };
 const MobileMenuModal = ({ isOpen, showRead, showNotRead, isRead, isNotRead }) => {
-  console.log(isRead, isNotRead);
   return (
     <>
       {isOpen ? (
