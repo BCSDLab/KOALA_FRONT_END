@@ -173,6 +173,6 @@ export const MobileMenu = styled.img`
   @media screen and (max-width: ${mobileL}) {
     width: 24px;
     height: 24px;
-    margin-right: 8px;
+    margin: 6px 0 0 0;
   }
 `;
