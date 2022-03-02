@@ -222,72 +222,72 @@ const KeywordFilterBar = () => {
   }, [isMobilePopupOpen]);
   return (
     <>
-      {mobile && (
-        keywordName !== null?
-        <FilterContainer onClick={closeMobileMenu}>
-          <KeywordMenuBar isToggle={isOpen} menu={menu} setList={setList} onClickMenu={onClickMenu} />
+      {mobile &&
+        (keywordName !== null ? (
+          <FilterContainer onClick={closeMobileMenu}>
+            <KeywordMenuBar isToggle={isOpen} menu={menu} setList={setList} onClickMenu={onClickMenu} />
 
-          <KeywordSearch
-            setList={setList}
-            list={list}
-            keywordSearch={keywordSearch}
-            setKeywordSearch={setKeywordSearch}
-            setSearchButton={setSearchButton}
-          />
-          <S.MobileMenuBar onClick={(e) => e.stopPropagation()}>
-            <S.MobileSelectAll>
-              <S.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className="checkBox"></S.CheckBox>
-              <S.CheckBoxTitle onClick={onClickAllSelect} className="checkTitle">
-                전체 선택
-              </S.CheckBoxTitle>
-            </S.MobileSelectAll>
-            <S.MobileMenuList>
-              <S.FilterItem onClick={onClickGoStore} goStore={goStore} className="goStore">
-                <S.FilterItemImage src="/asset/inbox-in.svg" alt="inbox-in" />
-                <span>보관</span>
-              </S.FilterItem>
-              <S.FilterItem onClick={onClickDeleteList} className="delete">
-                <S.FilterItemImage src="/asset/trash.svg" alt="trash" />
-                <span>삭제</span>
-              </S.FilterItem>
-              <S.FilterItem onClick={onClickMobileMenu} className="mobileMenu">
-                <S.FilterItemImage src="/asset/MobileMenuDots.svg" alt="menu" />
-              </S.FilterItem>
-            </S.MobileMenuList>
-            <MobileMenuModal
-              isOpen={isMobileMenuOpen}
-              showRead={onClickReadNotification}
-              showNotRead={onClickNotReadNotification}
-              isRead={readNotification}
-              isNotRead={notReadNotification}
-            />
-          </S.MobileMenuBar>
-          <S.FilterList toggle={isOpen}>
-            <KeywordList
+            <KeywordSearch
+              setList={setList}
               list={list}
-              checkListId={checkListId}
-              setCheckListId={setCheckListId}
-              setKeywordSearch={setKeywordSearch}
-              checkAll={checkAll}
-              setCheckAll={setCheckAll}
-              setCheckAll={setCheckAll}
-              readNotification={readNotification}
-              notReadNotification={notReadNotification}
               keywordSearch={keywordSearch}
+              setKeywordSearch={setKeywordSearch}
               setSearchButton={setSearchButton}
-              searchButton={searchButton}
-              menu={menu}
             />
-          </S.FilterList>
-          <MobileDeleteModal isOpen={isMobilePopupOpen} undoList={undoList} undo={undoDelete} />
-          <MobileMoveScrapModal
-            isOpen={isMobilePopupOpen}
-            undoList={undoList}
-            numberAlert={undoList.length}
-            undo={undoMoveScrap}
-          />
-        </FilterContainer>:null
-      )}
+            <S.MobileMenuBar onClick={(e) => e.stopPropagation()}>
+              <S.MobileSelectAll>
+                <S.CheckBox onClick={onClickAllSelect} checkAll={checkAll} className="checkBox"></S.CheckBox>
+                <S.CheckBoxTitle onClick={onClickAllSelect} className="checkTitle">
+                  전체 선택
+                </S.CheckBoxTitle>
+              </S.MobileSelectAll>
+              <S.MobileMenuList>
+                <S.FilterItem onClick={onClickGoStore} goStore={goStore} className="goStore">
+                  <S.FilterItemImage src="/asset/inbox-in.svg" alt="inbox-in" />
+                  <span>보관</span>
+                </S.FilterItem>
+                <S.FilterItem onClick={onClickDeleteList} className="delete">
+                  <S.FilterItemImage src="/asset/trash.svg" alt="trash" />
+                  <span>삭제</span>
+                </S.FilterItem>
+                <S.FilterItem onClick={onClickMobileMenu} className="mobileMenu">
+                  <S.FilterItemImage src="/asset/MobileMenuDots.svg" alt="menu" />
+                </S.FilterItem>
+              </S.MobileMenuList>
+              <MobileMenuModal
+                isOpen={isMobileMenuOpen}
+                showRead={onClickReadNotification}
+                showNotRead={onClickNotReadNotification}
+                isRead={readNotification}
+                isNotRead={notReadNotification}
+              />
+            </S.MobileMenuBar>
+            <S.FilterList toggle={isOpen}>
+              <KeywordList
+                list={list}
+                checkListId={checkListId}
+                setCheckListId={setCheckListId}
+                setKeywordSearch={setKeywordSearch}
+                checkAll={checkAll}
+                setCheckAll={setCheckAll}
+                setCheckAll={setCheckAll}
+                readNotification={readNotification}
+                notReadNotification={notReadNotification}
+                keywordSearch={keywordSearch}
+                setSearchButton={setSearchButton}
+                searchButton={searchButton}
+                menu={menu}
+              />
+            </S.FilterList>
+            <MobileDeleteModal isOpen={isMobilePopupOpen} undoList={undoList} undo={undoDelete} />
+            <MobileMoveScrapModal
+              isOpen={isMobilePopupOpen}
+              undoList={undoList}
+              numberAlert={undoList.length}
+              undo={undoMoveScrap}
+            />
+          </FilterContainer>
+        ) : null)}
       {!mobile && (
         <>
           <KeywordHeader title={'키워드 알림'} toggle={false} />
