@@ -67,7 +67,7 @@ export const MENU_ITEM = [
     title: '전체',
   },
   {
-    id: 'PORTAL',
+    id: 1,
     title: '아우누리',
   },
   {
@@ -80,4 +80,14 @@ export const MENU_ITEM = [
   },
 ];
 
+export const SITE_LIST = [
+  {
+    id: 'PORTAL',
+    title: '아우누리'
+  },
+  {
+    id: 'DORM',
+    title: '아우미르'
+  }
+]
 export const queries = ['(max-width: 450px)', '(min-width: 800px)'];
