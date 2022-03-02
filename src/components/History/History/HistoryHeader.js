@@ -8,7 +8,7 @@ const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 const Header = styled.div`
   display: flex;
-  width: 1294px;
+  width: 1314px;
   // padding-bottom: 31px;
   border-bottom: 1px solid #eee;
   @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
@@ -18,7 +18,7 @@ const Header = styled.div`
     align-items: center;
     padding: 0;
   }
-  @media screen and (min-width:${(props)=>props.theme.deviceSizes.tablet}){
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
     width: 900px;
   }
 `;
