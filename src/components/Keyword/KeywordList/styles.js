@@ -88,7 +88,7 @@ export const MainContent = styled.div`
   overflow: hidden;
   height: 18px;
   cursor: pointer;
-  margin-right: 65px;
+  margin-right: 45px;
   color: ${(props) => (props.readState ? '#999999' : '#222222')};
   @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
       props.theme.deviceSizes.NoteBook}) {
@@ -99,6 +99,7 @@ export const MainContent = styled.div`
 export const MainReadState = styled(MainContent)`
   width: 50px;
   color: #999999;
+  text-align: center;
   margin-right: 24px;
 `;
 
