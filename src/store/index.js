@@ -20,6 +20,7 @@ import auth, {
   authAccountSaga,
   setAccountSaga,
   changeingPasswordSaga,
+  nonLoginSaga,
 } from './auth';
 import loading from './loading';
 import toggle from './toggle';
@@ -74,6 +75,7 @@ export function* rootSaga() {
     sendAccountSaga(),
     authAccountSaga(),
     setAccountSaga(),
+    nonLoginSaga(),
     changeingPasswordSaga(),
     changeImageSaga(),
     getSiteRecommendationSaga(),

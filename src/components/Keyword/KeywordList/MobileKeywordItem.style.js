@@ -4,6 +4,7 @@ const mobileL = theme.deviceSizes.mobileL;
 const { white, black, darkgray, lightgray, silver, gray, yellow } = theme.colors;
 
 export const Alert = styled.div`
+  margin-top: 24px;
   width: 90%;
   min-width: 90%;
   margin: 0 auto;

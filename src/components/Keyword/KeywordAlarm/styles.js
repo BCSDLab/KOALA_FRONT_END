@@ -38,7 +38,8 @@ export const CheckBox = styled.div`
   ${(props) => {
     if (props.isNormalAlarm || props.isImportantAlarm || props.isVibrationAlarm || props.isSlientAlarm) {
       return `
-                background-image:url('/asset/check.svg');
+                background-image:url('/asset/check_black.svg');
+                background-color: ${props.theme.colors.silver};
                 background-position:center;
             `;
     } else {
