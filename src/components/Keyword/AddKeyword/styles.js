@@ -5,7 +5,7 @@ export const HashtagContainer = styled.div`
   position: absolute;
   left: ${(props) => (props.toggle ? '588px' : '453px')};
   top: 212px;
-  width: 1000px;
+  width: 1092px;
   height: 48px;
   display: flex;
   align-items: center;
@@ -42,7 +42,8 @@ export const HashtagContainer = styled.div`
       }
     }}
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
     width: 700px;
     top: 172px;
   }
@@ -64,9 +65,9 @@ export const InputKeyword = styled.input`
     width: 100%;
     font-size: 12px;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
     width: 700px;
-  
   }
 `;
 
@@ -102,10 +103,10 @@ export const SearchContainer = styled.div`
     padding: 0 0 0 16px;
     margin: 24px 0 8px;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
     width: 700px;
     top: 236px;
-  
   }
 `;
 
@@ -146,7 +147,8 @@ export const RecommendSiteContainer = styled.ul`
     }};
     background-color: ${(props) => props.theme.colors.white};
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
     width: 724px;
     top: 285px;
   }
@@ -167,7 +169,8 @@ export const RecommendKeywordContainer = styled.ul`
     position: static;
     display: none;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
     width: 724px;
     top: 221px;
   }
@@ -224,11 +227,12 @@ export const SiteContainer = styled.div`
     border: 0;
     border-top: 8px;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
     width: 700px;
     top: 295px;
   }
-`
+`;
 
 export const SiteList = styled.ul`
   width: 100%;
@@ -294,7 +298,8 @@ export const ImportantContainer = styled.div`
   cursor: pointer;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
     top: 460px;
   }
 `;
@@ -304,7 +309,8 @@ export const NormalContainer = styled(ImportantContainer)`
   cursor: pointer;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
     top: 490px;
   }
 `;
@@ -361,7 +367,8 @@ export const SettingContainer = styled.div`
   flex-direction: column;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
     top: 530px;
   }
 `;
