@@ -62,6 +62,7 @@ export const KeywordSetting = styled(Link)`
 `;
 
 export const KeywordDropdownButton = styled.img`
+  display: none;
   width: 24px;
   height: 24px;
   margin-left: 14px;
