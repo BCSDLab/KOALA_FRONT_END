@@ -32,9 +32,10 @@ const HistoryPageContent = styled.div`
 
 const ContentWrapper = styled.div`
   display: flex;
-  width: 90%;
+  width: 100%;
   height: 100%;
-  justify-content: center;
+  // justify-content: center;
+  margin-top: 121px;
   align-items: center;
   flex-direction: column;
   @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
