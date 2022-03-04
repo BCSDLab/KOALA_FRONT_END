@@ -107,7 +107,7 @@ const KeywordList = ({
     setKeywordSearch('');
     setSearchButton(false);
   }, [searchButton]);
-  const queries = ['(max-width: 450px)'];
+  const queries = ['(max-width: 1024px)'];
   const [mobile] = useMatchMedia(queries);
   return (
     <S.MainList toggle={isOpen}>

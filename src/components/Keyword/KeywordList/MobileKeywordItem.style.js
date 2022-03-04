@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import theme from '../../../theme';
-const mobileL = theme.deviceSizes.mobileL;
+const tabletL = theme.deviceSizes.tabletL;
 const { white, black, darkgray, lightgray, silver, gray, yellow } = theme.colors;
 
 export const Alert = styled.div`
@@ -10,7 +10,7 @@ export const Alert = styled.div`
   margin: 0 auto;
 `;
 export const AlertWrapper = styled.li`
-  @media screen and (max-width: ${mobileL}) {
+  @media screen and (max-width: ${tabletL}) {
     width: 100%;
     display: flex;
     justify-content: start;
@@ -20,7 +20,7 @@ export const AlertWrapper = styled.li`
 `;
 
 export const AlertContent = styled.div`
-  @media screen and (max-width: ${mobileL}) {
+  @media screen and (max-width: ${tabletL}) {
     display: block;
     width: 100%;
     overflow: hidden;
@@ -29,7 +29,7 @@ export const AlertContent = styled.div`
 `;
 
 export const AlertDetail = styled.div`
-  @media screen and (max-width: ${mobileL}) {
+  @media screen and (max-width: ${tabletL}) {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -38,7 +38,7 @@ export const AlertDetail = styled.div`
 `;
 
 export const Sender = styled.div`
-  @media screen and (max-width: ${mobileL}) {
+  @media screen and (max-width: ${tabletL}) {
     font-size: 14px;
     width: 52px;
     color: ${(props) => (props.isRead ? '#999' : '#222')};
@@ -49,7 +49,7 @@ export const ReceiveDate = styled.div`
   color: #797979;
 `;
 export const AlertTitle = styled.a`
-  @media screen and (max-width: ${mobileL}) {
+  @media screen and (max-width: ${tabletL}) {
     display: block;
     max-width: 90%;
     overflow: hidden;
@@ -59,7 +59,7 @@ export const AlertTitle = styled.a`
   }
 `;
 export const AlertBorderLine = styled.div`
-  @media screen and (max-width: ${mobileL}) {
+  @media screen and (max-width: ${tabletL}) {
     &:after {
       display: block;
       content: '';
@@ -70,7 +70,7 @@ export const AlertBorderLine = styled.div`
   }
 `;
 export const MemoWrapper = styled.div`
-  @media screen and (max-width: ${mobileL}) {
+  @media screen and (max-width: ${tabletL}) {
     display: flex;
     justify-content: space-between;
     width: 96%;
@@ -157,7 +157,7 @@ export const SaveBtn = styled.div`
 `;
 
 export const NoResultBox = styled.div`
-  @media screen and (max-width: ${mobileL}) {
+  @media screen and (max-width: ${tabletL}) {
     width: 100%;
     color: ${gray};
     font-size: 14px;

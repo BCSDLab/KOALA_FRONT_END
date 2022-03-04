@@ -24,7 +24,8 @@ const ModifyKeyword = () => {
   const location = useLocation();
   const keywordName = location.state;
   const { isOpen } = useSelector((state) => state.toggle);
-  const [mobile, desktop] = useMatchMedia(MEDIA_QUERIES);
+  const queries = ['(max-width: 1024px)']
+  const [mobile] = useMatchMedia(queries);
 
   const delayInput = useCallback(
     debounce((value) => {
@@ -99,7 +100,7 @@ const ModifyKeyword = () => {
         </S.HashtagContainer>
         <S.SearchContainer toggle={isOpen} show={site === ''} alreadyRegister={alreadyRegisterItem}>
           <S.SearchImage src="/asset/searchblack.svg" alt="search_image" />
-          {desktop ? (
+          {!mobile ? (
             <S.InputSite
               placeholder="알림받을 사이트 검색"
               type="text"

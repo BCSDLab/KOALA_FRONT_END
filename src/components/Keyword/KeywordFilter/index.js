@@ -14,7 +14,7 @@ import MobileMenuModal from './MobileMenuModal';
 import styled from 'styled-components';
 import { MobileDeleteModal, MobileMoveScrapModal } from './MobilePopUp';
 import { deleteScrapItem } from 'store/scrap';
-const queries = [`(max-width: ${theme.deviceSizes.mobileL})`];
+const queries = [`(max-width: ${theme.deviceSizes.tabletL})`];
 
 const FilterContainer = styled.div`
   margin-top: 63px;
@@ -270,7 +270,6 @@ const KeywordFilterBar = () => {
                 setKeywordSearch={setKeywordSearch}
                 checkAll={checkAll}
                 setCheckAll={setCheckAll}
-                setCheckAll={setCheckAll}
                 readNotification={readNotification}
                 notReadNotification={notReadNotification}
                 keywordSearch={keywordSearch}
@@ -334,7 +333,6 @@ const KeywordFilterBar = () => {
             setCheckListId={setCheckListId}
             setKeywordSearch={setKeywordSearch}
             checkAll={checkAll}
-            setCheckAll={setCheckAll}
             setCheckAll={setCheckAll}
             readNotification={readNotification}
             notReadNotification={notReadNotification}

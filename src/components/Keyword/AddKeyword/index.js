@@ -10,19 +10,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import KeywordAlarm from '../KeywordAlarm';
 import KeywordInput from '../Mobile/InputKeyword';
 import useMatchMedia from 'hooks/useMatchMedia';
-import { queries } from 'constant';
 import styled from 'styled-components';
 
 const AddKeywordContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  @media screen and (min-width: ${(props) => props.theme.deviceSizes.tablet}) {
+  @media screen and (min-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 100%;
   }
 `;
 const AddkeywordContent = styled.div`
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: calc(100% - 32px);
     height: calc(100% - 61px);
     display: flex;
@@ -31,7 +30,7 @@ const AddkeywordContent = styled.div`
     margin-top: 85px;
     padding: 0 16px;
   }
-  @media screen and (min-width: ${(props) => props.theme.deviceSizes.tablet}) {
+  @media screen and (min-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 100%;
   }
 `;
@@ -52,8 +51,8 @@ const AddKeyword = () => {
   const { keywords } = useSelector((state) => state.keyword);
   const { isOpen } = useSelector((state) => state.toggle);
   const dispatch = useDispatch();
-
-  const [mobile, desktop] = useMatchMedia(queries);
+  const queries = ['(max-width : 1024px)']
+  const [mobile] = useMatchMedia(queries);
 
   const delayKeywordInput = useCallback(
     debounce((value) => {
@@ -158,7 +157,7 @@ const AddKeyword = () => {
       <AddkeywordContent>
         <S.HashtagContainer toggle={isOpen} keyword={recommendKeyword === ''} alreadyRegister={isRegisterKeyword}>
           <S.HashtageImage src="/asset/hashtagblack.svg" alt="hashtage_image" />
-          {desktop ? (
+          {!mobile ? (
             <S.InputKeyword
               placeholder="키워드 입력"
               onChange={onChangeRecommendKeyword}
@@ -187,7 +186,7 @@ const AddKeyword = () => {
         </S.RecommendKeywordContainer>
         <S.SearchContainer show={site === ''} alreadyRegister={isRegisterItem} toggle={isOpen}>
           <S.SearchImage src="/asset/searchblack.svg" alt="search_image" />
-          {desktop ? (
+          {!mobile ? (
             <S.InputSite
               placeholder="알림받을 사이트 검색"
               value={site}

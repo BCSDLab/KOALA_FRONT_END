@@ -2,7 +2,7 @@ import React, { useRef, useCallback } from 'react';
 import * as S from './styles';
 import useMatchMedia from 'hooks/useMatchMedia';
 import theme from '../../../theme';
-const queries = [`(max-width: ${theme.deviceSizes.mobileL}`];
+const queries = [`(max-width: ${theme.deviceSizes.tabletL}`];
 
 const KeywordSearch = ({ keywordSearch, setKeywordSearch, setSearchButton }) => {
   const inputSearch = useRef(null);
