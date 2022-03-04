@@ -45,7 +45,7 @@ const HistoryContent = () => {
     threshold: 0.0,
     triggerOnce: false,
   });
-  const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.mobileL}` });
+  const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.tabletL}` });
   const showRead = () => {
     if (command === 'read') {
       setCommand(null);

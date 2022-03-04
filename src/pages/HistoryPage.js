@@ -14,7 +14,7 @@ const HistoryPageContent = styled.div`
   height: 100%;
   overflow-y: hidden;
   overflow-x: hidden;
-  @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${theme.deviceSizes.tabletL}) {
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -30,7 +30,7 @@ const ContentWrapper = styled.div`
   width: 100%;
   height: 100%;
   margin: 121px 0 0 131px;
-  @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${theme.deviceSizes.tabletL}) {
     position: fixed;
     height: 0%;
     justify-content: unset;
@@ -39,7 +39,7 @@ const ContentWrapper = styled.div`
     z-index: 99;
   }
 `;
-const queries = [`(max-width: ${theme.deviceSizes.mobileL})`];
+const queries = [`(max-width: ${theme.deviceSizes.tabletL})`];
 const HistoryPage = () => {
   const [mobile] = useMatchMedia(queries);
   const location = useLocation();

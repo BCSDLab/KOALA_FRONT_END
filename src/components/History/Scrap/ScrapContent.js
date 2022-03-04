@@ -54,7 +54,7 @@ const ScrapContent = () => {
   const letter = useRef();
   const fixMemoValue = useRef(null);
   const writeMemoValue = useRef();
-  const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.mobileL}` });
+  const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.tabletL}` });
   useEffect(() => {
     if (userInfo.isLoggedIn) {
       dispatch(getMemo());

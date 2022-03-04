@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import theme from '../../../theme';
-const mobileL = theme.deviceSizes.mobileL;
+const tabletL = theme.deviceSizes.tabletL;
 const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 export const SwipeWrapper = styled.div`
@@ -21,7 +21,7 @@ export const Alert = styled.div`
     margin: 0 0 0 5%;
 `
 export const AlertWrapper = styled.li`
-    @media screen and (max-width: ${mobileL}){
+    @media screen and (max-width: ${tabletL}){
         width: 99%;
         display: flex;
         justify-content: start;
@@ -32,7 +32,7 @@ export const AlertWrapper = styled.li`
 
 
 export const AlertContent = styled.div`
-    @media screen and (max-width: ${mobileL}) {
+    @media screen and (max-width: ${tabletL}) {
         display: block;
         width: 85%;
         overflow: hidden;
@@ -41,7 +41,7 @@ export const AlertContent = styled.div`
 `
 
 export const AlertDetail = styled.div`
-    @media screen and (max-width: ${mobileL}) {
+    @media screen and (max-width: ${tabletL}) {
     width: 96%;
     display: flex;
     justify-content: space-between;
@@ -50,7 +50,7 @@ export const AlertDetail = styled.div`
 `
 
 export const Sender = styled.div`
-@media screen and (max-width: ${mobileL}) {
+@media screen and (max-width: ${tabletL}) {
     font-size: 14px;
     width: 52px;
   }
@@ -59,7 +59,7 @@ export const ReceiveDate = styled.div`
 font-size: 11px;
 `
 export const AlertTitle = styled.div`
-@media screen and (max-width: ${mobileL}) {
+@media screen and (max-width: ${tabletL}) {
     display: block;
     max-width: 90%;
     overflow: hidden;
@@ -68,7 +68,7 @@ export const AlertTitle = styled.div`
   }
 `
 export const AlertBorderLine = styled.div`
-  @media screen and (max-width: ${mobileL}){
+  @media screen and (max-width: ${tabletL}){
     &:after{
         display: block;
         content:"";
@@ -79,7 +79,7 @@ export const AlertBorderLine = styled.div`
   }
 `
 export const MemoWrapper = styled.div`
-  @media screen and (max-width: ${mobileL}){
+  @media screen and (max-width: ${tabletL}){
       display: flex;
       justify-content: space-between;
       width: 96%;
