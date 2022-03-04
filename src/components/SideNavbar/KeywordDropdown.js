@@ -60,18 +60,18 @@ const KeywordDropdown = () => {
   if (keywords === undefined) {
     dispatch(inquiry());
   }
-  const queries = ['(max-width: 450px)', '(min-width: 800px)'];
-  const [mobile, desktop] = useMatchMedia(queries);
+  const queries = ['(max-width: 1024px)'];
+  const [desktop] = useMatchMedia(queries);
 
   useEffect(() => {
     
-    if(location.pathname ==='/keyword' && mobile){
+    if(location.pathname ==='/keyword' && desktop){
       setSelectItemId(null);
       setSelectAddKeyword(null);
       navigate(`/keyword`, { state: null })
     }
   },[])
-  return mobile ? (
+  return desktop ? (
     location.pathname ==='/keyword' ? (
       keywordName!==null?
       <S.MobileKeyWordHeader>

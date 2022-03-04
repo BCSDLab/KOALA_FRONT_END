@@ -18,7 +18,7 @@ const Nav = styled.div`
   flex-direction: column;
   align-items: center;
 
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 100%;
     height: 74px;
     margin: 0;
@@ -38,7 +38,7 @@ const NavContainer = styled.div`
   display: flex;
   position: static;
   left: 0px;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     display: flex;
     position: absolute;
     width: 100vw;
@@ -54,7 +54,7 @@ const MenuButton = styled.button`
   cursor: pointer;
   border: 0;
   background-color: ${(props) => props.theme.colors.white};
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     display: none;
   }
 `;
@@ -63,7 +63,7 @@ const MenuImg = styled.img`
   width: 26px;
   height: 20px;
   object-fit: contain;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     display: none;
   }
 `;
@@ -73,7 +73,7 @@ const HashTagImg = styled.img`
   height: 32px;
   margin: 0;
   object-fit: contain;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 23px;
     height: 23.3px;
     object-fit: contain;
@@ -89,7 +89,7 @@ const HistoryImg = styled.img`
       : `40px 0;
   `};
   object-fit: contain;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 23px;
     height: 23.3px;
     margin: 0;
@@ -105,7 +105,7 @@ const ChatImg = styled.img`
       : `0 0;
 `};
   object-fit: contain;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 23px;
     height: 23.3px;
     margin: 0;
@@ -124,7 +124,7 @@ const SettingImg = styled.img`
       : `top: 356px;
 `};
   object-fit: contain;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 23px;
     height: 23.3px;
     margin: 0;
@@ -147,7 +147,7 @@ const MenuItemText = styled.span`
 `;
 
 const Icon = styled(Link)`
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 25%;
     height: 74px;
     display: flex;
@@ -164,7 +164,7 @@ const HistoryIcon = styled(Icon)``;
 const ChattingIcon = styled(Icon)``;
 const SettingIcon = styled(Icon)``;
 
-const queries = ['(max-width: 450px)', '(min-width: 800px)'];
+const queries = ['(max-width: 1024px)'];
 const SideNavbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -175,7 +175,7 @@ const SideNavbar = () => {
     dispatch(opened());
   };
 
-  const [mobile, desktop] = useMatchMedia(queries);
+  const [mobile] = useMatchMedia(queries);
   const moveKeywordMain = () => {
     navigate(`/keyword`, { state: null });
   };
@@ -217,6 +217,7 @@ const SideNavbar = () => {
           <SettingImg
             isSideMenu={isOpen}
             src={location.pathname === '/mypage' ? '/asset/Settingblack.svg' : '/asset/Setting.svg'}
+            to="/mypage"
             alt="mypage"
           />
           {mobile && <MenuItemText current={location.pathname === '/mypage' ? 1 : 0}>설정</MenuItemText>}
