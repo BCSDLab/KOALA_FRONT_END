@@ -56,7 +56,6 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="mypage" element={<MyPage />} />
         <Route exact path="auth/*" element={<AuthPage />}>
           <Route index element={<Login />} />
           <Route path="createLog" element={<RegisterDoc />} />
@@ -66,6 +65,7 @@ const App = () => {
         </Route>
 
         <Route element={<AuthorizedRoute />}>
+        <Route exact path="mypage" element={<MyPage />} />
           <Route exact path="/" />
           <Route path="keyword/*" element={<KeywordPage />}>
             <Route index element={<KeywordFilterBar />}></Route>
