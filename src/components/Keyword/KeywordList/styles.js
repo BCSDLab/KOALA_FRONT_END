@@ -42,6 +42,7 @@ export const MainList = styled.div`
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
     min-width: ${mobileS};
+    overflow-x: none;
     position: static;
     padding: 0px;
   }
@@ -61,7 +62,7 @@ export const MainItem = styled.div`
   border-bottom: 1.5px solid #eeeeee;
   @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
       props.theme.deviceSizes.NoteBook}) {
-    width: 900px;
+    width: 895px;
   }
 `;
 

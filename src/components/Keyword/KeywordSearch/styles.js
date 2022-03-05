@@ -22,8 +22,9 @@ export const SearchInput = styled.input`
     padding: 0 0 0 8px;
     height: 40px;
   }
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) => props.theme.deviceSizes.NoteBook}) {
-    width: 275px;
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
+    width: 260px;
   }
 `;
 
