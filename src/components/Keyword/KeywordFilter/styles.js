@@ -15,7 +15,6 @@ export const Menu = styled.nav`
   @media screen and (max-width: ${tabletL}) {
     position: static;
   }
-  
 `;
 
 export const Item = styled.span`
@@ -58,7 +57,7 @@ export const ItemUnderBar = styled.div`
 `;
 
 export const FilterList = styled.nav`
-  width: 1310px;
+  width: 1313px;
   height: 36px;
   display: flex;
   align-items: center;
@@ -89,7 +88,6 @@ export const FilterList = styled.nav`
     width: 100vw;
     min-width: ${mobileS};
   }
-  
 `;
 
 export const CheckBox = styled.div`
@@ -135,8 +133,9 @@ export const FilterReadNotification = styled.span`
             `;
     }
   }}
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) => props.theme.deviceSizes.NoteBook}) {
-    padding: 4px 2px;
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+    props.theme.deviceSizes.NoteBook}) {
+    padding: 8px;
   }
 `;
 export const FilterNotReadNotification = styled.span`
