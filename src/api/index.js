@@ -59,6 +59,7 @@ export const keywordAPI = {
   getSiteRecommendation: (site) => logined.get(`keyword/site/search/${site}`),
   getKeywordRecommendation: (keyword) => logined.get(`keyword/search/${keyword}`),
   getRecommendationSite: () => logined.get(`keyword/site/recommendation`),
+  getRecommendationKeyword: () => logined.get(`keyword/recommendation`),
 };
 
 export const historyAPI = {
