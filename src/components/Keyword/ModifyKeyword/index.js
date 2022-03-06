@@ -18,13 +18,14 @@ const ModifyKeyword = () => {
   const [recommendList, setRecommendList] = useState([]);
   const [selectRecommendItem, setSelectRecommendItem] = useState([]);
   const [alreadyRegisterItem, setAlreadyRegisterItem] = useState(false);
+  const [serchedSites, setSerchedSites] = useState(JSON.parse(localStorage.getItem('serchedSites') || '[]'));
   const { siteRecommendationList } = useSelector((state) => state.modifyKeyword);
   const { keywordInfo } = useSelector((state) => state.modifyKeyword);
   const dispatch = useDispatch();
   const location = useLocation();
   const keywordName = location.state;
   const { isOpen } = useSelector((state) => state.toggle);
-  const queries = ['(max-width: 1024px)']
+  const queries = ['(max-width: 1024px)'];
   const [mobile] = useMatchMedia(queries);
 
   const delayInput = useCallback(
@@ -51,6 +52,13 @@ const ModifyKeyword = () => {
       if (!selectRecommendItem.includes(value)) {
         setSelectRecommendItem([...selectRecommendItem, value]);
         setSite('');
+        const newSite = value;
+        if (0 > serchedSites.indexOf(newSite)) {
+          serchedSites.unshift(newSite);
+          if (serchedSites.length > 3) {
+            serchedSites.pop();
+          }
+        }
       } else {
         setSite('');
         setAlreadyRegisterItem(true);
@@ -143,6 +151,8 @@ const ModifyKeyword = () => {
           <SiteInput
             setSite={setSite}
             site={site}
+            serchedSites={serchedSites}
+            setSerchedSites={setSerchedSites}
             setAlreadyRegisterItem={setAlreadyRegisterItem}
             setSelectedRecommendItem={setSelectRecommendItem}
             setIsMobileSite={setIsMobileSite}

@@ -110,9 +110,16 @@ const HashImage = styled.img`
   margin-right: 5px;
 `;
 
-const InputSite = ({ setIsMobileSite, onClickRecommendItem, setSite, site, setAlreadyRegisterItem }) => {
+const InputSite = ({
+  setIsMobileSite,
+  onClickRecommendItem,
+  serchedSites,
+  setserchedSites,
+  setSite,
+  site,
+  setAlreadyRegisterItem,
+}) => {
   const [isRecommendSite, setIsRecommendSite] = useState(false);
-  const [serchedSites, setserchedSites] = useState(JSON.parse(localStorage.getItem('serchedSites') || '[]'));
   const dispatch = useDispatch();
   const { siteRecommendationList } = useSelector((state) => state.modifyKeyword);
   const { recommendationSiteList } = useSelector((state) => state.modifyKeyword);
@@ -134,10 +141,15 @@ const InputSite = ({ setIsMobileSite, onClickRecommendItem, setSite, site, setAl
   };
 
   const onClickHashButton = (site) => {
-    setIsMobileSite(false);
     const newSite = site;
-    if (!serchedSites.indexOf(newSite)) setserchedSites([newSite, ...serchedSites]);
+    if (0 > serchedSites.indexOf(newSite)) {
+      serchedSites.unshift(newSite);
+      if (serchedSites.length > 3) {
+        serchedSites.pop();
+      }
+    }
     setSite('');
+    setIsMobileSite(false);
   };
 
   useEffect(() => {
@@ -157,7 +169,7 @@ const InputSite = ({ setIsMobileSite, onClickRecommendItem, setSite, site, setAl
           <BackImage src="/asset/BackButton.svg" />
         </BackButton>
         <KeywordSearch onChange={onChangeSiteInput} value={site} placeholder="알림받을 사이트 검색"></KeywordSearch>
-        <SearchButton onClick={onClickHashButton}>
+        <SearchButton onClick={(site) => onClickRecommendItem}>
           <img src="/asset/HashtagWhite.svg" />
         </SearchButton>
       </Header>
@@ -172,7 +184,7 @@ const InputSite = ({ setIsMobileSite, onClickRecommendItem, setSite, site, setAl
           <List>
             {!isRecommendSite ? (
               <>
-                {siteRecommendationList.map((item, index) => {
+                {serchedSites.map((item, index) => {
                   return <Item key={index}>{item}</Item>;
                 })}
               </>

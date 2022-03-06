@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { getKeywordRecommendation, getSiteRecommendation } from 'store/modifyKeyword';
+import { getKeywordRecommendation, getRecommendationKeyword } from 'store/modifyKeyword';
 import { inquiry } from 'store/keyword';
 import { useCallback } from 'react';
 
@@ -64,12 +64,12 @@ const RecommendKeyword = styled.span`
 `;
 
 const UnderBar = styled.div`
-  width: 328px;
+  width: calc(100% - 32px);
   height: 1px;
+  margin: 0 16px;
   background-color: #eee;
   position: absolute;
   top: 109.6px;
-  left: 16px;
 `;
 
 const UnderBarBalck = styled.div`
@@ -82,12 +82,12 @@ const UnderBarBalck = styled.div`
 `;
 
 const List = styled.ul`
-  width: 328px;
+  width: calc(100% - 28px);
   height: 320px;
+  padding: 0 14px;
   overflow: scroll;
   position: absolute;
   top: 127.6px;
-  left: 16px;
 `;
 
 const Item = styled.li`
@@ -99,7 +99,7 @@ const KeywordList = styled(List)`
 `;
 
 const KeywordItem = styled(Item)`
-  width: 328px;
+  width: 100%;
   height: 50px;
   background-color: #eee;
   position: relative;
@@ -122,6 +122,8 @@ const InputKeyword = ({
   setKeyword,
   keyword,
   setAlreadyRegisterItem,
+  serchedKeywords,
+  setSerchedKeywords,
   selectRecommendKeyword,
   setSelectedRecommendItem,
   setSelectRecommendKeyword,
@@ -132,7 +134,7 @@ const InputKeyword = ({
   const [serchKeywords, setSerchedKeyword] = useState(false);
   const [isRegisterKeyword, setIsRegisterKeyword] = useState(false);
   const dispatch = useDispatch();
-
+  const { recommendationKeywordList } = useSelector((state) => state.modifyKeyword);
   const { keywordRecommendationList } = useSelector((state) => state.modifyKeyword);
   const { keywords: registeredKeyword } = useSelector((state) => state.keyword);
   const onClickChevronLeft = () => {
@@ -162,6 +164,7 @@ const InputKeyword = ({
         setIsRegisterKeyword(true);
       }
     });
+
     setKeyword(keyword);
     setSelectRecommendKeyword(keyword);
   }, [keyword, registeredKeyword]);
@@ -178,7 +181,12 @@ const InputKeyword = ({
 
   useEffect(() => {
     dispatch(inquiry());
+    dispatch(getRecommendationKeyword());
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('serchedKeywords', JSON.stringify(serchedKeywords));
+  }, [serchKeywords]);
 
   return (
     <Container>
@@ -196,11 +204,19 @@ const InputKeyword = ({
           <RecommendKeyword onClick={onClickRecommendKeyword}>추천 키워드</RecommendKeyword>
           <UnderBar></UnderBar>
           <UnderBarBalck isRecommendKeyword={isRecommendKeyword}></UnderBarBalck>
-          <List>
-            {keywords.map((item) => {
-              return <Item key={item.id}>{item.name}</Item>;
-            })}
-          </List>
+          {!isRecommendKeyword ? (
+            <List>
+              {serchedKeywords.map((item, index) => {
+                return <Item key={index}>{item}</Item>;
+              })}
+            </List>
+          ) : (
+            <List>
+              {recommendationKeywordList.map((item, index) => {
+                return <Item key={index}>{item}</Item>;
+              })}
+            </List>
+          )}
         </>
       ) : (
         <>
@@ -208,7 +224,7 @@ const InputKeyword = ({
             {keyword &&
               keywordRecommendationList.map((item, index) => {
                 return (
-                  <KeywordItem onClick={() => onClickKeyword(item)} key={index}>
+                  <KeywordItem onClick={() => onClickRecommendItem(item)} key={index}>
                     <HashImage src="/asset/Hashtagblack.svg" />
                     <span>{item}</span>
                   </KeywordItem>

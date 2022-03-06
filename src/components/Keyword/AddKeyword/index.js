@@ -46,12 +46,13 @@ const AddKeyword = () => {
   const [selectRecommendKeyword, setSelectRecommendKeyword] = useState('');
   const [isRegisterItem, setIsRegisterItem] = useState(false);
   const [isRegisterKeyword, setIsRegisterKeyword] = useState(false);
-
+  const [serchedSites, setSerchedSites] = useState(JSON.parse(localStorage.getItem('serchedSites') || '[]'));
+  const [serchedKeywords, setSerchedKeywords] = useState(JSON.parse(localStorage.getItem('serchedKeywords') || '[]'));
   const { siteRecommendationList, keywordRecommendationList } = useSelector((state) => state.modifyKeyword);
   const { keywords } = useSelector((state) => state.keyword);
   const { isOpen } = useSelector((state) => state.toggle);
   const dispatch = useDispatch();
-  const queries = ['(max-width : 1024px)']
+  const queries = ['(max-width : 1024px)'];
   const [mobile] = useMatchMedia(queries);
 
   const delayKeywordInput = useCallback(
@@ -92,6 +93,13 @@ const AddKeyword = () => {
       if (!selectRecommendItem.includes(value)) {
         setSelectRecommendItem([...selectRecommendItem, value]);
         setSite('');
+        const newSite = value;
+        if (0 > serchedSites.indexOf(newSite)) {
+          serchedSites.unshift(newSite);
+          if (serchedSites.length > 3) {
+            serchedSites.pop();
+          }
+        }
       } else {
         setSite('');
         setIsRegisterItem(true);
@@ -105,11 +113,18 @@ const AddKeyword = () => {
   const onClickRecommendKeyword = useCallback(
     (keyword) => {
       setIsRegisterKeyword(false);
-
       if (!keywords.includes(keyword)) {
         setSelectRecommendKeyword(keyword);
         setRecommendKeywords([]);
+        const newKeyword = keyword;
+        if (0 > serchedKeywords.indexOf(newKeyword)) {
+          serchedKeywords.unshift(newKeyword);
+          if (serchedKeywords.length > 3) {
+            serchedKeywords.pop();
+          }
+        }
       } else {
+        setRecommendKeyword('');
         setIsRegisterKeyword(true);
       }
 
@@ -118,6 +133,7 @@ const AddKeyword = () => {
           setIsRegisterKeyword(true);
         }
       });
+
       setIsMobileKeyword(false);
     },
     [keywords]
@@ -164,7 +180,11 @@ const AddKeyword = () => {
               value={(selectRecommendKeyword === '' ? recommendKeyword : selectRecommendKeyword) || ''}
             ></S.InputKeyword>
           ) : (
-            <S.InputKeyword placeholder="키워드 입력" defaultValue={recommendKeyword} onClick={mobileSearchKeyword} />
+            <S.InputKeyword
+              placeholder="키워드 입력"
+              defaultValue={(selectRecommendKeyword === '' ? recommendKeyword : selectRecommendKeyword) || ''}
+              onClick={mobileSearchKeyword}
+            />
           )}
           <S.AlreadyRegisterKeyword alreadyRegister={isRegisterKeyword}>
             이미 등록한 키워드입니다.
@@ -228,6 +248,8 @@ const AddKeyword = () => {
           <KeywordInput
             setKeyword={setRecommendKeyword}
             keyword={recommendKeyword}
+            serchedKeywords={serchedKeywords}
+            setSerchedKeywords={setSerchedKeywords}
             selectRecommendKeyword={selectRecommendKeyword}
             setSelectRecommendKeyword={setSelectRecommendKeyword}
             setAlreadyRegisterItem={setIsRegisterKeyword}
@@ -244,6 +266,8 @@ const AddKeyword = () => {
             setSelectedRecommendItem={setSelectRecommendItem}
             setIsMobileSite={setIsMobileSite}
             onClickRecommendItem={addRecommendSite}
+            serchedSites={serchedSites}
+            setSerchedSites={setSerchedSites}
           />
         )}
         {!mobile ? (
