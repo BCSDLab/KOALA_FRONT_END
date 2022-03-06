@@ -5,6 +5,7 @@ import { LOGIN } from './constant';
 import { refresh } from 'store/auth';
 import { getUserInfo } from 'store/myPage';
 import AuthPage from 'pages/AuthPage';
+import OAuthPage from 'pages/OAuthPage';
 import Login from 'components/Auth/Login/Login';
 import FindId from 'components/Auth/Find/FindId';
 import FindPw from 'components/Auth/Find/FindPw';
@@ -63,6 +64,8 @@ const App = () => {
           <Route path="findId" element={<FindId />} />
           <Route path="findPw" element={<FindPw />} />
         </Route>
+
+        <Route path="oAuth/*" element={<OAuthPage />} />
 
         <Route element={<AuthorizedRoute />}>
         <Route exact path="mypage" element={<MyPage />} />

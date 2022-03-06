@@ -29,8 +29,6 @@ const Box = styled.div`
   }
 `;
 
-const queries = ['(max-width: ' + theme.deviceSizes.mobileL + ')'];
-
 const AuthTemplate = ({ children }) => {
   const location = useLocation();
   const [desktop] = useMatchMedia(queries);

@@ -5,6 +5,10 @@ export const MainLogo = styled.div`
   margin-bottom: 48px;
   display: flex;
   justify-content: center;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    display: none;
+  }
 `;
 
 export const MainLogoImg = styled.i`
@@ -194,9 +198,16 @@ export const OauthLogin = styled.div`
 `;
 
 export const NoneUserLinkSection = styled.section`
-  height: ${({ isNormalLogin }) => (isNormalLogin ? '383px' : '471px')};
+  height: ${({ isNormalLogin }) => (isNormalLogin ? '383px' : '463px')};
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  > a {
+    position: relative;
+    top: ${({ isNormalLogin }) => (isNormalLogin ? '0' : '40px')};
+  }
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     height: 163px;
     display: ${({ isNormalLogin }) => (isNormalLogin ? 'block' : 'none')};
   }
@@ -205,7 +216,6 @@ export const NoneUserLinkSection = styled.section`
 export const NoneUserLink = styled(Link)`
   display: inline-block;
   width: 100%;
-  margin: ${({ isNormalLogin }) => (isNormalLogin ? '164px 0 198px 0' : '252px 0 198px 0')};
   color: ${(props) => props.theme.colors.gray};
   font-size: 14px;
   font-weight: normal;
