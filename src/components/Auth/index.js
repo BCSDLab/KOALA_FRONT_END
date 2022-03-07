@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import * as S from './styles';
 import useMatchMedia from 'hooks/useMatchMedia';
 import { useLocation } from 'react-router';
-import theme from 'theme';
 
 const AuthTemplateBlock = styled.div`
   display: flex;
@@ -31,16 +30,16 @@ const Box = styled.div`
 
 const AuthTemplate = ({ children }) => {
   const location = useLocation();
-  const [desktop] = useMatchMedia(queries);
+  const queries = ['(max-width: 450px)'];
+  const [mobile] = useMatchMedia(queries);
   return (
     <AuthTemplateBlock>
       <Box>
-        {(location.pathname === '/auth' || !desktop ) && (
+        {(location.pathname === '/auth' || !mobile) && (
           <S.MainLogo>
             <S.MainLogoImg />
           </S.MainLogo>
         )}
-
         {children}
       </Box>
     </AuthTemplateBlock>
