@@ -20,7 +20,7 @@ const AddKeywordContainer = styled.div`
     width: 100%;
   }
 `;
-const AddkeywordContent = styled.div`
+const AddKeywordContent = styled.div`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: calc(100% - 32px);
     height: calc(100% - 61px);
@@ -170,7 +170,7 @@ const AddKeyword = () => {
   return (
     <AddKeywordContainer>
       <KeywordHeader title={'키워드 추가하기'} />
-      <AddkeywordContent>
+      <AddKeywordContent>
         <S.HashtagContainer toggle={isOpen} keyword={recommendKeyword === ''} alreadyRegister={isRegisterKeyword}>
           <S.HashtageImage src="/asset/hashtagblack.svg" alt="hashtage_image" />
           {!mobile ? (
@@ -290,7 +290,7 @@ const AddKeyword = () => {
             setSelectRecommendKeyword={setSelectRecommendKeyword}
           />
         )}
-      </AddkeywordContent>
+      </AddKeywordContent>
     </AddKeywordContainer>
   );
 };
