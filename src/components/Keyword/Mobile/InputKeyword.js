@@ -122,8 +122,8 @@ const InputKeyword = ({
   setKeyword,
   keyword,
   setAlreadyRegisterItem,
-  serchedKeywords,
-  setSerchedKeywords,
+  searchedKeywords,
+  setSearchedKeywords,
   selectRecommendKeyword,
   setSelectedRecommendItem,
   setSelectRecommendKeyword,
@@ -131,7 +131,6 @@ const InputKeyword = ({
   onClickRecommendItem,
 }) => {
   const [isRecommendKeyword, setIsRecommendKeyword] = useState(false);
-  const [serchKeywords, setSerchedKeyword] = useState(false);
   const [isRegisterKeyword, setIsRegisterKeyword] = useState(false);
   const dispatch = useDispatch();
   const { recommendationKeywordList } = useSelector((state) => state.modifyKeyword);
@@ -185,8 +184,8 @@ const InputKeyword = ({
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('serchedKeywords', JSON.stringify(serchedKeywords));
-  }, [serchKeywords]);
+    localStorage.setItem('searchedKeywords', JSON.stringify(searchedKeywords));
+  }, [searchedKeywords]);
 
   return (
     <Container>
@@ -206,7 +205,7 @@ const InputKeyword = ({
           <UnderBarBalck isRecommendKeyword={isRecommendKeyword}></UnderBarBalck>
           {!isRecommendKeyword ? (
             <List>
-              {serchedKeywords.map((item, index) => {
+              {searchedKeywords.map((item, index) => {
                 return <Item key={index}>{item}</Item>;
               })}
             </List>

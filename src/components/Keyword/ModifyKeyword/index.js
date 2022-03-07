@@ -5,7 +5,6 @@ import { debounce } from 'lodash';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
-import { MEDIA_QUERIES } from 'constant';
 import { changeSite } from '../utils';
 import useMatchMedia from 'hooks/useMatchMedia';
 import KeywordAlarm from '../KeywordAlarm';
@@ -18,7 +17,7 @@ const ModifyKeyword = () => {
   const [recommendList, setRecommendList] = useState([]);
   const [selectRecommendItem, setSelectRecommendItem] = useState([]);
   const [alreadyRegisterItem, setAlreadyRegisterItem] = useState(false);
-  const [serchedSites, setSerchedSites] = useState(JSON.parse(localStorage.getItem('serchedSites') || '[]'));
+  const [searchedSites, setSearchedSites] = useState(JSON.parse(localStorage.getItem('searchedSites') || '[]'));
   const { siteRecommendationList } = useSelector((state) => state.modifyKeyword);
   const { keywordInfo } = useSelector((state) => state.modifyKeyword);
   const dispatch = useDispatch();
@@ -53,10 +52,10 @@ const ModifyKeyword = () => {
         setSelectRecommendItem([...selectRecommendItem, value]);
         setSite('');
         const newSite = value;
-        if (0 > serchedSites.indexOf(newSite)) {
-          serchedSites.unshift(newSite);
-          if (serchedSites.length > 3) {
-            serchedSites.pop();
+        if (0 > searchedSites.indexOf(newSite)) {
+          searchedSites.unshift(newSite);
+          if (searchedSites.length > 3) {
+            searchedSites.pop();
           }
         }
       } else {
@@ -151,8 +150,8 @@ const ModifyKeyword = () => {
           <SiteInput
             setSite={setSite}
             site={site}
-            serchedSites={serchedSites}
-            setSerchedSites={setSerchedSites}
+            searchedSites={searchedSites}
+            setSearchedSites={setSearchedSites}
             setAlreadyRegisterItem={setAlreadyRegisterItem}
             setSelectedRecommendItem={setSelectRecommendItem}
             setIsMobileSite={setIsMobileSite}

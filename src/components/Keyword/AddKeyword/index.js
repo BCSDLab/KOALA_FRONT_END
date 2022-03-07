@@ -46,8 +46,10 @@ const AddKeyword = () => {
   const [selectRecommendKeyword, setSelectRecommendKeyword] = useState('');
   const [isRegisterItem, setIsRegisterItem] = useState(false);
   const [isRegisterKeyword, setIsRegisterKeyword] = useState(false);
-  const [serchedSites, setSerchedSites] = useState(JSON.parse(localStorage.getItem('serchedSites') || '[]'));
-  const [serchedKeywords, setSerchedKeywords] = useState(JSON.parse(localStorage.getItem('serchedKeywords') || '[]'));
+  const [searchedSites, setSearchedSites] = useState(JSON.parse(localStorage.getItem('searchedSites') || '[]'));
+  const [searchedKeywords, setSearchedKeywords] = useState(
+    JSON.parse(localStorage.getItem('searchedKeywords') || '[]')
+  );
   const { siteRecommendationList, keywordRecommendationList } = useSelector((state) => state.modifyKeyword);
   const { keywords } = useSelector((state) => state.keyword);
   const { isOpen } = useSelector((state) => state.toggle);
@@ -94,10 +96,10 @@ const AddKeyword = () => {
         setSelectRecommendItem([...selectRecommendItem, value]);
         setSite('');
         const newSite = value;
-        if (0 > serchedSites.indexOf(newSite)) {
-          serchedSites.unshift(newSite);
-          if (serchedSites.length > 3) {
-            serchedSites.pop();
+        if (0 > searchedSites.indexOf(newSite)) {
+          searchedSites.unshift(newSite);
+          if (searchedSites.length > 3) {
+            searchedSites.pop();
           }
         }
       } else {
@@ -117,10 +119,10 @@ const AddKeyword = () => {
         setSelectRecommendKeyword(keyword);
         setRecommendKeywords([]);
         const newKeyword = keyword;
-        if (0 > serchedKeywords.indexOf(newKeyword)) {
-          serchedKeywords.unshift(newKeyword);
-          if (serchedKeywords.length > 3) {
-            serchedKeywords.pop();
+        if (0 > searchedKeywords.indexOf(newKeyword)) {
+          searchedKeywords.unshift(newKeyword);
+          if (searchedKeywords.length > 3) {
+            searchedKeywords.pop();
           }
         }
       } else {
@@ -248,8 +250,8 @@ const AddKeyword = () => {
           <KeywordInput
             setKeyword={setRecommendKeyword}
             keyword={recommendKeyword}
-            serchedKeywords={serchedKeywords}
-            setSerchedKeywords={setSerchedKeywords}
+            searchedKeywords={searchedKeywords}
+            setSearchedKeywords={setSearchedKeywords}
             selectRecommendKeyword={selectRecommendKeyword}
             setSelectRecommendKeyword={setSelectRecommendKeyword}
             setAlreadyRegisterItem={setIsRegisterKeyword}
@@ -266,8 +268,8 @@ const AddKeyword = () => {
             setSelectedRecommendItem={setSelectRecommendItem}
             setIsMobileSite={setIsMobileSite}
             onClickRecommendItem={addRecommendSite}
-            serchedSites={serchedSites}
-            setSerchedSites={setSerchedSites}
+            searchedSites={searchedSites}
+            setSearchedSites={setSearchedSites}
           />
         )}
         {!mobile ? (

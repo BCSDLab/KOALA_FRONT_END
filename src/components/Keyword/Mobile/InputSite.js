@@ -65,8 +65,7 @@ const RecentSearch = styled.span`
 `;
 
 const RecommendSite = styled.span`
-  f
-  nt-size: 12px;
+  font-size: 12px;
   color: ${(props) => props.theme.colors.darkgray};
 `;
 
@@ -113,8 +112,8 @@ const HashImage = styled.img`
 const InputSite = ({
   setIsMobileSite,
   onClickRecommendItem,
-  serchedSites,
-  setserchedSites,
+  searchedSites,
+  setSearchedSites,
   setSite,
   site,
   setAlreadyRegisterItem,
@@ -142,10 +141,10 @@ const InputSite = ({
 
   const onClickHashButton = (site) => {
     const newSite = site;
-    if (0 > serchedSites.indexOf(newSite)) {
-      serchedSites.unshift(newSite);
-      if (serchedSites.length > 3) {
-        serchedSites.pop();
+    if (0 > searchedSites.indexOf(newSite)) {
+      searchedSites.unshift(newSite);
+      if (searchedSites.length > 3) {
+        searchedSites.pop();
       }
     }
     setSite('');
@@ -160,8 +159,8 @@ const InputSite = ({
   }, [site]);
 
   useEffect(() => {
-    localStorage.setItem('serchedSites', JSON.stringify(serchedSites));
-  }, [serchedSites]);
+    localStorage.setItem('searchedSites', JSON.stringify(searchedSites));
+  }, [searchedSites]);
   return (
     <Container>
       <Header>
@@ -184,7 +183,7 @@ const InputSite = ({
           <List>
             {!isRecommendSite ? (
               <>
-                {serchedSites.map((item, index) => {
+                {searchedSites.map((item, index) => {
                   return <Item key={index}>{item}</Item>;
                 })}
               </>
