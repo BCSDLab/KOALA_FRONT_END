@@ -4,6 +4,7 @@ import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import { LOGIN } from './constant';
 import { refresh } from 'store/auth';
 import { getUserInfo } from 'store/myPage';
+import NotFoundPage from 'pages/404';
 import AuthPage from 'pages/AuthPage';
 import OAuthPage from 'pages/OAuthPage';
 import Login from 'components/Auth/Login/Login';
@@ -68,7 +69,7 @@ const App = () => {
         <Route path="oAuth/*" element={<OAuthPage />} />
 
         <Route element={<AuthorizedRoute />}>
-        <Route exact path="mypage" element={<MyPage />} />
+          <Route exact path="mypage" element={<MyPage />} />
           <Route exact path="/" />
           <Route path="keyword/*" element={<KeywordPage />}>
             <Route index element={<KeywordFilterBar />}></Route>
@@ -85,6 +86,7 @@ const App = () => {
             <Route path="scrap" element={<ScrapContent />} />
           </Route>
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );
