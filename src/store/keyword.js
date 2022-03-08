@@ -18,7 +18,7 @@ const RESET_KEYWORD_STATE = {
   type: 'RESET_KEYWORD_STATE',
 };
 export const inquiry = createAction(GET_KEYWORD);
-export const getKeywordList = createAction(GET_KEYWORD_LIST);
+export const getKeywordList = createAction(GET_KEYWORD_LIST, ({ keywordName, pageNum }) => ({ keywordName, pageNum }));
 export const deleteKeywordList = createAction(DELETE_KEYWORD_LIST, (query) => query);
 export const moveKeywordItem = createAction(MOVE_KEYWORD_ITEM);
 export const readKeywordItem = createAction(READ_KEYWORD_ITEM, (id) => id);
