@@ -68,7 +68,8 @@ export const keywordAPI = {
   deleteKeyword: (keyword) => logined.patch(`keyword/${keyword}`),
   getKeywordDetailInfo: (keywordName) => logined.get(`keyword/detail/${keywordName}`),
   readKeywordItem: (id) => logined.patch(`keyword/list/notice/reading-check/${id}`),
-  getKeywordList: (keywordName) => logined.get(`keyword/list/${keywordName}?page-num=1`),
+  getKeywordList: ({ keywordName, pageNum }) =>
+    logined.get(`keyword/list/${keywordName}?page-num=${pageNum ? pageNum : 1}`),
   deleteKeywordList: (query) => logined.patch(`keyword/list/notice?${query}`),
   deleteKeywordItem: (id) => logined.patch(`keyword/list/notice?notice-id=${id}`),
   addScrap: (data) => logined.post(`scrap`, { crawling_id: data }),

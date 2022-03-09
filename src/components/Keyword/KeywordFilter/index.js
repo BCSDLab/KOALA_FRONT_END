@@ -195,7 +195,7 @@ const KeywordFilterBar = () => {
   useEffect(() => {
     if (userInfo.isLoggedIn) {
       if (deleteKeywordListResponse || readKeywordItemResponse || getKeywordListResponse || !deleteList || goStore) {
-        dispatch(getKeywordList(keywordName));
+        dispatch(getKeywordList({ keywordName, pageNum: 1 }));
         if (keywordList === '받은 알림이 없습니다.') {
           setList([]);
         } else {

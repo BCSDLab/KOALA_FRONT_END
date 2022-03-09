@@ -1,10 +1,14 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import * as S from './styles';
 import * as M from './MobileKeywordItem.style';
 import { getTitle } from '../utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { readKeywordItem } from 'store/keyword';
 import useMatchMedia from 'hooks/useMatchMedia';
+import { useInView } from 'react-intersection-observer';
+import { useLocation } from 'react-router';
+import { getKeywordList } from 'store/keyword';
+
 const KeywordList = ({
   checkListId,
   checkAll,
@@ -21,8 +25,13 @@ const KeywordList = ({
 }) => {
   const dispatch = useDispatch();
   const { keywordList } = useSelector((state) => state.keyword);
-  const [list, setList] = useState();
+  const [list, setList] = useState([]);
   const { isOpen } = useSelector((state) => state.toggle);
+  const { state: keyword } = useLocation();
+  const [pageNum, setPageNum] = useState(1);
+
+  const [viewRef, inView] = useInView();
+
   const onClickCheckSome = useCallback(
     (id) => {
       setCheckAll(false);
@@ -70,8 +79,15 @@ const KeywordList = ({
   }, [readNotification, notReadNotification]);
 
   useEffect(() => {
-    setList(keywordList);
+    if (JSON.stringify(list) !== JSON.stringify(keywordList)) {
+      setList([...list, ...keywordList]);
+    }
   }, [keywordList]);
+
+  useEffect(() => {
+    setList(keywordList);
+    setPageNum(1);
+  }, [keyword]);
 
   useEffect(() => {
     if (menu === '전체') {
@@ -107,28 +123,69 @@ const KeywordList = ({
     setKeywordSearch('');
     setSearchButton(false);
   }, [searchButton]);
+
+  useEffect(() => {
+    if (inView) {
+      setPageNum((prev) => prev + 1);
+    }
+  }, [inView]);
+
+  useEffect(() => {
+    dispatch(getKeywordList({ keywordName: keyword, pageNum }));
+  }, [pageNum]);
+
   const queries = ['(max-width: 1024px)'];
   const [mobile] = useMatchMedia(queries);
+
   return (
     <S.MainList toggle={isOpen}>
       {list && list.length === 0 ? <M.NoResultBox>검색결과가 없습니다.</M.NoResultBox> : null}
+      {!mobile ? (
+        <>
+          {list &&
+            list.map((item) => {
+              list[list.length - 1] === item.id ? <></> : <></>;
+            })}
+        </>
+      ) : keywordName !== null ? (
+        <></>
+      ) : null}
       {list &&
         list.map((item) => {
           return !mobile ? (
-            <S.MainItem key={item.id}>
-              <S.MainCheckBox
-                onClick={() => onClickCheckSome(item.id)}
-                checkSome={checkListId.includes(item.id)}
-              ></S.MainCheckBox>
-              <S.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.site)}</S.MainCheckBoxTitle>
-              <a href={`${item.url}`} target="_blank">
-                <S.MainContent readState={item.isRead} onClick={() => onClickReadItem(item.id, item.isRead)}>
-                  {item.title}
-                </S.MainContent>
-              </a>
-              <S.MainReadState>{item.isRead ? '읽음' : '읽지 않음'}</S.MainReadState>
-              <S.MainPeriod readState={item.isRead}>{item.createdAt}</S.MainPeriod>
-            </S.MainItem>
+            <Fragment key={item.id}>
+              {list[list.length - 1].id === item.id ? (
+                <S.MainItem ref={viewRef}>
+                  <S.MainCheckBox
+                    onClick={() => onClickCheckSome(item.id)}
+                    checkSome={checkListId.includes(item.id)}
+                  ></S.MainCheckBox>
+                  <S.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.site)}</S.MainCheckBoxTitle>
+                  <a href={`${item.url}`} target="_blank">
+                    <S.MainContent readState={item.isRead} onClick={() => onClickReadItem(item.id, item.isRead)}>
+                      {item.title}
+                    </S.MainContent>
+                  </a>
+                  <S.MainReadState>{item.isRead ? '읽음' : '읽지 않음'}</S.MainReadState>
+                  <S.MainPeriod readState={item.isRead}>{item.createdAt}</S.MainPeriod>
+                </S.MainItem>
+              ) : (
+                <S.MainItem>
+                  <S.MainCheckBox
+                    onClick={() => onClickCheckSome(item.id)}
+                    checkSome={checkListId.includes(item.id)}
+                  ></S.MainCheckBox>
+                  <S.MainCheckBoxTitle readState={item.isRead}>{getTitle(item.site)}</S.MainCheckBoxTitle>
+                  <a href={`${item.url}`} target="_blank">
+                    <S.MainContent readState={item.isRead} onClick={() => onClickReadItem(item.id, item.isRead)}>
+                      {item.title}
+                    </S.MainContent>
+                  </a>
+                  <S.MainReadState>{item.isRead ? '읽음' : '읽지 않음'}</S.MainReadState>
+                  <S.MainPeriod readState={item.isRead}>{item.createdAt}</S.MainPeriod>
+                </S.MainItem>
+              )}
+            </Fragment>
           ) : keywordName !== null ? (
             <M.Alert key={item.id}>
               <M.AlertWrapper>
