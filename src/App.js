@@ -58,6 +58,7 @@ const App = () => {
   return (
     <>
       <Routes>
+        <Route path="*" element={<NotFoundPage />} />
         <Route exact path="auth/*" element={<AuthPage />}>
           <Route index element={<Login />} />
           <Route path="createLog" element={<RegisterDoc />} />
@@ -86,7 +87,6 @@ const App = () => {
             <Route path="scrap" element={<ScrapContent />} />
           </Route>
         </Route>
-        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
   );
