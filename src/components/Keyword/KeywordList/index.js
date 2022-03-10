@@ -59,17 +59,13 @@ const KeywordList = ({
   };
 
   useEffect(() => {
-    if (list && list.length === 0) {
-      setList(keywordList);
-    }
-
     if (notReadNotification) {
-      const filterList = keywordList.filter((item) => {
+      const filterList = list.filter((item) => {
         return item.isRead === false;
       });
       setList(filterList);
     } else if (readNotification) {
-      const filterList = keywordList.filter((item) => {
+      const filterList = list.filter((item) => {
         return item.isRead === true;
       });
       setList(filterList);
@@ -85,22 +81,34 @@ const KeywordList = ({
   }, [keywordList]);
 
   useEffect(() => {
+    if (checkAll) {
+      const listId = list.map((keyword) => keyword.id);
+      setCheckListId(listId);
+    } else {
+      if (checkListId.length === list.length) {
+        setCheckListId([]);
+      }
+    }
+  }, [checkAll, pageNum]);
+
+  useEffect(() => {
     setList(keywordList);
+    setCheckAll(false);
     setPageNum(1);
   }, [keyword]);
 
   useEffect(() => {
     if (menu === '전체') {
-      setList(keywordList);
+      setList(list);
     } else if (menu === '아우누리') {
-      const filterList = keywordList.filter((item) => {
+      const filterList = list.filter((item) => {
         if (item.site === 'PORTAL') {
           return item;
         }
       });
       setList(filterList);
     } else if (menu === '아우미르') {
-      const filterList = keywordList.filter((item) => {
+      const filterList = list.filter((item) => {
         if (item.site === 'DORM') {
           return item;
         }
@@ -109,7 +117,7 @@ const KeywordList = ({
     } else {
       setList([]);
     }
-  }, [menu]);
+  }, [menu, list]);
 
   useEffect(() => {
     const filterList =

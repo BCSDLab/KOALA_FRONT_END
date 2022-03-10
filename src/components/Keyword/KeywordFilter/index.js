@@ -182,17 +182,6 @@ const KeywordFilterBar = () => {
   }, [deleteList]);
 
   useEffect(() => {
-    if (checkAll) {
-      const listId = keywordList.map((keyword) => keyword.id);
-      setCheckListId(listId);
-    } else {
-      if (checkListId.length === keywordList.length) {
-        setCheckListId([]);
-      }
-    }
-  }, [checkAll]);
-
-  useEffect(() => {
     if (userInfo.isLoggedIn) {
       if (deleteKeywordListResponse || readKeywordItemResponse || getKeywordListResponse || !deleteList || goStore) {
         dispatch(getKeywordList({ keywordName, pageNum: 1 }));
