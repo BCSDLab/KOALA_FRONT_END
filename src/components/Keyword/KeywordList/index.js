@@ -20,12 +20,13 @@ const KeywordList = ({
   setKeywordSearch,
   setSearchButton,
   setCheckAll,
+  list,
+  setList,
   menu,
   keywordName,
 }) => {
   const dispatch = useDispatch();
   const { keywordList } = useSelector((state) => state.keyword);
-  const [list, setList] = useState([]);
   const { isOpen } = useSelector((state) => state.toggle);
   const { state: keyword } = useLocation();
   const [pageNum, setPageNum] = useState(1);
@@ -75,10 +76,11 @@ const KeywordList = ({
   }, [readNotification, notReadNotification]);
 
   useEffect(() => {
-    if (JSON.stringify(list) !== JSON.stringify(keywordList)) {
+    console.log(keywordList);
+    if (JSON.stringify(list) !== JSON.stringify(keywordList) && keywordList && list) {
       setList([...list, ...keywordList]);
     }
-  }, [keywordList]);
+  }, [keywordList, list]);
 
   useEffect(() => {
     if (checkAll) {
@@ -93,6 +95,7 @@ const KeywordList = ({
 
   useEffect(() => {
     setList(keywordList);
+    setCheckListId([]);
     setCheckAll(false);
     setPageNum(1);
   }, [keyword]);

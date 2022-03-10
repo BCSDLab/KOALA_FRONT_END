@@ -318,6 +318,7 @@ const KeywordFilterBar = () => {
           </S.FilterList>
           <KeywordList
             list={list}
+            setList={setList}
             checkListId={checkListId}
             setCheckListId={setCheckListId}
             setKeywordSearch={setKeywordSearch}
