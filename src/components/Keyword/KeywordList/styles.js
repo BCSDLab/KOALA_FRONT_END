@@ -33,7 +33,7 @@ export const CheckBoxTitle = styled.span`
 
 export const MainList = styled.div`
   position: absolute;
-  width: 1324px;
+  width: 1325px;
   height: 600px;
   overflow-y: scroll;
   left: ${(props) => (props.toggle ? '501px' : '366px')};
