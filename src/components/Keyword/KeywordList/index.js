@@ -152,16 +152,6 @@ const KeywordList = ({
   return (
     <S.MainList toggle={isOpen}>
       {list && list.length === 0 ? <M.NoResultBox>검색결과가 없습니다.</M.NoResultBox> : null}
-      {!mobile ? (
-        <>
-          {list &&
-            list.map((item) => {
-              list[list.length - 1] === item.id ? <></> : <></>;
-            })}
-        </>
-      ) : keywordName !== null ? (
-        <></>
-      ) : null}
       {list &&
         list.map((item) => {
           return !mobile ? (
@@ -199,26 +189,57 @@ const KeywordList = ({
               )}
             </Fragment>
           ) : keywordName !== null ? (
-            <M.Alert key={item.id}>
-              <M.AlertWrapper>
-                <S.MainCheckBox onClick={() => onClickCheckSome(item.id)} checkSome={checkListId.includes(item.id)} />
-                <M.AlertContent>
-                  <M.AlertDetail>
-                    <M.Sender isRead={item.isRead}>{getTitle(item.site)}</M.Sender>
-                    <M.ReceiveDate>{item.createdAt}</M.ReceiveDate>
-                  </M.AlertDetail>
-                  <M.AlertTitle
-                    href={item.url}
-                    isRead={item.isRead}
-                    target="_blank"
-                    onClick={() => onClickReadItem(item.id, item.isRead)}
-                  >
-                    {item.title}
-                  </M.AlertTitle>
-                </M.AlertContent>
-              </M.AlertWrapper>
-              <M.AlertBorderLine />
-            </M.Alert>
+            <Fragment key={item.id}>
+              {list[list.length - 1].id === item.id ? (
+                <M.Alert>
+                  <M.AlertWrapper ref={viewRef}>
+                    <S.MainCheckBox
+                      onClick={() => onClickCheckSome(item.id)}
+                      checkSome={checkListId.includes(item.id)}
+                    />
+                    <M.AlertContent>
+                      <M.AlertDetail>
+                        <M.Sender isRead={item.isRead}>{getTitle(item.site)}</M.Sender>
+                        <M.ReceiveDate>{item.createdAt}</M.ReceiveDate>
+                      </M.AlertDetail>
+                      <M.AlertTitle
+                        href={item.url}
+                        isRead={item.isRead}
+                        target="_blank"
+                        onClick={() => onClickReadItem(item.id, item.isRead)}
+                      >
+                        {item.title}
+                      </M.AlertTitle>
+                    </M.AlertContent>
+                  </M.AlertWrapper>
+                  <M.AlertBorderLine />
+                </M.Alert>
+              ) : (
+                <M.Alert>
+                  <M.AlertWrapper>
+                    <S.MainCheckBox
+                      onClick={() => onClickCheckSome(item.id)}
+                      checkSome={checkListId.includes(item.id)}
+                    />
+                    <M.AlertContent>
+                      <M.AlertDetail>
+                        <M.Sender isRead={item.isRead}>{getTitle(item.site)}</M.Sender>
+                        <M.ReceiveDate>{item.createdAt}</M.ReceiveDate>
+                      </M.AlertDetail>
+                      <M.AlertTitle
+                        href={item.url}
+                        isRead={item.isRead}
+                        target="_blank"
+                        onClick={() => onClickReadItem(item.id, item.isRead)}
+                      >
+                        {item.title}
+                      </M.AlertTitle>
+                    </M.AlertContent>
+                  </M.AlertWrapper>
+                  <M.AlertBorderLine />
+                </M.Alert>
+              )}
+            </Fragment>
           ) : null;
         })}
     </S.MainList>

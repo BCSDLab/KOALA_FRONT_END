@@ -254,6 +254,7 @@ const KeywordFilterBar = () => {
             <S.FilterList toggle={isOpen}>
               <KeywordList
                 list={list}
+                setList={setList}
                 checkListId={checkListId}
                 setCheckListId={setCheckListId}
                 setKeywordSearch={setKeywordSearch}
