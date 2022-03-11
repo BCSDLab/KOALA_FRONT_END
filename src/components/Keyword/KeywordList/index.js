@@ -29,6 +29,7 @@ const KeywordList = ({
   const { keywordList } = useSelector((state) => state.keyword);
   const { isOpen } = useSelector((state) => state.toggle);
   const { state: keyword } = useLocation();
+  const [alertList, setAlertList] = useState([]);
   const [pageNum, setPageNum] = useState(1);
 
   const [viewRef, inView] = useInView();
@@ -61,26 +62,26 @@ const KeywordList = ({
 
   useEffect(() => {
     if (notReadNotification) {
-      const filterList = list.filter((item) => {
+      const filterList = alertList.filter((item) => {
         return item.isRead === false;
       });
       setList(filterList);
     } else if (readNotification) {
-      const filterList = list.filter((item) => {
+      const filterList = alertList.filter((item) => {
         return item.isRead === true;
       });
       setList(filterList);
     } else {
-      setList(keywordList);
+      setList(alertList);
     }
   }, [readNotification, notReadNotification]);
 
   useEffect(() => {
-    console.log(keywordList);
-    if (JSON.stringify(list) !== JSON.stringify(keywordList) && keywordList && list) {
+    if (JSON.stringify(list) !== JSON.stringify(keywordList) && keywordList && list && keywordList.length !== 0) {
       setList([...list, ...keywordList]);
+      setAlertList([...list, ...keywordList]);
     }
-  }, [keywordList, list]);
+  }, [keywordList]);
 
   useEffect(() => {
     if (checkAll) {
@@ -102,16 +103,16 @@ const KeywordList = ({
 
   useEffect(() => {
     if (menu === '전체') {
-      setList(list);
+      setList(alertList);
     } else if (menu === '아우누리') {
-      const filterList = list.filter((item) => {
+      const filterList = alertList.filter((item) => {
         if (item.site === 'PORTAL') {
           return item;
         }
       });
       setList(filterList);
     } else if (menu === '아우미르') {
-      const filterList = list.filter((item) => {
+      const filterList = alertList.filter((item) => {
         if (item.site === 'DORM') {
           return item;
         }
@@ -120,7 +121,7 @@ const KeywordList = ({
     } else {
       setList([]);
     }
-  }, [menu, list]);
+  }, [menu]);
 
   useEffect(() => {
     const filterList =
