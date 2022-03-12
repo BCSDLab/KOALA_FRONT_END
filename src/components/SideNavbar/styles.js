@@ -74,6 +74,7 @@ export const KeywordList = styled.ul`
   padding: 0 0;
   height: 225px;
   margin: 16px 0 0 0;
+  overflow-y: scroll;
   ${(props) => {
     if (props.dropdownToggle) {
       return `
@@ -89,6 +90,7 @@ export const KeywordList = styled.ul`
 
 export const KeywordSection = styled.li`
   display: flex;
+  justify-content: space-between;
   border: none;
   padding: 11px 17px 12px 32px;
   cursor: pointer;
@@ -106,8 +108,6 @@ export const KeywordCount = styled.span`
   width: 24px;
   height: 18px;
   background-color: ${(props) => (props.selectItemId ? '#222' : '#ffd25d')};
-  position: absolute;
-  right: 24px;
   font-size: 12px;
   text-align: center;
   color: ${(props) => (props.selectItemId ? '#ffd25d' : '#fff')};
