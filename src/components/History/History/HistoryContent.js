@@ -13,7 +13,7 @@ import {
 import { deleteScrapItem } from 'store/scrap';
 import { useDispatch, useSelector } from 'react-redux';
 import PopUp from './HistoryPopup';
-import { MENU_ITEM } from 'constant';
+import { SITE_LIST } from 'constant';
 import { useMediaQuery } from 'react-responsive';
 import theme from '../../../theme';
 import MobileMenuModal from './MobileMenuModal';
@@ -153,7 +153,6 @@ const HistoryContent = () => {
   };
   useEffect(() => {
     if (userInfo.isLoggedIn || deleteHistoryResponse || readHistoryItemResponse || moveToScrapResponse) {
-      console.log(pageNum[0])
       dispatch(getHistoryList(pageNum[0]));
     }
   }, [userInfo.isLoggedIn, pageNum]);
@@ -278,7 +277,7 @@ const HistoryContent = () => {
                   />
                   <S.AlertContent>
                     <S.AlertDetail>
-                      <S.Sender>{MENU_ITEM[MENU_ITEM.findIndex((site) => site.id === mail.site)].title}</S.Sender>
+                      <S.Sender>{SITE_LIST[SITE_LIST.findIndex((site) => site.id === mail.site)].title}</S.Sender>
                       {isMobile && <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>}
                     </S.AlertDetail>
                     <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={(e) => clickMail(mail.id)}>
@@ -302,7 +301,7 @@ const HistoryContent = () => {
                     />
                     <S.AlertContent>
                       <S.AlertDetail>
-                        <S.Sender>{MENU_ITEM[MENU_ITEM.findIndex((site) => site.id === mail.site)].title}</S.Sender>
+                        <S.Sender>{SITE_LIST[SITE_LIST.findIndex((site) => site.id === mail.site)].title}</S.Sender>
                         {isMobile && <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>}
                       </S.AlertDetail>
                       <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={(e) => clickMail(mail.id)}>
