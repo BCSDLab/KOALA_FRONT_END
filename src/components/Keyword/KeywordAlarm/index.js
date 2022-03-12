@@ -64,8 +64,8 @@ const KeywordAlarm = ({
     setSelectRecommendItem([]);
 
     if (buttonText == '등록') {
-      setRecommendKeyword(undefined);
-      setSelectRecommendKeyword(undefined);
+      setRecommendKeyword('');
+      setSelectRecommendKeyword('');
     }
 
     if (buttonText === '수정') {

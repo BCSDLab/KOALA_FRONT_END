@@ -276,7 +276,7 @@ const AddKeyword = () => {
           <KeywordAlarm
             isRegisterKeyword={isRegisterKeyword}
             buttonText={'등록'}
-            keywordName={selectRecommendKeyword}
+            keywordName={selectRecommendKeyword ? selectRecommendKeyword : recommendKeyword}
             selectRecommendItem={selectRecommendItem}
             setSelectRecommendItem={setSelectRecommendItem}
             setRecommendKeyword={setRecommendKeyword}
@@ -285,7 +285,7 @@ const AddKeyword = () => {
         ) : (
           <AlertForm
             buttonText={'등록'}
-            keywordName={selectRecommendKeyword}
+            keywordName={selectRecommendKeyword ? selectRecommendKeyword : recommendKeyword}
             selectRecommendItem={selectRecommendItem}
             setSelectRecommendItem={setSelectRecommendItem}
             setRecommendKeyword={setRecommendKeyword}
