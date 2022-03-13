@@ -83,10 +83,14 @@ const HashTagImg = styled.img`
 const HistoryImg = styled.img`
   width: 32px;
   height: 32px;
-  margin: ${({ isSideMenu }) =>
+  ${({ isSideMenu }) =>
     isSideMenu
-      ? `309px 0 0;`
-      : `40px 0;
+      ? `margin: 309px 0 0;
+         @media screen and (max-height: 750px){
+           margin: 199px 0 0;
+         }
+        `
+      : `margin: 40px 0;
   `};
   object-fit: contain;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {

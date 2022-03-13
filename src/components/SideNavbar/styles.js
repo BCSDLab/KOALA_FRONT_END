@@ -86,6 +86,9 @@ export const KeywordList = styled.ul`
       `;
     }
   }};
+  @media screen and (max-height: 750px) {
+    height: 115px;
+  }
 `;
 
 export const KeywordSection = styled.li`
