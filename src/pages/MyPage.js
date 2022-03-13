@@ -133,7 +133,6 @@ const MyPageContainer = styled.div`
   }
 `;
 
-
 const MyPageContent = styled.div`
   width: 100vw;
   max-height: 100%;
@@ -145,7 +144,6 @@ const MyPageContent = styled.div`
     display: block;
     height: auto;
   }
-
 `;
 
 const UserInfoContainer = styled.div`
@@ -231,7 +229,7 @@ const UserImage = styled.img`
   margin: 0px 98px 16px 195px;
   border-radius: 50%;
   object-fit: cover;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL  }) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 56px;
     height: 56px;
     margin: 5px 0 0 0;
@@ -286,8 +284,6 @@ const PatchText = styled.div`
 
 const PatchImg = styled.input`
   display: none;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
-  }
 `;
 
 const UserNickname = styled.div`
@@ -363,8 +359,9 @@ const EtcTitle = styled.div`
     text-align: left;
     color: ${(props) => props.theme.colors.gray};
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){ 
-    margin: 40px 83px 20px 80px;
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
+    margin: 10px 83px 20px 80px;
   }
 `;
 
@@ -387,7 +384,8 @@ const Element = styled.div`
     text-align: left;
     color: ${(props) => props.theme.colors.darkgray};
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){ 
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
     margin: 0px 50px 16px 80px;
   }
 `;
