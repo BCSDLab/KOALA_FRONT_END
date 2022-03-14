@@ -44,8 +44,10 @@ const App = () => {
   const isSchoolAuth = useSelector((state) => state.myPage.isAuth);
   useLayoutEffect(() => {
     const token = getCookie('refresh_token');
-    setTokenOnHeader(token);
-    dispatch(refresh());
+    if (token != null) {
+      setTokenOnHeader(token);
+      dispatch(refresh());
+    }
   }, []);
 
   useLayoutEffect(() => {
