@@ -20,7 +20,7 @@ import MobileMenuModal from './MobileMenuModal';
 import { MobileDeleteModal, MobileMoveScrapModal } from './MobilePopUpModal';
 export const formatingDate = (date) => {
   const newDate = new Date(date);
-  const month = newDate.getMonth() + 1;
+  const month = newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1;
   const day = newDate.getDate() < 10 ? '0' + newDate.getDate() : newDate.getDate();
   const hour = newDate.getHours() < 10 ? '0' + newDate.getHours() : newDate.getHours();
   const minute = newDate.getMinutes() < 10 ? '0' + newDate.getMinutes() : newDate.getMinutes();
