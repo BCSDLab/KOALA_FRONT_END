@@ -23,7 +23,7 @@ export const KeyWordAlert = styled.li`
   }
 `;
 export const KeyWordAlertList = styled.ol`
-  height: calc(100vh - 188px);
+  height: calc(100vh - 337px);
   overflow-y: scroll;
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
