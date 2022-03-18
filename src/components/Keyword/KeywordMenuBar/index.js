@@ -3,7 +3,7 @@ import * as S from './styles';
 import { MENU_ITEM } from 'constant';
 import useMatchMedia from 'hooks/useMatchMedia';
 import theme from '../../../theme';
-const queries = [`(max-width: ${theme.deviceSizes.mobileL}`];
+const queries = [`(max-width: ${theme.deviceSizes.tabletL}`];
 
 const KeywordMenuBar = ({ isToggle, menu, onClickMenu }) => {
   const [mobile] = useMatchMedia(queries);

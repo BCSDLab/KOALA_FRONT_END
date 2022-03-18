@@ -22,7 +22,7 @@ const TopBarContainer = styled.div`
   margin-bottom: 24px;
 `;
 const TopBar = styled.div`
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 100%;
     height: 61px;
     display: flex;

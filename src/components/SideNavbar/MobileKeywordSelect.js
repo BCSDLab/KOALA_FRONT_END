@@ -24,8 +24,11 @@ const KeywordLabel = styled.div`
     padding-bottom: 15px;
 `
 const ElementContainer = styled.div`
-    margin: 24px 0 0 0;
-`
+  margin: 24px 0 0 0;
+  max-height: 240px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+`;
 const KeywordElement = styled.div`
     display: flex;
     background: ${theme.colors.white};

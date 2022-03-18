@@ -11,14 +11,11 @@ import useMatchMedia from 'hooks/useMatchMedia';
 
 const HistoryPageContent = styled.div`
   display: flex;
-  min-width: 1494px;
   height: 100%;
   overflow-y: hidden;
-  // max-width: 1294px;
-  @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
+  overflow-x: hidden;
+  @media screen and (max-width: ${theme.deviceSizes.tabletL}) {
     width: 100vw;
-    max-width: ${theme.deviceSizes.mobileL};
-    min-width: ${theme.deviceSizes.mobileS};
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -30,21 +27,19 @@ const HistoryPageContent = styled.div`
 `;
 
 const ContentWrapper = styled.div`
-  display: flex;
   width: 100%;
   height: 100%;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
+  margin: 121px 0 0 131px;
+  @media screen and (max-width: ${theme.deviceSizes.tabletL}) {
     position: fixed;
+    height: 0%;
     justify-content: unset;
     top: 0%;
     margin: 26px 0 0 0;
     z-index: 99;
   }
 `;
-const queries = [`(max-width: ${theme.deviceSizes.mobileL})`];
+const queries = [`(max-width: ${theme.deviceSizes.tabletL})`];
 const HistoryPage = () => {
   const [mobile] = useMatchMedia(queries);
   const location = useLocation();

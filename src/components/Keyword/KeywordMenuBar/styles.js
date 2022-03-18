@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import theme from '../../../theme';
-const { mobileL, mobileS } = theme.deviceSizes;
+const { tabletL, mobileS } = theme.deviceSizes;
 
 export const Menu = styled.nav`
-  min-width: 1323px;
+  width: 1323px;
   height: 24px;
   padding-bottom: 15.3px;
   justify-content: space-between;
@@ -11,12 +11,13 @@ export const Menu = styled.nav`
   border-bottom: 1.5px solid #eeeeee;
   top: 180px;
   left: ${(props) => (props.toggle ? '488px' : '353px')};
-  @media screen and (max-width: ${mobileL}) {
+  @media screen and (max-width: ${tabletL}) {
     display: block;
     position: static;
     padding: 0;
     margin: 75px 0 0 5%;
     width: 90%;
+    white-space: nowrap;
     min-width: ${mobileS};
     overflow-x: scroll;
     border: none;
@@ -27,7 +28,11 @@ export const Menu = styled.nav`
       border-bottom: 1px solid #eee;
       width: 130%;
     }
+  
   }
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+      width: 900px;
+    }
 `;
 
 export const MobileMenuWrapper = styled.div`
@@ -41,7 +46,7 @@ export const Item = styled.span`
   font-size: 16px;
   margin-right: 40px;
   cursor: pointer;
-  @media screen and (max-width: ${mobileL}) {
+  @media screen and (max-width: ${tabletL}) {
     display: block;
     font-size: 14px;
     min-width: 52px;

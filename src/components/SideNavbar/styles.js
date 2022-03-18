@@ -62,6 +62,7 @@ export const KeywordSetting = styled(Link)`
 `;
 
 export const KeywordDropdownButton = styled.img`
+  display: none;
   width: 24px;
   height: 24px;
   margin-left: 14px;
@@ -73,6 +74,7 @@ export const KeywordList = styled.ul`
   padding: 0 0;
   height: 225px;
   margin: 16px 0 0 0;
+  overflow-y: scroll;
   ${(props) => {
     if (props.dropdownToggle) {
       return `
@@ -84,20 +86,24 @@ export const KeywordList = styled.ul`
       `;
     }
   }};
+  @media screen and (max-height: 750px) {
+    height: 115px;
+  }
 `;
 
 export const KeywordSection = styled.li`
   display: flex;
+  justify-content: space-between;
   border: none;
   padding: 11px 17px 12px 32px;
   cursor: pointer;
   font-size: 14px;
-  background-color: ${(props) => (props.selectItemId ? '#222' : '#f6f7f8')};
+  background-color: ${(props) => (props.selectItemId || props.keywordName ? '#222' : '#f6f7f8')};
 `;
 
 export const KeywordName = styled.span`
   font-size: 14px;
-  color: ${(props) => (props.selectItemId ? '#fff' : '#222')};
+  color: ${(props) => (props.selectItemId || props.keywordName ? '#fff' : '#222')};
   font-weight: normal;
 `;
 
@@ -105,8 +111,6 @@ export const KeywordCount = styled.span`
   width: 24px;
   height: 18px;
   background-color: ${(props) => (props.selectItemId ? '#222' : '#ffd25d')};
-  position: absolute;
-  right: 24px;
   font-size: 12px;
   text-align: center;
   color: ${(props) => (props.selectItemId ? '#ffd25d' : '#fff')};
@@ -118,7 +122,7 @@ export const AddKeywordSection = styled.div`
   height: 44px;
   margin: 11px 0 2.5px 0;
   padding: 0 17px 0 32px;
-  background-color: ${(props) => (props.selectAddKeyword ? '#222' : '#f6f7f8')};
+  background-color: ${(props) => (props.selectAddKeyword || props.checkPath ? '#222' : '#f6f7f8')};
   cursor: pointer;
 `;
 
@@ -133,7 +137,8 @@ export const AddText = styled.div`
   top: 1px;
   font-size: 14px;
   line-height: 43px;
-  color: ${(props) => (props.selectAddKeyword ? props.theme.colors.white : props.theme.colors.darkgray)};
+  color: ${(props) =>
+    props.selectAddKeyword || props.checkPath ? props.theme.colors.white : props.theme.colors.darkgray};
 `;
 
 export const HistoryList = styled(List)`

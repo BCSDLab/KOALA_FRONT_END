@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import * as S from './styles';
+import useMatchMedia from 'hooks/useMatchMedia';
+import { useLocation } from 'react-router';
 
 const AuthTemplateBlock = styled.div`
   display: flex;
   justify-content: center;
-  alignitems: center;
+  align-items: center;
 
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     padding: 0 16px;
@@ -27,13 +29,17 @@ const Box = styled.div`
 `;
 
 const AuthTemplate = ({ children }) => {
+  const location = useLocation();
+  const queries = ['(max-width: 450px)'];
+  const [mobile] = useMatchMedia(queries);
   return (
     <AuthTemplateBlock>
       <Box>
-        <S.MainLogo>
-          <S.MainLogoImg />
-        </S.MainLogo>
-
+        {(location.pathname === '/auth' || !mobile) && (
+          <S.MainLogo>
+            <S.MainLogoImg />
+          </S.MainLogo>
+        )}
         {children}
       </Box>
     </AuthTemplateBlock>

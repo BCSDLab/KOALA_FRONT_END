@@ -4,7 +4,7 @@ import {  Sender } from '../History/History.Style';
 import { useDispatch, useSelector } from 'react-redux';
 import HistoryCheckBox from '../History/HisoryCheckBox';
 import { getMemo, getScrapList, deleteScrapItem, fixMemo, writeMemo } from 'store/scrap';
-import { MENU_ITEM } from 'constant';
+import { SITE_LIST } from 'constant';
 import { formatingDate } from '../History/HistoryContent';
 import theme from '../../../theme';
 import { useMediaQuery } from 'react-responsive';
@@ -54,7 +54,7 @@ const ScrapContent = () => {
   const letter = useRef();
   const fixMemoValue = useRef(null);
   const writeMemoValue = useRef();
-  const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.mobileL}` });
+  const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.tabletL}` });
   useEffect(() => {
     if (userInfo.isLoggedIn) {
       dispatch(getMemo());
@@ -156,6 +156,7 @@ const ScrapContent = () => {
       })
     );
   }, [scrapList]);
+
   return (
     <>
     <S.Wrapper>
@@ -190,7 +191,7 @@ const ScrapContent = () => {
               checked={checkedList.includes(mail.id) ? true : false}
               readOnly
             />
-            <Sender>{MENU_ITEM[MENU_ITEM.findIndex((site) => site.id === mail.site)].title}</Sender>
+            <Sender>{SITE_LIST[SITE_LIST.findIndex((site) => site.id === mail.site)].title}</Sender>
             <S.MemoAlertWrapper>
               <S.AlertContent>
                 <S.AlertTitle href={mail.url}>{mail.title}</S.AlertTitle>

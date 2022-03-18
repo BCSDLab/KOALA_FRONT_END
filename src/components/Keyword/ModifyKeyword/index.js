@@ -5,7 +5,6 @@ import { debounce } from 'lodash';
 import * as S from './styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
-import { MEDIA_QUERIES } from 'constant';
 import { changeSite } from '../utils';
 import useMatchMedia from 'hooks/useMatchMedia';
 import KeywordAlarm from '../KeywordAlarm';
@@ -18,13 +17,15 @@ const ModifyKeyword = () => {
   const [recommendList, setRecommendList] = useState([]);
   const [selectRecommendItem, setSelectRecommendItem] = useState([]);
   const [alreadyRegisterItem, setAlreadyRegisterItem] = useState(false);
+  const [searchedSites, setSearchedSites] = useState(JSON.parse(localStorage.getItem('searchedSites') || '[]'));
   const { siteRecommendationList } = useSelector((state) => state.modifyKeyword);
   const { keywordInfo } = useSelector((state) => state.modifyKeyword);
   const dispatch = useDispatch();
   const location = useLocation();
   const keywordName = location.state;
   const { isOpen } = useSelector((state) => state.toggle);
-  const [mobile, desktop] = useMatchMedia(MEDIA_QUERIES);
+  const queries = ['(max-width: 1024px)'];
+  const [mobile] = useMatchMedia(queries);
 
   const delayInput = useCallback(
     debounce((value) => {
@@ -50,6 +51,13 @@ const ModifyKeyword = () => {
       if (!selectRecommendItem.includes(value)) {
         setSelectRecommendItem([...selectRecommendItem, value]);
         setSite('');
+        const newSite = value;
+        if (0 > searchedSites.indexOf(newSite)) {
+          searchedSites.unshift(newSite);
+          if (searchedSites.length > 3) {
+            searchedSites.pop();
+          }
+        }
       } else {
         setSite('');
         setAlreadyRegisterItem(true);
@@ -99,7 +107,7 @@ const ModifyKeyword = () => {
         </S.HashtagContainer>
         <S.SearchContainer toggle={isOpen} show={site === ''} alreadyRegister={alreadyRegisterItem}>
           <S.SearchImage src="/asset/searchblack.svg" alt="search_image" />
-          {desktop ? (
+          {!mobile ? (
             <S.InputSite
               placeholder="알림받을 사이트 검색"
               type="text"
@@ -142,6 +150,8 @@ const ModifyKeyword = () => {
           <SiteInput
             setSite={setSite}
             site={site}
+            searchedSites={searchedSites}
+            setSearchedSites={setSearchedSites}
             setAlreadyRegisterItem={setAlreadyRegisterItem}
             setSelectedRecommendItem={setSelectRecommendItem}
             setIsMobileSite={setIsMobileSite}

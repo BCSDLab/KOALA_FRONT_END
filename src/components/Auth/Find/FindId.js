@@ -12,7 +12,7 @@ import * as S from 'components/Auth/styles';
 import styled from 'styled-components';
 import EmailForm from '../Shared/EmailForm';
 
-const queries = ['(max-width: 400px)', '(min-width: 800px)'];
+const queries = ['(max-width: 450px)'];
 
 const FindId = () => {
   const [email, setEmail] = useState('');
@@ -28,7 +28,7 @@ const FindId = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [mobile, desktop] = useMatchMedia(queries);
+  const [desktop] = useMatchMedia(queries);
 
   const onChangeEmail = (validatedData) => {
     setIsEmailError(validatedData.isError);
@@ -59,12 +59,12 @@ const FindId = () => {
 
   return (
     <FindAccountForm>
-      {!desktop ? <MobileTopBar content="아이디찾기" /> : <S.Title>아이디 찾기</S.Title>}
+      {desktop ? <MobileTopBar content="아이디찾기" /> : <S.Title>아이디 찾기</S.Title>}
 
       {!auth.authSuccess ? (
         <>
           {' '}
-          {!desktop && (
+          {desktop && (
             <MobileConfig title="이메일로 아이디 찾기" content="회원가입시 등록했던 이메일을 입력해주세요." />
           )}
           <FindAccountContainer>
@@ -88,7 +88,7 @@ const FindId = () => {
       ) : (
         <FindAccountContainer>
           <FindAccountText>아이디는 {auth.blindAccount}입니다.</FindAccountText>
-          <NextButton onClick={completeClick}>완료</NextButton>
+          <CompleteButton onClick={completeClick}>완료</CompleteButton>
         </FindAccountContainer>
       )}
     </FindAccountForm>
@@ -129,7 +129,15 @@ const IdfForm = styled.div`
   }
 `;
 const NextButton = styled(Button)`
-  margin-top: 0;
+  margin-top:120px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 328px;
+    position: absolute;
+    bottom: 40px;
+  }
+`;
+const CompleteButton = styled(Button)`
+  margin-top:0px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 328px;
     position: absolute;

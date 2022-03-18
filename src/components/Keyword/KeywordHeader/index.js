@@ -5,15 +5,15 @@ import LoginButton from 'components/Shared/LoginButton';
 import MobileTopBar from 'components/Shared/MobileTopBar';
 import { useSelector } from 'react-redux';
 
-const queries = ['(max-width: 400px)', '(min-width: 800px)'];
+const queries = ['(max-width: 1024px)'];
 const KeywordHeader = ({ title }) => {
   const user = useSelector((state) => state.auth);
   const { isOpen } = useSelector((state) => state.toggle);
-  const [mobile, desktop] = useMatchMedia(queries);
+  const [desktop] = useMatchMedia(queries);
 
   return (
     <S.HeaderContainer>
-      {mobile ? (
+      {desktop ? (
         <MobileTopBar content={title}></MobileTopBar>
       ) : (
         <>

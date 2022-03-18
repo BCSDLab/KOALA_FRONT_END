@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import theme from '../../../theme';
 const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
-const mobileL = theme.deviceSizes.mobileL;
+const tabletL = theme.deviceSizes.tabletL;
 const mibileS = theme.deviceSizes.mobileS;
 const CheckDotLabel = styled.label`
   display: inline-block;
@@ -30,7 +30,7 @@ const CustomCheckDot = styled.div`
     background: url('/asset/Check.svg');
     background-position: center;
   }
-  @media screen and (max-width: ${mobileL}) {
+  @media screen and (max-width: ${tabletL}) {
     margin-right: 8px;
   }
 `;

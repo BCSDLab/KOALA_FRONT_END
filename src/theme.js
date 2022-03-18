@@ -23,6 +23,8 @@ const deviceSizes = {
   mobileL: '450px',
   tablet: '768px',
   tabletL: '1024px',
+  NoteBook: '1680px',
+  desktop: '1680px',
 };
 
 const theme = {

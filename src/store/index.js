@@ -6,6 +6,7 @@ import modifyKeyword, {
   getSiteRecommendationSaga,
   createKeywordSaga,
   getStarSiteSaga,
+  getStarKeywordSaga,
   detailKeywordSaga,
 } from './modifyKeyword';
 import auth, {
@@ -94,6 +95,7 @@ export function* rootSaga() {
     fixMemoSaga(),
     writeMemoSaga(),
     getStarSiteSaga(),
+    getStarKeywordSaga(),
   ]);
 }
 

@@ -83,7 +83,7 @@ export const StyledLink = styled(Link)`
     height: 0;
   }
 
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     color: #a8a8a8;
     font-weight: normal;
     &:focus,
@@ -114,7 +114,7 @@ export const AutoLogin = styled.div`
   align-items: center;
   z-index: 1;
 
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 113px;
   }
 `;
@@ -130,6 +130,7 @@ export const AutoLoginText = styled.label`
   color: ${(props) => props.theme.colors.gray};
   margin-left: 4px;
   font-size: 12px;
+  width: 100%;
 
   :after {
     content: '자동 로그인';
@@ -149,7 +150,7 @@ export const OtherOption = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     margin-top: 16.6px;
 
     a:nth-child(2) {
@@ -226,7 +227,7 @@ export const NoneUserLink = styled(Link)`
     text-decoration: underline;
   }
 
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     margin: 72px 0 70px 0;
   }
 }
@@ -244,7 +245,7 @@ export const CopyRight = styled.p`
   letter-spacing: normal;
   color: ${(props) => props.theme.colors.silver};
 
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     display: none;
   }
 `;

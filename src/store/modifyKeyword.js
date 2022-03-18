@@ -9,10 +9,13 @@ const [GET_SITE_RECOMMENDATION, GET_SITE_RECOMMENDATION_SUCCESS, GET_SITE_RECOMM
 const [MODIFY_KEYWORD, MODIFY_KEYWORD_SUCCESS, MODIFY_KEYWORD_FAILURE] =
   createRequestSagaActionTypes('modifyKeyword/MODIFY_KEYWORD');
 const [GET_KEYWORD_RECOMMENDATION, GET_KEYWORD_RECOMMENDATION_SUCCESS, GET_KEYWORD_RECOMMENDATION_FAILURE] =
-  createRequestSagaActionTypes('modifyKeyword/GET_KEYWORD_RECOMMENDATION_FAILURE');
+  createRequestSagaActionTypes('modifyKeyword/GET_KEYWORD_RECOMMENDATION');
 const [GET_RECOMMENDATION_SITE, GET_RECOMMENDATION_SITE_SUCCESS, GET_RECOMMENDATION_SITE_FAILURE] =
   createRequestSagaActionTypes('modifyKeyword/GET_RECOMMENDATION_SITE');
-const [DETAIL_KEYWORD, DETAIL_KEYWORD_SUCCESS, DETAIL_KEYWORD_FAILURE] =
+  const [GET_RECOMMENDATION_KEYWORD, GET_RECOMMENDATION_KEYWORD_SUCCESS, GET_RECOMMENDATION_KEYWORD_FAILURE] =
+  createRequestSagaActionTypes('modifyKeyword/GET_RECOMMENDATION_KEYWORD');
+
+  const [DETAIL_KEYWORD, DETAIL_KEYWORD_SUCCESS, DETAIL_KEYWORD_FAILURE] =
   createRequestSagaActionTypes('modifyKeyword/DETAIL_KEYWORD');
 
 const [CREATE_KEYWORD, CREATE_KEYWORD_SUCCESS, CREATE_KEYWORD_FAILURE] =
@@ -30,6 +33,8 @@ export const patchModifyKeyword = createAction(MODIFY_KEYWORD, (keywordName, obj
 export const createKeyword = createAction(CREATE_KEYWORD, (object) => object);
 
 export const getRecommendationSite = createAction(GET_RECOMMENDATION_SITE, keywordAPI.getRecommendationSite);
+
+export const getRecommendationKeyword = createAction(GET_RECOMMENDATION_KEYWORD, keywordAPI.getRecommendationKeyword);
 
 export const detailKeyword = createAction(DETAIL_KEYWORD, (keyword) => keyword);
 
@@ -53,19 +58,24 @@ export function* createKeywordSaga() {
   yield takeLatest(CREATE_KEYWORD, createSaga);
   yield takeLatest(CREATE_KEYWORD_SUCCESS, userRegisterKeywordSaga);
 }
-
 const getRecommendationSiteSaga = createRequestSaga(GET_RECOMMENDATION_SITE, keywordAPI.getRecommendationSite);
 export function* getStarSiteSaga() {
   yield takeLatest(GET_RECOMMENDATION_SITE, getRecommendationSiteSaga);
+}
+const getRecommendationKeywordSaga =  createRequestSaga(GET_RECOMMENDATION_KEYWORD, keywordAPI.getRecommendationKeyword);
+export function* getStarKeywordSaga(){
+  yield takeLatest(GET_RECOMMENDATION_KEYWORD, getRecommendationKeywordSaga);
 }
 const detailSaga = createRequestSaga(DETAIL_KEYWORD, keywordAPI.getKeywordDetailInfo);
 export function* detailKeywordSaga() {
   yield takeLatest(DETAIL_KEYWORD, detailSaga);
 }
+
 const initialState = {
   siteRecommendationList: [],
   keywordRecommendationList: [],
   recommendationSiteList: [],
+  recommendationKeywordList: [],
   keywordInfo: {},
   getSiteRecommendationResponse: false,
   getKeywordRecommendationResponse: false,
@@ -116,6 +126,13 @@ const modifyKeyword = handleActions(
       recommendationSiteList: [...payload.body],
     }),
     [GET_RECOMMENDATION_SITE_FAILURE]: (state) => ({
+      ...state,
+    }),
+    [GET_RECOMMENDATION_KEYWORD_SUCCESS]: (state, { payload }) => ({
+      ...state,
+      recommendationKeywordList: [...payload.body],
+    }),
+    [GET_RECOMMENDATION_KEYWORD_FAILURE]: (state) => ({
       ...state,
     }),
     [DETAIL_KEYWORD_SUCCESS]: (state, { payload }) => ({

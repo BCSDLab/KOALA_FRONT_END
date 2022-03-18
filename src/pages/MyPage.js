@@ -19,7 +19,7 @@ import * as API from 'api';
   마이페이지에 현재 user/my에서 유저 이미지에 대한 설계가 아직 진행되지 않았습니다. 
   서버 설계가 완료되면 아래 작성해둔 함수를 활용해주세요
 */
-const queries = ['(max-width: 400px)', '(min-width: 800px)'];
+const queries = ['(max-width: 1024px)'];
 const MyPage = () => {
   const toggle = useSelector((state) => state.toggle.isOpen);
   const userInfo = useSelector((state) => state.myPage);
@@ -28,7 +28,7 @@ const MyPage = () => {
   const [dialog, setDialog] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [mobile, desktop] = useMatchMedia(queries);
+  const [desktop] = useMatchMedia(queries);
 
   //이미지 파일 업로드 기능 함수
   const setFile = (e) => {
@@ -70,7 +70,7 @@ const MyPage = () => {
   return (
     <MyPageContainer>
       <SideNavbar></SideNavbar>
-      {desktop && <LoginButton />}
+      {!desktop && <LoginButton />}
       <MyPageContent isToggle={toggle}>
         <UserInfo isToggle={toggle}>
           <MainText>설정</MainText>
@@ -125,7 +125,7 @@ const MyPageContainer = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     padding: 0;
     width: 100%;
     display: flex;
@@ -134,12 +134,12 @@ const MyPageContainer = styled.div`
 `;
 
 const MyPageContent = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  max-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 100%;
     display: block;
     height: auto;
@@ -147,7 +147,7 @@ const MyPageContent = styled.div`
 `;
 
 const UserInfoContainer = styled.div`
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 100%;
     height: auto;
     display: flex;
@@ -155,7 +155,7 @@ const UserInfoContainer = styled.div`
   }
 `;
 const UserInfoContent = styled.div`
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 328px;
     display: flex;
     flex-direction: column;
@@ -164,7 +164,7 @@ const UserInfoContent = styled.div`
 `;
 
 const UserInfo = styled.div`
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 100%;
     height: calc(100% + 100px);
     margin: 0;
@@ -172,15 +172,15 @@ const UserInfo = styled.div`
 `;
 
 const MainText = styled.div`
-  width: 34px;
+  max-width: 384px;
   height: 27px;
   font-family: NotoSansCJKKR;
   font-size: 18px;
   font-weight: 500;
   text-align: left;
   color: ${(props) => props.theme.colors.darkgray};
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
-    width: 100%;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
+    max-width: 100%;
     height: 61px;
     display: flex;
     justify-content: center;
@@ -195,15 +195,15 @@ const MainText = styled.div`
 `;
 
 const MyInfo = styled.div`
-  width: 48px;
+  width: 100%;
   height: 24px;
-  margin: 33px 67px 32px 80px;
+  margin: 0px 67px 32px 80px;
   font-family: NotoSansCJKKR;
   font-size: 16px;
   font-weight: 500;
-  text-align: center;
+  text-align: left;
   color: ${(props) => props.theme.colors.darkgray};
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 118px;
     height: 21px;
     margin: 24px 0 0 0;
@@ -214,7 +214,7 @@ const MyInfo = styled.div`
   }
 `;
 const UserInfoHeader = styled.div`
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 328px;
     height: 102px;
     display: flex;
@@ -229,7 +229,7 @@ const UserImage = styled.img`
   margin: 0px 98px 16px 195px;
   border-radius: 50%;
   object-fit: cover;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 56px;
     height: 56px;
     margin: 5px 0 0 0;
@@ -239,8 +239,8 @@ const UserImage = styled.img`
 `;
 const OverLay = styled.div`
   position: absolute;
-  height: 72px;
-  width: 72px;
+  max-height: 72px;
+  max-width: 72px;
   border-radius: 50%;
   margin: -88px 98px 16px 195px;
   font-family: NotoSansCJKKR;
@@ -249,7 +249,7 @@ const OverLay = styled.div`
   text-align: left;
   color: ${(props) => props.theme.colors.white};
   background-color: rgba(34, 34, 34, 0.3);
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     position: absolute;
     width: 56px;
     height: 56px;
@@ -270,7 +270,7 @@ const OverLay = styled.div`
 const PatchText = styled.div`
   padding: 26px 23px 25px;
   cursor: pointer;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 26px;
     height: 21px;
     padding: 0;
@@ -284,20 +284,18 @@ const PatchText = styled.div`
 
 const PatchImg = styled.input`
   display: none;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
-  }
 `;
 
 const UserNickname = styled.div`
-  width: 304px;
-  height: 24px;
+  max-width: 100%;
+  max-height: 24px;
   margin: 0px 0px 32px 80px;
   font-family: NotoSansCJKKR;
   font-size: 16px;
   font-weight: bold;
   text-align: center;
   color: ${(props) => props.theme.colors.darkgray};
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 360px;
     height: 27px;
     display: flex;
@@ -318,7 +316,7 @@ const Title = styled.div`
   font-weight: 500;
   text-align: center;
   color: ${(props) => props.theme.colors.gray};
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 118px;
     height: 21px;
     font-family: NotoSansCJKKR;
@@ -329,22 +327,22 @@ const Title = styled.div`
 `;
 
 const NicknameTitle = styled(Title)`
-  width: 39px;
+  max-width: 39px;
   margin: 0px 76px 24px 80px;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     margin: 26px 226px 16px 0px;
   }
 `;
 
 const SchoolAuthTitle = styled(Title)`
-  width: 52px;
+  max-width: 52px;
   margin: 71.3px 50px 16px 80px;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     margin: 46px 226px 7px 0px;
   }
 `;
 const EtcTitle = styled.div`
-  width: 32px;
+  max-width: 32px;
   height: 24px;
   margin: 80px 83px 41px 80px;
   font-family: NotoSansCJKKR;
@@ -352,7 +350,7 @@ const EtcTitle = styled.div`
   font-weight: 500;
   text-align: center;
   color: ${(props) => props.theme.colors.darkgray};
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 118px;
     height: 21px;
     margin: 38px 3px 16px 0px;
@@ -361,10 +359,14 @@ const EtcTitle = styled.div`
     text-align: left;
     color: ${(props) => props.theme.colors.gray};
   }
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
+    margin: 10px 83px 20px 80px;
+  }
 `;
 
 const Element = styled.div`
-  width: 52px;
+  max-width: 52px;
   height: 21px;
   cursor: pointer;
   margin: 0px 50px 32px 80px;
@@ -373,7 +375,7 @@ const Element = styled.div`
   font-weight: 500;
   text-align: center;
   color: ${(props) => props.theme.colors.gray};
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 68px;
     height: 21px;
     margin: 0 53px 16px 0;
@@ -381,6 +383,10 @@ const Element = styled.div`
     font-size: 14px;
     text-align: left;
     color: ${(props) => props.theme.colors.darkgray};
+  }
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
+    margin: 0px 50px 16px 80px;
   }
 `;
 

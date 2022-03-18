@@ -1,8 +1,7 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { changeAlarmTerm, changeSiteName } from '../utils';
+import React, { useState, useCallback } from 'react';
+import { changeSiteName } from '../utils';
 import { ALARM_TERM } from 'constant';
 import { useNavigate } from 'react-router';
-import { inquiry } from 'store/keyword';
 import { patchModifyKeyword, createKeyword } from 'store/modifyKeyword';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -15,6 +14,7 @@ const KeywordAlarm = ({
   setSelectRecommendKeyword,
   buttonText,
   keywordName,
+  isRegisterKeyword,
 }) => {
   const [isImportantAlarm, setIsImportantAlarm] = useState(false);
   const [isNormalAlarm, setIsNormalAlarm] = useState(true);
@@ -46,6 +46,16 @@ const KeywordAlarm = ({
   };
 
   const onClickModifyButton = useCallback(() => {
+    if (selectRecommendItem.length === 0 || keywordName === false) {
+      alert('필요한 항목을 입력해주세요');
+      return;
+    }
+
+    if (isRegisterKeyword) {
+      alert('이미 등록된 키워드 입니다');
+      return;
+    }
+
     setIsNormalAlarm(false);
     setIsImportantAlarm(false);
     setIsSlientAlarm(false);
@@ -54,8 +64,8 @@ const KeywordAlarm = ({
     setSelectRecommendItem([]);
 
     if (buttonText == '등록') {
-      setRecommendKeyword(undefined);
-      setSelectRecommendKeyword(undefined);
+      setRecommendKeyword('');
+      setSelectRecommendKeyword('');
     }
 
     if (buttonText === '수정') {
@@ -137,5 +147,6 @@ const KeywordAlarm = ({
 export default KeywordAlarm;
 
 const AlarmFormContainer = styled.div`
+  width: 700px;
   color: ${(props) => props.theme.colors.silver};
 `;

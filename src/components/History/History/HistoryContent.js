@@ -13,14 +13,14 @@ import {
 import { deleteScrapItem } from 'store/scrap';
 import { useDispatch, useSelector } from 'react-redux';
 import PopUp from './HistoryPopup';
-import { MENU_ITEM } from 'constant';
+import { SITE_LIST } from 'constant';
 import { useMediaQuery } from 'react-responsive';
 import theme from '../../../theme';
 import MobileMenuModal from './MobileMenuModal';
 import { MobileDeleteModal, MobileMoveScrapModal } from './MobilePopUpModal';
 export const formatingDate = (date) => {
   const newDate = new Date(date);
-  const month = newDate.getMonth() + 1;
+  const month = newDate.getMonth() + 1 < 10 ? '0' + (newDate.getMonth() + 1) : newDate.getMonth() + 1;
   const day = newDate.getDate() < 10 ? '0' + newDate.getDate() : newDate.getDate();
   const hour = newDate.getHours() < 10 ? '0' + newDate.getHours() : newDate.getHours();
   const minute = newDate.getMinutes() < 10 ? '0' + newDate.getMinutes() : newDate.getMinutes();
@@ -45,7 +45,7 @@ const HistoryContent = () => {
     threshold: 0.0,
     triggerOnce: false,
   });
-  const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.mobileL}` });
+  const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.tabletL}` });
   const showRead = () => {
     if (command === 'read') {
       setCommand(null);
@@ -153,7 +153,6 @@ const HistoryContent = () => {
   };
   useEffect(() => {
     if (userInfo.isLoggedIn || deleteHistoryResponse || readHistoryItemResponse || moveToScrapResponse) {
-      console.log(pageNum[0])
       dispatch(getHistoryList(pageNum[0]));
     }
   }, [userInfo.isLoggedIn, pageNum]);
@@ -278,7 +277,7 @@ const HistoryContent = () => {
                   />
                   <S.AlertContent>
                     <S.AlertDetail>
-                      <S.Sender>{MENU_ITEM[MENU_ITEM.findIndex((site) => site.id === mail.site)].title}</S.Sender>
+                      <S.Sender>{SITE_LIST[SITE_LIST.findIndex((site) => site.id === mail.site)].title}</S.Sender>
                       {isMobile && <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>}
                     </S.AlertDetail>
                     <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={(e) => clickMail(mail.id)}>
@@ -302,7 +301,7 @@ const HistoryContent = () => {
                     />
                     <S.AlertContent>
                       <S.AlertDetail>
-                        <S.Sender>{MENU_ITEM[MENU_ITEM.findIndex((site) => site.id === mail.site)].title}</S.Sender>
+                        <S.Sender>{SITE_LIST[SITE_LIST.findIndex((site) => site.id === mail.site)].title}</S.Sender>
                         {isMobile && <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>}
                       </S.AlertDetail>
                       <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={(e) => clickMail(mail.id)}>

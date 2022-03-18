@@ -37,7 +37,6 @@ const KeywordSearch = styled.input`
   height: 40px;
   flex-grow: 0;
   padding: 0 0 0 16px;
-  margin-left: 44px;
   border: 0;
   background-color: ${(props) => props.theme.colors.lightgray};
 `;
@@ -110,12 +109,20 @@ const HashImage = styled.img`
   margin-right: 5px;
 `;
 
-const InputSite = ({ setIsMobileSite, onClickRecommendItem, setSite, site, setAlreadyRegisterItem }) => {
+const InputSite = ({
+  setIsMobileSite,
+  onClickRecommendItem,
+  searchedSites,
+  setSearchedSites,
+  setSite,
+  site,
+  setAlreadyRegisterItem,
+}) => {
   const [isRecommendSite, setIsRecommendSite] = useState(false);
-  const [serchedSites, setserchedSites] = useState(JSON.parse(localStorage.getItem('serchedSites') || '[]'));
   const dispatch = useDispatch();
   const { siteRecommendationList } = useSelector((state) => state.modifyKeyword);
   const { recommendationSiteList } = useSelector((state) => state.modifyKeyword);
+
   const onClickChevronLeft = () => {
     setIsMobileSite(false);
   };
@@ -133,10 +140,15 @@ const InputSite = ({ setIsMobileSite, onClickRecommendItem, setSite, site, setAl
   };
 
   const onClickHashButton = (site) => {
-    setIsMobileSite(false);
     const newSite = site;
-    if (!serchedSites.indexOf(newSite)) setserchedSites([newSite, ...serchedSites]);
+    if (0 > searchedSites.indexOf(newSite)) {
+      searchedSites.unshift(newSite);
+      if (searchedSites.length > 3) {
+        searchedSites.pop();
+      }
+    }
     setSite('');
+    setIsMobileSite(false);
   };
 
   useEffect(() => {
@@ -147,8 +159,8 @@ const InputSite = ({ setIsMobileSite, onClickRecommendItem, setSite, site, setAl
   }, [site]);
 
   useEffect(() => {
-    localStorage.setItem('serchedSites', JSON.stringify(serchedSites));
-  }, [serchedSites]);
+    localStorage.setItem('searchedSites', JSON.stringify(searchedSites));
+  }, [searchedSites]);
   return (
     <Container>
       <Header>
@@ -156,7 +168,7 @@ const InputSite = ({ setIsMobileSite, onClickRecommendItem, setSite, site, setAl
           <BackImage src="/asset/BackButton.svg" />
         </BackButton>
         <KeywordSearch onChange={onChangeSiteInput} value={site} placeholder="알림받을 사이트 검색"></KeywordSearch>
-        <SearchButton onClick={onClickHashButton}>
+        <SearchButton onClick={(site) => onClickRecommendItem}>
           <img src="/asset/HashtagWhite.svg" />
         </SearchButton>
       </Header>
@@ -171,7 +183,7 @@ const InputSite = ({ setIsMobileSite, onClickRecommendItem, setSite, site, setAl
           <List>
             {!isRecommendSite ? (
               <>
-                {siteRecommendationList.map((item, index) => {
+                {searchedSites.map((item, index) => {
                   return <Item key={index}>{item}</Item>;
                 })}
               </>

@@ -11,7 +11,9 @@ const Container = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     padding: 0;
     width: 100%;
     display: flex;
@@ -24,7 +26,8 @@ const Content = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+  overflow-x: hidden;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 100%;
     display: block;
     height: auto;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import theme from '../../../theme';
 
-const { mobileL, mobileS } = theme.deviceSizes;
+const { tabletL, mobileS } = theme.deviceSizes;
 
 export const MobileSearchWrapper = styled.div`
   width: 90%;
@@ -17,10 +17,14 @@ export const SearchInput = styled.input`
   padding: 8px;
   border: none;
   background-color: #eeeeee;
-  @media screen and (max-width: ${mobileL}) {
-    width: 86%;
+  @media screen and (max-width: ${tabletL}) {
+    width: 100%;
     padding: 0 0 0 8px;
     height: 40px;
+  }
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+      props.theme.deviceSizes.NoteBook}) {
+    width: 260px;
   }
 `;
 
@@ -34,7 +38,7 @@ export const SearchButton = styled.button`
   font-size: 12px;
   background-color: #222222;
   color: #ffffff;
-  @media screen and (max-width: ${mobileL}) {
+  @media screen and (max-width: ${tabletL}) {
     width: 40px;
     height: 40px;
     margin: 0;
@@ -44,7 +48,7 @@ export const SearchButton = styled.button`
 
 export const SearchImage = styled.img`
   margin-left: 8px;
-  @media screen and (max-width: ${mobileL}) {
+  @media screen and (max-width: ${tabletL}) {
     margin: 0;
     padding: 0;
   }

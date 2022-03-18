@@ -33,6 +33,7 @@ const LoginOptionButton = styled.button`
   max-width: 176px;
   padding: 12px 40.5px;
   background: none;
+  white-space: nowrap;
   font-size: 16px;
   font-weight: ${({ isClicked }) => (isClicked ? 'bold' : 'normal')};
   text-align: center;
@@ -106,12 +107,6 @@ const AuthMainForm = () => {
 
   return (
     <>
-      {mobile && (
-        <MainLogo>
-          <S.MainLogoImg />
-        </MainLogo>
-      )}
-
       <LoginContainer>
         <LoginOptionContainer>
           <LoginOptionButton onClick={() => setIsNormalLogin(true)} isClicked={isNormalLogin}>

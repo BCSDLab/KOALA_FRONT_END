@@ -8,15 +8,18 @@ const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 const Header = styled.div`
   display: flex;
-  width: 1294px;
+  width: 1314px;
   // padding-bottom: 31px;
   border-bottom: 1px solid #eee;
-  @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${theme.deviceSizes.tabletL}) {
     width: 90%;
     margin: 0 auto;
     justify-content: space-around;
     align-items: center;
     padding: 0;
+  }
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+    width: 900px;
   }
 `;
 const FocusLine = styled.div`
@@ -44,7 +47,7 @@ const HistoryHeaderTab = styled(NavLink)`
     margin-bottom: ${(props) => (props.inlink ? '-2px' : '0')};
     border-bottom: ${(props) => (props.inlink ? `2px solid ${darkgray}` : '0')};
   }
-  @media screen and (max-width: ${theme.deviceSizes.mobileL}) {
+  @media screen and (max-width: ${theme.deviceSizes.tabletL}) {
     margin: 0 0 ${(props) => (props.inlink ? '-2px' : '0')} 0;
     font-size: 14px;
     font-weight: ${(props) => (props.inlink ? 'bold' : '0')};
@@ -59,7 +62,7 @@ const HistoryHeaderTab = styled(NavLink)`
   }
 `;
 const HistoryHeader = ({ location }) => {
-  const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.mobileL}` });
+  const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.tabletL}` });
   const totlaAlertHistory = isMobile ? '전체알림' : '전체 알림 내역';
   return (
     <>

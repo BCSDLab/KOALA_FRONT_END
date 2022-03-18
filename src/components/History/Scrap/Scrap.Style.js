@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import theme from '../../../theme';
 const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
-const mobileL = theme.deviceSizes.mobileL;
+const tabletL = theme.deviceSizes.tabletL;
 export const MemoBlock = styled.div`
   width: 1033px;
   border: none;
@@ -19,7 +19,7 @@ export const WriteBlock = styled.textarea`
   background-color: ${lightgray};
   font-family: 'NotoSansCJKKR';
   font-size: 12px;
-  @media screen and (max-width: ${mobileL}){
+  @media screen and (max-width: ${tabletL}){
     width: 98%;
     height: 32px;
     font-size: 11px;
@@ -33,11 +33,14 @@ export const CheckBox = styled.div`
 export const MenuList = styled.div`
   display: flex;
   margin: 31px 0 32px 0;
-  @media screen and (max-width: ${mobileL}){
+  @media screen and (max-width: ${tabletL}){
     width: 90%;
     justify-content: space-between;
     margin: 0 auto;
     margin-top: 17px;
+  }
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+    width: 900px;
   }
 `;
 export const Menu = styled.div`
@@ -48,8 +51,11 @@ export const Menu = styled.div`
   border: solid 1px ${lightgray};
   color: ${gray};
   cursor: pointer;
-  @media screen and (max-width: ${mobileL}){
+  @media screen and (max-width: ${tabletL}){
     margin: 0;
+  }
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+    margin-left: 720px;
   }
 `;
 export const MenuLogo = styled.img`
@@ -63,8 +69,12 @@ export const MenuName = styled.div`
 export const Wrapper = styled.div`
   display: block;
   font-size: 12px;
-  @media screen and (max-width: ${mobileL}){
+  @media screen and (max-width: ${tabletL}){
     width: 100vw;
+  }
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+    width: 900px;
+    height: 400px;
   }
 `;
 export const SelectAll = styled.div`
@@ -97,8 +107,11 @@ export const StorageAlert = styled.li`
   padding: 0 0 15px 0;
   margin: 15px 0 0 0;
   border-bottom: 1px solid ${lightgray};
-  @media screen and (max-width:${mobileL}){
+  @media screen and (max-width:${tabletL}){
     width: 100%;
+  }
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+    width: 900px;
   }
 `;
 export const MemoAlertWrapper = styled.div`
@@ -110,16 +123,19 @@ export const AlertContent = styled.div`
 `;
 export const AlertTitle = styled.a`
   width: 899px;
-  max-width: 899px;
+  
   max-height: 18px;
   margin-right: 45px;
   font-size: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  @media screen and (max-width: ${mobileL}){
+  @media screen and (max-width: ${tabletL}){
     width: 100%;
     max-width: 100%;
+  }
+  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+    width: 550px;
   }
 `;
 
@@ -153,7 +169,7 @@ export const LettterLength = styled.span``;
 export const KeyWordAlertList = styled.ol`
   height: 600px;
   overflow-y: ${(props) => (props.scrollOption ? 'scroll' : 'none')};
-  @media screen and (max-width: ${mobileL}) {
+  @media screen and (max-width: ${tabletL}) {
     width: 100%;
     height: 71vh;
     overflow-y: scroll;
