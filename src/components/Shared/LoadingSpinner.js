@@ -10,7 +10,7 @@ const rotate360 = keyframes`
   }
 `;
 
-const Spinner = styled.div`
+const LoadingSpinner = styled.div`
   animation: ${rotate360} 1s linear infinite;
   transform: translateZ(0);
 
@@ -22,22 +22,7 @@ const Spinner = styled.div`
   width: 300px;
   height: 300px;
   border-radius: 50%;
+  margin-bottom: 30px;
 `;
-
-const LoadingSpinnerBackground = styled.div`
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const LoadingSpinner = () => {
-  return (
-    <LoadingSpinnerBackground>
-      <Spinner />
-    </LoadingSpinnerBackground>
-  );
-};
 
 export default LoadingSpinner;
