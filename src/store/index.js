@@ -1,8 +1,18 @@
 import { combineReducers } from 'redux';
 import { all } from 'redux-saga/effects';
-import modifyKeyword, { getKeywordRecommendationSaga, patchModifyKeywordSaga } from './modifyKeyword';
+import modifyKeyword, {
+  getKeywordRecommendationSaga,
+  patchModifyKeywordSaga,
+  getSiteRecommendationSaga,
+  createKeywordSaga,
+  getStarSiteSaga,
+  getStarKeywordSaga,
+  detailKeywordSaga,
+} from './modifyKeyword';
 import auth, {
   authSaga,
+  getOAuthTokenAuthSaga,
+  socialAuthSaga,
   refreshLoginSaga,
   signUpRegisterSaga,
   sendPasswordSaga,
@@ -22,7 +32,16 @@ import keyword, {
   deleteKeywordListSaga,
   moveKeywordItemSaga,
   readKeywordItemSaga,
+  deleteKeywordSaga,
 } from './keyword';
+import history, {
+  getHistoryListSaga,
+  deleteHistoryListSaga,
+  readHistoryItemSaga,
+  moveToScrapItemSaga,
+  undoHistoryListSaga,
+} from './history';
+import scrap, { getScrapListSaga, getMemoSaga, deleteScrapItemSaga, fixMemoSaga, writeMemoSaga } from './scrap';
 import socket, { getWebTokenSaga, getChatListSaga } from './socket';
 
 const rootReducer = combineReducers({
@@ -32,17 +51,22 @@ const rootReducer = combineReducers({
   toggle,
   keyword,
   myPage,
+  history,
+  scrap,
   socket,
 });
 
 export function* rootSaga() {
   yield all([
     authSaga(),
+    getOAuthTokenAuthSaga(),
+    socialAuthSaga(),
     refreshLoginSaga(),
     signUpRegisterSaga(),
     inquiryKeywordSaga(),
     getKeywordListSaga(),
     deleteKeywordListSaga(),
+    detailKeywordSaga(),
     moveKeywordItemSaga(),
     readKeywordItemSaga(),
     changeNameSaga(),
@@ -54,9 +78,26 @@ export function* rootSaga() {
     sendAccountSaga(),
     authAccountSaga(),
     setAccountSaga(),
+    nonLoginSaga(),
     changeingPasswordSaga(),
     changeImageSaga(),
+    getSiteRecommendationSaga(),
+    patchModifyKeywordSaga(),
     getKeywordRecommendationSaga(),
+    createKeywordSaga(),
+    deleteKeywordSaga(),
+    deleteHistoryListSaga(),
+    readHistoryItemSaga(),
+    undoHistoryListSaga(),
+    moveToScrapItemSaga(),
+    getHistoryListSaga(),
+    getScrapListSaga(),
+    getMemoSaga(),
+    deleteScrapItemSaga(),
+    fixMemoSaga(),
+    writeMemoSaga(),
+    getStarSiteSaga(),
+    getStarKeywordSaga(),
     patchModifyKeywordSaga(),
     nonLoginSaga(),
     getWebTokenSaga(),

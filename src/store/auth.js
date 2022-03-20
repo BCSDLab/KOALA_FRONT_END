@@ -2,10 +2,12 @@ import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, { createRequestSagaActionTypes } from './createRequestSaga';
 import { takeLatest } from '@redux-saga/core/effects';
 import { setCookie } from 'components/Shared/Cookies';
-import { setTokenOnHeader } from 'api/logined';
+import { setTokenOnHeader, setNoneBearerTokenOnHeader } from 'api/logined';
 import * as authAPI from 'api';
 
 const [LOGIN, LOGIN_SUCCESS, LOGIN_FAILURE] = createRequestSagaActionTypes('auth/LOGIN');
+const [OAUTH, OAUTH_SUCCESS, OAUTH_FAILURE] = createRequestSagaActionTypes('auth/OAUTH');
+const [SOCIAL_LOGIN, SOCIAL_LOGIN_SUCCESS, SOCIAL_LOGIN_FAILURE] = createRequestSagaActionTypes('auth/SOCIAL_LOGIN');
 const [REFRESH, REFRESH_SUCCESS, REFRESH_FAILURE] = createRequestSagaActionTypes('auth/REFRESH');
 const [SIGNUP, SIGNUP_SUCCESS, SIGNUP_FALIURE] = createRequestSagaActionTypes('auth/SIGNUP');
 const [GUEST, GUEST_SUCCESS, GUEST_FALIURE] = createRequestSagaActionTypes('auth/GUEST');
@@ -39,11 +41,29 @@ function* setToken(action) {
   setTokenOnHeader(action.payload.body.access_token);
 }
 
+function* setAccessTokenOnHeader(action) {
+  setNoneBearerTokenOnHeader(action.payload.access_token);
+}
+
 export const login = createAction(LOGIN, ({ deviceToken, account, password }) => ({
   deviceToken,
   account,
   password,
 }));
+export const getOAuthToken = createAction(OAUTH, ({ uri, clientId, redirectUri, code, state, clientSecret }) => ({
+  uri,
+  clientId,
+  redirectUri,
+  code,
+  state,
+  clientSecret,
+}));
+
+export const socialLogin = createAction(SOCIAL_LOGIN, ({ snsType, deviceToken }) => ({
+  snsType,
+  deviceToken,
+}));
+
 export const refresh = createAction(REFRESH);
 export const signUp = createAction(SIGNUP, ({ account, password, find_email, nickName }) => ({
   account,
@@ -83,6 +103,16 @@ const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 export function* authSaga() {
   yield takeLatest(LOGIN, loginSaga);
   yield takeLatest(LOGIN_SUCCESS, setToken);
+}
+const getOAuthTokenSaga = createRequestSaga(OAUTH, authAPI.getOAuthToken);
+export function* getOAuthTokenAuthSaga() {
+  yield takeLatest(OAUTH, getOAuthTokenSaga);
+  yield takeLatest(OAUTH_SUCCESS, setAccessTokenOnHeader);
+}
+const socialLoginSaga = createRequestSaga(SOCIAL_LOGIN, authAPI.socialLogin);
+export function* socialAuthSaga() {
+  yield takeLatest(SOCIAL_LOGIN, socialLoginSaga);
+  yield takeLatest(SOCIAL_LOGIN_SUCCESS, setToken);
 }
 const refreshSaga = createRequestSaga(REFRESH, authAPI.refresh);
 export function* refreshLoginSaga() {
@@ -132,6 +162,7 @@ const initialState = {
   changeComplete: false,
   errorCode: '',
   blindAccount: '',
+  isOAuthTrue: false,
 };
 
 const auth = handleActions(
@@ -154,6 +185,37 @@ const auth = handleActions(
       authError: error,
       isLoggedIn: false,
     }),
+    [OAUTH]: (state) => ({
+      ...state,
+      authError: null,
+    }),
+    [OAUTH_SUCCESS]: (state) => ({
+      ...state,
+      authError: null,
+      isLoggedIn: false,
+      isOAuthTrue: true,
+    }),
+    [OAUTH_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+      isOAuthTrue: false,
+      isLoggedIn: false,
+    }),
+    [SOCIAL_LOGIN]: (state) => ({
+      ...state,
+      isLoggedIn: null,
+      authError: null,
+    }),
+    [SOCIAL_LOGIN_SUCCESS]: (state) => ({
+      ...state,
+      authError: null,
+      isLoggedIn: true,
+    }),
+    [SOCIAL_LOGIN_FAILURE]: (state, { payload: error }) => ({
+      ...state,
+      authError: error,
+      isLoggedIn: false,
+    }),
     [REFRESH_SUCCESS]: (state) => ({
       ...state,
       authError: null,
@@ -169,10 +231,12 @@ const auth = handleActions(
       ...payload,
       errorCode: '',
     }),
-    [SIGNUP_FALIURE]: (state, { payload: error }) => ({
-      ...state,
-      errorCode: error.code,
-    }),
+    [SIGNUP_FALIURE]: (state, { payload: error }) => {
+      return {
+        ...state,
+        errorCode: error.response.data.code,
+      };
+    },
     [SEND_FIND_PASSWORD_SUCCESS]: (state, { payload }) => ({
       ...state,
       ...payload,

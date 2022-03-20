@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import theme from '../../../theme';
+
+const { tabletL, mobileS } = theme.deviceSizes;
 
 export const Menu = styled.nav`
   min-width: 1323px;
@@ -9,6 +12,9 @@ export const Menu = styled.nav`
   border-bottom: 1.5px solid #eeeeee;
   top: 180px;
   left: ${(props) => (props.toggle ? '488px' : '353px')};
+  @media screen and (max-width: ${tabletL}) {
+    position: static;
+  }
 `;
 
 export const Item = styled.span`
@@ -51,7 +57,7 @@ export const ItemUnderBar = styled.div`
 `;
 
 export const FilterList = styled.nav`
-  min-width: 1310px;
+  width: 1313px;
   height: 36px;
   display: flex;
   align-items: center;
@@ -76,6 +82,12 @@ export const FilterList = styled.nav`
     display: flex;
     align-items: center;
   }
+  @media screen and (max-width: ${tabletL}) {
+    position: static;
+    display: block;
+    width: 100vw;
+    min-width: ${mobileS};
+  }
 `;
 
 export const CheckBox = styled.div`
@@ -86,26 +98,30 @@ export const CheckBox = styled.div`
   border: 1px solid #c4c4c4;
   cursor: pointer;
 
-  ${(props) =>
-    props.checkAll &&
-    `
-  background-image:url('/asset/check.svg');
-  background-position:center;
-  `}
+  ${(props) => {
+    if (props.checkAll) {
+      return `
+        background-image:url('/asset/check.svg');
+        background-position:center;
+        `;
+    }
+  }};
+  @media screen and (max-width: ${tabletL}) {
+    margin: 0 8px 0 0;
+  }
 `;
-
 export const CheckBoxTitle = styled.span`
   font-size: 12px;
   margin-right: 40px;
   cursor: pointer;
 `;
 
-export const FilterItem = styled.span`
+export const FilterReadNotification = styled.span`
   padding: 8px;
   cursor: pointer;
 
   ${(props) => {
-    if (props.readNotification || props.notReadNotification) {
+    if (props.readNotification) {
       return `
                 border:1px solid #222222;
                 color:#222222;
@@ -117,6 +133,43 @@ export const FilterItem = styled.span`
             `;
     }
   }}
+  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
+    props.theme.deviceSizes.NoteBook}) {
+    padding: 8px;
+  }
+`;
+export const FilterNotReadNotification = styled.span`
+  padding: 8px;
+  cursor: pointer;
+
+  ${(props) => {
+    if (props.notReadNotification) {
+      return `
+                border:1px solid #222222;
+                color:#222222;
+            `;
+    } else {
+      return `
+                border:1px solid #eee;
+                color:#999999;
+            `;
+    }
+  }}
+`;
+
+export const FilterItem = styled.span`
+  padding: 8px;
+  cursor: pointer;
+  border: 1px solid #eee;
+  white-space: nowrap;
+  color: #999;
+  @media screen and (max-width: ${tabletL}) {
+    margin: 0 8px 0 0;
+    &:last-child {
+      margin: 0;
+      border: none;
+    }
+  }
 `;
 
 export const FilterItemImage = styled.img`
@@ -150,6 +203,7 @@ export const MainCheckBox = styled(CheckBox)`
 export const MainCheckBoxTitle = styled(CheckBoxTitle)`
   min-width: 45px;
   margin-right: 125px;
+  white-space: nowrap;
   color: ${(props) => (props.readState ? '#999999' : '#222222')};
 `;
 export const MainContent = styled.div`
@@ -171,4 +225,19 @@ export const MainPeriod = styled(MainContent)`
   min-width: 62px;
   margin-right: 0px;
   color: ${(props) => (props.readState ? '#999999' : '#222222')};
+`;
+export const MobileMenuBar = styled.div`
+  width: 90%;
+  min-width: ${mobileS};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 5%;
+  margin-top: 16px;
+`;
+export const MobileSelectAll = styled.div`
+  display: flex;
+`;
+export const MobileMenuList = styled.div`
+  display: flex;
 `;

@@ -1,16 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import MobileTopBar from 'components/Shared/MobileTopBar';
+import MobileConfig from 'components/Shared/MobileConfig';
+import useMatchMedia from 'hooks/useMatchMedia';
 import { authFindPassword, changingPassword, resetAuthState } from 'store/auth';
 import AccountForm from '../Shared/AccountForm';
 import EmailForm from '../Shared/EmailForm';
 import AuthNumberForm from '../Shared/AuthNumberForm';
 import PasswordForm from '../Shared/PasswordForm';
-import ConfiremdPasswordForm from '../Shared/ConfiremdPasswordForm';
+import ConfiremdPasswordForm from '../Shared/ConfirmedPasswordForm';
 import { LOGIN } from 'constant';
 import * as S from 'components/Auth/styles';
 import styled from 'styled-components';
 import Button from 'components/Shared/Button';
+
+const queries = ['(max-width: 450px)'];
 
 const FindPw = () => {
   const [account, setAccount] = useState('');
@@ -25,6 +30,7 @@ const FindPw = () => {
   const [isConfirmedPasswordError, setIsConfirmedPasswordError] = useState(true);
 
   const changeComplete = useSelector((state) => state.auth.changeComplete);
+  const [mobile] = useMatchMedia(queries);
 
   const onChangeAccount = (validatedData) => {
     setIsAccountError(validatedData.isError);
@@ -76,10 +82,11 @@ const FindPw = () => {
   }, []);
 
   return (
-    <div>
+    <FindPasswordContainer>
       {!authSuccess ? (
         <>
-          <S.Title>비밀번호 찾기</S.Title>
+          {mobile ? <MobileTopBar content="비밀번호찾기" /> : <S.Title>비밀번호 찾기</S.Title>}
+
           <AccountForm ref={accountRef} onChange={onChangeAccount} />
           <EmailForm ref={emailRef} onChange={onChangeEmail} />
           <AuthNumberForm
@@ -91,23 +98,28 @@ const FindPw = () => {
             isEmailError={isEmailError}
             onChange={onChangeAuth}
           ></AuthNumberForm>
-          <Button onClick={nextClick} disabled={isAccountError || isEmailError || isAuthNumError} type="button">
-            다음
-          </Button>
+          <AuthButton onClick={nextClick} disabled={isAccountError || isEmailError || isAuthNumError} type="button">
+            인증하기
+          </AuthButton>
         </>
       ) : (
         <>
-          <S.Title>비밀번호 변경하기</S.Title>
+          {mobile ? <MobileTopBar content="비밀번호찾기" /> : <S.Title>비밀번호 찾기</S.Title>}
+          {mobile && <MobileConfig title="새 비밀번호 변경" content="비밀번호를 새로운 비밀번호로 변경해주세요!" />}
           <ChangePasswordForm>
             <PasswordForm ref={passwordRef} onChange={onChangePassword} />
             <ConfiremdPasswordForm ref={confirmedRef} password={password} onChange={onChangeConfirmed} />
           </ChangePasswordForm>
-          <Button onClick={changePasswordClick} disabled={isPasswordError || isConfirmedPasswordError} type="button">
+          <AuthButton
+            onClick={changePasswordClick}
+            disabled={isPasswordError || isConfirmedPasswordError}
+            type="button"
+          >
             완료
-          </Button>
+          </AuthButton>
         </>
       )}
-    </div>
+    </FindPasswordContainer>
   );
 };
 
@@ -115,4 +127,21 @@ export default FindPw;
 
 const ChangePasswordForm = styled.form`
   margin-bottom: 88px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    padding-top: 24px;
+  }
+`;
+
+const AuthButton = styled(Button)`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    position: absolute;
+    bottom: 40px;
+  }
+`;
+
+const FindPasswordContainer = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 100%;
+    padding-top: 31px;
+  }
 `;

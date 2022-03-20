@@ -3,6 +3,22 @@ import logined from './logined';
 export const login = ({ deviceToken, account, password }) =>
   logined.post(`user/login?device_token=${deviceToken}`, { account, password });
 
+export const getOAuthToken = ({ uri, clientId, redirectUri, code, state, clientSecret }) =>
+  logined.post(
+    `${uri}/token`,
+    `grant_type=authorization_code&client_id=${clientId}${
+      redirectUri ? '&redirect_uri=' + redirectUri : ''
+    }&code=${code}${state ? '&state=' + state : ''}${clientSecret ? '&client_secret=' + clientSecret : ''}`,
+    {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+      },
+    }
+  );
+
+export const socialLogin = ({ snsType, deviceToken }) =>
+  logined.post(`user/oauth2/${snsType}?device_token=${deviceToken}`);
+
 export const nonMember = ({ deviceToken }) => logined.post(`/user/non-member?device_token=${deviceToken}`);
 
 export const refresh = () => logined.post('user/refresh');
@@ -50,12 +66,35 @@ export const signUp = ({ account, password, find_email, nickname }) =>
   logined.post('/user/sing-in', { account, password, find_email, nickname });
 
 export const keywordAPI = {
-  getKeyword: () => logined.get(`/keyword`),
-  getKeywordList: (keywordName) => logined.get(`/keyword/list?keyword-name=${keywordName}`),
-  deleteKeywordList: (query) => logined.patch(`/keyword/list/notice?${query}`),
-  deleteKeywordItem: (id) => logined.patch(`/keyword/list/notice?notice-id=${id}`),
-  addScrap: (data) => logined.post(`/scrap`, { board_id: data }),
-  readKeywordItem: (id) => logined.patch(`/keyword/list/notice/reading-check?notice-id=${id}`),
-  getRecommendation: (site) => logined.get(`keyword/site/search?site=${site}`),
-  modifyKeyword: ({ keywordName, object }) => logined.put(`keyword?keyword-name=${keywordName}`, object),
+  getKeyword: () => logined.get(`keyword`),
+  createKeyword: (object) => logined.post(`keyword`, object),
+  modifyKeyword: ({ keywordName, object }) => logined.put(`keyword/${keywordName}`, object),
+  deleteKeyword: (keyword) => logined.patch(`keyword/${keyword}`),
+  getKeywordDetailInfo: (keywordName) => logined.get(`keyword/detail/${keywordName}`),
+  readKeywordItem: (id) => logined.patch(`keyword/list/notice/reading-check/${id}`),
+  getKeywordList: ({ keywordName, pageNum }) =>
+    logined.get(`keyword/list/${keywordName}?page-num=${pageNum ? pageNum : 1}`),
+  deleteKeywordList: (query) => logined.patch(`keyword/list/notice?${query}`),
+  deleteKeywordItem: (id) => logined.patch(`keyword/list/notice?notice-id=${id}`),
+  addScrap: (data) => logined.post(`scrap`, { crawling_id: data }),
+  getSiteRecommendation: (site) => logined.get(`keyword/site/search/${site}`),
+  getKeywordRecommendation: (keyword) => logined.get(`keyword/search/${keyword}`),
+  getRecommendationSite: () => logined.get(`keyword/site/recommendation`),
+  getRecommendationKeyword: () => logined.get(`keyword/recommendation`),
+};
+
+export const historyAPI = {
+  getHistoryList: (pageNum) => logined.get(`/history?page-num=${pageNum}`),
+  deleteHistoryList: (historyList) => logined.patch(`history?${historyList}`),
+  readHistoryItem: (noticeId) => logined.put(`/history?notice-id=${noticeId}`),
+  moveToScrap: (idList) => logined.post(`/scrap`, idList),
+  undoHistoryList: (idList) => logined.patch(`history/undo?${idList}`),
+};
+
+export const scrapAPI = {
+  getScrapList: () => logined.get(`/scrap`),
+  deleteScrapItem: (noticeIdList) => logined.delete(`/scrap`, { data: noticeIdList }),
+  getMemo: () => logined.get(`/memo`),
+  fixMemo: (memo) => logined.patch(`/memo`, { memo: memo.memo, user_scrap_id: memo.user_scrap_id }),
+  writeMemo: (memo) => logined.post(`/memo`, memo),
 };

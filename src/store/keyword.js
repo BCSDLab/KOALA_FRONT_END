@@ -3,7 +3,9 @@ import { createAction, handleActions } from 'redux-actions';
 import createRequestSaga, { createRequestSagaActionTypes } from './createRequestSaga';
 import { takeLatest } from 'redux-saga/effects';
 
-const [GET_KEYWORD, GET_KEYWORD_SUCCESS, GET_KEYWORD_FAILURE] = createRequestSagaActionTypes('keyword/INQUIRY');
+const [GET_KEYWORD, GET_KEYWORD_SUCCESS, GET_KEYWORD_FAILURE] = createRequestSagaActionTypes('keyword/GET_KEYWORD');
+const [DELETE_KEYWORD, DELETE_KEYWORD_SUCCESS, DELETE_KEYWORD_FAILURE] =
+  createRequestSagaActionTypes('keyword/DELETE_KEYWORD');
 const [GET_KEYWORD_LIST, GET_KEYWORD_LIST_SUCCESS, GET_KEYWORD_LIST_FAILURE] =
   createRequestSagaActionTypes('keyword/GETKEYWORDLIST');
 const [DELETE_KEYWORD_LIST, DELETE_KEYWORD_LIST_SUCCESS, DELETE_KEYWORD_LIST_FAILURE] =
@@ -12,14 +14,19 @@ const [MOVE_KEYWORD_ITEM, MOVE_KEYWORD_ITEM_SUCCESS, MOVE_KEYWORD_ITEM_FAILURE] 
   createRequestSagaActionTypes('keyword/MOVEKEYWORDITEM');
 const [READ_KEYWORD_ITEM, READ_KEYWORD_ITEM_SUCCESS, READ_KEYWORD_ITEM_FAILURE] =
   createRequestSagaActionTypes('keyword/READKEYWORDITEM');
-
+const RESET_KEYWORD_STATE = {
+  type: 'RESET_KEYWORD_STATE',
+};
 export const inquiry = createAction(GET_KEYWORD);
-export const getKeywordList = createAction(GET_KEYWORD_LIST);
+export const getKeywordList = createAction(GET_KEYWORD_LIST, ({ keywordName, pageNum }) => ({ keywordName, pageNum }));
 export const deleteKeywordList = createAction(DELETE_KEYWORD_LIST, (query) => query);
 export const moveKeywordItem = createAction(MOVE_KEYWORD_ITEM);
 export const readKeywordItem = createAction(READ_KEYWORD_ITEM, (id) => id);
+export const deleteKeyword = createAction(DELETE_KEYWORD, (keyword) => keyword);
+export const resetKeywordState = createAction(RESET_KEYWORD_STATE);
 
 const inquirySaga = createRequestSaga(GET_KEYWORD, keywordAPI.getKeyword);
+export const userRegisterKeywordSaga = createRequestSaga(GET_KEYWORD, keywordAPI.getKeyword);
 export function* inquiryKeywordSaga() {
   yield takeLatest(GET_KEYWORD, inquirySaga);
 }
@@ -44,6 +51,11 @@ export function* readKeywordItemSaga() {
   yield takeLatest(READ_KEYWORD_ITEM, readItemSaga);
 }
 
+const deleteSaga = createRequestSaga(DELETE_KEYWORD, keywordAPI.deleteKeyword);
+export function* deleteKeywordSaga() {
+  yield takeLatest(DELETE_KEYWORD, deleteSaga);
+}
+
 const initialState = {
   keywords: [],
   keywordList: [],
@@ -52,10 +64,14 @@ const initialState = {
   deleteKeywordListResponse: false,
   moveKeywordItemResponse: false,
   readKeywordItemResponse: false,
+  deleteKeywordResponse: false,
 };
 
 const keyword = handleActions(
   {
+    [RESET_KEYWORD_STATE]: (state) => ({
+      ...(state = initialState),
+    }),
     [GET_KEYWORD_SUCCESS]: (state, { payload: keyword }) => ({
       ...state,
       keywords: keyword.body,
@@ -99,6 +115,12 @@ const keyword = handleActions(
 
     [READ_KEYWORD_ITEM_FAILURE]: () => ({
       readKeywordItemResponse: false,
+    }),
+    [DELETE_KEYWORD_SUCCESS]: () => ({
+      deleteKeywordResponse: true,
+    }),
+    [DELETE_KEYWORD_FAILURE]: () => ({
+      deleteKeywordResponse: false,
     }),
   },
   initialState

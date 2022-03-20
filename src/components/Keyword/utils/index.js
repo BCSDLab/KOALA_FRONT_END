@@ -9,6 +9,19 @@ export const changeSiteName = (value) => {
     return 'FACEBOOK';
   }
 };
+export const changeSite = (value) => {
+  if (value === 'PORTAL') {
+    return '아우누리';
+  } else if (value === 'DORM') {
+    return '아우미르';
+  } else if (value === 'YOUTUBE') {
+    return '유튜브';
+  } else if (value === 'FACEBOOK') {
+    return '페이스북';
+  } else if (value === 'INSTAGRAM') {
+    return '인스타그램';
+  }
+};
 
 export const changeAlarmTerm = (value) => {
   switch (value) {
@@ -30,6 +43,7 @@ export const changeAlarmTerm = (value) => {
       return;
   }
 };
+
 export const getTitle = (url) => {
   if (url === 'PORTAL') {
     return '아우누리';
@@ -50,4 +64,40 @@ export const makeDeleteQuery = (startId, endId) => {
     str += `&notice-id=${i}`;
   }
   return str;
+};
+
+export const getModalPosition = (keywords, selectItemId) => {
+  const indexNumber = keywords.forEach((keyword, index) => {
+    if (keyword.id === selectItemId) {
+      return index;
+    }
+  });
+
+  return indexNumber;
+};
+
+export const getKeywordName = (keywords, selectItemId) => {
+  let keywordName = '';
+
+  keywords &&
+    keywords.forEach((keyword) => {
+      if (selectItemId === keyword.id) {
+        keywordName = keyword.name;
+      }
+    });
+
+  return keywordName;
+};
+
+export const getKeywordPosition = (keywords, selectItemId) => {
+  let modalPosition = 0;
+
+  keywords &&
+    keywords.forEach((keyword, index) => {
+      if (selectItemId === keyword.id) {
+        modalPosition = index;
+      }
+    });
+
+  return modalPosition;
 };

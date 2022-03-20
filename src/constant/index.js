@@ -59,6 +59,8 @@ export const WEEK = [
   { id: 7, day: '공휴일' },
 ];
 
+export const MEDIA_QUERIES = ['(max-width: 450px)', '(min-width: 800px)'];
+
 export const MENU_ITEM = [
   {
     id: 0,
@@ -77,3 +79,15 @@ export const MENU_ITEM = [
     title: '대신 전해드립니다-koreatech',
   },
 ];
+
+export const SITE_LIST = [
+  {
+    id: 'PORTAL',
+    title: '아우누리'
+  },
+  {
+    id: 'DORM',
+    title: '아우미르'
+  }
+]
+export const queries = ['(max-width: 450px)', '(min-width: 800px)'];

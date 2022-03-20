@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { LOGIN } from 'constant';
+import MobileTopBar from 'components/Shared/MobileTopBar';
+import MobileConfig from 'components/Shared/MobileConfig';
+import useMatchMedia from 'hooks/useMatchMedia';
 import AuthNumberForm from '../Shared/AuthNumberForm';
 import { authFindId, setFindAccount, resetAuthState } from 'store/auth';
 import Button from 'components/Shared/Button';
@@ -9,16 +12,7 @@ import * as S from 'components/Auth/styles';
 import styled from 'styled-components';
 import EmailForm from '../Shared/EmailForm';
 
-const IdfForm = styled.div`
-  margin-bottom: 120px;
-`;
-const NextButton = styled(Button)`
-  margin-top: 0;
-`;
-const FindAccountText = styled.div`
-  height: 24px;
-  margin-bottom: 216px;
-`;
+const queries = ['(max-width: 450px)'];
 
 const FindId = () => {
   const [email, setEmail] = useState('');
@@ -33,6 +27,8 @@ const FindId = () => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [desktop] = useMatchMedia(queries);
 
   const onChangeEmail = (validatedData) => {
     setIsEmailError(validatedData.isError);
@@ -62,34 +58,100 @@ const FindId = () => {
   }, []);
 
   return (
-    <div>
-      <S.Title>아이디 찾기</S.Title>
+    <FindAccountForm>
+      {desktop ? <MobileTopBar content="아이디찾기" /> : <S.Title>아이디 찾기</S.Title>}
+
       {!auth.authSuccess ? (
         <>
-          <form>
-            <IdfForm>
-              <EmailForm ref={emailRef} onChange={onChangeEmail} />
-              <AuthNumberForm
-                type="ACCOUNT"
-                ref={authRef}
-                email={email}
-                isEmailError={isEmailError}
-                onChange={onChangeAuth}
-              />
-            </IdfForm>
-          </form>
-          <NextButton onClick={authClick} disabled={isEmailError || isAuthNumError} type="button">
-            다음
-          </NextButton>
+          {' '}
+          {desktop && (
+            <MobileConfig title="이메일로 아이디 찾기" content="회원가입시 등록했던 이메일을 입력해주세요." />
+          )}
+          <FindAccountContainer>
+            <SubmitAccountForm>
+              <IdfForm>
+                <EmailForm ref={emailRef} onChange={onChangeEmail} />
+                <AuthNumberForm
+                  type="ACCOUNT"
+                  ref={authRef}
+                  email={email}
+                  isEmailError={isEmailError}
+                  onChange={onChangeAuth}
+                />
+              </IdfForm>
+            </SubmitAccountForm>
+            <NextButton onClick={authClick} disabled={isEmailError || isAuthNumError} type="button">
+              다음
+            </NextButton>
+          </FindAccountContainer>
         </>
       ) : (
-        <>
+        <FindAccountContainer>
           <FindAccountText>아이디는 {auth.blindAccount}입니다.</FindAccountText>
-          <NextButton onClick={completeClick}>완료</NextButton>
-        </>
+          <CompleteButton onClick={completeClick}>완료</CompleteButton>
+        </FindAccountContainer>
       )}
-    </div>
+    </FindAccountForm>
   );
 };
 
 export default FindId;
+const FindAccountForm = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 100%;
+    height: 100%;
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+`;
+const FindAccountContainer = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 328px;
+    height: 100%;
+    padding-top: 24px;
+    display: flex;
+  }
+`;
+const SubmitAccountForm = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 328px;
+    height: 100%;
+
+    display: flex;
+  }
+`;
+const IdfForm = styled.div`
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 328px;
+  }
+`;
+const NextButton = styled(Button)`
+  margin-top:120px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 328px;
+    position: absolute;
+    bottom: 40px;
+  }
+`;
+const CompleteButton = styled(Button)`
+  margin-top:0px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 328px;
+    position: absolute;
+    bottom: 40px;
+  }
+`;
+const FindAccountText = styled.div`
+  height: 24px;
+  margin-bottom: 216px;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    font-family: NotoSansCJKKR;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: left;
+    color: ${(props) => props.theme.colors.darkgray};
+  }
+`;

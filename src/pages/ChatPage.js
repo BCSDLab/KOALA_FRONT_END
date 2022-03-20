@@ -26,6 +26,8 @@ const ChatPage = () => {
 
 const ChatPageContainer = styled.div`
   display: flex;
+  width: 100%;
+  height: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
 `;
@@ -38,7 +40,7 @@ const ChatMainPageContainer = styled.div`
   position: relative;
 `;
 const ChatHeader = styled.div`
-  width: ${({ isToggle }) => (isToggle ? `1570px;` : `1840px;`)};
+  width: 100%;
   height: 248px;
   display: flex;
   z-index: 0;

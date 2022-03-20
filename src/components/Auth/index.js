@@ -1,10 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import * as S from './styles';
+import useMatchMedia from 'hooks/useMatchMedia';
+import { useLocation } from 'react-router';
 
 const AuthTemplateBlock = styled.div`
   display: flex;
   justify-content: center;
-  alignitems: center;
+  align-items: center;
 
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     padding: 0 16px;
@@ -18,42 +21,29 @@ const Box = styled.div`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     padding-top: 54px;
   }
+
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
+    padding-top: 48px;
     width: 328px;
   }
 `;
 
-const MainLogo = styled.div`
-  margin-bottom: 48px;
-
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    display: flex;
-    justify-content: center;
-  }
-`;
-
-const MainLogoImg = styled.img`
-  width: 125px;
-  height: 34px;
-  left: 125.2px;
-  position: relative;
-
-  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    width: 158px;
-    height: 43px;
-    left: 0;
-  }
-`;
-
-const AuthTemplate = ({ children }) => (
-  <AuthTemplateBlock>
-    <Box>
-      <MainLogo>
-        <MainLogoImg src="/asset/mainLogo.svg" alt="logo" />
-      </MainLogo>
-      {children}
-    </Box>
-  </AuthTemplateBlock>
-);
+const AuthTemplate = ({ children }) => {
+  const location = useLocation();
+  const queries = ['(max-width: 450px)'];
+  const [mobile] = useMatchMedia(queries);
+  return (
+    <AuthTemplateBlock>
+      <Box>
+        {(location.pathname === '/auth' || !mobile) && (
+          <S.MainLogo>
+            <S.MainLogoImg />
+          </S.MainLogo>
+        )}
+        {children}
+      </Box>
+    </AuthTemplateBlock>
+  );
+};
 
 export default AuthTemplate;

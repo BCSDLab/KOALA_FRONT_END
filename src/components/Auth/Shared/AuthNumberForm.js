@@ -142,6 +142,10 @@ const AuthNumTime = styled.label`
 const AuthForm = styled.div`
   display: flex;
   position: relative;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: 100%;
+  }
 `;
 
 const AuthButton = styled.button`

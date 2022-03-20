@@ -1,23 +1,51 @@
-import React,{useState} from 'react';
+import React from 'react';
+import AddKeyword from 'components/Keyword/AddKeyword';
 import SideNavbar from 'components/SideNavbar';
 import KeywordFilterBar from 'components/Keyword/KeywordFilter';
-import KeywordHeader from 'components/Keyword/KeywordHeader';
 import styled from 'styled-components';
+import ModifyKeyword from 'components/Keyword/ModifyKeyword';
+import SettingKeyword from 'components/Keyword/SettingKeyword';
+import { Route, Routes } from 'react-router';
 
 const Container = styled.div`
-  display:flex;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
+    padding: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+`;
+const Content = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
+    width: 100%;
+    display: block;
+    height: auto;
+  }
 `;
 
-
 const KeywordPage = () => {
-
-  const [isToggle,setIsToggle] = useState(false);
-
   return (
     <Container>
-      <SideNavbar/>
-      <KeywordHeader toggle={isToggle} title={'키워드 알림'}/>
-      <KeywordFilterBar toggle={isToggle}/>
+      <SideNavbar />
+      <Content>
+        <Routes>
+          <Route index element={<KeywordFilterBar />}></Route>
+          <Route path="create" element={<AddKeyword />}></Route>
+          <Route path="modify" element={<ModifyKeyword />}></Route>
+          <Route path="mypage" element={<SettingKeyword />}></Route>
+        </Routes>
+      </Content>
     </Container>
   );
 };

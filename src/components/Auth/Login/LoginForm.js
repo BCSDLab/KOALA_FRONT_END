@@ -16,7 +16,6 @@ const StyledInput = styled(S.StyledInput)`
   & + & {
     margin-top: 0;
   }
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     width: 308px;
     height: 44px;
@@ -40,7 +39,6 @@ const PwdSee = styled.span`
   font-weight: 500;
   position: absolute;
   cursor: pointer;
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     display: none;
   }

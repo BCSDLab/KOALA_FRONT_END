@@ -1,19 +1,27 @@
 import React from 'react';
 import * as S from './styles';
+import useMatchMedia from 'hooks/useMatchMedia';
 import LoginButton from 'components/Shared/LoginButton';
+import MobileTopBar from 'components/Shared/MobileTopBar';
 import { useSelector } from 'react-redux';
 
-const KeywordHeader = ({ title, toggle }) => {
+const queries = ['(max-width: 1024px)'];
+const KeywordHeader = ({ title }) => {
   const user = useSelector((state) => state.auth);
+  const { isOpen } = useSelector((state) => state.toggle);
+  const [desktop] = useMatchMedia(queries);
 
   return (
-    <>
-      <S.UserContainer toggle={toggle}>
-        {user.isLoggedIn && <S.Username>test</S.Username>}
-        <S.LoginButton>{user.isLoggedIn ? '로그아웃' : '로그인'}</S.LoginButton>
-      </S.UserContainer>
-      <S.Title toggle={toggle}>{title}</S.Title>
-    </>
+    <S.HeaderContainer>
+      {desktop ? (
+        <MobileTopBar content={title}></MobileTopBar>
+      ) : (
+        <>
+          <LoginButton />
+          <S.Title toggle={isOpen}>{title}</S.Title>
+        </>
+      )}
+    </S.HeaderContainer>
   );
 };
 

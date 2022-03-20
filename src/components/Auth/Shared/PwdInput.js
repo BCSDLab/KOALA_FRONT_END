@@ -15,6 +15,15 @@ const StyledInput = styled(S.StyledInput)`
   background-position-y: center;
   background-position-x: 300px;
   background-repeat: no-repeat;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    width: calc(100% - 90px);
+    border: solid 1px ${({ isError, ...props }) => (isError ? props.theme.colors.yellow : props.theme.colors.lightgray)};
+    padding-right: 72px;
+    background-position-x: calc(100% - 48px);
+    font-size: 14px;
+    line-height: normal;
+  }
 `;
 
 const PwdSee = styled.span`
@@ -24,6 +33,10 @@ const EyeImg = styled.img`
   position: absolute;
   top: 12px;
   right: 16px;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    right: 8px;
+  }
 `;
 
 const ErrorImg = styled.img`
@@ -31,6 +44,10 @@ const ErrorImg = styled.img`
   top: 34%;
   left: 80%;
   right: 0;
+
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
+    right: 8px;
+  }
 `;
 
 const PwdInput = (props, ref) => {

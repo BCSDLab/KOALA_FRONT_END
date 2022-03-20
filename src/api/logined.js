@@ -11,6 +11,10 @@ export const setTokenOnHeader = (token) => {
   headers = { Authorization: `Bearer ${token}` };
 };
 
+export const setNoneBearerTokenOnHeader = (token) => {
+  logined.defaults.headers.common['Authorization'] = `${token}`;
+};
+
 export const uuid = () => {
   let timeStamp = new Date().getTime(); //타임스탬프
   let time = (typeof performance !== 'undefined' && performance.now && performance.now() * 1000) || 0; //페이지 로드 이후 시간(마이크로초) || 지원되지 않는 경우 0
