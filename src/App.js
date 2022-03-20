@@ -4,6 +4,7 @@ import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import { LOGIN } from './constant';
 import { refresh } from 'store/auth';
 import { getUserInfo } from 'store/myPage';
+import LoadingSpinner from 'components/Shared/LoadingSpinner';
 import NotFoundPage from 'pages/404';
 import AuthPage from 'pages/AuthPage';
 import OAuthPage from 'pages/OAuthPage';
@@ -32,7 +33,7 @@ import ChatRoom from 'components/Chat/ChatRoom';
 const AuthorizedRoute = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   if (isLoggedIn === null) {
-    return <div>로딩중입니다.</div>;
+    return <LoadingSpinner />;
   }
 
   return isLoggedIn ? <Outlet /> : <Navigate to={LOGIN} replace={true} />;
