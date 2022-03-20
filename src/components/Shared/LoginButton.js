@@ -14,6 +14,7 @@ const UserLoggedInComponent = styled.div`
   position: absolute;
   top: 40px;
   right: 80px;
+  z-index: 1;
 `;
 
 const LoginButtonStyle = styled.button`
@@ -24,7 +25,6 @@ const LoginButtonStyle = styled.button`
   font-size: 14px;
   font-weight: 500;
   text-align: center;
-  z-index: 1;
 `;
 const UserNickName = styled.span`
   margin-right: 16px;

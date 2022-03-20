@@ -4,19 +4,28 @@ import styled from 'styled-components';
 
 const Header = () => {
   return (
-    <ChatRoomContent>
-      <ChatRoomTitle>지난달 가장 많이 검색한 키워드는?</ChatRoomTitle>
-      <ChatRoom>키워드 채팅방 “수강신청”</ChatRoom>
-      <ChatRoomNotification>
-        {Notifications.map((Notification) => (
-          <NotificationList key={Notification.id}>{Notification.text}</NotificationList>
-        ))}
-      </ChatRoomNotification>
-    </ChatRoomContent>
+    <ChatHeader>
+      <ChatRoomContent>
+        <ChatRoomTitle>지난달 가장 많이 검색한 키워드는?</ChatRoomTitle>
+        <ChatRoom>키워드 채팅방 “수강신청”</ChatRoom>
+        <ChatRoomNotification>
+          {Notifications.map((Notification) => (
+            <NotificationList key={Notification.id}>{Notification.text}</NotificationList>
+          ))}
+        </ChatRoomNotification>
+      </ChatRoomContent>
+    </ChatHeader>
   );
 };
 
 export default Header;
+
+const ChatHeader = styled.div`
+  bdisplay: flex;
+  width: 100%;
+  height: 248px;
+  background-color: #eee;
+`;
 const ChatRoomContent = styled.div`
   position: absolute;
   left: 60px;

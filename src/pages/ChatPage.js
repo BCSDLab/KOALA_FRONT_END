@@ -15,9 +15,8 @@ const ChatPage = () => {
       <SideNavbar></SideNavbar>
       <LoginButton />
       <ChatMainPageContainer isToggle={toggle}>
-        <ChatHeader>
-          <Header />
-        </ChatHeader>
+        <Header />
+
         <ChatContent />
       </ChatMainPageContainer>
     </ChatPageContainer>
@@ -26,26 +25,19 @@ const ChatPage = () => {
 
 const ChatPageContainer = styled.div`
   display: flex;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   overflow-x: hidden;
   overflow-y: hidden;
 `;
 
 const ChatMainPageContainer = styled.div`
-  width: ${({ isToggle }) => (isToggle ? `calc(100% - 350px);` : `calc(100% - 80px);`)};
+  width: ${({ isToggle }) => (isToggle ? `calc(100vw - 350px);` : `calc(100vw - 80px);`)};
   display: flex;
-  left: ${({ isToggle }) => (isToggle ? `0px;` : `-270px;`)};
   flex-direction: column;
   position: relative;
 `;
-const ChatHeader = styled.div`
-  width: 100%;
-  height: 248px;
-  display: flex;
-  z-index: 0;
-  background-color: #eee;
-`;
 
 const ChatContent = styled(Outlet)``;
+
 export default ChatPage;
