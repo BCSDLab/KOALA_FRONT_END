@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router';
+import theme from '../theme';
 
 export default function page404() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ const Container = styled.div`
     line-height: 1.15;
     letter-spacing: normal;
     text-align: center;
-    color: #f7941e;
+    color: ${theme.colors.yellow};
     margin-bottom: 22px;
   }
   h2 {
@@ -62,8 +63,8 @@ const Container = styled.div`
     line-height: 2.15;
     letter-spacing: normal;
     text-align: center;
-    color: #ffffff;
-    background-color: #175c8e;
+    color: ${theme.colors.white};
+    background-color: ${theme.colors.black};
     cursor: pointer;
   }
   @media (max-width: 576px) {
@@ -104,8 +105,8 @@ const Container = styled.div`
       line-height: 1.15;
       letter-spacing: normal;
       text-align: center;
-      color: #ffffff;
-      background-color: #175c8e;
+      color: ${theme.colors.white};
+      background-color: ${theme.colors.black};
       border-radius: 0;
       margin-top: 0;
       cursor: pointer;

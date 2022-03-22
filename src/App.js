@@ -73,7 +73,6 @@ const App = () => {
 
         <Route element={<AuthorizedRoute />}>
           <Route exact path="mypage" element={<MyPage />} />
-          <Route exact path="/" />
           <Route path="keyword/*" element={<KeywordPage />}>
             <Route index element={<KeywordFilterBar />}></Route>
             <Route path="create" element={<AddKeyword />}></Route>
