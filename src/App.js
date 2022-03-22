@@ -60,6 +60,7 @@ const App = () => {
   return (
     <>
       <Routes>
+        <Route path="/" element={<Navigate replace to="/auth" />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route exact path="auth/*" element={<AuthPage />}>
           <Route index element={<Login />} />
