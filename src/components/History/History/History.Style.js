@@ -12,7 +12,7 @@ export const SelectAll = styled.div`
 `;
 export const KeyWordAlert = styled.li`
   display: flex;
-  width: 1294px;
+  width: 1281px;
   justify-content: space-between;
   color: ${(props) => (props.isRead ? gray : darkgray)};
   padding: 15px 0 15px 0;
@@ -159,6 +159,7 @@ export const PageWrapper = styled.div`
 `;
 export const Content = styled.div`
   position: relative;
+  margin: 0 0 0 13px;
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
     margin: 0 auto;

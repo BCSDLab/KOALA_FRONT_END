@@ -8,8 +8,7 @@ const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 const Header = styled.div`
   display: flex;
-  width: 1314px;
-  // padding-bottom: 31px;
+  width: 1294px;
   border-bottom: 1px solid #eee;
   @media screen and (max-width: ${theme.deviceSizes.tabletL}) {
     width: 90%;
