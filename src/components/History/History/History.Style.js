@@ -36,7 +36,10 @@ export const KeyWordAlertList = styled.ol`
     margin: 0 0 0 5%;
   }
 `;
-
+export const CheckBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
 export const AlertBorderBox = styled.div`
   @media screen and (max-width: ${tabletL}) {
     width: 100%;

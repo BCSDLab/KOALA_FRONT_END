@@ -28,6 +28,11 @@ export const WriteBlock = styled.textarea`
 `;
 export const Content = styled.div`
   margin: 0 0 0 13px;
+  @media screen and (max-width: ${tabletL}) {
+    width: 100%;
+    margin: 0 auto;
+    top: 0;
+  }
 `;
 export const CheckBox = styled.div`
   display: flex;
