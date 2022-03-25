@@ -113,6 +113,7 @@ export const AlertProp = styled.div`
 export const StorageAlert = styled.li`
   display: flex;
   width: 1279px;
+  justify-content: space-between;
   color: ${darkgray};
   padding: 0 0 15px 0;
   margin: 15px 0 0 0;
@@ -129,7 +130,7 @@ export const MemoAlertWrapper = styled.div`
 `;
 export const AlertContent = styled.div`
   display: flex;
-
+  justify-content: space-between;
 `;
 export const AlertTitle = styled.a`
   width: 884px;
