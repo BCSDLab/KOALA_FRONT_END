@@ -82,7 +82,7 @@ export const keywordAPI = {
 export const historyAPI = {
   getHistoryList: (pageNum) => logined.get(`/history?page-num=${pageNum}`),
   deleteHistoryList: (historyList) => logined.patch(`history?${historyList}`),
-  readHistoryItem: (noticeId) => logined.put(`/history?notice-id=${noticeId}`),
+  readHistoryItem: (noticeId) => logined.put(`/history/${noticeId}`),
   moveToScrap: (idList) => logined.post(`/scrap`, idList),
   undoHistoryList: (idList) => logined.patch(`history/undo?${idList}`),
 };

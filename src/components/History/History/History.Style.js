@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 import theme from '../../../theme';
+import HistoryCheckBox from './HisoryCheckBox';
 const { white, black, darkgray, lightgray, silver, gray, yellow } = theme.colors;
 const tabletL = theme.deviceSizes.tabletL;
 const mibileS = theme.deviceSizes.mobileS;
 
+
 export const SelectAll = styled.div`
-  margin: 0 25px 6px 0;
+  margin: 0 40px 6px 0;
+  display: flex;
+  align-items: center;
   @media screen and (max-width: ${tabletL}) {
     margin: 0 0 5px 0;
   }

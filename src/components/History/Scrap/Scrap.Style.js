@@ -26,13 +26,16 @@ export const WriteBlock = styled.textarea`
   }
 
 `;
+export const Content = styled.div`
+  margin: 0 0 0 13px;
+`;
 export const CheckBox = styled.div`
   display: flex;
   align-items: center;
 `;
 export const MenuList = styled.div`
   display: flex;
-  margin: 31px 0 32px 0;
+  margin: 31px 0 17px 0;
   @media screen and (max-width: ${tabletL}){
     width: 90%;
     justify-content: space-between;
@@ -45,6 +48,7 @@ export const MenuList = styled.div`
 `;
 export const Menu = styled.div`
   display: flex;
+  width: 43px;
   align-items: center;
   margin-left: 1137px;
   padding: 8px;
@@ -61,7 +65,7 @@ export const Menu = styled.div`
 export const MenuLogo = styled.img`
   width: 16px;
   height: 16px;
-  margin: 0 8px 0 0px;
+  margin-right: 4px;
 `;
 export const MenuName = styled.div`
   width: 25px;
@@ -79,6 +83,7 @@ export const Wrapper = styled.div`
 `;
 export const SelectAll = styled.div`
   width: 45px;
+  display: flex;
   margin-bottom: 6px;
 `;
 export const MemoOption = styled.div`
@@ -102,7 +107,7 @@ export const AlertProp = styled.div`
 `;
 export const StorageAlert = styled.li`
   display: flex;
-  width: 1294px;
+  width: 1279px;
   color: ${darkgray};
   padding: 0 0 15px 0;
   margin: 15px 0 0 0;
@@ -122,7 +127,7 @@ export const AlertContent = styled.div`
 
 `;
 export const AlertTitle = styled.a`
-  width: 899px;
+  width: 884px;
   
   max-height: 18px;
   margin-right: 45px;
@@ -167,7 +172,7 @@ export const LetterCounter = styled.div`
 export const LettterLength = styled.span``;
 
 export const KeyWordAlertList = styled.ol`
-  height: 600px;
+  height: calc(100vh - 337px);
   overflow-y: ${(props) => (props.scrollOption ? 'scroll' : 'none')};
   @media screen and (max-width: ${tabletL}) {
     width: 100%;

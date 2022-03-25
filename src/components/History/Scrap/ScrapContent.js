@@ -160,6 +160,7 @@ const ScrapContent = () => {
   return (
     <>
     <S.Wrapper>
+      <S.Content>
       <S.MenuList>
         <S.CheckBox>
           <HistoryCheckBox
@@ -243,6 +244,8 @@ const ScrapContent = () => {
           </S.StorageAlert>
         ))}
       </S.KeyWordAlertList>
+      </S.Content>
+      
     </S.Wrapper>
     </>
   );
