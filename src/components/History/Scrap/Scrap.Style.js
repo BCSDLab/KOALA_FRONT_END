@@ -107,7 +107,8 @@ export const AlertProp = styled.div`
 `;
 export const StorageAlert = styled.li`
   display: flex;
-  width: calc(100vw * 0.6671875);
+  width: calc(100vw * 0.6671875 + 40px);
+  max-width: 1281px;
   position: relative;
   color: ${darkgray};
   padding: 0 0 15px 0;
@@ -124,7 +125,6 @@ export const MemoAlertWrapper = styled.div`
 export const AlertContent = styled.div`
   display: flex;
   width: 100%;
-  justify-content: space-between;
 `;
 export const AlertTitle = styled.a`
   width: 70.6440281030445%;
