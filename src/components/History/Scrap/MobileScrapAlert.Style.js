@@ -5,7 +5,7 @@ const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 export const SwipeWrapper = styled.div`
     position: relative;
-    width: 95%;
+    width: 100vw;
     overflow: hidden;
     display: flex;
 `
@@ -13,16 +13,16 @@ export const Swiper =styled.div`
     display: flex;
     position: relative;
     left: 0;
-    width: 100%;
+    width: calc(90vw + 196px);
     transition: 0.3s ease;
 `
 export const Alert = styled.div`
-    min-width: 100%;
-    margin: 0 0 0 5%;
+    width: 100%;
+    margin: 0 5% 0 5%;
 `
 export const AlertWrapper = styled.li`
     @media screen and (max-width: ${tabletL}){
-        width: 99%;
+        width: 90vw;
         display: flex;
         justify-content: start;
         margin-top: 16px;
@@ -34,7 +34,7 @@ export const AlertWrapper = styled.li`
 export const AlertContent = styled.div`
     @media screen and (max-width: ${tabletL}) {
         display: block;
-        width: 85%;
+        width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
     }
@@ -42,7 +42,6 @@ export const AlertContent = styled.div`
 
 export const AlertDetail = styled.div`
     @media screen and (max-width: ${tabletL}) {
-    width: 96%;
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
@@ -72,7 +71,7 @@ export const AlertBorderLine = styled.div`
     &:after{
         display: block;
         content:"";
-        width: 87%;
+        width: 100%;
         border-bottom: 1px solid ${lightgray};
         margin-left: 3%;
     }
@@ -112,8 +111,6 @@ export const Memo = styled.div`
 export const MemoFixBlock = styled.div`
   width: 88px;
   min-width: 88px;
-  // height: 119px;
-  // min-height: 119px;
   background: ${yellow};
   color: ${white};
   display: flex;
@@ -124,7 +121,6 @@ export const MemoFixBlock = styled.div`
 export const MemoWriteBlock = styled.div`
     width: 88px;
     min-width: 88px;
-    // heigth: 119px;
     background: ${darkgray};
     color: ${white};
     display: flex;
@@ -137,6 +133,7 @@ export const MenuBlock = styled.div`
   width: 176px;
   display:flex;
   border: 1px solid white;
+  margin: 0 0 0 2%;
 `
 
 export const Icon = styled.img`
