@@ -8,6 +8,7 @@ const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 const Header = styled.div`
   display: flex;
+  width: calc(100vw * 0.673958333 + 40px);
   max-width: 1294px;
   border-bottom: 1px solid #eee;
   @media screen and (max-width: ${theme.deviceSizes.tabletL}) {
@@ -17,21 +18,6 @@ const Header = styled.div`
     align-items: center;
     padding: 0;
   }
-  // @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-  //   width: 900px;
-  // }
-`;
-const FocusLine = styled.div`
-  width: 32px;
-  height: 2px;
-  background-color: ${darkgray};
-  margin: ${(props) => {
-    if (props.location.pathname === '/history') {
-      return '0 0 0 40px';
-    } else if (props.location.pathname === '/history/scrap') {
-      return '0 0 0 190px';
-    }
-  }};
 `;
 const HistoryHeaderTab = styled(NavLink)`
   font-size: 18px;

@@ -17,7 +17,7 @@ export const SelectAll = styled.div`
 export const KeyWordAlert = styled.li`
   display: flex;
   position: relative;
-  width: 100%;
+  width: calc(100vw * 0.6671875 + 40px);
   max-width: 1281px;
   color: ${(props) => (props.isRead ? gray : darkgray)};
   padding: 15px 0 15px 0;
@@ -29,7 +29,8 @@ export const KeyWordAlert = styled.li`
   }
 `;
 export const KeyWordAlertList = styled.ol`
-  width: calc(100vw * 0.6671875 + 40px);
+  // width: calc(100vw * 0.6671875 + 40px);
+  
   height: calc(100vh - 337px);
   overflow-y: scroll;
   padding-right: 40px;
@@ -82,7 +83,7 @@ export const AlertTitle = styled.a`
   word-wrap : brek-word; 
   max-height: 18px;
   white-space: nowrap;
-  margin-right: 218px;
+  margin-right: 178px;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 12px;
