@@ -4,14 +4,14 @@ const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 const tabletL = theme.deviceSizes.tabletL;
 export const MemoBlock = styled.div`
-  width: 1033px;
+  width: 65.6440281030445%;
   border: none;
   resize: none;
   font-family: 'NotoSansCJKKR';
   font-size: 12px;
 `;
 export const WriteBlock = styled.textarea`
-  width: 1058px;
+  width: calc(100vw * 0.6671875 - 201px);
   height: 70px;
   border: none;
   resize: none;
@@ -101,12 +101,14 @@ export const DivideLine = styled.img`
 `;
 export const AlertProp = styled.div`
   display: flex;
-  margin-left: 19px;
+  position: absolute;
+  right: 0px;
+  // margin-left: 19px;
 `;
 export const StorageAlert = styled.li`
   display: flex;
-  width: 1279px;
-  justify-content: space-between;
+  width: calc(100vw * 0.6671875);
+  position: relative;
   color: ${darkgray};
   padding: 0 0 15px 0;
   margin: 15px 0 0 0;
@@ -117,16 +119,16 @@ export const StorageAlert = styled.li`
 `;
 export const MemoAlertWrapper = styled.div`
   display: block;
+  width: calc(100vw * 0.6671875 + 40px);
 `;
 export const AlertContent = styled.div`
   display: flex;
+  width: 100%;
   justify-content: space-between;
 `;
 export const AlertTitle = styled.a`
-  width: 884px;
-  
+  width: 70.6440281030445%;
   max-height: 18px;
-  margin-right: 45px;
   font-size: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -151,13 +153,15 @@ export const memoContent = styled.div`
   display: block;
   height: 73px;
 `;
-
-export const LetterCounter = styled.div`
+export const MemoPanel = styled.div`
   position: relative;
+`
+export const LetterCounter = styled.div`
+  position: absolute;
+  width: 38px;
+  bottom: 23px;
+  right: 16px;
   text-align: right;
-  left: 990px;
-  bottom: 30px;
-  width: 52px;
   height: 20px;
   font-size: 12px;
 `;

@@ -212,20 +212,22 @@ const ScrapContent = () => {
                     {mail.userScrapId === currentMail ? null : <S.MemoCircle />}
                     {mail.userScrapId === currentMail && (pageState === 'FIX' || pageState === 'WRITE') ? (
                       <S.memoContent>
-                        <S.WriteBlock
-                          defaultValue={findMemoInAlert(memoItemList, mail)}
-                          onChange={(e) => checkByte(e)}
-                          maxLength={100}
-                          ref={fixMemoValue}
-                        />
-                        <S.LetterCounter>
-                          <S.LettterLength
-                            ref={letter}
-                          >
-                            {findMemoInAlert(memoItemList, mail)[0].length}
-                          </S.LettterLength>
-                          /100
-                        </S.LetterCounter>
+                        <S.MemoPanel>
+                          <S.WriteBlock
+                            defaultValue={findMemoInAlert(memoItemList, mail)}
+                            onChange={(e) => checkByte(e)}
+                            maxLength={100}
+                            ref={fixMemoValue}
+                          />
+                          <S.LetterCounter>
+                            <S.LettterLength
+                              ref={letter}
+                            >
+                              {findMemoInAlert(memoItemList, mail)[0].length}
+                            </S.LettterLength>
+                            /100
+                          </S.LetterCounter>
+                        </S.MemoPanel>
                       </S.memoContent>
                     ) : (
                       <S.MemoBlock>{makeStringToNewLine(findMemoInAlert(memoItemList, mail)[0])}</S.MemoBlock>
