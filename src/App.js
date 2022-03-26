@@ -1,9 +1,10 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Routes, Navigate, Outlet } from 'react-router-dom';
 import { LOGIN } from './constant';
 import { refresh } from 'store/auth';
 import { getUserInfo } from 'store/myPage';
+import LoadingPage from 'pages/LodingPage';
 import NotFoundPage from 'pages/404';
 import AuthPage from 'pages/AuthPage';
 import OAuthPage from 'pages/OAuthPage';
@@ -32,9 +33,8 @@ import ChatRoom from 'components/Chat/ChatRoom';
 const AuthorizedRoute = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   if (isLoggedIn === null) {
-    return <div>로딩중입니다.</div>;
+    return <LoadingPage />;
   }
-
   return isLoggedIn ? <Outlet /> : <Navigate to={LOGIN} replace={true} />;
 };
 
@@ -42,7 +42,7 @@ const App = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const isSchoolAuth = useSelector((state) => state.myPage.isAuth);
-  useLayoutEffect(() => {
+  useEffect(() => {
     const token = getCookie('refresh_token');
     if (token != null) {
       setTokenOnHeader(token);
@@ -50,7 +50,7 @@ const App = () => {
     }
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (isLoggedIn) {
       dispatch(getUserInfo());
       dispatch(inquiry());
@@ -60,6 +60,7 @@ const App = () => {
   return (
     <>
       <Routes>
+        <Route path="/" element={<Navigate replace to="/auth" />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route exact path="auth/*" element={<AuthPage />}>
           <Route index element={<Login />} />
@@ -73,7 +74,6 @@ const App = () => {
 
         <Route element={<AuthorizedRoute />}>
           <Route exact path="mypage" element={<MyPage />} />
-          <Route exact path="/" />
           <Route path="keyword/*" element={<KeywordPage />}>
             <Route index element={<KeywordFilterBar />}></Route>
             <Route path="create" element={<AddKeyword />}></Route>
