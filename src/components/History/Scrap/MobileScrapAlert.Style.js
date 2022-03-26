@@ -18,7 +18,7 @@ export const Swiper =styled.div`
 `
 export const Alert = styled.div`
     width: 100%;
-    margin: 0 5% 0 5%;
+    margin: 0 5% 0 4.6%;
 `
 export const AlertWrapper = styled.li`
     @media screen and (max-width: ${tabletL}){
