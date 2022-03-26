@@ -13,18 +13,18 @@ export const Swiper =styled.div`
     display: flex;
     position: relative;
     left: 0;
-    width: calc(90vw + 196px);
+    width: calc(100vw + 196px);
     transition: 0.3s ease;
 `
 export const Alert = styled.div`
-    width: 100%;
-    margin: 0 5% 0 4.6%;
+    width: 100vw;
 `
 export const AlertWrapper = styled.li`
     @media screen and (max-width: ${tabletL}){
-        width: 90vw;
+        width: 90%;
         display: flex;
         justify-content: start;
+        margin: 0 auto;
         margin-top: 16px;
         margin-bottom: ${props=>props.state==='WRITE'?'9px':'15px'};
     }
@@ -133,7 +133,7 @@ export const MenuBlock = styled.div`
   width: 176px;
   display:flex;
   border: 1px solid white;
-  margin: 0 0 0 2%;
+  // margin: 0 0 0 2%;
 `
 
 export const Icon = styled.img`

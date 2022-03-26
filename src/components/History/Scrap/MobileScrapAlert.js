@@ -53,7 +53,7 @@ const MobileScrapAlert = ({mail, selectMail, list, memo, writeId, setCurr}) => {
     const TouchMove = (e) => {
         if(xCord - e.changedTouches[0].clientX > 100){
             console.log(swiperRef.current.style.width)
-            swiperRef.current.style.left = '-196px';
+            swiperRef.current.style.left = '-176px';
         }else if(xCord - e.changedTouches[0].clientX < -100){
             swiperRef.current.style.left = '0';
         }
