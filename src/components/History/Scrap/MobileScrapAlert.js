@@ -114,7 +114,7 @@ const MobileScrapAlert = ({mail, selectMail, list, memo, writeId, setCurr}) => {
                     />
                     <M.AlertContent>
                         <M.AlertDetail>
-                            <M.Sender>{MENU_ITEM[MENU_ITEM.findIndex((site) => site.id === mail.site)].title}</M.Sender>
+                            <M.Sender>{SITE_LIST[SITE_LIST.findIndex((site) => site.id === mail.site)].title}</M.Sender>
                             <M.ReceiveDate>{formatingDate(mail.created_at)}</M.ReceiveDate>
                         </M.AlertDetail>
                         <M.AlertTitle>{mail.title}</M.AlertTitle>

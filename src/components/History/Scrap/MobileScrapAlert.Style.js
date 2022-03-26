@@ -142,23 +142,26 @@ export const Icon = styled.img`
   margin-bottom: 11px;
 `
 export const MemoOption = styled.div`
-  width: 100%;
     display: flex;
+    position: relative;
     justify-content: space-between;
     color: ${gray};
-    margin: 11px 0 0 0;
+    margin: 22px 0 0 0;
 `
 export const LetterCounter = styled.div`
   font-size: 12px;
 `
 export const WriteBlockWrapper = styled.div`
-    width: 88%;
+    width: 100%;
     height: 74px;
     background: ${lightgray};
     padding: 8px;
     margin-top: 8px;
+    margin-left: 4px;
 `
 export const SaveBtn = styled.div`
   font-size: 11px;
   cursor: pointer;
+  position: absolute;
+  right: 22px;
 `
