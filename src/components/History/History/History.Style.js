@@ -24,6 +24,7 @@ export const KeyWordAlert = styled.li`
   border-bottom: 1px solid ${lightgray};
   @media screen and (max-width: ${tabletL}) {
     position: relative;
+    width: 100%;
     justify-content: start;
     border: none;
   }
@@ -51,7 +52,7 @@ export const AlertBorderBox = styled.div`
       display: block;
       content: '';
       margin-left: 3%;
-      width: 87%;
+      width: 88%;
       border-bottom: 1px solid ${lightgray};
     }
   }
@@ -101,7 +102,7 @@ export const AlertContent = styled.div`
   width: 100%;
   @media screen and (max-width: ${tabletL}) {
     display: block;
-    max-width: 87%;
+    max-width: 90%;
     overflow: hidden;
     text-overflow: ellipsis;
   }
