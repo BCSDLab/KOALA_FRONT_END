@@ -182,7 +182,7 @@ const auth = handleActions(
     }),
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      authError: error,
+      authError: error.response.data.code,
       isLoggedIn: false,
     }),
     [OAUTH]: (state) => ({

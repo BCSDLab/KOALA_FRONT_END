@@ -8,6 +8,8 @@ export const REFRESH_TOKEN = 'refresh_token';
 export const EMAIL_ERROR = '125';
 export const NICKNAME_ERROR = '124';
 export const ACCOUNT_ERROR = '123';
+export const LOGIN_ID_ERROR = '126';
+export const LOGIN_PASSWORD_ERROR = '127';
 export const NOT_EXIST_ACCOUNT = '128';
 export const NOT_MATCH_EMAIL = '143';
 export const NOT_SEND_EMAIL = '144';
@@ -83,11 +85,11 @@ export const MENU_ITEM = [
 export const SITE_LIST = [
   {
     id: 'PORTAL',
-    title: '아우누리'
+    title: '아우누리',
   },
   {
     id: 'DORM',
-    title: '아우미르'
-  }
-]
+    title: '아우미르',
+  },
+];
 export const queries = ['(max-width: 450px)', '(min-width: 800px)'];
