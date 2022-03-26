@@ -31,8 +31,7 @@ export const Content = styled.div`
   margin: 0 0 0 13px;
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
-    margin: 0 auto;
-    top: 0;
+    margin: 0px;
   }
 `;
 export const CheckBox = styled.div`
@@ -177,6 +176,10 @@ export const KeyWordAlertList = styled.ol`
     height: calc(100vh - 200px);
     overflow-y: scroll;
     overflow-x: hidden;
+    &::-webkit-scrollbar { 
+      display: none;
+      width: 0
+  }
   }
 `;
 

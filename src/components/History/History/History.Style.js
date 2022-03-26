@@ -24,10 +24,10 @@ export const KeyWordAlert = styled.li`
   border-bottom: 1px solid ${lightgray};
   @media screen and (max-width: ${tabletL}) {
     position: relative;
-    width: 100%;
-    justify-content: start;
+    width: 90vw;
+    margin: 0 auto;
     border: none;
-  }
+    
 `;
 export const KeyWordAlertList = styled.ol`
   height: calc(100vh - 337px);
@@ -36,7 +36,11 @@ export const KeyWordAlertList = styled.ol`
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
     height: calc(100vh - 200px);
-    margin: 0 0 0 5%;
+    padding: 0px;
+    &::-webkit-scrollbar { 
+      display: none;
+      width: 0
+  }
   }
 `;
 export const CheckBox = styled.div`
@@ -49,8 +53,8 @@ export const AlertBorderBox = styled.div`
     &:after {
       display: block;
       content: '';
-      margin-left: 3%;
-      width: 88%;
+      width: 85%;
+      margin-left: 9%; 
       border-bottom: 1px solid ${lightgray};
     }
   }
@@ -96,7 +100,7 @@ export const AlertContent = styled.div`
   width: 100%;
   @media screen and (max-width: ${tabletL}) {
     display: block;
-    max-width: 90%;
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -122,7 +126,6 @@ export const ReceiveDate = styled.div`
   font-size: 11px;
   @media screen and (max-width: ${tabletL}) {
     position: relative;
-    right: 2%;
   }
 `;
 export const MenuList = styled.div`
@@ -168,6 +171,7 @@ export const PageWrapper = styled.div`
   font-size: 12px;
   @media screen and (max-width: ${tabletL}) {
     width: 100vw;
+    min-width: ${theme.deviceSizes.mobileS};
     margin: 0 0 74px 0;
   }
 `;
@@ -176,8 +180,8 @@ export const Content = styled.div`
   margin: 0 0 0 13px;
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
-    margin: 0 auto;
     top: 0;
+    margin: 0;
   }
 `;
 

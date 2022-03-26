@@ -6,6 +6,7 @@ const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 export const SwipeWrapper = styled.div`
     position: relative;
     width: 100vw;
+    min-width: ${theme.deviceSizes.mobileS};
     overflow: hidden;
     display: flex;
 `
@@ -71,9 +72,9 @@ export const AlertBorderLine = styled.div`
     &:after{
         display: block;
         content:"";
-        width: 100%;
+        width: 85%;
+      margin-left: 9%; 
         border-bottom: 1px solid ${lightgray};
-        margin-left: 3%;
     }
   }
 `
@@ -133,7 +134,6 @@ export const MenuBlock = styled.div`
   width: 176px;
   display:flex;
   border: 1px solid white;
-  // margin: 0 0 0 2%;
 `
 
 export const Icon = styled.img`
