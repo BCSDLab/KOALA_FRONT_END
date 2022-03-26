@@ -12,6 +12,7 @@ export const MemoBlock = styled.div`
 `;
 export const WriteBlock = styled.textarea`
   width: calc(100vw * 0.6671875 - 165px);
+  max-width: 1077px;
   height: 70px;
   border: none;
   resize: none;
