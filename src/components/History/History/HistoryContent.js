@@ -312,10 +312,10 @@ const HistoryContent = () => {
                       </S.AlertTitle>
                     </S.AlertContent>
                     {!isMobile && (
-                      <>
+                      <S.AlertInfo>
                         <S.MailBrowse>{mail.isRead ? '읽음' : '읽지않음'}</S.MailBrowse>
                         <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>
-                      </>
+                      </S.AlertInfo>
                     )}
                   </S.KeyWordAlert>
                   {isMobile && <S.AlertBorderBox />}

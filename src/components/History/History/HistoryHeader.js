@@ -8,7 +8,7 @@ const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 const Header = styled.div`
   display: flex;
-  width: 1294px;
+  max-width: 1294px;
   border-bottom: 1px solid #eee;
   @media screen and (max-width: ${theme.deviceSizes.tabletL}) {
     width: 90%;
@@ -17,9 +17,9 @@ const Header = styled.div`
     align-items: center;
     padding: 0;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-    width: 900px;
-  }
+  // @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  //   width: 900px;
+  // }
 `;
 const FocusLine = styled.div`
   width: 32px;

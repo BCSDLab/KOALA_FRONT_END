@@ -13,7 +13,7 @@ const HistoryPageContent = styled.div`
   display: flex;
   height: 100%;
   overflow-y: hidden;
-  overflow-x: hidden;
+  // overflow-x: hidden;
   @media screen and (max-width: ${theme.deviceSizes.tabletL}) {
     width: 100vw;
     display: flex;

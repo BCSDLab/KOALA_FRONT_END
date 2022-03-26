@@ -16,8 +16,9 @@ export const SelectAll = styled.div`
 `;
 export const KeyWordAlert = styled.li`
   display: flex;
-  width: 1281px;
-  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  max-width: 1281px;
   color: ${(props) => (props.isRead ? gray : darkgray)};
   padding: 15px 0 15px 0;
   border-bottom: 1px solid ${lightgray};
@@ -28,8 +29,10 @@ export const KeyWordAlert = styled.li`
   }
 `;
 export const KeyWordAlertList = styled.ol`
+  width: calc(100vw * 0.6671875 + 40px);
   height: calc(100vh - 337px);
   overflow-y: scroll;
+  padding-right: 40px;
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
     height: calc(100vh-74px);
@@ -62,22 +65,31 @@ export const Sender = styled.div`
     width: 52px;
     margin: 0;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-    margin-right: 50px;
+  // @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  //   margin-right: 50px;
   
-  }
+  // }
 `;
+export const AlertInfo = styled.div`
+  display: flex;
+  position: absolute;
+  right: 0px;
+`
 export const AlertTitle = styled.a`
-  width: 899px;
+  width: 70.17954722872756%;
   max-width: 899px;
+  height: 18px;
+  word-wrap : brek-word; 
   max-height: 18px;
-  margin-right: 40px;
-  font-size: 12px;
-  color: ${(props) => (props.isRead ? gray : darkgray)};
-  cursor: pointer;
+  white-space: nowrap;
+  margin-right: 218px;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 12px;
+
+  color: ${(props) => (props.isRead ? gray : darkgray)};
+  cursor: pointer;
+  
   @media screen and (max-width: ${tabletL}) {
     display: block;
     max-width: 90%;
@@ -85,6 +97,7 @@ export const AlertTitle = styled.a`
 `;
 export const AlertContent = styled.div`
   display: flex;
+  width: 100%;
   @media screen and (max-width: ${tabletL}) {
     display: block;
     max-width: 87%;
@@ -101,6 +114,8 @@ export const AlertDetail = styled.div`
 `;
 export const MailBrowse = styled.div`
   width: 47px;
+  min-width: 47px;
+  // margin-left: 40px;
   margin-right: 24px;
   text-align: center;
   font-size: 11px;
@@ -108,6 +123,7 @@ export const MailBrowse = styled.div`
 `;
 export const ReceiveDate = styled.div`
   width: 67px;
+  min-width: 67px;
   font-size: 11px;
   @media screen and (max-width: ${tabletL}) {
     position: relative;
@@ -159,10 +175,10 @@ export const PageWrapper = styled.div`
     width: 100vw;
     margin: 0 0 74px 0;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-    width: 900px;
-    height: 400px;
-  }
+  // @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
+  //   width: 900px;
+  //   height: 400px;
+  // }
 `;
 export const Content = styled.div`
   position: relative;
