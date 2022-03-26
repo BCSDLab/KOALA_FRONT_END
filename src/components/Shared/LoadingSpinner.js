@@ -13,11 +13,8 @@ const rotate360 = keyframes`
 const LoadingSpinner = styled.div`
   animation: ${rotate360} 1s linear infinite;
   transform: translateZ(0);
-
-  border-top: 2px solid ${theme.colors.yellow};
-  border-right: 2px solid ${theme.colors.yellow};
-  border-bottom: 2px solid ${theme.colors.yellow};
-  border-left: 8px solid ${theme.colors.yellow};
+  border: ${theme.colors.yellow} solid;
+  border-width: 2px 2px 2px 8px;
   background: transparent;
   width: 300px;
   height: 300px;
