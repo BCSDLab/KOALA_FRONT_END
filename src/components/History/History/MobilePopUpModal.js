@@ -6,7 +6,7 @@ const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 const Modal = styled.div`
   position: fixed;
-  top: 75%;
+  top: calc(100vh - 200px);
   left: 5%;
   width: 90%;
   height: 45px;
