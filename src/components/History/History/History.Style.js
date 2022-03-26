@@ -30,14 +30,12 @@ export const KeyWordAlert = styled.li`
   }
 `;
 export const KeyWordAlertList = styled.ol`
-  // width: calc(100vw * 0.6671875 + 40px);
-  
   height: calc(100vh - 337px);
   overflow-y: scroll;
   padding-right: 40px;
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
-    height: calc(100vh-74px);
+    height: calc(100vh - 200px);
     margin: 0 0 0 5%;
   }
 `;
@@ -67,10 +65,6 @@ export const Sender = styled.div`
     width: 52px;
     margin: 0;
   }
-  // @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-  //   margin-right: 50px;
-  
-  // }
 `;
 export const AlertInfo = styled.div`
   display: flex;
@@ -117,7 +111,6 @@ export const AlertDetail = styled.div`
 export const MailBrowse = styled.div`
   width: 47px;
   min-width: 47px;
-  // margin-left: 40px;
   margin-right: 24px;
   text-align: center;
   font-size: 11px;
@@ -177,10 +170,6 @@ export const PageWrapper = styled.div`
     width: 100vw;
     margin: 0 0 74px 0;
   }
-  // @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-  //   width: 900px;
-  //   height: 400px;
-  // }
 `;
 export const Content = styled.div`
   position: relative;
