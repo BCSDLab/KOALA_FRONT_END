@@ -8,9 +8,9 @@ const Modal = styled.div`
   z-index: 99;
   flex-direction: column;
   justify-content: space-between;
-  position: fixed;
-  top: 17%;
-  right: 5%;
+  position: absolute;
+  top: 36px;
+  right: -8px;
   width: 98px;
   height: 44px;
   padding: 8px;
