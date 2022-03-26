@@ -174,7 +174,7 @@ export const KeyWordAlertList = styled.ol`
   overflow-y: ${(props) => (props.scrollOption ? 'scroll' : 'none')};
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
-    height: 71vh;
+    height: calc(100vh - 200px);
     overflow-y: scroll;
     overflow-x: hidden;
   }
