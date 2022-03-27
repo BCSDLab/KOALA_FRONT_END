@@ -30,7 +30,7 @@ const HistoryPageContent = styled.div`
 const ContentWrapper = styled.div`
   width: 100%;
   height: 100%;
-  margin: 121px 0 0 131px;
+  margin: ${props => props.isToggleOpen?'121px 0 0 100px;':'121px 0 0 131px;'}
   @media screen and (max-width: ${theme.deviceSizes.tabletL}) {
     position: fixed;
     height: 0%;
@@ -45,16 +45,15 @@ const HistoryPage = () => {
   const [mobile] = useMatchMedia(queries);
   const location = useLocation();
   const {isOpen} = useSelector((state) => state.toggle);
-  console.log(isOpen)
   return (
     <HistoryPageContent>
       <SideNavbar />
       {!mobile && <LoginButton />}
-      <ContentWrapper>
+      <ContentWrapper isToggleOpen={isOpen}>
         <HistoryHeader location={location} isToggleOpen={isOpen}/>
         <Routes>
           <Route path="/" element={<HistoryContent isToggleOpen={isOpen}/>} />
-          <Route path="/scrap" element={<ScrapContent />} />
+          <Route path="/scrap" element={<ScrapContent isToggleOpen={isOpen}/>} />
         </Routes>
       </ContentWrapper>
     </HistoryPageContent>

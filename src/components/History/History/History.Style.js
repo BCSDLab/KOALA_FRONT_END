@@ -17,7 +17,7 @@ export const SelectAll = styled.div`
 export const KeyWordAlert = styled.li`
   display: flex;
   position: relative;
-  width: ${props => props.isToggleOpen?'calc((100vw - 384px) * 0.6671875 + 40px);':'calc(100vw * 0.6671875 + 40px);'}
+  width: ${props => props.isToggleOpen?'calc((100vw - 354px) * 0.818007662835249);':'calc((100vw - 144px) * 0.7597864768683274 + 40px);'}
   max-width: 1281px;
   color: ${(props) => (props.isRead ? gray : darkgray)};
   padding: 15px 0 15px 0;
@@ -32,15 +32,17 @@ export const KeyWordAlert = styled.li`
 export const KeyWordAlertList = styled.ol`
   height: calc(100vh - 337px);
   overflow-y: scroll;
-  padding-right: 40px;
+  &::-webkit-scrollbar { 
+    display: none;
+    width: 0px;
+  }
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
     height: calc(100vh - 200px);
-    padding: 0px;
     &::-webkit-scrollbar { 
       display: none;
-      width: 0
-  }
+      width: 0px;
+    }
   }
 `;
 export const CheckBox = styled.div`
@@ -76,13 +78,13 @@ export const AlertInfo = styled.div`
   right: 0px;
 `
 export const AlertTitle = styled.a`
-  width: ${props => props.isToggleOpen?'calc(80vw * 0.58528645833);':'calc(100vw * 0.468229166666);'}
+  width: ${props => props.isToggleOpen?'calc((100vw - 354px) * 0.5740740740740741);':'(100vw - 144px) * 0.533214709371293);'}
   max-width: 899px;
   height: 18px;
   word-wrap : brek-word; 
   max-height: 18px;
-  white-space: nowrap;
   margin-right: 178px;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 12px;
