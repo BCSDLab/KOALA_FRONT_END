@@ -8,7 +8,7 @@ const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 const Header = styled.div`
   display: flex;
-  width: calc(100vw * 0.673958333 + 40px);
+  width: ${props => props.isOpen?'calc((100vw - 384px) * 0.673958333 + 40px)':'calc(100vw * 0.673958333 + 40px)'};
   max-width: 1294px;
   border-bottom: 1px solid #eee;
   @media screen and (max-width: ${theme.deviceSizes.tabletL}) {
@@ -46,12 +46,12 @@ const HistoryHeaderTab = styled(NavLink)`
     }
   }
 `;
-const HistoryHeader = ({ location }) => {
+const HistoryHeader = ({ location, isToggleOpen }) => {
   const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.tabletL}` });
   const totlaAlertHistory = isMobile ? '전체알림' : '전체 알림 내역';
   return (
     <>
-      <Header>
+      <Header isOpen={isToggleOpen}>
         <>
           <HistoryHeaderTab to="/history" inlink={location.pathname === '/history' ? 1 : 0}>
             {totlaAlertHistory}

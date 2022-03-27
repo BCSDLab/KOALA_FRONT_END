@@ -3,6 +3,7 @@ import ScrapContent from 'components/History/Scrap/ScrapContent';
 import HistoryHeader from 'components/History/History/HistoryHeader';
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import SideNavbar from 'components/SideNavbar';
 import theme from 'theme';
@@ -43,14 +44,16 @@ const queries = [`(max-width: ${theme.deviceSizes.tabletL})`];
 const HistoryPage = () => {
   const [mobile] = useMatchMedia(queries);
   const location = useLocation();
+  const {isOpen} = useSelector((state) => state.toggle);
+  console.log(isOpen)
   return (
     <HistoryPageContent>
       <SideNavbar />
       {!mobile && <LoginButton />}
       <ContentWrapper>
-        <HistoryHeader location={location} />
+        <HistoryHeader location={location} isToggleOpen={isOpen}/>
         <Routes>
-          <Route path="/" element={<HistoryContent />} />
+          <Route path="/" element={<HistoryContent isToggleOpen={isOpen}/>} />
           <Route path="/scrap" element={<ScrapContent />} />
         </Routes>
       </ContentWrapper>
