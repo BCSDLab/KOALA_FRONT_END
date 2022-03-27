@@ -241,38 +241,38 @@ const auth = handleActions(
     [SEND_FIND_PASSWORD_SUCCESS]: (state, { payload }) => ({
       ...state,
       ...payload,
-      errorCode: payload.code,
+      errorCode: payload.response.data.code,
       sendSuccess: true,
     }),
     [SEND_FIND_PASSWORD_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      errorCode: error.code,
+      errorCode: error.response.data.code,
       sendSuccess: false,
     }),
     [AUTH_FIND_PASSWORD_SUCCESS]: (state, { payload }) => ({
       ...state,
-      errorCode: payload.code,
+      errorCode: payload.response.data.code,
       authSuccess: true,
     }),
     [AUTH_FIND_PASSWORD_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      errorCode: error.code,
+      errorCode: error.response.data.code,
       authSuccess: false,
     }),
     [CHANGE_PASSWORD_SUCCESS]: (state, { payload }) => ({
       ...state,
-      errorCode: payload.code,
+      errorCode: payload.response.data.code,
       changeComplete: true,
     }),
     [CHANGE_PASSWORD_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      errorCode: error.code,
+      errorCode: error.response.data.code,
       changeComplete: false,
     }),
     [SEND_FIND_ACCOUNT_SUCCESS]: (state, { payload }) => ({
       ...state,
       ...payload,
-      errorCode: payload.code,
+      errorCode: payload.response.data.code,
       sendSuccess: true,
     }),
     [SEND_FIND_ACCOUNT_FAILURE]: (state, { payload: error }) => ({
@@ -287,7 +287,7 @@ const auth = handleActions(
     }),
     [AUTH_FIND_ACCOUNT_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      errorCode: payload.data.code,
+      errorCode: error.response.data.code,
       authSuccess: false,
     }),
     [FIND_ACCOUNT_SUCCESS]: (state, { payload }) => ({
@@ -296,7 +296,7 @@ const auth = handleActions(
     }),
     [FIND_ACCOUNT_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      errorCode: error.code,
+      errorCode: error.response.data.code,
     }),
     [GUEST]: (state) => ({
       ...state,
@@ -309,7 +309,7 @@ const auth = handleActions(
     }),
     [GUEST_FALIURE]: (state, { payload: error }) => ({
       ...state,
-      authError: error.code,
+      authError: error.response.data.code,
       isLoggedIn: false,
     }),
   },
