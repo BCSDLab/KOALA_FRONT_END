@@ -52,7 +52,12 @@ const RegisterForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const find_email = email;
-    dispatch(signUp({ account, password, find_email, nickname }));
+    if (password === passwordConfirm) {
+      dispatch(signUp({ account, password, find_email, nickname }));
+    } else {
+      setPasswordConfirmMessage('비밀번호가 다릅니다');
+      setIsPasswordConfirm(false);
+    }
   };
 
   const onConfirm = () => {
