@@ -40,7 +40,7 @@ const findMemoInAlert = (memoList, alert) => {
       return memo.memo;
     });
 };
-const ScrapContent = () => {
+const ScrapContent = ({isToggleOpen}) => {
   const { scrapList, memoList, getMemoListResponse, deleteScrapResponse, fixMemoResponse, writeMemoResponse } =
     useSelector((state) => state.scrap);
   const userInfo = useSelector((state) => state.auth);
@@ -161,7 +161,7 @@ const ScrapContent = () => {
     <>
     <S.Wrapper>
       <S.Content>
-      <S.MenuList>
+      <S.MenuList isToggleOpen={isToggleOpen}>
         <S.CheckBox>
           <HistoryCheckBox
             onClick={(e) => selectAll(e)}
@@ -186,15 +186,15 @@ const ScrapContent = () => {
                       setCurr={setCurr}
                       />
           :
-          <S.StorageAlert key={mail.id}>
+          <S.StorageAlert key={mail.id} isToggleOpen={isToggleOpen}>
             <HistoryCheckBox
               onClick={(e) => selectMail(e, mail.id)}
               checked={checkedList.includes(mail.id) ? true : false}
               readOnly
             />
             <Sender>{SITE_LIST[SITE_LIST.findIndex((site) => site.id === mail.site)].title}</Sender>
-            <S.MemoAlertWrapper>
-              <S.AlertContent>
+            <S.MemoAlertWrapper isToggleOpen={isToggleOpen}>
+              <S.AlertContent isToggleOpen={isToggleOpen}>
                 <S.AlertTitle href={mail.url}>{mail.title}</S.AlertTitle>
                 <S.AlertProp>
                   {memoIdList.includes(mail.userScrapId) ? (
@@ -218,6 +218,7 @@ const ScrapContent = () => {
                             onChange={(e) => checkByte(e)}
                             maxLength={100}
                             ref={fixMemoValue}
+                            isToggleOpen={isToggleOpen}
                           />
                           <S.LetterCounter>
                             <S.LettterLength

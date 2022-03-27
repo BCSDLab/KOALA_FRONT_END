@@ -11,7 +11,7 @@ export const MemoBlock = styled.div`
   font-size: 12px;
 `;
 export const WriteBlock = styled.textarea`
-  width: calc(100vw * 0.6671875 - 165px);
+  width: 100%;
   max-width: 1077px;
   height: 70px;
   border: none;
@@ -41,7 +41,7 @@ export const CheckBox = styled.div`
 export const MenuList = styled.div`
   display: flex;
   margin: 31px 0 17px 0;
-  width: calc(100vw * 0.6671875 + 40px);
+  width: ${props => props.isToggleOpen?'calc((100vw - 354px) * 0.818007662835249);':'calc((100vw - 144px) * 0.7597864768683274 + 40px);'}
   max-width: 1281px;
   justify-content: space-between;
   @media screen and (max-width: ${tabletL}){
@@ -55,7 +55,6 @@ export const Menu = styled.div`
   display: flex;
   width: 43px;
   align-items: center;
-  // margin-left: 1137px;
   padding: 8px;
   border: solid 1px ${lightgray};
   color: ${gray};
@@ -100,39 +99,41 @@ export const DivideLine = styled.img`
   margin: 0 9px;
 `;
 export const AlertProp = styled.div`
-  display: flex;
-  position: absolute;
-  right: 0px;
-  // margin-left: 19px;
+display: flex;
+position: absolute;
+right: 0px;
 `;
 export const StorageAlert = styled.li`
   display: flex;
-  width: calc(100vw * 0.6671875 + 40px);
+  width: ${props => props.isToggleOpen?'calc((100vw - 354px) * 0.818007662835249);':'calc((100vw - 144px) * 0.7597864768683274 + 40px);'}
   max-width: 1281px;
-  position: relative;
   color: ${darkgray};
   padding: 0 0 15px 0;
   margin: 15px 0 0 0;
   border-bottom: 1px solid ${lightgray};
+  position: relative;
   @media screen and (max-width:${tabletL}){
     width: 100%;
   }
 `;
 export const MemoAlertWrapper = styled.div`
   display: block;
-  width: calc(100vw * 0.6671875 + 40px);
+  width: 100%;
 `;
 export const AlertContent = styled.div`
   display: flex;
-  width: 100%;
-`;
+  width: ${props => props.isToggleOpen?'calc((100vw - 384px) * 0.4552864583333333);':'calc((100vw - 114px) * 0.4977851605758583 + 40px);'}
+  `;
 export const AlertTitle = styled.a`
-  width: 70.6440281030445%;
+width: 70.7017954722872756%;
+max-width: 899px;
+  height: 18px;
+  word-wrap : brek-word; 
   max-height: 18px;
-  font-size: 12px;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 12px;
   @media screen and (max-width: ${tabletL}){
     width: 100%;
     max-width: 100%;
@@ -152,6 +153,7 @@ export const MemoWrapper = styled.div`
 export const memoContent = styled.div`
   display: block;
   height: 73px;
+  width: 100%;
 `;
 export const MemoPanel = styled.div`
   position: relative;
@@ -171,6 +173,10 @@ export const LettterLength = styled.span``;
 export const KeyWordAlertList = styled.ol`
   height: calc(100vh - 337px);
   overflow-y: ${(props) => (props.scrollOption ? 'scroll' : 'none')};
+  &::-webkit-scrollbar { 
+    display: none;
+    width: 0px;
+  }
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
     height: calc(100vh - 200px);

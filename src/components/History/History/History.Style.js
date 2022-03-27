@@ -78,7 +78,6 @@ export const AlertInfo = styled.div`
   right: 0px;
 `
 export const AlertTitle = styled.a`
-  width: ${props => props.isToggleOpen?'calc((100vw - 354px) * 0.5740740740740741);':'(100vw - 144px) * 0.533214709371293);'}
   max-width: 899px;
   height: 18px;
   word-wrap : brek-word; 
