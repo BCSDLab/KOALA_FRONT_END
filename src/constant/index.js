@@ -5,9 +5,9 @@ export const AUNURI = 'https://portal.koreatech.ac.kr';
 
 export const REFRESH_TOKEN = 'refresh_token';
 
-export const EMAIL_ERROR = '125';
 export const NICKNAME_ERROR = '124';
 export const ACCOUNT_ERROR = '123';
+export const EMAIL_ERROR = '125';
 export const LOGIN_ID_ERROR = '126';
 export const LOGIN_PASSWORD_ERROR = '127';
 export const NOT_EXIST_ACCOUNT = '128';

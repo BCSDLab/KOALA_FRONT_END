@@ -65,11 +65,11 @@ export const socialLogin = createAction(SOCIAL_LOGIN, ({ snsType, deviceToken })
 }));
 
 export const refresh = createAction(REFRESH);
-export const signUp = createAction(SIGNUP, ({ account, password, find_email, nickName }) => ({
+export const signUp = createAction(SIGNUP, ({ account, password, find_email, nickname }) => ({
   account,
   password,
   find_email,
-  nickName,
+  nickname,
 }));
 export const sendFindPassword = createAction(SEND_FIND_PASSWORD, (account, email) => ({
   account,
@@ -229,7 +229,8 @@ const auth = handleActions(
     [SIGNUP_SUCCESS]: (state, { payload }) => ({
       ...state,
       ...payload,
-      errorCode: '',
+      isLoggedIn: false,
+      errorCode: 201,
     }),
     [SIGNUP_FALIURE]: (state, { payload: error }) => {
       return {
@@ -276,17 +277,17 @@ const auth = handleActions(
     }),
     [SEND_FIND_ACCOUNT_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      errorCode: error.code,
+      errorCode: error.response.data.code,
       sendSuccess: false,
     }),
     [AUTH_FIND_ACCOUNT_SUCCESS]: (state, { payload }) => ({
       ...state,
-      errorCode: payload.code,
+      errorCode: payload.data.code,
       authSuccess: true,
     }),
     [AUTH_FIND_ACCOUNT_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      errorCode: error.code,
+      errorCode: payload.data.code,
       authSuccess: false,
     }),
     [FIND_ACCOUNT_SUCCESS]: (state, { payload }) => ({

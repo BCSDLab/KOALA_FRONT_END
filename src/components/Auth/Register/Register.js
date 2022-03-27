@@ -31,19 +31,19 @@ const RegisterForm = () => {
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [email, setEmail] = useState('');
-  const [nickName, setNickName] = useState('');
+  const [nickname, setNickname] = useState('');
 
   const [accountMessage, setAccountMessage] = useState('');
   const [emailMessage, setEmailMessage] = useState('');
   const [passwordMessage, setPasswordMessage] = useState('');
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState('');
-  const [nickNameMessage, setNickNameMessage] = useState('');
+  const [nicknameMessage, setNicknameMessage] = useState('');
 
   const [isAccount, setIsAccount] = useState(false);
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
-  const [isNickName, setIsNickName] = useState(false);
+  const [isNickname, setIsNickname] = useState(false);
 
   const [isDisabled, setIsDisabled] = useState(true);
   const [visible, setVisible] = useState(false);
@@ -52,7 +52,7 @@ const RegisterForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const find_email = email;
-    dispatch(signUp({ account, password, find_email, nickName }));
+    dispatch(signUp({ account, password, find_email, nickname }));
   };
 
   const onConfirm = () => {
@@ -118,37 +118,37 @@ const RegisterForm = () => {
     }
   }, []);
 
-  const onChangeNickName = useCallback((e) => {
-    setNickName(e.target.value);
-    if (e.target.value.length < 2 || e.target.value.length > 5) {
-      setNickNameMessage('2글자 이상 5글자 미만으로 입력해주세요.');
-      setIsNickName(false);
+  const onChangeNickname = useCallback((e) => {
+    setNickname(e.target.value);
+    if (e.target.value.length < 2 || e.target.value.length > 10) {
+      setNicknameMessage('2글자 이상 10글자 미만으로 입력해주세요.');
+      setIsNickname(false);
     } else {
-      setNickNameMessage('');
-      setIsNickName(true);
+      setNicknameMessage('');
+      setIsNickname(true);
     }
   }, []);
 
   useEffect(() => {
-    if (isAccount && isPassword && isPasswordConfirm && isEmail && isNickName) {
+    if (isAccount && isPassword && isPasswordConfirm && isEmail && isNickname) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
     }
-  }, [isAccount, isPassword, isPasswordConfirm, isEmail, isNickName]);
+  }, [isAccount, isPassword, isPasswordConfirm, isEmail, isNickname]);
 
   useEffect(() => {
     if (errorCode == ACCOUNT_ERROR) {
-      setAccountMessage('이미 존재하는 계정입니다.');
+      setAccountMessage('이미 가입된 아이디입니다.');
       setIsAccount(false);
     } else if (errorCode == NICKNAME_ERROR) {
-      setNickNameMessage('이미 존재하는 닉네임입니다.');
-      setIsNickName(false);
+      setNicknameMessage('이미 사용중인 닉네임입니다.');
+      setIsNickname(false);
     } else if (errorCode == EMAIL_ERROR) {
       setEmailMessage('이미 존재하는 이메일 입니다.');
       setIsEmail(false);
     }
-    if (errorCode === '' && isAccount && isPassword && isPasswordConfirm && isEmail && isNickName) {
+    if (errorCode === 201 && isAccount && isPassword && isPasswordConfirm && isEmail && isNickname) {
       setVisible(true);
     }
   }, [errorCode]);
@@ -201,13 +201,13 @@ const RegisterForm = () => {
               errorMessage={emailMessage}
             />
             <CommonInput
-              name="nickName"
-              value={nickName}
-              onChange={onChangeNickName}
+              name="nickname"
+              value={nickname}
+              onChange={onChangeNickname}
               placeholder="닉네임"
-              error={nickNameMessage}
-              isError={nickNameMessage !== ''}
-              errorMessage={nickNameMessage}
+              error={nicknameMessage}
+              isError={nicknameMessage !== ''}
+              errorMessage={nicknameMessage}
             />
 
             <S.BottomProgressBar>
