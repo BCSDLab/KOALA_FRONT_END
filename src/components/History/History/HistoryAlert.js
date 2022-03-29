@@ -22,7 +22,6 @@ const HistoryAlert = ({isToggleOpen, selectMail, checkedList, isMobile, mail}) =
             setClick(!isClicked)
         }
     };
-    console.log(mail.id, mail.isRead)
     return (
         <>
           <S.KeyWordAlert isRead={isClicked} key={mail.id} isToggleOpen={isToggleOpen}>
