@@ -26,7 +26,7 @@ export const formatingDate = (date) => {
   const minute = newDate.getMinutes() < 10 ? '0' + newDate.getMinutes() : newDate.getMinutes();
   return `${month + '/' + day} - ${(hour === 0 ? '00' : hour) + ':' + (minute===0?'00':minute)}`;
 };
-const HistoryContent = () => {
+const HistoryContent = ({isToggleOpen}) => {
   const { historyList, deleteHistoryResponse, readHistoryItemResponse, moveToScrapResponse, undoHistoryListResponse } =
     useSelector((state) => state.history);
   const userInfo = useSelector((state) => state.auth);
@@ -217,14 +217,17 @@ const HistoryContent = () => {
       {!isMobile && <PopUp isOpen={isPopOpen} closePopUp={closePopUp} />}
         <S.Content isOpen={isPopOpen}>
           <S.MenuList>
-            <S.SelectAll>
-              <HistoryCheckBox
+          <S.CheckBox>
+          <HistoryCheckBox
                 onClick={(e) => selectAllMail(e)}
                 checked={checkedList.length <= 0 || checkedList.length !== showList.length ? false : true}
                 readOnly
               />
+            <S.SelectAll>
               전체선택
             </S.SelectAll>
+          </S.CheckBox>
+         
             <S.MenuWrapper onClick={(e) => e.stopPropagation()}>
               {!isMobile && (
                 <>
@@ -269,7 +272,7 @@ const HistoryContent = () => {
           <S.KeyWordAlertList>
             {showList?.map((mail, id) =>
               showList[showList.length - 1].id === mail.id ? (
-                <S.KeyWordAlert isRead={mail.isRead} key={mail.id} ref={refAlert}>
+                <S.KeyWordAlert isRead={mail.isRead} key={mail.id} ref={refAlert} isToggleOpen={isToggleOpen}>
                   <HistoryCheckBox
                     onClick={(e) => selectMail(e, mail.id)}
                     checked={checkedList.includes(mail.id) ? true : false}
@@ -280,20 +283,20 @@ const HistoryContent = () => {
                       <S.Sender>{SITE_LIST[SITE_LIST.findIndex((site) => site.id === mail.site)].title}</S.Sender>
                       {isMobile && <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>}
                     </S.AlertDetail>
-                    <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={(e) => clickMail(mail.id)}>
+                    <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={(e) => clickMail(mail.id)} isToggleOpen={isToggleOpen}>
                       {mail.title}
                     </S.AlertTitle>
                   </S.AlertContent>
                   {!isMobile && (
-                    <>
-                      <S.MailBrowse>{mail.isRead ? '읽음' : '읽지않음'}</S.MailBrowse>
-                      <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>
-                    </>
-                  )}
+                      <S.AlertInfo>
+                        <S.MailBrowse>{mail.isRead ? '읽음' : '읽지않음'}</S.MailBrowse>
+                        <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>
+                      </S.AlertInfo>
+                    )}
                 </S.KeyWordAlert>
               ) : (
                 <>
-                  <S.KeyWordAlert isRead={mail.isRead} key={mail.id}>
+                  <S.KeyWordAlert isRead={mail.isRead} key={mail.id} isToggleOpen={isToggleOpen}>
                     <HistoryCheckBox
                       onClick={(e) => selectMail(e, mail.id)}
                       checked={checkedList.includes(mail.id) ? true : false}
@@ -304,15 +307,15 @@ const HistoryContent = () => {
                         <S.Sender>{SITE_LIST[SITE_LIST.findIndex((site) => site.id === mail.site)].title}</S.Sender>
                         {isMobile && <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>}
                       </S.AlertDetail>
-                      <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={(e) => clickMail(mail.id)}>
+                      <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={(e) => clickMail(mail.id)} isToggleOpen={isToggleOpen}>
                         {mail.title}
                       </S.AlertTitle>
                     </S.AlertContent>
                     {!isMobile && (
-                      <>
+                      <S.AlertInfo>
                         <S.MailBrowse>{mail.isRead ? '읽음' : '읽지않음'}</S.MailBrowse>
                         <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>
-                      </>
+                      </S.AlertInfo>
                     )}
                   </S.KeyWordAlert>
                   {isMobile && <S.AlertBorderBox />}

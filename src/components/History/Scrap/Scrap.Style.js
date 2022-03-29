@@ -4,14 +4,15 @@ const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 const tabletL = theme.deviceSizes.tabletL;
 export const MemoBlock = styled.div`
-  width: 1033px;
+  width: 65.6440281030445%;
   border: none;
   resize: none;
   font-family: 'NotoSansCJKKR';
   font-size: 12px;
 `;
 export const WriteBlock = styled.textarea`
-  width: 1058px;
+  width: 100%;
+  max-width: 1077px;
   height: 70px;
   border: none;
   resize: none;
@@ -26,27 +27,34 @@ export const WriteBlock = styled.textarea`
   }
 
 `;
+export const Content = styled.div`
+  margin: 0 0 0 13px;
+  @media screen and (max-width: ${tabletL}) {
+    width: 100%;
+    margin: 0px;
+  }
+`;
 export const CheckBox = styled.div`
   display: flex;
   align-items: center;
 `;
 export const MenuList = styled.div`
   display: flex;
-  margin: 31px 0 32px 0;
+  margin: 31px 0 17px 0;
+  width: ${props => props.isToggleOpen?'calc((100vw - 354px) * 0.818007662835249);':'calc((100vw - 144px) * 0.7597864768683274 + 40px);'}
+  max-width: 1281px;
+  justify-content: space-between;
   @media screen and (max-width: ${tabletL}){
     width: 90%;
     justify-content: space-between;
     margin: 0 auto;
     margin-top: 17px;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-    width: 900px;
-  }
 `;
 export const Menu = styled.div`
   display: flex;
+  width: 43px;
   align-items: center;
-  margin-left: 1137px;
   padding: 8px;
   border: solid 1px ${lightgray};
   color: ${gray};
@@ -54,14 +62,11 @@ export const Menu = styled.div`
   @media screen and (max-width: ${tabletL}){
     margin: 0;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-    margin-left: 720px;
-  }
 `;
 export const MenuLogo = styled.img`
   width: 16px;
   height: 16px;
-  margin: 0 8px 0 0px;
+  margin-right: 4px;
 `;
 export const MenuName = styled.div`
   width: 25px;
@@ -72,13 +77,10 @@ export const Wrapper = styled.div`
   @media screen and (max-width: ${tabletL}){
     width: 100vw;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-    width: 900px;
-    height: 400px;
-  }
 `;
 export const SelectAll = styled.div`
   width: 45px;
+  display: flex;
   margin-bottom: 6px;
 `;
 export const MemoOption = styled.div`
@@ -97,45 +99,44 @@ export const DivideLine = styled.img`
   margin: 0 9px;
 `;
 export const AlertProp = styled.div`
-  display: flex;
-  margin-left: 19px;
+display: flex;
+position: absolute;
+right: 0px;
 `;
 export const StorageAlert = styled.li`
   display: flex;
-  width: 1294px;
+  width: ${props => props.isToggleOpen?'calc((100vw - 354px) * 0.818007662835249);':'calc((100vw - 144px) * 0.7597864768683274 + 40px);'}
+  max-width: 1281px;
   color: ${darkgray};
   padding: 0 0 15px 0;
   margin: 15px 0 0 0;
   border-bottom: 1px solid ${lightgray};
+  position: relative;
   @media screen and (max-width:${tabletL}){
     width: 100%;
-  }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-    width: 900px;
   }
 `;
 export const MemoAlertWrapper = styled.div`
   display: block;
+  width: 100%;
 `;
 export const AlertContent = styled.div`
   display: flex;
-
-`;
+  width: ${props => props.isToggleOpen?'calc((100vw - 384px) * 0.4552864583333333);':'calc((100vw - 114px) * 0.4977851605758583 + 40px);'}
+  `;
 export const AlertTitle = styled.a`
-  width: 899px;
-  
+width: 70.7017954722872756%;
+max-width: 899px;
+  height: 18px;
+  word-wrap : brek-word; 
   max-height: 18px;
-  margin-right: 45px;
-  font-size: 12px;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 12px;
   @media screen and (max-width: ${tabletL}){
     width: 100%;
     max-width: 100%;
-  }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-    width: 550px;
   }
 `;
 
@@ -152,14 +153,17 @@ export const MemoWrapper = styled.div`
 export const memoContent = styled.div`
   display: block;
   height: 73px;
+  width: 100%;
 `;
-
-export const LetterCounter = styled.div`
+export const MemoPanel = styled.div`
   position: relative;
+`
+export const LetterCounter = styled.div`
+  position: absolute;
+  width: 38px;
+  bottom: 23px;
+  right: 16px;
   text-align: right;
-  left: 990px;
-  bottom: 30px;
-  width: 52px;
   height: 20px;
   font-size: 12px;
 `;
@@ -167,13 +171,21 @@ export const LetterCounter = styled.div`
 export const LettterLength = styled.span``;
 
 export const KeyWordAlertList = styled.ol`
-  height: 600px;
+  height: calc(100vh - 337px);
   overflow-y: ${(props) => (props.scrollOption ? 'scroll' : 'none')};
+  &::-webkit-scrollbar { 
+    display: none;
+    width: 0px;
+  }
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
-    height: 71vh;
+    height: calc(100vh - 200px);
     overflow-y: scroll;
     overflow-x: hidden;
+    &::-webkit-scrollbar { 
+      display: none;
+      width: 0
+  }
   }
 `;
 

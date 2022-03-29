@@ -1,45 +1,62 @@
 import styled from 'styled-components';
 import theme from '../../../theme';
+import HistoryCheckBox from './HisoryCheckBox';
 const { white, black, darkgray, lightgray, silver, gray, yellow } = theme.colors;
 const tabletL = theme.deviceSizes.tabletL;
 const mibileS = theme.deviceSizes.mobileS;
 
+
 export const SelectAll = styled.div`
-  margin: 0 25px 6px 0;
+  margin: 0 40px 6px 0;
+  display: flex;
+  align-items: center;
   @media screen and (max-width: ${tabletL}) {
     margin: 0 0 5px 0;
   }
 `;
 export const KeyWordAlert = styled.li`
   display: flex;
-  justify-content: space-between;
+  position: relative;
+  width: ${props => props.isToggleOpen?'calc((100vw - 354px) * 0.818007662835249);':'calc((100vw - 144px) * 0.7597864768683274 + 40px);'}
+  max-width: 1281px;
   color: ${(props) => (props.isRead ? gray : darkgray)};
   padding: 15px 0 15px 0;
   border-bottom: 1px solid ${lightgray};
   @media screen and (max-width: ${tabletL}) {
     position: relative;
-    justify-content: start;
+    width: 90vw;
+    margin: 0 auto;
     border: none;
-  }
+    
 `;
 export const KeyWordAlertList = styled.ol`
   height: calc(100vh - 337px);
   overflow-y: scroll;
+  &::-webkit-scrollbar { 
+    display: none;
+    width: 0px;
+  }
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
-    height: calc(100vh-74px);
-    margin: 0 0 0 5%;
+    height: calc(100vh - 200px);
+    &::-webkit-scrollbar { 
+      display: none;
+      width: 0px;
+    }
   }
 `;
-
+export const CheckBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
 export const AlertBorderBox = styled.div`
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
     &:after {
       display: block;
       content: '';
-      margin-left: 3%;
-      width: 87%;
+      width: 85%;
+      margin-left: 9%; 
       border-bottom: 1px solid ${lightgray};
     }
   }
@@ -54,32 +71,38 @@ export const Sender = styled.div`
     width: 52px;
     margin: 0;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-    margin-right: 50px;
-  
-  }
 `;
+export const AlertInfo = styled.div`
+  display: flex;
+  position: absolute;
+  right: 0px;
+`
 export const AlertTitle = styled.a`
-  width: 899px;
   max-width: 899px;
+  height: 18px;
+  word-wrap : brek-word; 
   max-height: 18px;
-  margin-right: 40px;
-  font-size: 12px;
-  color: ${(props) => (props.isRead ? gray : darkgray)};
-  cursor: pointer;
+  margin-right: 178px;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 12px;
+
+  color: ${(props) => (props.isRead ? gray : darkgray)};
+  cursor: pointer;
+  
   @media screen and (max-width: ${tabletL}) {
     display: block;
     max-width: 90%;
+    width: 90%;
   }
 `;
 export const AlertContent = styled.div`
   display: flex;
+  width: 100%;
   @media screen and (max-width: ${tabletL}) {
     display: block;
-    max-width: 87%;
+    max-width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -93,6 +116,7 @@ export const AlertDetail = styled.div`
 `;
 export const MailBrowse = styled.div`
   width: 47px;
+  min-width: 47px;
   margin-right: 24px;
   text-align: center;
   font-size: 11px;
@@ -100,10 +124,10 @@ export const MailBrowse = styled.div`
 `;
 export const ReceiveDate = styled.div`
   width: 67px;
+  min-width: 67px;
   font-size: 11px;
   @media screen and (max-width: ${tabletL}) {
     position: relative;
-    right: 2%;
   }
 `;
 export const MenuList = styled.div`
@@ -146,23 +170,20 @@ export const MenuName = styled.div``;
 
 export const PageWrapper = styled.div`
   display: block;
-  width: 1314px;
   font-size: 12px;
   @media screen and (max-width: ${tabletL}) {
     width: 100vw;
+    min-width: ${theme.deviceSizes.mobileS};
     margin: 0 0 74px 0;
-  }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-    width: 900px;
-    height: 400px;
   }
 `;
 export const Content = styled.div`
   position: relative;
+  margin: 0 0 0 13px;
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
-    margin: 0 auto;
     top: 0;
+    margin: 0;
   }
 `;
 

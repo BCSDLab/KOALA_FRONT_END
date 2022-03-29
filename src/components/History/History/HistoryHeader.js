@@ -8,8 +8,9 @@ const {white, black, darkgray, lightgray, silver, gray, yellow} = theme.colors;
 
 const Header = styled.div`
   display: flex;
-  width: 1314px;
-  // padding-bottom: 31px;
+  // width: ${props => props.isOpen?'calc((100vw - 384px) * 0.673958333 + 40px)':'calc(100vw * 0.673958333 + 40px)'};
+  width: ${props => props.isToggleOpen?'calc((100vw - 354px + 14px) * 0.818007662835249);':'calc((100vw - 144px) * 0.7597864768683274 + 40px + 14px);'}
+  max-width: 1294px;
   border-bottom: 1px solid #eee;
   @media screen and (max-width: ${theme.deviceSizes.tabletL}) {
     width: 90%;
@@ -18,21 +19,6 @@ const Header = styled.div`
     align-items: center;
     padding: 0;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-    width: 900px;
-  }
-`;
-const FocusLine = styled.div`
-  width: 32px;
-  height: 2px;
-  background-color: ${darkgray};
-  margin: ${(props) => {
-    if (props.location.pathname === '/history') {
-      return '0 0 0 40px';
-    } else if (props.location.pathname === '/history/scrap') {
-      return '0 0 0 190px';
-    }
-  }};
 `;
 const HistoryHeaderTab = styled(NavLink)`
   font-size: 18px;
@@ -61,12 +47,12 @@ const HistoryHeaderTab = styled(NavLink)`
     }
   }
 `;
-const HistoryHeader = ({ location }) => {
+const HistoryHeader = ({ location, isToggleOpen }) => {
   const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.tabletL}` });
   const totlaAlertHistory = isMobile ? '전체알림' : '전체 알림 내역';
   return (
     <>
-      <Header>
+      <Header isToggleOpen={isToggleOpen}>
         <>
           <HistoryHeaderTab to="/history" inlink={location.pathname === '/history' ? 1 : 0}>
             {totlaAlertHistory}

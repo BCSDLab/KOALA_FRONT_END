@@ -3,6 +3,7 @@ import ScrapContent from 'components/History/Scrap/ScrapContent';
 import HistoryHeader from 'components/History/History/HistoryHeader';
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import SideNavbar from 'components/SideNavbar';
 import theme from 'theme';
@@ -13,7 +14,7 @@ const HistoryPageContent = styled.div`
   display: flex;
   height: 100%;
   overflow-y: hidden;
-  overflow-x: hidden;
+  // overflow-x: hidden;
   @media screen and (max-width: ${theme.deviceSizes.tabletL}) {
     width: 100vw;
     display: flex;
@@ -29,7 +30,7 @@ const HistoryPageContent = styled.div`
 const ContentWrapper = styled.div`
   width: 100%;
   height: 100%;
-  margin: 121px 0 0 131px;
+  margin: ${props => props.isToggleOpen?'121px 0 0 100px;':'121px 0 0 131px;'}
   @media screen and (max-width: ${theme.deviceSizes.tabletL}) {
     position: fixed;
     height: 0%;
@@ -43,15 +44,16 @@ const queries = [`(max-width: ${theme.deviceSizes.tabletL})`];
 const HistoryPage = () => {
   const [mobile] = useMatchMedia(queries);
   const location = useLocation();
+  const {isOpen} = useSelector((state) => state.toggle);
   return (
     <HistoryPageContent>
       <SideNavbar />
       {!mobile && <LoginButton />}
-      <ContentWrapper>
-        <HistoryHeader location={location} />
+      <ContentWrapper isToggleOpen={isOpen}>
+        <HistoryHeader location={location} isToggleOpen={isOpen}/>
         <Routes>
-          <Route path="/" element={<HistoryContent />} />
-          <Route path="/scrap" element={<ScrapContent />} />
+          <Route path="/" element={<HistoryContent isToggleOpen={isOpen}/>} />
+          <Route path="/scrap" element={<ScrapContent isToggleOpen={isOpen}/>} />
         </Routes>
       </ContentWrapper>
     </HistoryPageContent>
