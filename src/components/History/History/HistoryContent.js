@@ -283,7 +283,7 @@ const HistoryContent = ({isToggleOpen}) => {
                       <S.Sender>{SITE_LIST[SITE_LIST.findIndex((site) => site.id === mail.site)].title}</S.Sender>
                       {isMobile && <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>}
                     </S.AlertDetail>
-                    <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={(e) => clickMail(mail.id)} isToggleOpen={isToggleOpen}>
+                    <S.AlertTitle href={mail.url} isRead={mail.isRead} target='_blank' onClick={(e) => clickMail(mail.id)} isToggleOpen={isToggleOpen}>
                       {mail.title}
                     </S.AlertTitle>
                   </S.AlertContent>
@@ -307,7 +307,7 @@ const HistoryContent = ({isToggleOpen}) => {
                         <S.Sender>{SITE_LIST[SITE_LIST.findIndex((site) => site.id === mail.site)].title}</S.Sender>
                         {isMobile && <S.ReceiveDate>{formatingDate(mail.createdAt)}</S.ReceiveDate>}
                       </S.AlertDetail>
-                      <S.AlertTitle href={mail.url} isRead={mail.isRead} onClick={(e) => clickMail(mail.id)} isToggleOpen={isToggleOpen}>
+                      <S.AlertTitle href={mail.url} isRead={mail.isRead} target='_blank' onClick={(e) => clickMail(mail.id)} isToggleOpen={isToggleOpen}>
                         {mail.title}
                       </S.AlertTitle>
                     </S.AlertContent>
