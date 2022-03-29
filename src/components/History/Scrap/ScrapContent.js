@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import HistoryCheckBox from '../History/HisoryCheckBox';
 import { getMemo, getScrapList, deleteScrapItem, fixMemo, writeMemo } from 'store/scrap';
 import { SITE_LIST } from 'constant';
-import { formatingDate } from '../History/HistoryContent';
+import { formatingDate } from '../History/HistoryAlert';
 import theme from '../../../theme';
 import { useMediaQuery } from 'react-responsive';
 import MobileScrapAlert from './MobileScrapAlert';
