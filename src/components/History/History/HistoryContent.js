@@ -98,7 +98,7 @@ const HistoryContent = ({isToggleOpen}) => {
     if (e.target.checked) {
       setCheckedList(
         alertList.map((mail) => {
-          return mail.id;
+          return mail.crawlingId;
         })
       );
     } else {
