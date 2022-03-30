@@ -1,14 +1,15 @@
-import React, { useState, useEffect, useRef, useLayoutEffect, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import * as S from './Scrap.Style';
 import {  Sender } from '../History/History.Style';
 import { useDispatch, useSelector } from 'react-redux';
 import HistoryCheckBox from '../History/HisoryCheckBox';
-import { getMemo, getScrapList, deleteScrapItem, fixMemo, writeMemo } from 'store/scrap';
+import { getMemo, getScrapList, fixMemo, writeMemo } from 'store/scrap';
 import { SITE_LIST } from 'constant';
 import { formatingDate } from '../History/HistoryAlert';
 import theme from '../../../theme';
 import { useMediaQuery } from 'react-responsive';
 import MobileScrapAlert from './MobileScrapAlert';
+import ScrapMenuBar from './ScrapMenuBar';
 
 
 const memoState = ['READ', 'WRITE', 'FIX'];
@@ -121,14 +122,14 @@ const ScrapContent = ({isToggleOpen}) => {
       setCheckedList(checkedList.filter((mailId) => mailId !== id));
     }
   };
-  const deleteAlert = () => {
-    if (checkedList.length > 0) {
-      dispatch(deleteScrapItem(checkedList));
-      setCheckedList([]);
-    } else {
-      alert('삭제할 메일을 선택해 주세요');
-    }
-  };
+  // const deleteAlert = () => {
+  //   if (checkedList.length > 0) {
+  //     dispatch(deleteScrapItem(checkedList));
+  //     setCheckedList([]);
+  //   } else {
+  //     alert('삭제할 메일을 선택해 주세요');
+  //   }
+  // };
   const checkByte = (obj) => {
     const len = countLetter(obj.target.value);
     letter.current.innerText = len;
@@ -161,20 +162,13 @@ const ScrapContent = ({isToggleOpen}) => {
     <>
     <S.Wrapper>
       <S.Content>
-      <S.MenuList isToggleOpen={isToggleOpen}>
-        <S.CheckBox>
-          <HistoryCheckBox
-            onClick={(e) => selectAll(e)}
-            checked={checkedList.length <= 0 || checkedList.length !== scrapItemList.length ? false : true}
-            readOnly
-          />
-           <S.SelectAll>전체선택</S.SelectAll>
-        </S.CheckBox>
-        <S.Menu onClick={deleteAlert}>
-          <S.MenuLogo src="/asset/Delete.svg" />
-          <S.MenuName>삭제</S.MenuName>
-        </S.Menu>
-      </S.MenuList>
+      <ScrapMenuBar 
+        isChecked={checkedList.length <= 0 || checkedList.length !== scrapItemList.length ? false : true} 
+        selectAll={selectAll}
+        checkedList={checkedList}
+        setCheckedList={setCheckedList}
+        isToggleOpen={isToggleOpen}
+      />
       <S.KeyWordAlertList scrollOption={scrapItemList?.length >= 12 ? true : false}>
         {scrapItemList?.map((mail) => (
           isMobile? <MobileScrapAlert
