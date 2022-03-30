@@ -26,8 +26,8 @@ const HistoryAlert = ({isToggleOpen, selectMail, checkedList, isMobile, mail}) =
         <>
           <S.KeyWordAlert isRead={isClicked} key={mail.id} isToggleOpen={isToggleOpen}>
             <HistoryCheckBox
-              onClick={(e) => selectMail(e, mail.crawlingId)}
-              checked={checkedList.includes(mail.crawlingId) ? true : false}
+              onClick={(e) => selectMail(e, mail)}
+              checked={checkedList.includes(mail) ? true : false}
               readOnly
             />
             <S.AlertContent>

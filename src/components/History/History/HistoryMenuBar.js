@@ -1,12 +1,12 @@
 import React,{useState,useEffect} from "react";
 import * as S from './History.Style';
 import HistoryCheckBox from './HisoryCheckBox';
-import { moveToScrap, undoHistoryList, deleteHistoryList } from "store/history";
+import { moveToScrap, undoHistoryList, deleteHistoryList, clearHistoryList } from "store/history";
 import { deleteScrapItem } from 'store/scrap';
 import { useDispatch } from "react-redux";
 import { MobileMoveScrapModal, MobileDeleteModal } from "./MobilePopUpModal";
 import MobileMenuModal from './MobileMenuModal';
-const HistoryMenuBar = ({selectAllMail,checkedList,setCheckedList,showList,setList,setOpen,isMobile,setCommand,command,isMobileMenuOpen,setMobileMenu}) => {
+const HistoryMenuBar = ({selectAllMail,checkedList,setCheckedList,showList,setList,setOpen,isMobile,setCommand,command,isMobileMenuOpen,setMobileMenu,setPageNum}) => {
     const dispatch = useDispatch()
     const [undoList, setUndoList] = useState([]);
     const [isMobileDeleteOpen, setMobileDeleteModal] = useState(false);
@@ -28,8 +28,8 @@ const HistoryMenuBar = ({selectAllMail,checkedList,setCheckedList,showList,setLi
     const moveToStorage = () => {
         if (checkedList.length > 0) {
           try {
-            checkedList.forEach((id) => {
-              dispatch(moveToScrap({ crawling_id: id }));
+            checkedList.forEach((mail) => {
+              dispatch(moveToScrap({ crawling_id: mail.crawlingId }));
             });
             setUndoList(checkedList);
             setCheckedList([]);
@@ -47,19 +47,21 @@ const HistoryMenuBar = ({selectAllMail,checkedList,setCheckedList,showList,setLi
         }
       };
     const undoMoveScrap = () => {
-        dispatch(deleteScrapItem(undoList));
+        dispatch(deleteScrapItem(undoList.map((mail) => mail.crawlingId)));
         setUndoList([]);
     };
     const deleteMail = () => {
         if (checkedList.length > 0) {
           try {
             var deleteMailQuery = '';
-            checkedList.forEach((id) => {
-              deleteMailQuery += `notice-id=${id}&`;
+            checkedList.forEach((mail) => {
+              deleteMailQuery += `notice-id=${mail.id}&`;
             });
             dispatch(deleteHistoryList(deleteMailQuery));
-            setUndoList([checkedList]);
+            setUndoList(checkedList);
             setCheckedList([]);
+            setPageNum([1]);
+            dispatch(clearHistoryList())
           } catch (e) {
             console.log(e);
           } finally {
@@ -74,16 +76,18 @@ const HistoryMenuBar = ({selectAllMail,checkedList,setCheckedList,showList,setLi
       const undoDelete = () => {
         var undoMailQuery = '';
         try {
-          undoList.forEach((id) => {
-            undoMailQuery += `notice-id=${id}&`;
+          undoList.forEach((mail) => {
+            undoMailQuery += `notice-id=${mail.id}&`;
           });
           dispatch(undoHistoryList(undoMailQuery));
+          setPageNum([1]);
         } catch (e) {
           console.log(e);
         } finally {
           setUndoList([]);
           setList([]);
           setMobileDeleteModal(false);
+          dispatch(clearHistoryList())
         }
       };
       const openMobileMenu = () => {

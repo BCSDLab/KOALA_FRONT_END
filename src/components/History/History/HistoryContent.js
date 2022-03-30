@@ -30,20 +30,16 @@ const HistoryContent = ({isToggleOpen}) => {
   const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.tabletL}` });
   const selectAllMail = (e) => {
     if (e.target.checked) {
-      setCheckedList(
-        alertList.map((mail) => {
-          return mail.crawlingId;
-        })
-      );
+      setCheckedList(alertList);
     } else {
       setCheckedList([]);
     }
   };
-  const selectMail = (e, id) => {
+  const selectMail = (e, mail) => {
     if (e.target.checked) {
-      setCheckedList([...checkedList, id]);
+      setCheckedList([...checkedList, mail]);
     } else {
-      setCheckedList(checkedList.filter((mailId) => mailId !== id));
+      setCheckedList(checkedList.filter((element) => mail.id !== element.id));
     }
   };
   const closePopUp = () => {
@@ -53,13 +49,16 @@ const HistoryContent = ({isToggleOpen}) => {
     setMobileMenu(false);
   };
   useEffect(() => {
+    if(userInfo.isLoggedIn){
+      dispatch(clearHistoryList())
+      dispatch(getHistoryList(1));
+    }
+  },[])
+  useEffect(() => {
     if (userInfo.isLoggedIn || deleteHistoryResponse || readHistoryItemResponse || moveToScrapResponse) {
       dispatch(getHistoryList(pageNum[0]));
     }
   }, [userInfo.isLoggedIn, pageNum]);
-  useEffect(() => {
-    dispatch(clearHistoryList())
-  },[])
   useEffect(() => {
     if (!historyList || historyList.length <= 0) {
       return;
@@ -87,14 +86,10 @@ const HistoryContent = ({isToggleOpen}) => {
   }, [alertList, command]);
 
   useEffect(() => {
-    if (historyList.length === 0) {
-      setPageNum([1]);
-    }
     if (inView) {
       if(historyList[historyList.length-1]!==null){
         setPageNum([pageNum[0] + 1]);
       }
-      
     }
   }, [inView, readHistoryItemResponse, deleteHistoryResponse, undoHistoryListResponse, historyList]);
 
@@ -115,6 +110,7 @@ const HistoryContent = ({isToggleOpen}) => {
             setCommand={setCommand}
             isMobileMenuOpen={isMobileMenuOpen}
             setMobileMenu={setMobileMenu}
+            setPageNum={setPageNum}
           />
           <S.KeyWordAlertList>
             {showList?.map((mail) =>
