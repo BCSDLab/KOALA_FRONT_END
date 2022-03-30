@@ -1,19 +1,15 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import * as S from './Scrap.Style';
-import {  Sender } from '../History/History.Style';
 import { useDispatch, useSelector } from 'react-redux';
-import HistoryCheckBox from '../History/HisoryCheckBox';
 import { getMemo, getScrapList, fixMemo, writeMemo } from 'store/scrap';
-import { SITE_LIST } from 'constant';
-import { formatingDate } from '../History/HistoryAlert';
 import theme from '../../../theme';
 import { useMediaQuery } from 'react-responsive';
 import MobileScrapAlert from './MobileScrapAlert';
 import ScrapMenuBar from './ScrapMenuBar';
+import ScrapAlert from './ScrapAlert';
 
 
 const memoState = ['READ', 'WRITE', 'FIX'];
-const {gray, yellow} = theme.colors;
 
 const stringToDate = (date) => {
   var yyyyMMdd = String(date);
@@ -22,19 +18,7 @@ const stringToDate = (date) => {
   var sDate = yyyyMMdd.substring(8, 10);
   return new Date(Number(sYear), Number(sMonth) - 1, Number(sDate));
 };
-const makeStringToNewLine = (text) => {
-  if (text) {
-    const fixedText = text.split('').map((char) => {
-      if (char == '\n') {
-        return <br />;
-      } else {
-        return char;
-      }
-    });
-    return fixedText;
-  }
-};
-const findMemoInAlert = (memoList, alert) => {
+export const findMemoInAlert = (memoList, alert) => {
   return memoList
     .filter((memo) => memo.userScrapId === alert.userScrapId)
     .map((memo) => {
@@ -52,7 +36,6 @@ const ScrapContent = ({isToggleOpen}) => {
   const [pageState, setState] = useState('READ');
   const [currentMail, setCurr] = useState(null);
   const [checkedList, setCheckedList] = useState([]);
-  const letter = useRef();
   const fixMemoValue = useRef(null);
   const writeMemoValue = useRef();
   const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.tabletL}` });
@@ -122,27 +105,6 @@ const ScrapContent = ({isToggleOpen}) => {
       setCheckedList(checkedList.filter((mailId) => mailId !== id));
     }
   };
-  // const deleteAlert = () => {
-  //   if (checkedList.length > 0) {
-  //     dispatch(deleteScrapItem(checkedList));
-  //     setCheckedList([]);
-  //   } else {
-  //     alert('삭제할 메일을 선택해 주세요');
-  //   }
-  // };
-  const checkByte = (obj) => {
-    const len = countLetter(obj.target.value);
-    letter.current.innerText = len;
-    if(len >= 100){
-      letter.current.style.color = yellow;
-    }else{
-      letter.current.style.color = gray;
-    }
-  };
-  const countLetter = (letter) => {
-    return letter.length;
-  };
-
   useLayoutEffect(() => {
     if (userInfo.isLoggedIn || getMemoListResponse || deleteScrapResponse || fixMemoResponse) {
       dispatch(getScrapList());
@@ -178,67 +140,24 @@ const ScrapContent = ({isToggleOpen}) => {
                       memo={findMemoInAlert(memoItemList, mail)}
                       writeId={currentMail}
                       setCurr={setCurr}
+                      key={mail.id}
                       />
           :
-          <S.StorageAlert key={mail.id} isToggleOpen={isToggleOpen}>
-            <HistoryCheckBox
-              onClick={(e) => selectMail(e, mail.id)}
-              checked={checkedList.includes(mail.id) ? true : false}
-              readOnly
-            />
-            <Sender>{SITE_LIST[SITE_LIST.findIndex((site) => site.id === mail.site)].title}</Sender>
-            <S.MemoAlertWrapper isToggleOpen={isToggleOpen}>
-              <S.AlertContent isToggleOpen={isToggleOpen}>
-                <S.AlertTitle href={mail.url}>{mail.title}</S.AlertTitle>
-                <S.AlertProp>
-                  {memoIdList.includes(mail.userScrapId) ? (
-                    <S.MemoOption onClick={(e) => fix(e, mail.userScrapId)}>수정</S.MemoOption>
-                  ) : (
-                    <S.MemoOption onClick={(e) => write(e, mail.userScrapId)}>메모</S.MemoOption>
-                  )}
-                  <S.DivideLine src="/asset/DivideLine.svg" />
-                  <S.ReceiveDate>{formatingDate(mail.created_at)}</S.ReceiveDate>
-                </S.AlertProp>
-              </S.AlertContent>
-              <S.MemoWrapper>
-                {memoIdList.includes(mail.userScrapId) ? (
-                  <>
-                    {mail.userScrapId === currentMail ? null : <S.MemoCircle />}
-                    {mail.userScrapId === currentMail && (pageState === 'FIX' || pageState === 'WRITE') ? (
-                      <S.memoContent>
-                        <S.MemoPanel>
-                          <S.WriteBlock
-                            defaultValue={findMemoInAlert(memoItemList, mail)}
-                            onChange={(e) => checkByte(e)}
-                            maxLength={100}
-                            ref={fixMemoValue}
-                            isToggleOpen={isToggleOpen}
-                          />
-                          <S.LetterCounter>
-                            <S.LettterLength
-                              ref={letter}
-                            >
-                              {findMemoInAlert(memoItemList, mail)[0].length}
-                            </S.LettterLength>
-                            /100
-                          </S.LetterCounter>
-                        </S.MemoPanel>
-                      </S.memoContent>
-                    ) : (
-                      <S.MemoBlock>{makeStringToNewLine(findMemoInAlert(memoItemList, mail)[0])}</S.MemoBlock>
-                    )}
-                  </>
-                ) : mail.userScrapId === currentMail && (pageState === 'FIX' || pageState === 'WRITE') ? (
-                  <S.memoContent>
-                    <S.WriteBlock onChange={(e) => checkByte(e)} maxLength={100} ref={writeMemoValue} />
-                    <S.LetterCounter>
-                      <span ref={letter}>0</span>/100
-                    </S.LetterCounter>
-                  </S.memoContent>
-                ) : null}
-              </S.MemoWrapper>
-            </S.MemoAlertWrapper>
-          </S.StorageAlert>
+          <ScrapAlert
+            mail={mail}
+            isToggleOpen={isToggleOpen}
+            selectMail={selectMail}
+            isChecked={checkedList.includes(mail.id) ? true : false}
+            memoIdList={memoIdList}
+            fix={fix}
+            write={write}
+            currentMail={currentMail}
+            pageState={pageState}
+            memoItemList={memoItemList}
+            writeMemoValue={writeMemoValue}
+            fixMemoValue={fixMemoValue}
+            key={mail.id}
+          />
         ))}
       </S.KeyWordAlertList>
       </S.Content>
