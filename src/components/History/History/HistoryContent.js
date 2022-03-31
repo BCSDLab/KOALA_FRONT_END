@@ -76,11 +76,7 @@ const HistoryContent = ({isToggleOpen}) => {
       if(historyList[historyList.length-1]!==null){
         setList(alertList.concat(historyList));
       }
-      // else{
-      //   setList((historyList.slice(0, historyList.length-1)));
-      // }
     }
-    console.log(alertList, pageNum[0])
   }, [historyList]);
 
   useEffect(() => {
