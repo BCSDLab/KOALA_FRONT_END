@@ -58,7 +58,6 @@ const HistoryMenuBar = ({selectAllMail,checkedList,setCheckedList,showList,setLi
               deleteMailQuery += `notice-id=${mail.id}&`;
             });
             dispatch(deleteHistoryList(deleteMailQuery));
-            console.log(checkedList.map((mail) => {return {mail: mail, index: alertList.indexOf(mail)}}))
             setUndoList(checkedList.map((mail) => {return {mail: mail, index: alertList.indexOf(mail)}}));
             setCheckedList([]);
             setList(alertList.filter((mail) => checkedList.map((element) => element.id).indexOf(mail.id) === -1))
@@ -96,6 +95,19 @@ const HistoryMenuBar = ({selectAllMail,checkedList,setCheckedList,showList,setLi
       const openMobileMenu = () => {
         setMobileMenu(!isMobileMenuOpen);
       };
+      useEffect(() => {
+        if (isMobileDeleteOpen) {
+          setTimeout(() => {
+            setMobileDeleteModal(false);
+            setUndoList([]);
+          }, 4000);
+        } else if (isMobileScrapOpen) {
+          setTimeout(() => {
+            setMobileScrapModal(false);
+            setUndoList([]);
+          }, 4000);
+        }
+      }, [isMobileDeleteOpen, isMobileScrapOpen]);
     return(
         <S.MenuList>
             <S.CheckBox>

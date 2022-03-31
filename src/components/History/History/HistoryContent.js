@@ -70,15 +70,14 @@ const HistoryContent = ({isToggleOpen}) => {
     }
   }, [inView, readHistoryItemResponse, deleteHistoryResponse, undoHistoryListResponse, historyList]);
   useEffect(() => {
-    if (!historyList || historyList.length <= 0) {
-      return;
-    } else {
-      if(historyList[historyList.length-1]!==null){
-        setList(alertList.concat(historyList));
+      if(historyList!==null){
+        if(historyList.length === 0){
+          setList([])
+        }else{
+          setList(alertList.concat(historyList));
+        }
       }
-    }
   }, [historyList]);
-
   useEffect(() => {
     switch (command) {
       case 'read':
