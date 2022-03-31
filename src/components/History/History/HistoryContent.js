@@ -50,25 +50,37 @@ const HistoryContent = ({isToggleOpen}) => {
   };
   useEffect(() => {
     if(userInfo.isLoggedIn){
-      dispatch(clearHistoryList())
+      dispatch(clearHistoryList());
       dispatch(getHistoryList(1));
     }
   },[])
   useEffect(() => {
     if (userInfo.isLoggedIn || deleteHistoryResponse || readHistoryItemResponse || moveToScrapResponse) {
+      if(pageNum[0]===1){
+        dispatch(clearHistoryList())
+      }
       dispatch(getHistoryList(pageNum[0]));
     }
-  }, [userInfo.isLoggedIn, pageNum]);
+  }, [pageNum]);
+  useEffect(() => {
+    if (inView) {
+      if(historyList !== null){
+        setPageNum([pageNum[0] + 1]);
+      }
+    }
+  }, [inView, readHistoryItemResponse, deleteHistoryResponse, undoHistoryListResponse, historyList]);
   useEffect(() => {
     if (!historyList || historyList.length <= 0) {
       return;
     } else {
       if(historyList[historyList.length-1]!==null){
-        setList(historyList);
-      }else{
-        setList((historyList.slice(0, historyList.length-1)));
+        setList(alertList.concat(historyList));
       }
+      // else{
+      //   setList((historyList.slice(0, historyList.length-1)));
+      // }
     }
+    console.log(alertList, pageNum[0])
   }, [historyList]);
 
   useEffect(() => {
@@ -84,14 +96,6 @@ const HistoryContent = ({isToggleOpen}) => {
         break;
     }
   }, [alertList, command]);
-
-  useEffect(() => {
-    if (inView) {
-      if(historyList[historyList.length-1]!==null){
-        setPageNum([pageNum[0] + 1]);
-      }
-    }
-  }, [inView, readHistoryItemResponse, deleteHistoryResponse, undoHistoryListResponse, historyList]);
 
   return (
     <>
@@ -111,6 +115,7 @@ const HistoryContent = ({isToggleOpen}) => {
             isMobileMenuOpen={isMobileMenuOpen}
             setMobileMenu={setMobileMenu}
             setPageNum={setPageNum}
+            alertList={alertList}
           />
           <S.KeyWordAlertList>
             {showList?.map((mail) =>
@@ -122,6 +127,7 @@ const HistoryContent = ({isToggleOpen}) => {
                     checkedList={checkedList}
                     isMobile={isMobile}
                     mail={mail}
+                    alertList={alertList}
                   />
                 </div>
 

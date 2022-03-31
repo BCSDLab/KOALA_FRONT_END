@@ -6,7 +6,7 @@ import { deleteScrapItem } from 'store/scrap';
 import { useDispatch } from "react-redux";
 import { MobileMoveScrapModal, MobileDeleteModal } from "./MobilePopUpModal";
 import MobileMenuModal from './MobileMenuModal';
-const HistoryMenuBar = ({selectAllMail,checkedList,setCheckedList,showList,setList,setOpen,isMobile,setCommand,command,isMobileMenuOpen,setMobileMenu,setPageNum}) => {
+const HistoryMenuBar = ({selectAllMail,checkedList,setCheckedList,showList,setList,setOpen,isMobile,setCommand,command,isMobileMenuOpen,setMobileMenu,setPageNum, alertList}) => {
     const dispatch = useDispatch()
     const [undoList, setUndoList] = useState([]);
     const [isMobileDeleteOpen, setMobileDeleteModal] = useState(false);
@@ -58,10 +58,10 @@ const HistoryMenuBar = ({selectAllMail,checkedList,setCheckedList,showList,setLi
               deleteMailQuery += `notice-id=${mail.id}&`;
             });
             dispatch(deleteHistoryList(deleteMailQuery));
-            setUndoList(checkedList);
+            console.log(checkedList.map((mail) => {return {mail: mail, index: alertList.indexOf(mail)}}))
+            setUndoList(checkedList.map((mail) => {return {mail: mail, index: alertList.indexOf(mail)}}));
             setCheckedList([]);
-            setPageNum([1]);
-            dispatch(clearHistoryList())
+            setList(alertList.filter((mail) => checkedList.map((element) => element.id).indexOf(mail.id) === -1))
           } catch (e) {
             console.log(e);
           } finally {
@@ -76,36 +76,26 @@ const HistoryMenuBar = ({selectAllMail,checkedList,setCheckedList,showList,setLi
       const undoDelete = () => {
         var undoMailQuery = '';
         try {
-          undoList.forEach((mail) => {
-            undoMailQuery += `notice-id=${mail.id}&`;
+          undoList.forEach((element) => {
+            undoMailQuery += `notice-id=${element.mail.id}&`;
           });
           dispatch(undoHistoryList(undoMailQuery));
-          setPageNum([1]);
         } catch (e) {
           console.log(e);
         } finally {
           setUndoList([]);
-          setList([]);
+          var redoList = alertList
+          undoList.forEach((mail) => {
+            redoList.splice(mail.index, 0, mail.mail)
+          })
+          console.log(redoList)
+          setList(redoList);
           setMobileDeleteModal(false);
-          dispatch(clearHistoryList())
         }
       };
       const openMobileMenu = () => {
         setMobileMenu(!isMobileMenuOpen);
       };
-      useEffect(() => {
-        if (isMobileDeleteOpen) {
-          setTimeout(() => {
-            setMobileDeleteModal(false);
-            setUndoList([]);
-          }, 4000);
-        } else if (isMobileScrapOpen) {
-          setTimeout(() => {
-            setMobileScrapModal(false);
-            setUndoList([]);
-          }, 4000);
-        }
-      }, [isMobileDeleteOpen, isMobileScrapOpen]);
     return(
         <S.MenuList>
             <S.CheckBox>

@@ -60,7 +60,8 @@ const history = handleActions(
   {
     [GET_HISTORY_LIST_SUCCESS]: (state, { payload: history }) => ({
       ...state,
-      historyList: state.historyList.concat(history.body.length===0?null:history.body),
+      // historyList: state.historyList.concat(history.body.length===0?null:history.body),
+      historyList: history.body.length===0?null:history.body,
       getHistoryListResponse: true,
       deleteHistoryResponse: false,
       readHistoryItemResponse: false,
@@ -77,7 +78,6 @@ const history = handleActions(
 
     [DELETE_HISTORY_LIST_SUCCESS]: (state) => ({
       ...state,
-      historyList: [],
       deleteHistoryResponse: true,
     }),
     [DELETE_HISTORY_LIST_FAILURE]: (state) => ({
@@ -110,7 +110,6 @@ const history = handleActions(
 
     [UNDO_HISTORY_LIST_SUCCESS]: (state) => ({
       ...state,
-      historyList: [],
       undoHistoryListResponse: true,
     }),
     [UNDO_HISTORY_LIST_FAILURE]: (state) => ({
