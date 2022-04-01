@@ -22,8 +22,6 @@ const makeStringToNewLine = (text) => {
       return fixedText;
     }
   };
-
-// const ScrapAlert = ({mail, isToggleOpen, selectMail, isChecked, memoIdList, fix, write, currentMail, pageState, memoItemList, writeMemoValue, fixMemoValue }) => {
   const ScrapAlert = ({mail, isToggleOpen, selectMail, isChecked, memoIdList, currentMail,  memoItemList, setCurr, setIdList}) => {
     const letter = useRef();
     const memoValue = useRef()
@@ -91,7 +89,6 @@ const makeStringToNewLine = (text) => {
                 </S.AlertProp>
               </S.AlertContent>
               <S.MemoWrapper>
-                {console.log(currentMail)}
                 {memoIdList.includes(mail.userScrapId) ? (
                   <>
                     {mail.userScrapId === currentMail ? null : <S.MemoCircle />}
