@@ -8,9 +8,6 @@ import MobileScrapAlert from './MobileScrapAlert';
 import ScrapMenuBar from './ScrapMenuBar';
 import ScrapAlert from './ScrapAlert';
 
-
-const memoState = ['READ', 'WRITE', 'FIX'];
-
 const stringToDate = (date) => {
   var yyyyMMdd = String(date);
   var sYear = yyyyMMdd.substring(0, 4);
@@ -33,11 +30,9 @@ const ScrapContent = ({isToggleOpen}) => {
   const [memoItemList, setMemo] = useState([]);
   const [memoIdList, setIdList] = useState([]);
   const [scrapItemList, setScrap] = useState([]);
-  const [pageState, setState] = useState('READ');
   const [currentMail, setCurr] = useState(null);
   const [checkedList, setCheckedList] = useState([]);
-  const fixMemoValue = useRef(null);
-  const writeMemoValue = useRef();
+  const memoValue = useRef();
   const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.tabletL}` });
   useEffect(() => {
     if (userInfo.isLoggedIn) {
@@ -54,39 +49,6 @@ const ScrapContent = ({isToggleOpen}) => {
       );
     }
   }, [memoList]);
-  //상태에 따라 메모/수정/완료 표시
-
-  const write = (e, id) => {
-    if (pageState === 'READ') {
-      e.target.innerText = '완료';
-      setState('WRITE');
-      setCurr(id);
-    } else if (pageState === 'WRITE') {
-      const memoStatement = writeMemoValue.current.value;
-      if (memoStatement !== '') {
-        setState('READ');
-        setIdList([...memoIdList, id]);
-        setCurr(null);
-        e.target.innerText = '수정';
-        dispatch(writeMemo({ memo: memoStatement, user_scrap_id: id }));
-      } else {
-        alert('내용을 적어주세요');
-      }
-    }
-  };
-  const fix = (e, id) => {
-    if (pageState === 'READ') {
-      setState('FIX');
-      e.target.innerText = '완료';
-      setCurr(id);
-    } else if (pageState === 'FIX') {
-      setState('READ');
-      setCurr(null);
-      e.target.innerText = '수정';
-      const memoStatement = fixMemoValue.current.value;
-      dispatch(fixMemo({ memo: memoStatement, user_scrap_id: id }));
-    }
-  };
   const selectAll = (e) => {
     if (e.target.checked) {
       setCheckedList(
@@ -124,42 +86,40 @@ const ScrapContent = ({isToggleOpen}) => {
     <>
     <S.Wrapper>
       <S.Content>
-      <ScrapMenuBar 
-        isChecked={checkedList.length <= 0 || checkedList.length !== scrapItemList.length ? false : true} 
-        selectAll={selectAll}
-        checkedList={checkedList}
-        setCheckedList={setCheckedList}
-        isToggleOpen={isToggleOpen}
-      />
-      <S.KeyWordAlertList scrollOption={scrapItemList?.length >= 12 ? true : false}>
-        {scrapItemList?.map((mail) => (
-          isMobile? <MobileScrapAlert
-                      mail={mail}
-                      selectMail={selectMail}
-                      list={checkedList}
-                      memo={findMemoInAlert(memoItemList, mail)}
-                      writeId={currentMail}
-                      setCurr={setCurr}
-                      key={mail.id}
-                      />
-          :
-          <ScrapAlert
-            mail={mail}
-            isToggleOpen={isToggleOpen}
-            selectMail={selectMail}
-            isChecked={checkedList.includes(mail.id) ? true : false}
-            memoIdList={memoIdList}
-            fix={fix}
-            write={write}
-            currentMail={currentMail}
-            pageState={pageState}
-            memoItemList={memoItemList}
-            writeMemoValue={writeMemoValue}
-            fixMemoValue={fixMemoValue}
-            key={mail.id}
-          />
-        ))}
-      </S.KeyWordAlertList>
+        <ScrapMenuBar 
+          isChecked={checkedList.length <= 0 || checkedList.length !== scrapItemList.length ? false : true} 
+          selectAll={selectAll}
+          checkedList={checkedList}
+          setCheckedList={setCheckedList}
+          isToggleOpen={isToggleOpen}
+        />
+        <S.KeyWordAlertList scrollOption={scrapItemList?.length >= 12 ? true : false}>
+          {scrapItemList?.map((mail) => (
+            isMobile? <MobileScrapAlert
+                        mail={mail}
+                        selectMail={selectMail}
+                        list={checkedList}
+                        memo={findMemoInAlert(memoItemList, mail)}
+                        writeId={currentMail}
+                        setCurr={setCurr}
+                        key={mail.id}
+                        />
+            :
+            <ScrapAlert
+              mail={mail}
+              isToggleOpen={isToggleOpen}
+              selectMail={selectMail}
+              isChecked={checkedList.includes(mail.id) ? true : false}
+              memoIdList={memoIdList}
+              currentMail={currentMail}
+              memoItemList={memoItemList}
+              memoValue={memoValue}
+              setCurr={setCurr}
+              key={mail.id}
+              setIdList={setIdList}
+            />
+          ))}
+        </S.KeyWordAlertList>
       </S.Content>
       
     </S.Wrapper>
