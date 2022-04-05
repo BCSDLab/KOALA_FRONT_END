@@ -22,10 +22,9 @@ const makeStringToNewLine = (text) => {
       return fixedText;
     }
   };
-  const ScrapAlert = ({mail, isToggleOpen, selectMail, isChecked, memoIdList, currentMail,  memoItemList, setCurr, setIdList}) => {
+  const ScrapAlert = ({mail, isToggleOpen, selectMail, isChecked, memoIdList, currentMail,  memoItemList, setCurr, setIdList, memoState, setMemoState}) => {
     const letter = useRef();
     const memoValue = useRef()
-    const [memoState, setMemoState] = useState('READ')
     const dispatch = useDispatch();
     const checkByte = (obj) => {
         const len = countLetter(obj.target.value);
@@ -40,11 +39,16 @@ const makeStringToNewLine = (text) => {
         return letter.length;
       };
       const customizeMemo = (e, id, state) => {
+        
         if(memoState === 'READ'){
           setMemoState(state);
           e.target.innerText = '완료';
           setCurr(id);
         }else{
+          if(currentMail !== id){
+            alert('작성하신 메모를 먼저 저장해주세요')
+            return
+          }
           const memoStatement = memoValue.current.value;
           switch(memoState){
             case 'FIX':
@@ -80,9 +84,9 @@ const makeStringToNewLine = (text) => {
                 <S.AlertTitle href={mail.url}>{mail.title}</S.AlertTitle>
                 <S.AlertProp>
                   {memoIdList.includes(mail.userScrapId) ? (
-                    <S.MemoOption onClick={(e) => customizeMemo(e, mail.userScrapId, 'FIX')}>수정</S.MemoOption>
+                    <S.MemoOption onClick={(e) => customizeMemo(e, mail.userScrapId, 'FIX')}>{currentMail===mail.userScrapId?'완료':'수정'}</S.MemoOption>
                   ) : (
-                    <S.MemoOption onClick={(e) => customizeMemo(e, mail.userScrapId, 'WRITE')}>메모</S.MemoOption>
+                    <S.MemoOption onClick={(e) => customizeMemo(e, mail.userScrapId, 'WRITE')}>{currentMail===mail.userScrapId?'완료':'메모'}</S.MemoOption>
                   )}
                   <S.DivideLine src="/asset/DivideLine.svg" />
                   <S.ReceiveDate>{formatingDate(mail.created_at)}</S.ReceiveDate>

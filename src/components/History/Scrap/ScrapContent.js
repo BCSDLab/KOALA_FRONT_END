@@ -32,6 +32,7 @@ const ScrapContent = ({isToggleOpen}) => {
   const [scrapItemList, setScrap] = useState([]);
   const [currentMail, setCurr] = useState(null);
   const [checkedList, setCheckedList] = useState([]);
+  const [memoState, setMemoState] = useState('READ')
   const memoValue = useRef();
   const isMobile = useMediaQuery({ query: `(max-width:${theme.deviceSizes.tabletL}` });
   useEffect(() => {
@@ -117,6 +118,8 @@ const ScrapContent = ({isToggleOpen}) => {
               setCurr={setCurr}
               key={mail.id}
               setIdList={setIdList}
+              memoState={memoState}
+              setMemoState={setMemoState}
             />
           ))}
         </S.KeyWordAlertList>
