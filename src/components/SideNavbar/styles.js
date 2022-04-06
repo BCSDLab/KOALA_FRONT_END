@@ -1,14 +1,44 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
+import { css } from 'styled-components';
 
 export const SideMenuBackground = styled.div`
   width: 270px;
   height: 100%;
   flex-grow: 0;
   padding: 40px 0 0;
+  z-index: -1;
   background-color: #f6f7f8;
-`;
+  ${(props) =>
+    props.isOpen != null &&
+    css`
+      animation: 0.7s ${(props) => (props.isOpen ? 'showUp' : 'showOut')} forwards;
+    `}
+  @keyframes showUp {
+    0% {
+      transform: translate(-100%, 0);
+      z-index: -1;
+    }
 
+    100% {
+      transform: translate(0, 0);
+      z-index: -1;
+    }
+  }
+
+  @keyframes showOut {
+    0% {
+      transform: translate(0, 0);
+      z-index: -1;
+    }
+
+    100% {
+      transform: translate(-100%, 0);
+      z-index: -1;
+      display: none;
+    }
+  }
+`;
 export const SideMenuContainer = styled.div``;
 
 export const Logo = styled.img`

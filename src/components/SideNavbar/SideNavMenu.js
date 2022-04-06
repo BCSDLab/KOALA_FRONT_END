@@ -3,14 +3,13 @@ import * as S from 'components/SideNavbar/styles';
 import { useLocation } from 'react-router-dom';
 import KeywordDropdown from './KeywordDropdown';
 
-const Extension = () => {
+const Extension = ({ isOpen }) => {
   const location = useLocation();
-
   const deniedContact = () => {
     alert('준비중입니다!');
   };
   return (
-    <S.SideMenuBackground>
+    <S.SideMenuBackground isOpen={isOpen}>
       <S.Logo src="/asset/KoalaLogo.svg" alt="Logo" />
 
       <KeywordDropdown />
