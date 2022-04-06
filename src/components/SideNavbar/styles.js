@@ -215,7 +215,7 @@ export const SetList = styled.div`
   font-size: 14px;
   text-align: left;
   position: absolute;
-  bottom: 41px;
+  bottom: 70px;
 `;
 
 export const Set = styled(StyledLinkDiv)`
