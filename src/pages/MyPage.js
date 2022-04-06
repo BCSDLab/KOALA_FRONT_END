@@ -120,8 +120,8 @@ const MyPage = () => {
 export default MyPage;
 
 const MyPageContainer = styled.div`
-  width: 100%;
-  height: 100%;
+  width: calc(100vw - 350px);
+  height: 100vh;
   display: flex;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     padding: 0;
