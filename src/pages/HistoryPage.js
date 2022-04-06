@@ -4,7 +4,6 @@ import HistoryHeader from 'components/History/History/HistoryHeader';
 import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import SideNavbar from 'components/SideNavbar';
 import theme from 'theme';
 import LoginButton from 'components/Shared/LoginButton';
 import useMatchMedia from 'hooks/useMatchMedia';
@@ -45,7 +44,6 @@ const HistoryPage = () => {
   const location = useLocation();
   return (
     <HistoryPageContent>
-      <SideNavbar />
       {!mobile && <LoginButton />}
       <ContentWrapper>
         <HistoryHeader location={location} />

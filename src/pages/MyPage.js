@@ -6,7 +6,6 @@ import { removeCookie } from '../components/Shared/Cookies';
 import { changeProfile, resetMypageInfo } from '../store/myPage';
 import { LOGIN, REFRESH_TOKEN } from '../constant';
 import useMatchMedia from 'hooks/useMatchMedia';
-import SideNavbar from 'components/SideNavbar';
 import LoginButton from 'components/Shared/LoginButton';
 import EditNickname from 'components/Mypage/EditNickname';
 import SchoolAuth from 'components/Mypage/SchoolAuth';
@@ -69,7 +68,6 @@ const MyPage = () => {
 
   return (
     <MyPageContainer>
-      <SideNavbar></SideNavbar>
       {!desktop && <LoginButton />}
       <MyPageContent isToggle={toggle}>
         <UserInfo isToggle={toggle}>
