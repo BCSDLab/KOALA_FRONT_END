@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import useMatchMedia from 'hooks/useMatchMedia';
 import { Link, useLocation } from 'react-router-dom';
-import { opened } from '../../store/toggle';
+import { opened, closed } from '../../store/toggle';
 import styled from 'styled-components';
 import SideNavMenu from './SideNavMenu';
 import KeywordDropdown from './KeywordDropdown';
@@ -37,6 +37,7 @@ const NavContainer = styled.div`
   height: 100vh;
   display: flex;
   position: static;
+  z-index: 100;
   left: 0px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     display: flex;
@@ -175,8 +176,13 @@ const SideNavbar = () => {
   const isOpen = useSelector((state) => state.toggle.isOpen);
 
   const location = useLocation();
+
   const toggleSideMenu = () => {
-    dispatch(opened());
+    if (isOpen == true) {
+      dispatch(closed());
+    } else {
+      dispatch(opened());
+    }
   };
 
   const [mobile] = useMatchMedia(queries);
@@ -227,7 +233,7 @@ const SideNavbar = () => {
           {mobile && <MenuItemText current={location.pathname === '/mypage' ? 1 : 0}>설정</MenuItemText>}
         </SettingIcon>
       </Nav>
-      {isOpen && <SideNavMenu />}
+      {isOpen != null && <SideNavMenu isOpen={isOpen} />}
       {mobile && <KeywordDropdown />}
     </NavContainer>
   );

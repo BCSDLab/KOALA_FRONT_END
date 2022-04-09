@@ -5,7 +5,6 @@ import React from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import SideNavbar from 'components/SideNavbar';
 import theme from 'theme';
 import LoginButton from 'components/Shared/LoginButton';
 import useMatchMedia from 'hooks/useMatchMedia';
@@ -47,7 +46,6 @@ const HistoryPage = () => {
   const {isOpen} = useSelector((state) => state.toggle);
   return (
     <HistoryPageContent>
-      <SideNavbar />
       {!mobile && <LoginButton />}
       <ContentWrapper isToggleOpen={isOpen}>
         <HistoryHeader location={location} isToggleOpen={isOpen}/>

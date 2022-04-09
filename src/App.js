@@ -29,6 +29,8 @@ import AddKeyword from 'components/Keyword/AddKeyword';
 import ModifyKeyword from 'components/Keyword/ModifyKeyword';
 import SettingKeyword from 'components/Keyword/SettingKeyword';
 import ChatRoom from 'components/Chat/ChatRoom';
+import SideNavbar from 'components/SideNavbar';
+import MainPage from 'pages/mainPage';
 
 const AuthorizedRoute = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -73,20 +75,22 @@ const App = () => {
         <Route path="oAuth/*" element={<OAuthPage />} />
 
         <Route element={<AuthorizedRoute />}>
-          <Route exact path="mypage" element={<MyPage />} />
-          <Route path="keyword/*" element={<KeywordPage />}>
-            <Route index element={<KeywordFilterBar />}></Route>
-            <Route path="create" element={<AddKeyword />}></Route>
-            <Route path="modify" element={<ModifyKeyword />}></Route>
-            <Route path="mypage" element={<SettingKeyword />}></Route>
-          </Route>
-          <Route exact path="chat/*" element={<ChatPage />}>
-            <Route path="auth" element={<ChatAuth />} />
-            <Route path="room" element={isSchoolAuth ? <ChatRoom /> : <Unauth />} />
-          </Route>
-          <Route path="history/*" element={<HistoryPage />}>
-            <Route index element={<HistoryContent />} />
-            <Route path="scrap" element={<ScrapContent />} />
+          <Route path="/*" element={<MainPage />}>
+            <Route exact path="mypage" element={<MyPage />} />
+            <Route path="keyword/*" element={<KeywordPage />}>
+              <Route index element={<KeywordFilterBar />}></Route>
+              <Route path="create" element={<AddKeyword />}></Route>
+              <Route path="modify" element={<ModifyKeyword />}></Route>
+              <Route path="mypage" element={<SettingKeyword />}></Route>
+            </Route>
+            <Route exact path="chat/*" element={<ChatPage />}>
+              <Route path="auth" element={<ChatAuth />} />
+              <Route path="room" element={isSchoolAuth ? <ChatRoom /> : <Unauth />} />
+            </Route>
+            <Route path="history/*" element={<HistoryPage />}>
+              <Route index element={<HistoryContent />} />
+              <Route path="scrap" element={<ScrapContent />} />
+            </Route>
           </Route>
         </Route>
       </Routes>
