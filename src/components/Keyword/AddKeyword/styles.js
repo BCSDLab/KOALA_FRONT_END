@@ -294,20 +294,12 @@ export const ImportantContainer = styled.div`
   cursor: pointer;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
   }
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
-    top: 460px;
-  }
 `;
 
 export const NormalContainer = styled(ImportantContainer)`
   top: 530px;
   cursor: pointer;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
-  }
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
-    top: 490px;
   }
 `;
 
@@ -362,10 +354,6 @@ export const SettingContainer = styled.div`
   display: flex;
   flex-direction: column;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
-  }
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
-    top: 530px;
   }
 `;
 

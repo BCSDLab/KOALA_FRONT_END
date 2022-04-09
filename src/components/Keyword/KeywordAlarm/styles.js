@@ -162,11 +162,6 @@ export const EditButton = styled.button`
   font-size: 14px;
   font-weight: 500;
   text-align: center;
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
-    left: ${(props) => (props.toggle ? '818px' : '683px')};
-    top: 754px;
-  }
 `;
 
 export const CancelButton = styled(EditButton)`

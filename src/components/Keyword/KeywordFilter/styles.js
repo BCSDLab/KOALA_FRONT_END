@@ -57,15 +57,14 @@ export const ItemUnderBar = styled.div`
 `;
 
 export const FilterList = styled.nav`
-  width: 1313px;
+  width: 100%;
   height: 36px;
   display: flex;
   align-items: center;
   font-size: 12px;
-  position: absolute;
-  left: ${(props) => (props.toggle ? '501px' : '366px')};
-  top: 263px;
-
+  white-space: nowrap;
+  margin-left: 13px;
+  margin-top: 28px;
   .read,
   .notread {
     margin-right: 15px;
@@ -91,10 +90,11 @@ export const FilterList = styled.nav`
 `;
 
 export const CheckBox = styled.div`
-  width: 16px;
-  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
   margin-right: 24px;
   border-radius: 3px;
+  obejct: contain;
   border: 1px solid #c4c4c4;
   cursor: pointer;
 
@@ -133,10 +133,6 @@ export const FilterReadNotification = styled.span`
             `;
     }
   }}
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-    props.theme.deviceSizes.NoteBook}) {
-    padding: 8px;
-  }
 `;
 export const FilterNotReadNotification = styled.span`
   padding: 8px;

@@ -278,7 +278,7 @@ const KeywordFilterBar = () => {
           </FilterContainer>
         ) : null)}
       {!mobile && (
-        <>
+        <KeywordFilterContainer toggle={isOpen}>
           <KeywordHeader title={'키워드 알림'} toggle={false} />
           <KeywordMenuBar isToggle={isOpen} menu={menu} setList={setList} onClickMenu={onClickMenu} />
           <S.FilterList toggle={isOpen}>
@@ -332,10 +332,16 @@ const KeywordFilterBar = () => {
             searchButton={searchButton}
             menu={menu}
           />
-        </>
+        </KeywordFilterContainer>
       )}
     </>
   );
 };
 
 export default KeywordFilterBar;
+
+const KeywordFilterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: ${(props) => (props.toggle ? `calc(100vw - 80px - 546px)` : `calc(100vw - 350px - 276px)`)};
+`;

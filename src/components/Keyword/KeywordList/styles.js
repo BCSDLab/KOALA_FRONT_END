@@ -5,8 +5,8 @@ const tabletL = theme.deviceSizes.tabletL;
 const mobileS = theme.deviceSizes.mobileS;
 
 export const CheckBox = styled.div`
-  width: 16px;
-  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
   margin-right: 24px;
   border-radius: 3px;
   border: 1px solid #c4c4c4;
@@ -32,13 +32,13 @@ export const CheckBoxTitle = styled.span`
 `;
 
 export const MainList = styled.div`
-  position: absolute;
-  width: 1325px;
-  height: 600px;
+  width: 100%;
+  min-width: 800px;
+  height: calc(100vh - 286px);
   overflow-y: scroll;
-  left: ${(props) => (props.toggle ? '501px' : '366px')};
-  top: 320px;
+  overflow-x: hidden;
   padding-right: 10px;
+  margin-top: 32px;
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
     min-width: ${mobileS};
@@ -46,24 +46,15 @@ export const MainList = styled.div`
     position: static;
     padding: 0px;
   }
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
-    height: 400px;
-    width: 900px;
-  }
 `;
 
 export const MainItem = styled.div`
-  width: 1310px;
+  width: 100%;
   display: flex;
-
+  white-space: nowrap;
   padding-bottom: 15px;
   margin-bottom: 15px;
   border-bottom: 1.5px solid #eeeeee;
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
-    width: 895px;
-  }
 `;
 
 export const MainCheckBox = styled(CheckBox)`
@@ -81,20 +72,19 @@ export const MainCheckBoxTitle = styled(CheckBoxTitle)`
   margin-right: 125px;
   color: ${(props) => (props.readState ? '#999999' : '#222222')};
 `;
+export const MainContentLink = styled.a`
+  width: calc(100% - 204px - 138px);
+`;
+
 export const MainContent = styled.div`
-  width: 899px;
+  width: 100%;
   font-size: 12px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
   height: 18px;
   cursor: pointer;
-  margin-right: 45px;
   color: ${(props) => (props.readState ? '#999999' : '#222222')};
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
-    width: 400px;
-  }
 `;
 
 export const MainReadState = styled(MainContent)`
