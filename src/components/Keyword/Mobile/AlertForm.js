@@ -12,11 +12,20 @@ const AlertForm = ({
   setSelectRecommendKeyword,
   buttonText,
   keywordName,
+  setIsNullSiteError,
+  setIsNullKeywordError,
 }) => {
   const dispatch = useDispatch();
   const { keywordInfo } = useSelector((state) => state.modifyKeyword);
   const navigate = useNavigate();
   const onClickModifyButton = () => {
+    if (selectRecommendItem.length === 0) {
+      setIsNullSiteError(true);
+      return;
+    } else if (keywordName === false) {
+      setIsNullKeywordError(true);
+      return;
+    }
     setSelectRecommendItem([]);
     if (buttonText == '등록') {
       setRecommendKeyword(undefined);
@@ -164,11 +173,11 @@ const ErrorText = styled.div`
 `;
 const ModifyCompleteButton = styled.div`
   position: absolute;
-  top: 20.3px;
+  top: -65px;
   right: 24px;
   width: 26px;
   height: 21px;
   font-size: 14px;
-  text-align: right;
+  z-index: 200;
   color: ${(props) => props.theme.colors.gray};
 `;

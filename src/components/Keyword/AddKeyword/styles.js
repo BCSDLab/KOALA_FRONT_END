@@ -2,15 +2,13 @@ import styled from 'styled-components';
 import theme from 'theme';
 
 export const HashtagContainer = styled.div`
-  position: absolute;
-  left: ${(props) => (props.toggle ? '588px' : '453px')};
-  top: 212px;
-  width: 1092px;
+  width: calc(100% - 26px);
   height: 48px;
   display: flex;
   align-items: center;
   border: 1px solid ${theme.colors.lightgray};
   padding-left: 24px;
+  margin-bottom: 16px;
 
   ${(props) => {
     if (props.alreadyRegister) {
@@ -21,6 +19,7 @@ export const HashtagContainer = styled.div`
     if (!props.keyword) {
       return `
                   border:1px solid ${theme.colors.darkgray};
+                  border-bottom: none;
               `;
     }
   }}}
@@ -29,21 +28,20 @@ export const HashtagContainer = styled.div`
     width: calc(100% - 18px);
     left: 0;
     top: 0;
-
     height: 38px;
     padding: 0 0 0 16px;
     ${(props) => {
+      if (props.alreadyRegister) {
+        return `
+          border:1px solid ${theme.colors.yellow}; 
+        `;
+      }
       if (!props.keyword) {
         return `
                 border:1px solid ${theme.colors.darkgray};
             `;
       }
     }}
-  }
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-  props.theme.deviceSizes.NoteBook}) {
-    width: 700px;
-    top: 172px;
   }
 `;
 
@@ -57,38 +55,34 @@ export const HashtageImage = styled.img`
 `;
 
 export const InputKeyword = styled.input`
-  width: 1040px;
+  width: 100%;
+  display: block;
   border: none;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 100%;
     font-size: 12px;
   }
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
-    width: 700px;
-  }
 `;
 
 export const SearchContainer = styled.div`
-  position: absolute;
-  width: 1092px;
+  width: calc(100% - 26px);
   height: 48px;
-  top: 276px;
-  left: ${(props) => (props.toggle ? '588px' : '453px')};
   padding-left: 24px;
   align-items: center;
   border: 1px solid ${theme.colors.lightgray};
   display: flex;
-
+  margin-bottom: 8px;
   ${(props) => {
     if (!props.show) {
       return `
                 border:1px solid ${theme.colors.darkgray};
+                border-bottom: none;
             `;
     }
     if (props.alreadyRegister) {
       return `
-                    border:1.5px solid ${theme.colors.yellow};
+                border:1.5px solid ${theme.colors.yellow};
+                width: auto;
                 `;
     }
   }}}
@@ -97,12 +91,21 @@ export const SearchContainer = styled.div`
     width: calc(100% - 18px);
     height: 38px;
     padding: 0 0 0 16px;
-    margin: 24px 0 8px;
-  }
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-  props.theme.deviceSizes.NoteBook}) {
-    width: 700px;
-    top: 236px;
+    margin: 0;
+    ${(props) => {
+      if (!props.show) {
+        return `
+                  border:1px solid ${theme.colors.darkgray};
+                  border-bottom: none;
+              `;
+      }
+      if (props.alreadyRegister) {
+        return `
+                  border:1.5px solid ${theme.colors.yellow};
+                  margin-bottom: 8px;
+                  `;
+      }
+    }}
   }
 `;
 
@@ -127,14 +130,13 @@ export const RecommendSiteContainer = styled.ul`
     return props.show ? 'none' : 'block';
   }};
   padding-left: none;
-  width: 1116px;
+  width: calc(100% - 102px);
   border: 1px solid ${theme.colors.darkgray};
   border-top: none;
-  position: absolute;
   background-color: white;
-  left: ${(props) => (props.toggle ? '588px' : '453px')};
-  top: 325px;
-  z-index: 1;
+  position: absolute;
+  top: 112px;
+  z-index: 20;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 100%;
     position: static;
@@ -143,43 +145,35 @@ export const RecommendSiteContainer = styled.ul`
     }};
     background-color: ${(props) => props.theme.colors.white};
   }
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
-    width: 724px;
-    top: 285px;
-  }
 `;
 
 export const RecommendKeywordContainer = styled.ul`
+  width: calc(100% - 102px);
   padding-left: none;
-  width: 1116px;
   border: ${(props) => (props.isRegisterKeyword ? 'none' : `1px solid ${theme.colors.darkgray}`)};
   border-top: none;
-  position: absolute;
   background-color: white;
-  left: ${(props) => (props.toggle ? '588px' : '453px')};
-  top: 261px;
-  z-index: 1;
+  position: absolute;
+  top: 48px;
+  z-index: 100;
   display: ${(props) => (props.show ? 'none' : 'block')};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     position: static;
     display: none;
   }
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
-    width: 724px;
-    top: 221px;
-  }
 `;
 
 export const AlreadyRegisterMessage = styled.span`
   color: #ffd25d;
-  height: 15px;
+  height: 16px;
   font-size: 11px;
-  position: absolute;
-  left: 200px;
   display: ${(props) => (props.alreadyRegister ? 'block' : 'none')};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
+    height: 11px;
+    display: ${(props) => (props.alreadyRegister ? 'block' : 'none')};
+    position: absolute;
+    top: 95px;
+    left: 16px;
   }
 `;
 
@@ -187,17 +181,20 @@ export const AlreadyRegisterKeyword = styled.span`
   color: #ffd25d;
   height: 15px;
   font-size: 11px;
-  position: absolute;
-  left: 200px;
   display: ${(props) => (props.alreadyRegister ? 'block' : 'none')};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
+    font-size: 11px;
+    display: ${(props) => (props.alreadyRegister ? 'block' : 'none')};
+    position: absolute;
+    top: 40px;
+    left: 16px;
   }
 `;
 
 export const SearchImage = styled(HashtageImage)``;
 
 export const InputSite = styled.input`
-  width: 1040px;
+  width: 100%;
   border: none;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 100%;
@@ -205,10 +202,7 @@ export const InputSite = styled.input`
 `;
 
 export const SiteContainer = styled.div`
-  position: absolute;
-  top: 335px;
-  left: ${(props) => (props.toggle ? '588px' : '453px')};
-  width: 1092px;
+  width: calc(100% - 24px);
   height: 117px;
   background-color: #eee;
   padding: 10px 12px;
@@ -222,11 +216,6 @@ export const SiteContainer = styled.div`
     padding: 0;
     border: 0;
     border-top: 8px;
-  }
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
-    width: 700px;
-    top: 295px;
   }
 `;
 
@@ -287,9 +276,6 @@ export const XImage = styled.img`
 export const ImportantContainer = styled.div`
   height: 16px;
   display: flex;
-  position: absolute;
-  left: 590px;
-  top: 501px;
   align-items: center;
   cursor: pointer;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
@@ -346,11 +332,8 @@ export const CheckBoxContent = styled.span`
 export const SettingContainer = styled.div`
   width: 1092px;
   height: 159px;
-  position: absolute;
   border: 1.5px solid #eee;
   padding-left: 24px;
-  left: 588px;
-  top: 570px;
   display: flex;
   flex-direction: column;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
@@ -428,9 +411,6 @@ export const EditButton = styled.button`
   height: 32px;
   background: ${theme.colors.darkgray};
   color: #fff;
-  position: absolute;
-  top: 834px;
-  left: 1018px;
   font-size: 14px;
   font-weight: 500;
   text-align: center;
@@ -439,7 +419,6 @@ export const EditButton = styled.button`
 `;
 
 export const CancelButton = styled(EditButton)`
-  left: 1142px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
   }
 `;

@@ -10,8 +10,8 @@ const Container = styled.div`
   padding: 0 16px;
   background-color: ${(props) => props.theme.colors.white};
   position: absolute;
-  top: 0;
-  z-index: 1;
+  top: -85px;
+  z-index: 200;
   color: black;
 `;
 

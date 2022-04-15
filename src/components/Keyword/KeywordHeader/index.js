@@ -1,7 +1,6 @@
 import React from 'react';
 import * as S from './styles';
 import useMatchMedia from 'hooks/useMatchMedia';
-import LoginButton from 'components/Shared/LoginButton';
 import MobileTopBar from 'components/Shared/MobileTopBar';
 import { useSelector } from 'react-redux';
 
@@ -17,7 +16,6 @@ const KeywordHeader = ({ title }) => {
         <MobileTopBar content={title}></MobileTopBar>
       ) : (
         <>
-          <LoginButton />
           <S.Title toggle={isOpen}>{title}</S.Title>
         </>
       )}

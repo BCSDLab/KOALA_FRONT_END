@@ -20,6 +20,7 @@ const TopBarContainer = styled.div`
   width: 100%;
   height: 61px;
   margin-bottom: 24px;
+  z-index: 100;
 `;
 const TopBar = styled.div`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {

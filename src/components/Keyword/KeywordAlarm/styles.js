@@ -7,32 +7,19 @@ export const HashtagContainer = styled.div`
   display: flex;
   align-items: center;
   padding-left: 24px;
-  position: absolute;
-  left: 588px;
-  top: 212px;
 `;
 
 export const ImportantContainer = styled.div`
   height: 16px;
   display: flex;
-  position: absolute;
-  left: ${(props) => (props.toggle ? '590px' : '455px')};
-  top: 501px;
   align-items: center;
   cursor: pointer;
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
-    top: 461px;
-  }
+  margin-bottom: 8px;
 `;
 
 export const NormalContainer = styled(ImportantContainer)`
-  top: 530px;
   cursor: pointer;
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
-    top: 490px;
-  }
+  margin-bottom: 0px;
 `;
 
 export const CheckBox = styled.div`
@@ -74,16 +61,10 @@ export const CheckBoxContent = styled.span`
 
 export const SettingContainer = styled(HashtagContainer)`
   height: 159px;
-  left: ${(props) => (props.toggle ? '590px' : '455px')};
-  top: 570px;
+  width: calc(100% - 24px);
   display: flex;
   border: 1.5px solid ${(props) => props.theme.colors.yellow};
   flex-direction: column;
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
-    width: 700px;
-    top: 530px;
-  }
 `;
 
 export const ModeContainer = styled.div`
@@ -110,19 +91,15 @@ export const SettingContent = styled(CheckBoxContent)``;
 export const ErrorText = styled.div`
   font-size: 11px;
   text-align: left;
+  margin-top: 16px;
+  margin-bottom: 96px;
   color: ${(props) => props.theme.colors.yellow};
-  position: absolute;
-  left: ${(props) => (props.toggle ? '585px' : '453px')};
-  top: 736px;
-  @media (min-width: ${(props) => props.theme.deviceSizes.tabletL}) and (max-width: ${(props) =>
-      props.theme.deviceSizes.NoteBook}) {
-    top: 696px;
-  }
 `;
 
 export const BottomContainer = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: column;
 `;
 
 export const AlarmContainer = styled.div`
@@ -150,20 +127,27 @@ export const Type = styled.li`
     }
   }};
 `;
+export const SubmitContainer = styled.div`
+  width: 224px;
+  display: flex;
+  justify-content: space-between;
+`;
 
 export const EditButton = styled.button`
   width: 80px;
   height: 32px;
   background: #222;
   color: #fff;
-  position: absolute;
-  top: 834px;
-  left: ${(props) => (props.toggle ? '1018px' : '883px')};
   font-size: 14px;
   font-weight: 500;
   text-align: center;
 `;
 
-export const CancelButton = styled(EditButton)`
-  left: ${(props) => (props.toggle ? '1142px' : '1007px')};
+export const CancelButton = styled(EditButton)``;
+
+export const CheckBoxContainer = styled.div`
+  width: 100%;
+  display: flex;
+  margin: 24px 0 24px 0;
+  flex-direction: column;
 `;
