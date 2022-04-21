@@ -123,16 +123,18 @@ const ModifyKeyword = () => {
             이미 등록한 사이트입니다.
           </S.AlreadyRegisterMessage>
         </S.SearchContainer>
-        <S.RecommendContainer toggle={isOpen} show={site === ''} alreadyRegister={alreadyRegisterItem}>
-          {recommendList.length !== 0 &&
-            recommendList.map((item, index) => {
-              return (
-                <S.RecommendItem onClick={onClickRecommendItem} key={index}>
-                  {item}
-                </S.RecommendItem>
-              );
-            })}
-        </S.RecommendContainer>
+        {!mobile && (
+          <S.RecommendContainer toggle={isOpen} show={site === ''} alreadyRegister={alreadyRegisterItem}>
+            {recommendList.length !== 0 &&
+              recommendList.map((item, index) => {
+                return (
+                  <S.RecommendItem onClick={onClickRecommendItem} key={index}>
+                    {item}
+                  </S.RecommendItem>
+                );
+              })}
+          </S.RecommendContainer>
+        )}
         <S.SiteContainer toggle={isOpen}>
           <S.SiteList>
             {selectRecommendItem.map((item, index) => {
