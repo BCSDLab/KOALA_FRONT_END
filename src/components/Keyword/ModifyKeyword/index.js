@@ -3,6 +3,7 @@ import KeywordHeader from '../KeywordHeader';
 import { getSiteRecommendation, detailKeyword } from 'store/modifyKeyword';
 import { debounce } from 'lodash';
 import * as S from './styles';
+import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router';
 import { changeSite } from '../utils';
@@ -98,7 +99,7 @@ const ModifyKeyword = () => {
   }, [keywordInfo.siteList]);
 
   return (
-    <>
+    <ModifyKeywordContainer>
       <KeywordHeader title={'키워드 수정하기'} />
       <S.ModifyKeywordContent>
         <S.HashtagContainer toggle={isOpen}>
@@ -174,8 +175,20 @@ const ModifyKeyword = () => {
           />
         )}
       </S.ModifyKeywordContent>
-    </>
+    </ModifyKeywordContainer>
   );
 };
 
 export default ModifyKeyword;
+
+const ModifyKeywordContainer = styled.div`
+  width: ${(props) => (props.toggle ? 'calc(100vw - 350px - 240px - 138px)' : 'calc(100vw - 80px - 375px - 273px)')};
+  min-width: 700px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
+    width: 100%;
+    min-width: 300px;
+  }
+`;
