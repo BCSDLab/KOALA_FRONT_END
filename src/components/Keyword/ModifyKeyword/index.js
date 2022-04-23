@@ -18,6 +18,7 @@ const ModifyKeyword = () => {
   const [recommendList, setRecommendList] = useState([]);
   const [selectRecommendItem, setSelectRecommendItem] = useState([]);
   const [alreadyRegisterItem, setAlreadyRegisterItem] = useState(false);
+  const [isNullSiteError, setIsNullSiteError] = useState(false);
   const [searchedSites, setSearchedSites] = useState(JSON.parse(localStorage.getItem('searchedSites') || '[]'));
   const { siteRecommendationList } = useSelector((state) => state.modifyKeyword);
   const { keywordInfo } = useSelector((state) => state.modifyKeyword);
@@ -119,8 +120,8 @@ const ModifyKeyword = () => {
           ) : (
             <S.InputSite placeholder="알림받을 사이트 검색" defaultValue={site} onClick={mobileSearchSite} />
           )}
-          <S.AlreadyRegisterMessage alreadyRegister={alreadyRegisterItem}>
-            이미 등록한 사이트입니다.
+          <S.AlreadyRegisterMessage alreadyRegister={alreadyRegisterItem || isNullSiteError}>
+            {alreadyRegisterItem ? '이미 등록한 사이트입니다.' : isNullSiteError && '사이트를 등록해주세요'}
           </S.AlreadyRegisterMessage>
         </S.SearchContainer>
         {!mobile && (
@@ -167,6 +168,7 @@ const ModifyKeyword = () => {
             selectRecommendItem={selectRecommendItem}
             setSelectRecommendItem={setSelectRecommendItem}
             keywordName={keywordName}
+            setIsNullSiteError={setIsNullSiteError}
           />
         ) : (
           <AlertForm
@@ -174,6 +176,7 @@ const ModifyKeyword = () => {
             selectRecommendItem={selectRecommendItem}
             setSelectRecommendItem={setSelectRecommendItem}
             keywordName={keywordName}
+            setIsNullSiteError={setIsNullSiteError}
           />
         )}
       </S.ModifyKeywordContent>

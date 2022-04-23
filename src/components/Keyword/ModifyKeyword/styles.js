@@ -117,10 +117,15 @@ export const RecommendContainer = styled.ul`
 
 export const AlreadyRegisterMessage = styled.span`
   color: #ffd25d;
-  height: 15px;
+  height: 16px;
   font-size: 11px;
   display: ${(props) => (props.alreadyRegister ? 'block' : 'none')};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
+    height: 11px;
+    display: ${(props) => (props.alreadyRegister ? 'block' : 'none')};
+    position: absolute;
+    top: 95px;
+    left: 16px;
   }
 `;
 
