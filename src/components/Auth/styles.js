@@ -7,7 +7,6 @@ export const MainLogo = styled.div`
   justify-content: center;
 
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
-    display: none;
   }
 `;
 
@@ -29,7 +28,8 @@ export const MainLogoImg = styled.i`
 export const StyledInput = styled.input`
   width: 348px;
   height: 44px;
-  border: solid 1px ${(props) => props.theme.colors.silver};
+  border: ${(props) =>
+    props.error ? `solid 1px ${props.theme.colors.yellow}` : `solid 1px ${props.theme.colors.silver}`};
   flex-grow: 0;
   padding-left: 16px;
   margin: 2px 0;
@@ -109,13 +109,13 @@ export const StyledLink = styled(Link)`
 
 export const AutoLogin = styled.div`
   display: flex;
+  position: relative;
+  left: 78%;
   width: 84px;
-  top: 8px;
+
   align-items: center;
   z-index: 1;
-
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
-    width: 113px;
   }
 `;
 
@@ -138,7 +138,7 @@ export const AutoLoginText = styled.label`
 
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
     :after {
-      content: '로그인 상태 유지';
+      content: '자동 로그인';
     }
   }
 `;

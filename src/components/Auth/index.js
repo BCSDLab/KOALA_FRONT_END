@@ -31,11 +31,11 @@ const Box = styled.div`
 const AuthTemplate = ({ children }) => {
   const location = useLocation();
   const queries = ['(max-width: 450px)'];
-  const [mobile] = useMatchMedia(queries);
+  const [desktop] = useMatchMedia(queries);
   return (
     <AuthTemplateBlock>
       <Box>
-        {(location.pathname === '/auth' || !mobile) && (
+        {(location.pathname == '/auth' || !desktop) && (
           <S.MainLogo>
             <S.MainLogoImg />
           </S.MainLogo>

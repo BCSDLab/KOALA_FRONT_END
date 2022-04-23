@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { LOGIN } from 'constant';
+import { LOGIN, NOT_EXIST_ACCOUNT } from 'constant';
 import MobileTopBar from 'components/Shared/MobileTopBar';
 import MobileConfig from 'components/Shared/MobileConfig';
 import useMatchMedia from 'hooks/useMatchMedia';
@@ -20,7 +20,6 @@ const FindId = () => {
 
   const [isEmailError, setIsEmailError] = useState(true);
   const [isAuthNumError, setIsAuthNumError] = useState(true);
-
   const emailRef = useRef();
   const authRef = useRef();
 
@@ -71,6 +70,7 @@ const FindId = () => {
             <SubmitAccountForm>
               <IdfForm>
                 <EmailForm ref={emailRef} onChange={onChangeEmail} />
+
                 <AuthNumberForm
                   type="ACCOUNT"
                   ref={authRef}
@@ -129,7 +129,7 @@ const IdfForm = styled.div`
   }
 `;
 const NextButton = styled(Button)`
-  margin-top:120px;
+  margin-top: 120px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 328px;
     position: absolute;
@@ -137,7 +137,7 @@ const NextButton = styled(Button)`
   }
 `;
 const CompleteButton = styled(Button)`
-  margin-top:0px;
+  margin-top: 0px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileL}) {
     width: 328px;
     position: absolute;
@@ -154,4 +154,7 @@ const FindAccountText = styled.div`
     text-align: left;
     color: ${(props) => props.theme.colors.darkgray};
   }
+`;
+const ErrorText = styled(S.InputErrorText)`
+  margin: 0;
 `;

@@ -65,11 +65,11 @@ export const socialLogin = createAction(SOCIAL_LOGIN, ({ snsType, deviceToken })
 }));
 
 export const refresh = createAction(REFRESH);
-export const signUp = createAction(SIGNUP, ({ account, password, find_email, nickName }) => ({
+export const signUp = createAction(SIGNUP, ({ account, password, find_email, nickname }) => ({
   account,
   password,
   find_email,
-  nickName,
+  nickname,
 }));
 export const sendFindPassword = createAction(SEND_FIND_PASSWORD, (account, email) => ({
   account,
@@ -182,7 +182,7 @@ const auth = handleActions(
     }),
     [LOGIN_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      authError: error,
+      authError: error.response.data.code,
       isLoggedIn: false,
     }),
     [OAUTH]: (state) => ({
@@ -229,7 +229,8 @@ const auth = handleActions(
     [SIGNUP_SUCCESS]: (state, { payload }) => ({
       ...state,
       ...payload,
-      errorCode: '',
+      isLoggedIn: false,
+      errorCode: 201,
     }),
     [SIGNUP_FALIURE]: (state, { payload: error }) => {
       return {
@@ -240,53 +241,53 @@ const auth = handleActions(
     [SEND_FIND_PASSWORD_SUCCESS]: (state, { payload }) => ({
       ...state,
       ...payload,
-      errorCode: payload.code,
+      errorCode: payload.response.data.code,
       sendSuccess: true,
     }),
     [SEND_FIND_PASSWORD_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      errorCode: error.code,
+      errorCode: error.response.data.code,
       sendSuccess: false,
     }),
     [AUTH_FIND_PASSWORD_SUCCESS]: (state, { payload }) => ({
       ...state,
-      errorCode: payload.code,
+      errorCode: payload.response.data.code,
       authSuccess: true,
     }),
     [AUTH_FIND_PASSWORD_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      errorCode: error.code,
+      errorCode: error.response.data.code,
       authSuccess: false,
     }),
     [CHANGE_PASSWORD_SUCCESS]: (state, { payload }) => ({
       ...state,
-      errorCode: payload.code,
+      errorCode: payload.response.data.code,
       changeComplete: true,
     }),
     [CHANGE_PASSWORD_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      errorCode: error.code,
+      errorCode: error.response.data.code,
       changeComplete: false,
     }),
     [SEND_FIND_ACCOUNT_SUCCESS]: (state, { payload }) => ({
       ...state,
       ...payload,
-      errorCode: payload.code,
+      errorCode: payload.response.data.code,
       sendSuccess: true,
     }),
     [SEND_FIND_ACCOUNT_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      errorCode: error.code,
+      errorCode: error.response.data.code,
       sendSuccess: false,
     }),
     [AUTH_FIND_ACCOUNT_SUCCESS]: (state, { payload }) => ({
       ...state,
-      errorCode: payload.code,
+      errorCode: payload.data.code,
       authSuccess: true,
     }),
     [AUTH_FIND_ACCOUNT_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      errorCode: error.code,
+      errorCode: error.response.data.code,
       authSuccess: false,
     }),
     [FIND_ACCOUNT_SUCCESS]: (state, { payload }) => ({
@@ -295,7 +296,7 @@ const auth = handleActions(
     }),
     [FIND_ACCOUNT_FAILURE]: (state, { payload: error }) => ({
       ...state,
-      errorCode: error.code,
+      errorCode: error.response.data.code,
     }),
     [GUEST]: (state) => ({
       ...state,
@@ -308,7 +309,7 @@ const auth = handleActions(
     }),
     [GUEST_FALIURE]: (state, { payload: error }) => ({
       ...state,
-      authError: error.code,
+      authError: error.response.data.code,
       isLoggedIn: false,
     }),
   },
