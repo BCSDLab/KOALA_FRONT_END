@@ -25,7 +25,7 @@ const Nav = styled.div`
     margin-right: 0;
     padding: 0;
     background-color: ${(props) => props.theme.colors.white};
-    display: flex;
+    display: ${(props) => (props.keywordName == null ? 'flex' : 'none')};
     flex-direction: row;
     position: fixed;
     bottom: 0;
@@ -174,8 +174,8 @@ const SideNavbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isOpen = useSelector((state) => state.toggle.isOpen);
-
   const location = useLocation();
+  const { state: keywordName } = useLocation();
 
   const toggleSideMenu = () => {
     if (isOpen == true) {
@@ -189,9 +189,10 @@ const SideNavbar = () => {
   const moveKeywordMain = () => {
     navigate(`/keyword`, { state: null });
   };
+
   return (
     <NavContainer isSideMenu={isOpen}>
-      <Nav isSideMenu={isOpen}>
+      <Nav isSideMenu={isOpen} keywordName={keywordName}>
         <MenuButton onClick={toggleSideMenu}>
           <MenuImg src="/asset/MenuBtn.svg" alt="Vector" />
         </MenuButton>
