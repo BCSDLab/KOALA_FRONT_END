@@ -17,7 +17,6 @@ export const Menu = styled.nav`
     margin: 75px 0 0 5%;
     width: 90%;
     white-space: nowrap;
-    min-width: ${mobileS};
     overflow-x: scroll;
     border: none;
     height: 100%;
@@ -32,9 +31,6 @@ export const Menu = styled.nav`
 
 export const MobileMenuWrapper = styled.div`
   display: flex;
-  width: 140%;
-  min-width: ${mobileS};
-  justify-content: space-between;
 `;
 
 export const Item = styled.span`
@@ -44,10 +40,9 @@ export const Item = styled.span`
   @media screen and (max-width: ${tabletL}) {
     display: block;
     font-size: 14px;
-    min-width: 52px;
-    text-align: center;
+    margin-right: 24px;
     &:last-child {
-      min-width: 200px;
+      min-width: auto;
     }
     &:after {
       display: block;

@@ -8,6 +8,10 @@ export const Alert = styled.div`
   width: 90%;
   min-width: 90%;
   margin: 0 auto;
+  @media screen and (max-width: ${tabletL}) {
+    margin-left: 5%;
+    margin: 0;
+  }
 `;
 export const AlertWrapper = styled.li`
   @media screen and (max-width: ${tabletL}) {
@@ -114,7 +118,7 @@ export const MemoFixBlock = styled.div`
 export const MemoWriteBlock = styled.div`
   width: 88px;
   min-width: 88px;
-  // heigth: 119px;
+  heigth: 119px;
   background: ${darkgray};
   color: ${white};
   display: flex;

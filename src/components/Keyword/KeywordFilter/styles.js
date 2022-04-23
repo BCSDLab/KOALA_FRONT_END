@@ -63,8 +63,7 @@ export const FilterList = styled.nav`
   align-items: center;
   font-size: 12px;
   white-space: nowrap;
-  margin-left: 13px;
-  margin-top: 28px;
+
   .read,
   .notread {
     margin-right: 15px;
@@ -86,6 +85,8 @@ export const FilterList = styled.nav`
     display: block;
     width: 100vw;
     min-width: ${mobileS};
+    margin-left: 5%;
+    margin-right: 24px;
   }
 `;
 

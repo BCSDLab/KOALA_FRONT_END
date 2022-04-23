@@ -7,6 +7,10 @@ import useMatchMedia from 'hooks/useMatchMedia';
 
 const Container = styled.div`
   display: flex;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
+    width: 100vw;
+    height: 100vh;
+  }
 `;
 
 const MainPage = () => {

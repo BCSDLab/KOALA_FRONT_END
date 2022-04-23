@@ -41,10 +41,12 @@ export const MainList = styled.div`
   margin-top: 32px;
   @media screen and (max-width: ${tabletL}) {
     width: 100%;
+    height: calc(100vh - 225px);
     min-width: ${mobileS};
     overflow-x: none;
     position: static;
     padding: 0px;
+    margin-top: 0;
   }
 `;
 
@@ -66,6 +68,10 @@ export const MainCheckBox = styled(CheckBox)`
            `;
     }
   }}
+  @media screen and (max-width: ${tabletL}) {
+    width: 16px;
+    height: 16px;
+  }
 `;
 export const MainCheckBoxTitle = styled(CheckBoxTitle)`
   width: 60px;
