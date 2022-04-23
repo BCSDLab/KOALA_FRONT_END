@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useImperativeHandle } from 'react';
 import { useSelector } from 'react-redux';
-import { NOT_MATCH_EMAIL, NOT_SEND_EMAIL, EMAIL_REGEXP } from 'constant';
+import { NOT_MATCH_EMAIL, NOT_SEND_EMAIL, EMAIL_REGEXP, NOT_EXIST_ACCOUNT } from 'constant';
 import CommonInput from './CommonInput';
 
 const EmailForm = React.forwardRef((props, ref) => {
@@ -42,17 +42,21 @@ const EmailForm = React.forwardRef((props, ref) => {
       errorEmail(true, '가입할 때 설정한 찾기용 이메일과 일치하지 않습니다.');
     } else if (errorCode == NOT_SEND_EMAIL) {
       errorEmail(true, '먼저 이메일을 전송해주세요');
+    } else if (errorCode == NOT_EXIST_ACCOUNT) {
+      errorEmail(true, '존재하지 않는 이메일입니다.');
     }
   }, [errorCode]);
   return (
-    <CommonInput
-      ref={inputRef}
-      name="email"
-      onChange={onChange}
-      isError={isEmailError}
-      errorMessage={emailMessage}
-      placeholder="이메일 입력"
-    />
+    <>
+      <CommonInput
+        ref={inputRef}
+        name="email"
+        onChange={onChange}
+        isError={isEmailError}
+        errorMessage={emailMessage}
+        placeholder="이메일 입력"
+      />
+    </>
   );
 });
 

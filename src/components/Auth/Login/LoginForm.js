@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { LOGIN_ID_ERROR, LOGIN_PASSWORD_ERROR } from 'constant';
+import { resetAuthState } from 'store/auth';
 import styled from 'styled-components';
 import Switch from 'components/Shared/Switch';
 import StyledButton from 'components/Shared/Button';
@@ -48,6 +50,9 @@ const EyeImg = styled.img`
   width: 24px;
   height: 24px;
 `;
+const ErrorText = styled(S.InputErrorText)`
+  margin: 0;
+`;
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -58,13 +63,19 @@ const LoginForm = () => {
     type: 'password',
     visible: false,
   });
-
+  const authErrorCode = useSelector((state) => state.auth.authError);
   const accountHandler = (e) => {
     setAccount(e.target.value);
+    if (authErrorCode != null) {
+      dispatch(resetAuthState());
+    }
   };
 
   const passwordHandler = (e) => {
     setPassword(e.target.value);
+    if (authErrorCode != null) {
+      dispatch(resetAuthState());
+    }
   };
 
   /*
@@ -99,7 +110,14 @@ const LoginForm = () => {
     <>
       <LoginFormContainer onSubmit={submitHandler}>
         <StyledInputContainer>
-          <StyledInput value={account} onChange={accountHandler} name="account" placeholder="아이디 입력" />
+          <StyledInput
+            value={account}
+            onChange={accountHandler}
+            error={authErrorCode == LOGIN_ID_ERROR}
+            name="account"
+            placeholder="아이디 입력"
+          />
+          {authErrorCode == LOGIN_ID_ERROR && <ErrorText>아이디가 일치하지 않습니다.</ErrorText>}
         </StyledInputContainer>
 
         <StyledInputContainer>
@@ -107,12 +125,14 @@ const LoginForm = () => {
             value={password}
             type={isPasswordType.type}
             onChange={passwordHandler}
+            error={authErrorCode == LOGIN_PASSWORD_ERROR}
             name="password"
             placeholder="비밀번호 입력"
           />
           <PwdSee onClick={handlePasswordType}>
             <EyeImg src={'/asset/' + getPwdSvgName() + '.svg'} alt={getPwdSvgName()} />
           </PwdSee>
+          {authErrorCode == LOGIN_PASSWORD_ERROR && <ErrorText>비밀번호가 일치하지 않습니다.</ErrorText>}
         </StyledInputContainer>
 
         <S.AutoLogin>
