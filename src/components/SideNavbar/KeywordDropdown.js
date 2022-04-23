@@ -59,6 +59,10 @@ const KeywordDropdown = () => {
     setShowModal(check);
   };
 
+  const onClickMobileModifyKeyowrd = () => {
+    navigate('/keyword/modify', { state: keywordName });
+  };
+
   if (keywords === undefined) {
     dispatch(inquiry());
   }
@@ -78,7 +82,7 @@ const KeywordDropdown = () => {
         <S.MobileKeyWordHeader>
           <S.BackBtn src="/asset/BackArrow.svg" onClick={() => onClickItem(null, null)} />
           <S.MobileKeyWordName>{getKeywordName(keywords, selectItemId)}</S.MobileKeyWordName>
-          <S.FixKeyWordBtn to="/keyword/modify">수정</S.FixKeyWordBtn>
+          <S.FixKeyWordBtn onClick={() => onClickMobileModifyKeyowrd()}>수정</S.FixKeyWordBtn>
         </S.MobileKeyWordHeader>
       ) : (
         <MobileKeywordSelect keywords={keywords} onClickAddKeyword={onClickAddKeyword} onClickItem={onClickItem} />
