@@ -9,12 +9,12 @@ const SettingKeyword = () => {
   const { isOpen } = useSelector((state) => state.toggle);
 
   return (
-    <>
+    <SettingKeywordContainer>
       <KeywordHeader title={'키워드 환경설정'} />
-      <ErrorText toggle={isOpen}>※ 해당 기능은 모바일 앱에서만 사용할 수 있습니다.</ErrorText>
       <SettingKeywordContent>
+        <ErrorText toggle={isOpen}>※ 해당 기능은 모바일 앱에서만 사용할 수 있습니다.</ErrorText>
         <s.NotifyContainer toggle={isOpen}>
-          <s.NotifyCheckBox></s.NotifyCheckBox>
+          <s.NotifyCheckBox />
           <s.NotifyCheckBoxTitle>모든 키워드 알람 끄기</s.NotifyCheckBoxTitle>
         </s.NotifyContainer>
         <s.VibrationContaienr toggle={isOpen}>
@@ -38,7 +38,7 @@ const SettingKeyword = () => {
           <s.DisturbTimeEnd placeholder="2 4 : 0 0"></s.DisturbTimeEnd>
         </Timer>
       </SettingKeywordContent>
-    </>
+    </SettingKeywordContainer>
   );
 };
 const Timer = styled.div`
@@ -47,22 +47,28 @@ const Timer = styled.div`
   flex-direction: row;
   width: calc(424px + 14px);
   height: 48px;
-  position: absolute;
-  left: ${(props) => (props.toggle ? '596px' : '461px')};
-  top: 470px;
 `;
 
 const SettingKeywordContent = styled.div`
-  color: #c4c4c4;
+  display: flex;
+  flex-direction: column;
+  margin-top: 129px;
 `;
 
+const SettingKeywordContainer = styled.div`
+  width: calc(100% - 367px - 273px)
+  color: #c4c4c4;
+  display: flex;
+  align-items; center;
+
+`;
 const ErrorText = styled.div`
   font-size: 11px;
   text-align: left;
-  position: absolute;
+  width: auto;
   color: ${(props) => props.theme.colors.yellow};
-  top: 129px;
-  left: ${(props) => (props.toggle ? '616px' : '481px')};
+  margin-bottom: 67px;
+  padding-left: 8px;
 `;
 
 export default SettingKeyword;

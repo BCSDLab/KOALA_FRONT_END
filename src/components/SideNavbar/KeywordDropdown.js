@@ -99,7 +99,7 @@ const KeywordDropdown = () => {
         />
         <S.KeywordMain>키워드</S.KeywordMain>
         <S.KeywordDropdownButton src="/asset/KeywordDropDown.svg" alt="drop" onClick={onClickDropdownButton} />
-        <S.KeywordSetting to="mypage" onClick={onClickSetting}>
+        <S.KeywordSetting to="keyword/mypage" onClick={onClickSetting}>
           설정
         </S.KeywordSetting>
         <S.KeywordList dropdownToggle={dropdownToggle}>
