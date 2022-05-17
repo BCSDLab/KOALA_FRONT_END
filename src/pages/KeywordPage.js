@@ -1,6 +1,5 @@
 import React from 'react';
 import AddKeyword from 'components/Keyword/AddKeyword';
-import SideNavbar from 'components/SideNavbar';
 import KeywordFilterBar from 'components/Keyword/KeywordFilter';
 import styled from 'styled-components';
 import ModifyKeyword from 'components/Keyword/ModifyKeyword';
@@ -13,6 +12,7 @@ const Container = styled.div`
   height: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
+  z-index: 0;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     padding: 0;
     width: 100%;
@@ -37,7 +37,6 @@ const Content = styled.div`
 const KeywordPage = () => {
   return (
     <Container>
-      <SideNavbar />
       <Content>
         <Routes>
           <Route index element={<KeywordFilterBar />}></Route>
