@@ -87,7 +87,6 @@ const HistoryMenuBar = ({selectAllMail,checkedList,setCheckedList,showList,setLi
           undoList.forEach((mail) => {
             redoList.splice(mail.index, 0, mail.mail)
           })
-          console.log(redoList)
           setList(redoList);
           setMobileDeleteModal(false);
         }
