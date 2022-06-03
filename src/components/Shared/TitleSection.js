@@ -10,7 +10,7 @@ const BackButton = styled.button`
     display: block;
     width: 24px;
     height: 24px;
-    background: url(/asset/chevron-left.svg);
+    background: url(/asset/Chevron-left.svg);
     background-size: 24px;
     left: 8px;
     position: absolute;

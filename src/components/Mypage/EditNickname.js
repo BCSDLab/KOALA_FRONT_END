@@ -25,7 +25,7 @@ const EditNickname = (props) => {
       <S.StyledEditNickname>
         <S.EditNicknameInput value={nickname || ''} onChange={nicknameHandler} error={props.change} />
         <S.EditButton onClick={editName}>
-          <S.EditImg src="/asset/pencil.svg" alt="pencil" />
+          <S.EditImg src="/asset/Pencil.svg" alt="pencil" />
         </S.EditButton>
       </S.StyledEditNickname>
       {!props.change && <ErrorText>이미 존재하는 닉네임입니다.</ErrorText>}

@@ -15,7 +15,7 @@ export const CheckBox = styled.div`
   ${(props) => {
     if (props.checkAll) {
       return `
-            background-image:url('/asset/check.svg');
+            background-image:url('/asset/Check.svg');
             background-position:center;
             `;
     }
@@ -63,7 +63,7 @@ export const MainCheckBox = styled(CheckBox)`
   ${(props) => {
     if (props.checkSome) {
       return `
-           background-image:url('/asset/check.svg');
+           background-image:url('/asset/Check.svg');
            background-position:center;
            `;
     }

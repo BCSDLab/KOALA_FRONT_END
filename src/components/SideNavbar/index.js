@@ -198,7 +198,7 @@ const SideNavbar = () => {
         </MenuButton>
         <KeywordIcon to="/keyword" current={location.pathname.includes('/keyword') ? 1 : 0}>
           <HashTagImg
-            src={location.pathname.includes('/keyword') ? '/asset/Hashtagblack.svg' : '/asset/Hashtag.svg'}
+            src={location.pathname.includes('/keyword') ? '/asset/HashtagBlack.svg' : '/asset/Hashtag.svg'}
             alt="keyword"
           />
           {mobile && (
@@ -219,7 +219,7 @@ const SideNavbar = () => {
         <ChattingIcon to="#" current={location.pathname.includes('/chat') ? 1 : 0}>
           <ChatImg
             isSideMenu={isOpen}
-            src={location.pathname.includes('/chat') ? '/asset/Chatblack.svg' : '/asset/Chat.svg'}
+            src={location.pathname.includes('/chat') ? '/asset/ChatBlack.svg' : '/asset/Chat.svg'}
             alt="chat"
           />
           {mobile && <MenuItemText current={location.pathname.includes('/chat') ? 1 : 0}>채팅방</MenuItemText>}
@@ -227,7 +227,7 @@ const SideNavbar = () => {
         <SettingIcon to="/mypage" current={location.pathname === '/mypage' ? 1 : 0}>
           <SettingImg
             isSideMenu={isOpen}
-            src={location.pathname === '/mypage' ? '/asset/Settingblack.svg' : '/asset/Setting.svg'}
+            src={location.pathname === '/mypage' ? '/asset/SettingBlack.svg' : '/asset/Setting.svg'}
             to="/mypage"
             alt="mypage"
           />

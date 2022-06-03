@@ -11,7 +11,7 @@ const StyledId = styled.div`
 const StyledInput = styled(S.StyledInput)`
   border: solid 1px ${({ isError, ...props }) => (isError ? props.theme.colors.yellow : props.theme.colors.silver)};
   margin: 0;
-  background-image: ${({ isError }) => (isError ? `url('/asset/inputError.svg')` : 'none')};
+  background-image: ${({ isError }) => (isError ? `url('/asset/InputError.svg')` : 'none')};
   background-position-y: center;
   background-position-x: 332px;
   background-repeat: no-repeat;

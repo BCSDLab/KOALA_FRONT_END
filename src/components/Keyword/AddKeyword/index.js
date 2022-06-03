@@ -198,7 +198,7 @@ const AddKeyword = () => {
       <KeywordHeader title={'키워드 추가하기'} />
       <AddKeywordContent>
         <S.HashtagContainer toggle={isOpen} keyword={recommendKeyword === ''} alreadyRegister={isRegisterKeyword}>
-          <S.HashtageImage src="/asset/hashtagblack.svg" alt="hashtage_image" />
+          <S.HashtageImage src="/asset/HashtagBlack.svg" />
           <CustomizeInput>
             {!mobile ? (
               <S.InputKeyword
@@ -237,7 +237,7 @@ const AddKeyword = () => {
         )}
 
         <S.SearchContainer show={site === ''} alreadyRegister={isRegisterItem} toggle={isOpen}>
-          <S.SearchImage src="/asset/searchblack.svg" alt="search_image" />
+          <S.SearchImage src="/asset/SearchBlack.svg" />
           <CustomizeInput>
             {!mobile ? (
               <S.InputSite
@@ -276,7 +276,7 @@ const AddKeyword = () => {
                 <S.SiteItem key={index}>
                   <S.SiteName>{item}</S.SiteName>
                   <S.CloseBtn onClick={() => onClickDeleteRecommendItem(index)}>
-                    <S.XImage src="/asset/x.svg" alt="x_image" />
+                    <S.XImage src="/asset/X.svg" alt="x" />
                   </S.CloseBtn>
                 </S.SiteItem>
               );

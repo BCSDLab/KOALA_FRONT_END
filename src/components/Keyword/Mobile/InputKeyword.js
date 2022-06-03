@@ -185,7 +185,7 @@ const InputKeyword = ({
   return (
     <Container>
       <Header>
-        <ChevronLeft onClick={onClickChevronLeft} src="/asset/chevron-left.svg" />
+        <ChevronLeft onClick={onClickChevronLeft} src="/asset/Chevron-left.svg" />
         <KeywordSearch onChange={onChangeKeywordInput} value={keyword || ''} placeholder="키워드 입력"></KeywordSearch>
         <SearchButton onClick={onClickHashButton}>
           <img src="/asset/HashtagWhite.svg" />
@@ -223,7 +223,7 @@ const InputKeyword = ({
               keywordRecommendationList.map((item, index) => {
                 return (
                   <KeywordItem onClick={() => onClickRecommendItem(item)} key={index}>
-                    <HashImage src="/asset/Hashtagblack.svg" />
+                    <HashImage src="/asset/HashtagBlack.svg" alt="hashtag" />
                     <span>{item}</span>
                   </KeywordItem>
                 );

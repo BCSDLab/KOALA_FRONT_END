@@ -88,7 +88,7 @@ const AlertForm = ({
             <NoticeTitle>알림주기</NoticeTitle>
             <NoticeOption>
               {keywordInfo.alarmCycle ? keywordInfo.alarmCycle : '30'}분
-              <DropDownImage src="/asset/chevron-right.svg" />
+              <DropDownImage src="/asset/Chevron-right.svg" />
             </NoticeOption>
           </ContentLine>
         </NoticeContent>

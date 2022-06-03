@@ -234,7 +234,7 @@ export const CheckBox = styled.div`
   ${(props) => {
     if (props.isNormalAlarm || props.isImportantAlarm || props.isVibrationAlarm || props.isSlientAlarm) {
       return `
-                background-image:url('/asset/check.svg');
+                background-image:url('/asset/Check.svg');
                 background-position:center;
             `;
     } else {

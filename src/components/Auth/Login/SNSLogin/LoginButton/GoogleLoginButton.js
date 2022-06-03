@@ -8,13 +8,13 @@ const StyledGoogleLoginButton = styled.button`
   ${LoginButtonAttributes}
   border: solid 1px ${(props) => props.theme.colors.lightgray};
   color: ${(props) => props.theme.colors.black};
-  background: 12px center no-repeat ${(props) => props.theme.colors.white} url('/asset/google-logo.svg');
+  background: 12px center no-repeat ${(props) => props.theme.colors.white} url('/asset/Google-logo.svg');
   background-size: 18px;
   :after {
     content: '구글 로그인';
   }
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.mobileM}) {
-    background: 13px center no-repeat ${(props) => props.theme.colors.white} url('/asset/google-logo.svg');
+    background: 13px center no-repeat ${(props) => props.theme.colors.white} url('/asset/Google-logo.svg');
     background-size: 18px 18.8px;
   }
 `;

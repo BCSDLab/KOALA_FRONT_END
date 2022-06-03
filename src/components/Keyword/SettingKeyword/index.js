@@ -34,7 +34,7 @@ const SettingKeyword = () => {
         </s.DisturbContainer>
         <Timer toggle={isOpen}>
           <s.DisturbTimeStart placeholder="0 0 : 0 0"></s.DisturbTimeStart>
-          <s.MinusImage src="/asset/minus.svg" />
+          <s.MinusImage src="/asset/Minus.svg" />
           <s.DisturbTimeEnd placeholder="2 4 : 0 0"></s.DisturbTimeEnd>
         </Timer>
       </SettingKeywordContent>

@@ -201,7 +201,7 @@ const InputSite = ({
           {siteRecommendationList.map((item, index) => {
             return (
               <KeywordItem onClick={onClickRecommendItem} key={index}>
-                <HashImage src="/asset/Hashtagblack.svg" />
+                <HashImage src="/asset/HashtagBlack.svg" />
                 <span>{item}</span>
               </KeywordItem>
             );

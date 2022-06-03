@@ -104,11 +104,11 @@ const ModifyKeyword = () => {
       <KeywordHeader title={'키워드 수정하기'} />
       <S.ModifyKeywordContent>
         <S.HashtagContainer toggle={isOpen}>
-          <S.HashtageImage src="/asset/hashtagblack.svg" alt="hashtage_image" />
+          <S.HashtageImage src="/asset/HashtagBlack.svg" alt="hashtage_image" />
           <S.InputKeyword>{keywordName}</S.InputKeyword>
         </S.HashtagContainer>
         <S.SearchContainer toggle={isOpen} show={site === ''} alreadyRegister={alreadyRegisterItem}>
-          <S.SearchImage src="/asset/searchblack.svg" alt="search_image" />
+          <S.SearchImage src="/asset/SearchBlack.svg" alt="search_image" />
           {!mobile ? (
             <S.InputSite
               placeholder="알림받을 사이트 검색"
@@ -143,7 +143,7 @@ const ModifyKeyword = () => {
                 <S.SiteItem key={index}>
                   <S.SiteName>{item}</S.SiteName>
                   <S.CloseBtn onClick={() => onClickDeleteRecommendItem(index)}>
-                    <S.XImage src="/asset/x.svg" alt="x_image" />
+                    <S.XImage src="/asset/X.svg" alt="x_image" />
                   </S.CloseBtn>
                 </S.SiteItem>
               );

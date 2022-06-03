@@ -131,7 +131,7 @@ const KeywordDropdown = () => {
           <S.AddImg
             selectAddKeyword={selectAddKeyword}
             checkPath={location.pathname.includes('create')}
-            src={selectAddKeyword || location.pathname.includes('create') ? '/asset/plus_white.svg' : '/asset/Plus.svg'}
+            src={selectAddKeyword || location.pathname.includes('create') ? '/asset/Plus_white.svg' : '/asset/Plus.svg'}
             alt="add keyword"
           />
           <S.AddText
