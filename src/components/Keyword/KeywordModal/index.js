@@ -72,11 +72,11 @@ const KeywordModal = ({ showModal, selectItemId, setShowModal, keywordName, moda
         <ModalContainer onClick={onMouseOutModal} modalPosition={modalPosition}>
           <KeywordDeleteContainer onClick={onClickDelete}>
             <DeleteTitle>삭제</DeleteTitle>
-            <Icon src="/asset/trash.svg" />
+            <Icon src="/asset/Trash.svg" alt="trash" />
           </KeywordDeleteContainer>
           <KeywordEditContainer onClick={onClickEdit}>
             <EditTitie>키워드 편집</EditTitie>
-            <Icon src="/asset/pencil.svg" />
+            <Icon src="/asset/Pencil.svg" alt="pencil" />
           </KeywordEditContainer>
         </ModalContainer>
       ) : (

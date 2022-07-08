@@ -26,7 +26,7 @@ const KeywordSearch = ({ keywordSearch, setKeywordSearch, setSearchButton }) => 
       ></S.SearchInput>
       <S.SearchButton onClick={onClickSearch}>
         <span>검색하기</span>
-        <S.SearchImage src="/asset/search.svg" />
+        <S.SearchImage src="/asset/Search.svg" />
       </S.SearchButton>
     </>
   ) : (
@@ -38,7 +38,7 @@ const KeywordSearch = ({ keywordSearch, setKeywordSearch, setSearchButton }) => 
         onChange={onChangeKeywordSearch}
       />
       <S.SearchButton onClick={onClickSearch}>
-        <S.SearchImage src="/asset/search.svg" />
+        <S.SearchImage src="/asset/Search.svg" alt="search" />
       </S.SearchButton>
     </S.MobileSearchWrapper>
   );

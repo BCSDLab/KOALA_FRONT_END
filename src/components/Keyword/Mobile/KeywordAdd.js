@@ -307,33 +307,33 @@ const KeywordAdd = () => {
         <>
           <Container>
             <Header>
-              <ChovernLeft src="/asset/chevron-left.svg" />
+              <ChovernLeft src="/asset/Chevron-left.svg" />
               <Title>키워드 추가하기</Title>
             </Header>
             <AddKeywordContent>
               <InputContainer>
                 <KeywordInputContainer onClick={onClickKeywordInput} isRegisterKeyword={isRegisterKeyword}>
-                  <HashImage src="/asset/Hashtagblack.svg" />
+                  <HashImage src="/asset/HashtagBlack.svg" />
                   <KeywordInput
                     placeholder="키워드 입력"
                     disabled
                     value={keyword.length !== 0 ? keyword : ''}
                   ></KeywordInput>
-                  {isRegisterKeyword && <RegisteredIcon src="/asset/exclamation.svg" />}
+                  {isRegisterKeyword && <RegisteredIcon src="/asset/Exclamation.svg" />}
                 </KeywordInputContainer>
                 {isRegisterKeyword && <RegisteredKeyword>이미 등록된 키워드 입니다.</RegisteredKeyword>}
                 <AlarmSearchContainer
                   onClick={onClickAlarmInput}
                   checkAlarm={selectedAlarmList && selectedAlarmList.length === 0}
                 >
-                  <SearchImage src="/asset/searchblack.svg" />
+                  <SearchImage src="/asset/SearchBlack.svg" />
                   <SearchInput
                     placeholder="알람받을 대상 입력"
                     disabled
                     value={alarm.length !== 0 ? alarm : ''}
                   ></SearchInput>
                   {selectedAlarmList && selectedAlarmList.length === 0 && (
-                    <RegisteredIcon src="/asset/exclamation.svg" />
+                    <RegisteredIcon src="/asset/Exclamation.svg" />
                   )}
                 </AlarmSearchContainer>
                 {selectedAlarmList && selectedAlarmList.length === 0 && (
@@ -348,7 +348,7 @@ const KeywordAdd = () => {
                       return (
                         <AlarmItem key={index}>
                           <span>{item}</span>
-                          <DeleteIcon onClick={() => onClickDeleteIcon(item)} src="/asset/x.svg" />
+                          <DeleteIcon onClick={() => onClickDeleteIcon(item)} src="/asset/X.svg" />
                         </AlarmItem>
                       );
                     })}

@@ -254,7 +254,7 @@ export const MobileKeyWordName = styled.span`
   font-size: 16px;
 `;
 
-export const FixKeyWordBtn = styled(Link)`
+export const FixKeyWordBtn = styled.div`
   font-size: 14px;
   display: block;
   // width: 24px;

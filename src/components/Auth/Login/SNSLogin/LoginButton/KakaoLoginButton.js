@@ -6,7 +6,7 @@ import { LoginButtonAttributes } from './SNSLoginButton.style';
 const StyledKakaoLoginButton = styled.button`
   ${LoginButtonAttributes}
   color: ${(props) => props.theme.colors.black};
-  background: 14px center no-repeat #fee500 url('/asset/kakao-logo.svg');
+  background: 14px center no-repeat #fee500 url('/asset/Kakao-logo.svg');
   background-size: 18px 16.6px;
   :after {
     content: '카카오 로그인';

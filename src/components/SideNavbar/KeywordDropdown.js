@@ -59,6 +59,10 @@ const KeywordDropdown = () => {
     setShowModal(check);
   };
 
+  const onClickMobileModifyKeyowrd = () => {
+    navigate('/keyword/modify', { state: keywordName });
+  };
+
   if (keywords === undefined) {
     dispatch(inquiry());
   }
@@ -78,7 +82,7 @@ const KeywordDropdown = () => {
         <S.MobileKeyWordHeader>
           <S.BackBtn src="/asset/BackArrow.svg" onClick={() => onClickItem(null, null)} />
           <S.MobileKeyWordName>{getKeywordName(keywords, selectItemId)}</S.MobileKeyWordName>
-          <S.FixKeyWordBtn to="/keyword/modify">수정</S.FixKeyWordBtn>
+          <S.FixKeyWordBtn onClick={() => onClickMobileModifyKeyowrd()}>수정</S.FixKeyWordBtn>
         </S.MobileKeyWordHeader>
       ) : (
         <MobileKeywordSelect keywords={keywords} onClickAddKeyword={onClickAddKeyword} onClickItem={onClickItem} />
@@ -99,7 +103,7 @@ const KeywordDropdown = () => {
         />
         <S.KeywordMain>키워드</S.KeywordMain>
         <S.KeywordDropdownButton src="/asset/KeywordDropDown.svg" alt="drop" onClick={onClickDropdownButton} />
-        <S.KeywordSetting to="mypage" onClick={onClickSetting}>
+        <S.KeywordSetting to="keyword/mypage" onClick={onClickSetting}>
           설정
         </S.KeywordSetting>
         <S.KeywordList dropdownToggle={dropdownToggle}>
@@ -127,7 +131,7 @@ const KeywordDropdown = () => {
           <S.AddImg
             selectAddKeyword={selectAddKeyword}
             checkPath={location.pathname.includes('create')}
-            src={selectAddKeyword || location.pathname.includes('create') ? '/asset/plus_white.svg' : '/asset/Plus.svg'}
+            src={selectAddKeyword || location.pathname.includes('create') ? '/asset/Plus_white.svg' : '/asset/Plus.svg'}
             alt="add keyword"
           />
           <S.AddText

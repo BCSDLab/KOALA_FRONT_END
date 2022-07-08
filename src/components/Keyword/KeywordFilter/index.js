@@ -232,11 +232,11 @@ const KeywordFilterBar = () => {
               </S.MobileSelectAll>
               <S.MobileMenuList>
                 <S.FilterItem onClick={onClickGoStore} goStore={goStore} className="goStore">
-                  <S.FilterItemImage src="/asset/inbox-in.svg" alt="inbox-in" />
+                  <S.FilterItemImage src="/asset/Inbox-in.svg" alt="inboxIn" />
                   <span>보관</span>
                 </S.FilterItem>
                 <S.FilterItem onClick={onClickDeleteList} className="delete">
-                  <S.FilterItemImage src="/asset/trash.svg" alt="trash" />
+                  <S.FilterItemImage src="/asset/Trash.svg" alt="trash" />
                   <span>삭제</span>
                 </S.FilterItem>
                 <S.FilterItem onClick={onClickMobileMenu} className="mobileMenu">
@@ -278,7 +278,7 @@ const KeywordFilterBar = () => {
           </FilterContainer>
         ) : null)}
       {!mobile && (
-        <>
+        <KeywordFilterContainer toggle={isOpen}>
           <KeywordHeader title={'키워드 알림'} toggle={false} />
           <KeywordMenuBar isToggle={isOpen} menu={menu} setList={setList} onClickMenu={onClickMenu} />
           <S.FilterList toggle={isOpen}>
@@ -302,11 +302,11 @@ const KeywordFilterBar = () => {
               읽지 않은 알림
             </S.FilterNotReadNotification>
             <S.FilterItem onClick={onClickGoStore} goStore={goStore} className="goStore">
-              <S.FilterItemImage src="/asset/inbox-in.svg" alt="inbox-in" />
+              <S.FilterItemImage src="/asset/Inbox-in.svg" alt="inboxIn" />
               <span>보관함으로 이동</span>
             </S.FilterItem>
             <S.FilterItem onClick={onClickDeleteList} className="delete">
-              <S.FilterItemImage src="/asset/trash.svg" alt="trash" />
+              <S.FilterItemImage src="/asset/Trash.svg" alt="trash" />
               <span>삭제</span>
             </S.FilterItem>
             <KeywordSearch
@@ -332,10 +332,16 @@ const KeywordFilterBar = () => {
             searchButton={searchButton}
             menu={menu}
           />
-        </>
+        </KeywordFilterContainer>
       )}
     </>
   );
 };
 
 export default KeywordFilterBar;
+
+const KeywordFilterContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: ${(props) => (props.toggle ? `calc(100vw - 80px - 546px)` : `calc(100vw - 350px - 276px)`)};
+`;

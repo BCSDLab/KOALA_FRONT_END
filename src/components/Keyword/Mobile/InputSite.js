@@ -10,8 +10,8 @@ const Container = styled.div`
   padding: 0 16px;
   background-color: ${(props) => props.theme.colors.white};
   position: absolute;
-  top: 0;
-  z-index: 1;
+  top: -85px;
+  z-index: 200;
   color: black;
 `;
 
@@ -165,7 +165,7 @@ const InputSite = ({
     <Container>
       <Header>
         <BackButton onClick={onClickChevronLeft}>
-          <BackImage src="/asset/BackButton.svg" />
+          <BackImage src="/asset/Chevron-left.svg" />
         </BackButton>
         <KeywordSearch onChange={onChangeSiteInput} value={site} placeholder="알림받을 사이트 검색"></KeywordSearch>
         <SearchButton onClick={(site) => onClickRecommendItem}>
@@ -201,7 +201,7 @@ const InputSite = ({
           {siteRecommendationList.map((item, index) => {
             return (
               <KeywordItem onClick={onClickRecommendItem} key={index}>
-                <HashImage src="/asset/Hashtagblack.svg" />
+                <HashImage src="/asset/HashtagBlack.svg" />
                 <span>{item}</span>
               </KeywordItem>
             );

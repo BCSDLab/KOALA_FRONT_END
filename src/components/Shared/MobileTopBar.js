@@ -8,7 +8,7 @@ const MobileTopBar = (props) => {
     <TopBarContainer>
       <TopBar>{props.content}</TopBar>{' '}
       <BackButton onClick={() => navigate(-1)}>
-        <BackImage src="/asset/backButton.svg" />
+        <BackImage src="/asset/Chevron-left.svg" />
       </BackButton>
     </TopBarContainer>
   );
@@ -20,6 +20,7 @@ const TopBarContainer = styled.div`
   width: 100%;
   height: 61px;
   margin-bottom: 24px;
+  z-index: 100;
 `;
 const TopBar = styled.div`
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {

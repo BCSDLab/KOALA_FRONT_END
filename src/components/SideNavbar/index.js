@@ -25,7 +25,7 @@ const Nav = styled.div`
     margin-right: 0;
     padding: 0;
     background-color: ${(props) => props.theme.colors.white};
-    display: flex;
+    display: ${(props) => (props.keywordName == null ? 'flex' : 'none')};
     flex-direction: row;
     position: fixed;
     bottom: 0;
@@ -174,8 +174,8 @@ const SideNavbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const isOpen = useSelector((state) => state.toggle.isOpen);
-
   const location = useLocation();
+  const { state: keywordName } = useLocation();
 
   const toggleSideMenu = () => {
     if (isOpen == true) {
@@ -189,15 +189,16 @@ const SideNavbar = () => {
   const moveKeywordMain = () => {
     navigate(`/keyword`, { state: null });
   };
+
   return (
     <NavContainer isSideMenu={isOpen}>
-      <Nav isSideMenu={isOpen}>
+      <Nav isSideMenu={isOpen} keywordName={keywordName}>
         <MenuButton onClick={toggleSideMenu}>
           <MenuImg src="/asset/MenuBtn.svg" alt="Vector" />
         </MenuButton>
         <KeywordIcon to="/keyword" current={location.pathname.includes('/keyword') ? 1 : 0}>
           <HashTagImg
-            src={location.pathname.includes('/keyword') ? '/asset/Hashtagblack.svg' : '/asset/Hashtag.svg'}
+            src={location.pathname.includes('/keyword') ? '/asset/HashtagBlack.svg' : '/asset/Hashtag.svg'}
             alt="keyword"
           />
           {mobile && (
@@ -218,7 +219,7 @@ const SideNavbar = () => {
         <ChattingIcon to="#" current={location.pathname.includes('/chat') ? 1 : 0}>
           <ChatImg
             isSideMenu={isOpen}
-            src={location.pathname.includes('/chat') ? '/asset/Chatblack.svg' : '/asset/Chat.svg'}
+            src={location.pathname.includes('/chat') ? '/asset/ChatBlack.svg' : '/asset/Chat.svg'}
             alt="chat"
           />
           {mobile && <MenuItemText current={location.pathname.includes('/chat') ? 1 : 0}>채팅방</MenuItemText>}
@@ -226,7 +227,7 @@ const SideNavbar = () => {
         <SettingIcon to="/mypage" current={location.pathname === '/mypage' ? 1 : 0}>
           <SettingImg
             isSideMenu={isOpen}
-            src={location.pathname === '/mypage' ? '/asset/Settingblack.svg' : '/asset/Setting.svg'}
+            src={location.pathname === '/mypage' ? '/asset/SettingBlack.svg' : '/asset/Setting.svg'}
             to="/mypage"
             alt="mypage"
           />

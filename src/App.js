@@ -30,7 +30,7 @@ import ModifyKeyword from 'components/Keyword/ModifyKeyword';
 import SettingKeyword from 'components/Keyword/SettingKeyword';
 import ChatRoom from 'components/Chat/ChatRoom';
 import SideNavbar from 'components/SideNavbar';
-import MainPage from 'pages/mainPage';
+import MainPage from 'pages/MainPage';
 
 const AuthorizedRoute = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);

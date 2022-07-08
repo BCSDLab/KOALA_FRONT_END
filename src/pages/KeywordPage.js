@@ -4,7 +4,7 @@ import KeywordFilterBar from 'components/Keyword/KeywordFilter';
 import styled from 'styled-components';
 import ModifyKeyword from 'components/Keyword/ModifyKeyword';
 import SettingKeyword from 'components/Keyword/SettingKeyword';
-import { Route, Routes } from 'react-router';
+import { Outlet, Route, Routes } from 'react-router';
 
 const Container = styled.div`
   display: flex;
@@ -12,7 +12,6 @@ const Container = styled.div`
   height: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
-  z-index: 0;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     padding: 0;
     width: 100%;
@@ -22,11 +21,11 @@ const Container = styled.div`
 `;
 const Content = styled.div`
   width: 100%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
   overflow-x: hidden;
+  position: relative;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 100%;
     display: block;
@@ -38,12 +37,7 @@ const KeywordPage = () => {
   return (
     <Container>
       <Content>
-        <Routes>
-          <Route index element={<KeywordFilterBar />}></Route>
-          <Route path="create" element={<AddKeyword />}></Route>
-          <Route path="modify" element={<ModifyKeyword />}></Route>
-          <Route path="mypage" element={<SettingKeyword />}></Route>
-        </Routes>
+        <Outlet />
       </Content>
     </Container>
   );

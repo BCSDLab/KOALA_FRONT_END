@@ -205,7 +205,7 @@ const InputKeyword = ({
   return (
     <Container>
       <Header>
-        <ChevronLeft onClick={onClickChevronLeft} src="/asset/chevron-left.svg" />
+        <ChevronLeft onClick={onClickChevronLeft} src="/asset/Chevron-left.svg" />
         <KeywordSearch
           onChange={onChangeKeywordInput}
           value={isKeywordInput ? keyword : alarm}
@@ -235,7 +235,7 @@ const InputKeyword = ({
               keywordRecommendationList.map((item, index) => {
                 return (
                   <KeywordItem onClick={() => onClickKeyword(item)} key={index}>
-                    <HashImage src="/asset/Hashtagblack.svg" />
+                    <HashImage src="/asset/HashtagBlack.svg" />
                     <span>{item}</span>
                   </KeywordItem>
                 );
@@ -244,7 +244,7 @@ const InputKeyword = ({
               siteRecommendationList.map((item, index) => {
                 return (
                   <KeywordItem onClick={() => onClickSite(item)} key={index}>
-                    <HashImage src="/asset/Hashtagblack.svg" />
+                    <HashImage src="/asset/HashtagBlack.svg" />
                     <span>{item}</span>
                   </KeywordItem>
                 );

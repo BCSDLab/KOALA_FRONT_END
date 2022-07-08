@@ -15,6 +15,8 @@ const KeywordAlarm = ({
   buttonText,
   keywordName,
   isRegisterKeyword,
+  setIsNullKeywordError,
+  setIsNullSiteError,
 }) => {
   const [isImportantAlarm, setIsImportantAlarm] = useState(false);
   const [isNormalAlarm, setIsNormalAlarm] = useState(true);
@@ -46,8 +48,11 @@ const KeywordAlarm = ({
   };
 
   const onClickModifyButton = useCallback(() => {
-    if (selectRecommendItem.length === 0 || keywordName === false) {
-      alert('필요한 항목을 입력해주세요');
+    if (selectRecommendItem.length === 0) {
+      setIsNullSiteError(true);
+      return;
+    } else if (keywordName === false) {
+      setIsNullKeywordError(true);
       return;
     }
 
@@ -97,15 +102,18 @@ const KeywordAlarm = ({
 
   return (
     <AlarmFormContainer>
-      <S.ImportantContainer toggle={isOpen} onClick={onClickImportantAlarm}>
-        <S.CheckBox isImportantAlarm={isImportantAlarm}></S.CheckBox>
-        <S.CheckBoxTitle>중요 알림</S.CheckBoxTitle>
-        <S.CheckBoxContent>중요알림 기능은 모바일 앱에서만 확인할 수 있습니다.</S.CheckBoxContent>
-      </S.ImportantContainer>
-      <S.NormalContainer toggle={isOpen} onClick={onClickNormalAlarm}>
-        <S.CheckBox isNormalAlarm={isNormalAlarm}></S.CheckBox>
-        <S.CheckBoxTitle>일반 알림</S.CheckBoxTitle>
-      </S.NormalContainer>
+      <S.CheckBoxContainer>
+        <S.ImportantContainer toggle={isOpen} onClick={onClickImportantAlarm}>
+          <S.CheckBox isImportantAlarm={isImportantAlarm}></S.CheckBox>
+          <S.CheckBoxTitle>중요 알림</S.CheckBoxTitle>
+          <S.CheckBoxContent>중요알림 기능은 모바일 앱에서만 확인할 수 있습니다.</S.CheckBoxContent>
+        </S.ImportantContainer>
+        <S.NormalContainer toggle={isOpen} onClick={onClickNormalAlarm}>
+          <S.CheckBox isNormalAlarm={isNormalAlarm}></S.CheckBox>
+          <S.CheckBoxTitle>일반 알림</S.CheckBoxTitle>
+        </S.NormalContainer>
+      </S.CheckBoxContainer>
+
       <S.BottomContainer>
         <S.SettingContainer toggle={isOpen}>
           <S.ModeContainer>
@@ -134,12 +142,14 @@ const KeywordAlarm = ({
         </S.SettingContainer>
         <S.ErrorText toggle={isOpen}>※ 알림 기능은 모바일 앱에서만 이용하실 수 있습니다.</S.ErrorText>
       </S.BottomContainer>
-      <S.EditButton toggle={isOpen} onClick={onClickModifyButton}>
-        {buttonText}
-      </S.EditButton>
-      <S.CancelButton onClick={onClickCancle} toggle={isOpen}>
-        취소
-      </S.CancelButton>
+      <S.SubmitContainer>
+        <S.EditButton toggle={isOpen} onClick={onClickModifyButton}>
+          {buttonText}
+        </S.EditButton>
+        <S.CancelButton onClick={onClickCancle} toggle={isOpen}>
+          취소
+        </S.CancelButton>
+      </S.SubmitContainer>
     </AlarmFormContainer>
   );
 };
@@ -147,6 +157,10 @@ const KeywordAlarm = ({
 export default KeywordAlarm;
 
 const AlarmFormContainer = styled.div`
-  width: 700px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   color: ${(props) => props.theme.colors.silver};
 `;

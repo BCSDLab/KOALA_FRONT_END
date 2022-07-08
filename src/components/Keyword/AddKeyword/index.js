@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import KeywordHeader from '../KeywordHeader';
 import { getSiteRecommendation, getKeywordRecommendation } from 'store/modifyKeyword';
+import CommonStyledInput from 'components/Shared/CommonStyledInput';
 import { inquiry } from 'store/keyword';
 import SiteInput from '../Mobile/InputSite';
 import AlertForm from '../Mobile/AlertForm';
@@ -13,14 +14,20 @@ import useMatchMedia from 'hooks/useMatchMedia';
 import styled from 'styled-components';
 
 const AddKeywordContainer = styled.div`
-  width: 100%;
+  width: ${(props) => (props.toggle ? 'calc(100vw - 350px - 240px - 138px)' : 'calc(100vw - 80px - 375px - 273px)')};
+  min-width: 700px;
   display: flex;
   flex-direction: column;
-  @media screen and (min-width: ${(props) => props.theme.deviceSizes.tabletL}) {
+  position: relative;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 100%;
+    min-width: 300px;
   }
 `;
 const AddKeywordContent = styled.div`
+  padding-left: 100px;
+  width: calc(100% - 100px + 26px);
+  position: relative;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: calc(100% - 32px);
     height: calc(100% - 61px);
@@ -30,9 +37,21 @@ const AddKeywordContent = styled.div`
     margin-top: 85px;
     padding: 0 16px;
   }
-  @media screen and (min-width: ${(props) => props.theme.deviceSizes.tabletL}) {
+`;
+const CustomizeInput = styled.span`
+  display: block;
+  @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 100%;
   }
+`;
+const StyledInputKeyword = styled(CommonStyledInput)`
+  display: flex;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  margin-bottom: -24px;
+  border: 0;
+  height: 38px;
 `;
 
 const AddKeyword = () => {
@@ -46,6 +65,8 @@ const AddKeyword = () => {
   const [selectRecommendKeyword, setSelectRecommendKeyword] = useState('');
   const [isRegisterItem, setIsRegisterItem] = useState(false);
   const [isRegisterKeyword, setIsRegisterKeyword] = useState(false);
+  const [isNullSiteError, setIsNullSiteError] = useState(false);
+  const [isNullKeywordError, setIsNullKeywordError] = useState(false);
   const [searchedSites, setSearchedSites] = useState(JSON.parse(localStorage.getItem('searchedSites') || '[]'));
   const [searchedKeywords, setSearchedKeywords] = useState(
     JSON.parse(localStorage.getItem('searchedKeywords') || '[]')
@@ -53,6 +74,7 @@ const AddKeyword = () => {
   const { siteRecommendationList, keywordRecommendationList } = useSelector((state) => state.modifyKeyword);
   const { keywords } = useSelector((state) => state.keyword);
   const { isOpen } = useSelector((state) => state.toggle);
+
   const dispatch = useDispatch();
   const queries = ['(max-width : 1024px)'];
   const [mobile] = useMatchMedia(queries);
@@ -72,6 +94,7 @@ const AddKeyword = () => {
   const onChangeRecommendKeyword = (e) => {
     const { value } = e.target;
     setIsRegisterKeyword(false);
+    setIsNullKeywordError(false);
     delayKeywordInput(value);
     setRecommendKeyword(value);
     setSelectRecommendKeyword('');
@@ -86,6 +109,7 @@ const AddKeyword = () => {
     delaySiteInput(e.target.value);
     setSite(e.target.value);
     setIsRegisterItem(false);
+    setIsNullSiteError(false);
   };
 
   const addRecommendSite = useCallback(
@@ -170,56 +194,69 @@ const AddKeyword = () => {
   }, [keywordRecommendationList]);
 
   return (
-    <AddKeywordContainer>
+    <AddKeywordContainer toggle={isOpen}>
       <KeywordHeader title={'키워드 추가하기'} />
       <AddKeywordContent>
         <S.HashtagContainer toggle={isOpen} keyword={recommendKeyword === ''} alreadyRegister={isRegisterKeyword}>
-          <S.HashtageImage src="/asset/hashtagblack.svg" alt="hashtage_image" />
-          {!mobile ? (
-            <S.InputKeyword
-              placeholder="키워드 입력"
-              onChange={onChangeRecommendKeyword}
-              value={(selectRecommendKeyword === '' ? recommendKeyword : selectRecommendKeyword) || ''}
-            ></S.InputKeyword>
-          ) : (
-            <S.InputKeyword
-              placeholder="키워드 입력"
-              defaultValue={(selectRecommendKeyword === '' ? recommendKeyword : selectRecommendKeyword) || ''}
-              onClick={mobileSearchKeyword}
-            />
-          )}
-          <S.AlreadyRegisterKeyword alreadyRegister={isRegisterKeyword}>
-            이미 등록한 키워드입니다.
+          <S.HashtageImage src="/asset/HashtagBlack.svg" />
+          <CustomizeInput>
+            {!mobile ? (
+              <S.InputKeyword
+                placeholder="키워드 입력"
+                onChange={onChangeRecommendKeyword}
+                value={(selectRecommendKeyword === '' ? recommendKeyword : selectRecommendKeyword) || ''}
+              ></S.InputKeyword>
+            ) : (
+              <StyledInputKeyword
+                placeholder="키워드 입력"
+                defaultValue={(selectRecommendKeyword === '' ? recommendKeyword : selectRecommendKeyword) || ''}
+                isError={isRegisterKeyword}
+                onClick={mobileSearchKeyword}
+              />
+            )}
+          </CustomizeInput>
+          <S.AlreadyRegisterKeyword alreadyRegister={isRegisterKeyword || isNullKeywordError}>
+            {isRegisterKeyword ? '이미 등록한 키워드입니다.' : isNullKeywordError && '키워드를 등록해주세요'}
           </S.AlreadyRegisterKeyword>
         </S.HashtagContainer>
-        <S.RecommendKeywordContainer
-          show={recommendKeyword === ''}
-          isRegisterKeyword={isRegisterKeyword}
-          toggle={isOpen}
-        >
-          {recommendKeywords.length !== 0 &&
-            recommendKeywords.map((item, index) => {
-              return (
-                <S.RecommendItem onClick={() => onClickRecommendKeyword(item)} key={index}>
-                  {item}
-                </S.RecommendItem>
-              );
-            })}
-        </S.RecommendKeywordContainer>
+        {!mobile && (
+          <S.RecommendKeywordContainer
+            show={recommendKeyword === ''}
+            isRegisterKeyword={isRegisterKeyword}
+            toggle={isOpen}
+          >
+            {recommendKeywords.length !== 0 &&
+              recommendKeywords.map((item, index) => {
+                return (
+                  <S.RecommendItem onClick={() => onClickRecommendKeyword(item)} key={index}>
+                    {item}
+                  </S.RecommendItem>
+                );
+              })}
+          </S.RecommendKeywordContainer>
+        )}
+
         <S.SearchContainer show={site === ''} alreadyRegister={isRegisterItem} toggle={isOpen}>
-          <S.SearchImage src="/asset/searchblack.svg" alt="search_image" />
-          {!mobile ? (
-            <S.InputSite
-              placeholder="알림받을 사이트 검색"
-              value={site}
-              onChange={onChangeSite}
-              alreadyRegister={isRegisterItem}
-            />
-          ) : (
-            <S.InputSite placeholder="알림받을 사이트 검색" defaultValue={site} onClick={mobileSearchSite} />
-          )}
-          <S.AlreadyRegisterMessage alreadyRegister={isRegisterItem}>
-            이미 등록한 사이트입니다.
+          <S.SearchImage src="/asset/SearchBlack.svg" />
+          <CustomizeInput>
+            {!mobile ? (
+              <S.InputSite
+                placeholder="알림받을 사이트 검색"
+                value={site}
+                onChange={onChangeSite}
+                alreadyRegister={isRegisterItem}
+              />
+            ) : (
+              <StyledInputKeyword
+                placeholder="알림받을 사이트 검색"
+                defaultValue={site}
+                isError={isRegisterItem}
+                onClick={mobileSearchSite}
+              />
+            )}
+          </CustomizeInput>
+          <S.AlreadyRegisterMessage alreadyRegister={isRegisterItem || isNullSiteError}>
+            {isRegisterItem ? '이미 등록한 사이트입니다.' : isNullSiteError && '사이트를 등록해주세요'}
           </S.AlreadyRegisterMessage>
         </S.SearchContainer>
         <S.RecommendSiteContainer show={site === ''} alreadyRegister={isRegisterItem} toggle={isOpen}>
@@ -239,7 +276,7 @@ const AddKeyword = () => {
                 <S.SiteItem key={index}>
                   <S.SiteName>{item}</S.SiteName>
                   <S.CloseBtn onClick={() => onClickDeleteRecommendItem(index)}>
-                    <S.XImage src="/asset/x.svg" alt="x_image" />
+                    <S.XImage src="/asset/X.svg" alt="x" />
                   </S.CloseBtn>
                 </S.SiteItem>
               );
@@ -281,6 +318,8 @@ const AddKeyword = () => {
             setSelectRecommendItem={setSelectRecommendItem}
             setRecommendKeyword={setRecommendKeyword}
             setSelectRecommendKeyword={setSelectRecommendKeyword}
+            setIsNullSiteError={setIsNullSiteError}
+            setIsNullKeywordError={setIsNullKeywordError}
           />
         ) : (
           <AlertForm
@@ -290,6 +329,8 @@ const AddKeyword = () => {
             setSelectRecommendItem={setSelectRecommendItem}
             setRecommendKeyword={setRecommendKeyword}
             setSelectRecommendKeyword={setSelectRecommendKeyword}
+            setIsNullSiteError={setIsNullSiteError}
+            setIsNullKeywordError={setIsNullKeywordError}
           />
         )}
       </AddKeywordContent>

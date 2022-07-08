@@ -14,7 +14,7 @@ export const MainLogoImg = styled.i`
   width: 125px;
   height: 34px;
 
-  background: no-repeat url(/asset/mainLogo.svg);
+  background: no-repeat url(/asset/MainLogo.svg);
   background-size: 125px 34px;
   position: relative;
 

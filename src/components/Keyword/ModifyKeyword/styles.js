@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 export const ModifyKeywordContent = styled.div`
+  padding-left: 100px;
+  width: calc(100% - 100px + 26px);
+  position: relative;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: calc(100% - 32px);
     height: calc(100% - 61px);
@@ -13,26 +16,19 @@ export const ModifyKeywordContent = styled.div`
 `;
 
 export const HashtagContainer = styled.div`
-  width: 1092px;
+  width: calc(100% - 26px);
   height: 48px;
   border: 1px solid #eee;
   display: flex;
   align-items: center;
   padding-left: 24px;
-  position: absolute;
-  left: ${(props) => (props.toggle ? '588px' : '453px')};
-  top: 212px;
+  margin-bottom: 16px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     position: static;
     width: calc(100% - 16px);
     padding-left: 16px;
     height: 40px;
     margin-bottom: 16px;
-  }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-   width: 700px;
-   top:172px;
-  
   }
 `;
 
@@ -46,7 +42,7 @@ export const HashtageImage = styled.img`
 `;
 
 export const InputKeyword = styled.div`
-  width: 1040px;
+  width: 100%;
   border: none;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
     width: 100%;
@@ -54,8 +50,7 @@ export const InputKeyword = styled.div`
 `;
 
 export const SearchContainer = styled(HashtagContainer)`
-  width: 1092px;
-  top: 276px;
+  width: calc(100% - 24px);
 
   ${(props) => {
     if (!props.show) {
@@ -82,14 +77,10 @@ export const SearchContainer = styled(HashtagContainer)`
     }}
     margin-bottom: 0;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-    width: 700px;
-    top: 236px;
-  }
 `;
 
 export const RecommendItem = styled.li`
-  width: 1079px;
+  width: 100%;
   height: 37px;
   padding-left: 37px;
   line-height: 37px;
@@ -102,21 +93,14 @@ export const RecommendItem = styled.li`
     background-color: ${(props) => props.theme.colors.white};
     margin-bottom: 8px;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tablet}) and (max-width: ${(props)=>props.theme.deviceSizes.tabletL}){
-    width: 690px;
-  }
- 
 `;
 
 export const RecommendContainer = styled.ul`
   padding-left: none;
-  width: 1116px;
+  width: 100%;
   border: 1px solid ${(props) => props.theme.colors.darkgray};
   border-top: none;
-  position: absolute;
   background-color: white;
-  left: ${(props) => (props.toggle ? '588px' : '453px')};
-  top: 325px;
   z-index: 1;
   display: ${(props) => {
     return props.show ? 'none' : 'block';
@@ -129,39 +113,35 @@ export const RecommendContainer = styled.ul`
     }};
     background-color: ${(props) => props.theme.colors.white};
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tablet}) and (max-width: ${(props)=>props.theme.deviceSizes.tabletL}){
-    width: 724px;
-    top:285px;
-  }
 `;
 
 export const AlreadyRegisterMessage = styled.span`
   color: #ffd25d;
-  height: 15px;
+  height: 16px;
   font-size: 11px;
-  position: absolute;
-  left: 200px;
   display: ${(props) => (props.alreadyRegister ? 'block' : 'none')};
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
+    height: 11px;
+    display: ${(props) => (props.alreadyRegister ? 'block' : 'none')};
+    position: absolute;
+    top: 95px;
+    left: 16px;
   }
 `;
 
 export const SearchImage = styled(HashtageImage)``;
 
 export const InputSite = styled.input`
-  width: 1040px;
+  width: 100%;
   border: none;
+  margin-bottom: 0;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
-  }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-    width: 700px;
-  
   }
 `;
 
 export const SiteContainer = styled(HashtagContainer)`
-  top: 335px;
   height: 117px;
+  margin-top: 8px;
   background-color: ${(props) => props.theme.colors.lightgray};
   padding: 10px 12px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
@@ -173,10 +153,6 @@ export const SiteContainer = styled(HashtagContainer)`
     border: 0;
     border-top: 8px;
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-    top: 295px;
-  }
-  
 `;
 
 export const SiteList = styled.ul`
@@ -188,7 +164,6 @@ export const SiteList = styled.ul`
     display: flex;
     flex-direction: column;
   }
- 
 `;
 
 export const SiteItem = styled.li`
@@ -235,14 +210,10 @@ export const XImage = styled.img``;
 export const ImportantContainer = styled.div`
   height: 16px;
   display: flex;
-  position: absolute;
-  left: 590px;
-  top: 501px;
   align-items: center;
   cursor: pointer;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
   }
-
 `;
 
 export const NormalContainer = styled(ImportantContainer)`
@@ -263,7 +234,7 @@ export const CheckBox = styled.div`
   ${(props) => {
     if (props.isNormalAlarm || props.isImportantAlarm || props.isVibrationAlarm || props.isSlientAlarm) {
       return `
-                background-image:url('/asset/check.svg');
+                background-image:url('/asset/Check.svg');
                 background-position:center;
             `;
     } else {
@@ -296,8 +267,6 @@ export const CheckBoxContent = styled.span`
 
 export const SettingContainer = styled(HashtagContainer)`
   height: 159px;
-  left: 588px;
-  top: 570px;
   display: flex;
   flex-direction: column;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
@@ -372,9 +341,6 @@ export const EditButton = styled.button`
   height: 32px;
   background: #222;
   color: #fff;
-  position: absolute;
-  top: 834px;
-  left: 1018px;
   font-size: 14px;
   font-weight: 500;
   text-align: center;
@@ -383,7 +349,6 @@ export const EditButton = styled.button`
 `;
 
 export const CancelButton = styled(EditButton)`
-  left: 1142px;
   @media screen and (max-width: ${(props) => props.theme.deviceSizes.tabletL}) {
   }
 `;

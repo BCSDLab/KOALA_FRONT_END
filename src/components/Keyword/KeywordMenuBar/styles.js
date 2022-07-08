@@ -3,11 +3,10 @@ import theme from '../../../theme';
 const { tabletL, mobileS } = theme.deviceSizes;
 
 export const Menu = styled.nav`
-  width: 1323px;
+  width: 100%;
   height: 24px;
   padding-bottom: 15.3px;
   justify-content: space-between;
-  position: absolute;
   border-bottom: 1.5px solid #eeeeee;
   top: 180px;
   left: ${(props) => (props.toggle ? '488px' : '353px')};
@@ -18,7 +17,6 @@ export const Menu = styled.nav`
     margin: 75px 0 0 5%;
     width: 90%;
     white-space: nowrap;
-    min-width: ${mobileS};
     overflow-x: scroll;
     border: none;
     height: 100%;
@@ -28,18 +26,11 @@ export const Menu = styled.nav`
       border-bottom: 1px solid #eee;
       width: 130%;
     }
-  
   }
-  @media (min-width: ${(props)=>props.theme.deviceSizes.tabletL}) and (max-width: ${(props)=>props.theme.deviceSizes.NoteBook}){
-      width: 900px;
-    }
 `;
 
 export const MobileMenuWrapper = styled.div`
   display: flex;
-  width: 140%;
-  min-width: ${mobileS};
-  justify-content: space-between;
 `;
 
 export const Item = styled.span`
@@ -49,10 +40,9 @@ export const Item = styled.span`
   @media screen and (max-width: ${tabletL}) {
     display: block;
     font-size: 14px;
-    min-width: 52px;
-    text-align: center;
+    margin-right: 24px;
     &:last-child {
-      min-width: 200px;
+      min-width: auto;
     }
     &:after {
       display: block;
@@ -69,31 +59,19 @@ export const ItemUnderBar = styled.div`
   width: 32px;
   height: 8px;
   background-color: #222222;
-  position: absolute;
-  top: 216px;
+  display: relative;
+  position: relative;
+  top: -4px;
   left: ${(props) => {
-    if (props.toggle) {
-      switch (props.menu) {
-        case '전체':
-          return '488px';
-        case '아우누리':
-          return '568px';
-        case '아우미르':
-          return '670px';
-        default:
-          return '830px';
-      }
-    } else {
-      switch (props.menu) {
-        case '전체':
-          return '353px';
-        case '아우누리':
-          return '435px';
-        case '아우미르':
-          return '533px';
-        default:
-          return '695px';
-      }
+    switch (props.menu) {
+      case '전체':
+        return '0px';
+      case '아우누리':
+        return '82px';
+      case '아우미르':
+        return '180px';
+      default:
+        return '342px';
     }
-  }};
+  }}};
 `;

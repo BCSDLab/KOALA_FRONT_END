@@ -8,9 +8,9 @@ import { useCallback } from 'react';
 
 const Container = styled.div`
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 74px);
   position: absolute;
-  top: 0;
+  top: -85px;
   z-index: 200;
   background-color: ${(props) => props.theme.colors.white};
 `;
@@ -49,7 +49,7 @@ const SearchButton = styled.div`
 
 const RecentSearch = styled.span`
   font-size: 14px;
-  color: #222;
+  color: ${(props) => (props.isClicked ? '#999' : '#222')};
   position: absolute;
   top: 85.6px;
   left: 16px;
@@ -57,7 +57,7 @@ const RecentSearch = styled.span`
 
 const RecommendKeyword = styled.span`
   font-size: 14px;
-  color: #222;
+  color: ${(props) => (!props.isClicked ? '#999' : '#222')};
   position: absolute;
   top: 85.6px;
   left: 103px;
@@ -83,11 +83,12 @@ const UnderBarBalck = styled.div`
 
 const List = styled.ul`
   width: calc(100% - 28px);
-  height: 320px;
-  padding: 0 14px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
   overflow: scroll;
-  position: absolute;
-  top: 127.6px;
+  margin-top: 58px;
+  margin-left: 16px;
 `;
 
 const Item = styled.li`
@@ -95,7 +96,7 @@ const Item = styled.li`
 `;
 
 const KeywordList = styled(List)`
-  top: 112px;
+  top: 0px;
 `;
 
 const KeywordItem = styled(Item)`
@@ -111,12 +112,6 @@ const HashImage = styled.img`
   margin-left: 16px;
   margin-right: 5px;
 `;
-
-const keywords = [
-  { id: 0, name: '학사경고' },
-  { id: 1, name: '학사공지' },
-  { id: 2, name: '실습집중구간' },
-];
 
 const InputKeyword = ({
   setKeyword,
@@ -190,7 +185,7 @@ const InputKeyword = ({
   return (
     <Container>
       <Header>
-        <ChevronLeft onClick={onClickChevronLeft} src="/asset/chevron-left.svg" />
+        <ChevronLeft onClick={onClickChevronLeft} src="/asset/Chevron-left.svg" />
         <KeywordSearch onChange={onChangeKeywordInput} value={keyword || ''} placeholder="키워드 입력"></KeywordSearch>
         <SearchButton onClick={onClickHashButton}>
           <img src="/asset/HashtagWhite.svg" />
@@ -199,8 +194,12 @@ const InputKeyword = ({
 
       {keywordRecommendationList.length < 2 ? (
         <>
-          <RecentSearch onClick={onClickRecentSearch}>최근 검색</RecentSearch>
-          <RecommendKeyword onClick={onClickRecommendKeyword}>추천 키워드</RecommendKeyword>
+          <RecentSearch onClick={onClickRecentSearch} isClicked={isRecommendKeyword}>
+            최근 검색
+          </RecentSearch>
+          <RecommendKeyword onClick={onClickRecommendKeyword} isClicked={isRecommendKeyword}>
+            추천 키워드
+          </RecommendKeyword>
           <UnderBar></UnderBar>
           <UnderBarBalck isRecommendKeyword={isRecommendKeyword}></UnderBarBalck>
           {!isRecommendKeyword ? (
@@ -224,7 +223,7 @@ const InputKeyword = ({
               keywordRecommendationList.map((item, index) => {
                 return (
                   <KeywordItem onClick={() => onClickRecommendItem(item)} key={index}>
-                    <HashImage src="/asset/Hashtagblack.svg" />
+                    <HashImage src="/asset/HashtagBlack.svg" alt="hashtag" />
                     <span>{item}</span>
                   </KeywordItem>
                 );
