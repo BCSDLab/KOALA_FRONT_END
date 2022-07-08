@@ -8,7 +8,7 @@ const MobileTopBar = (props) => {
     <TopBarContainer>
       <TopBar>{props.content}</TopBar>{' '}
       <BackButton onClick={() => navigate(-1)}>
-        <BackImage src="/asset/BackButton.svg" />
+        <BackImage src="/asset/Chevron-left.svg" />
       </BackButton>
     </TopBarContainer>
   );

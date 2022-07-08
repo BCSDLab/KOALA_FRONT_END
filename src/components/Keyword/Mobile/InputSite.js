@@ -165,7 +165,7 @@ const InputSite = ({
     <Container>
       <Header>
         <BackButton onClick={onClickChevronLeft}>
-          <BackImage src="/asset/BackButton.svg" />
+          <BackImage src="/asset/Chevron-left.svg" />
         </BackButton>
         <KeywordSearch onChange={onChangeSiteInput} value={site} placeholder="알림받을 사이트 검색"></KeywordSearch>
         <SearchButton onClick={(site) => onClickRecommendItem}>
