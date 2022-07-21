@@ -4,7 +4,7 @@ import HistoryCheckBox from '../History/HisoryCheckBox';
 import * as S from './Scrap.Style';
 import * as M from './MobileScrapAlert.Style';
 import { SITE_LIST } from 'constant';
-import { formatingDate } from "../History/HistoryContent";
+import { formatingDate } from "../History/HistoryAlert";
 import {writeMemo, fixMemo} from 'store/scrap';
 import {useDispatch} from 'react-redux';
 import theme from '../../../theme';

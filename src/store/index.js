@@ -40,6 +40,7 @@ import history, {
   readHistoryItemSaga,
   moveToScrapItemSaga,
   undoHistoryListSaga,
+  clearHistoryList,
 } from './history';
 import scrap, { getScrapListSaga, getMemoSaga, deleteScrapItemSaga, fixMemoSaga, writeMemoSaga } from './scrap';
 
@@ -88,6 +89,7 @@ export function* rootSaga() {
     readHistoryItemSaga(),
     undoHistoryListSaga(),
     moveToScrapItemSaga(),
+    clearHistoryList(),
     getHistoryListSaga(),
     getScrapListSaga(),
     getMemoSaga(),
